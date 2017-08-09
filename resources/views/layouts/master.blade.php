@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="ru" class="no-js">
 <head>
@@ -34,9 +33,8 @@
     <!--     Fonts and icons     -->
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Exo+2:900" rel="stylesheet">
-    <link href="assets/css/nucleo-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Exo+2:700,800,900" rel="stylesheet">
+    <link href="/assets/css/nucleo-icons.css" rel="stylesheet">
 
 </head>
 <body class="presentation-page loading">
@@ -52,7 +50,7 @@
     <script src="assets/js/jquery-ui-1.12.1.custom.min.js" type="text/javascript"></script>
     <script src="assets/js/tether.min.js" type="text/javascript"></script>
     <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="assets/js/paper-kit.js?v=2.0.0"></script>
+    <script src="assets/js/paper-kit.js"></script>
     <script src="assets/js/demo.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
 

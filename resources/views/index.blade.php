@@ -13,14 +13,14 @@
             <div class="filter filter-danger"></div>
             <div class="content-center">
                 <div class="container">
-                    <h1 class="presentation-title">ЕТКплюс</h1>
-                    <h3 class="presentation-subtitle text-center">Let us tell you more about what we do.</h3>
+                    <h2 class="presentation-subtitle text-center">Крутой слоган</h3>
                 </div>
             </div>
         </div>
         <div class="filter filter-danger"></div>
         <div class="section">
                 <div class="container">
+                <h3>Новые партнеры в нашей сети</h3>
                 <div class="row items-row">
                     <div class="col-md-3 offset-md-1 col-sm-4">
                         <div class="card card-plain text-center">

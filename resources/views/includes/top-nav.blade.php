@@ -18,21 +18,9 @@
                     <li class="nav-item dropdown dropdown-danger">
                         <a class="nav-link dropdown-toggle"  data-toggle="dropdown" href="javascript:void(0)">Партнерская сеть</a>
                         <ul class="dropdown-menu dropdown-menu-right dropdown-danger">
-                            <li class="dropdown-item"><a href="examples/about-us.html"><i class="nc-icon nc-bank"></i>&nbsp; About Us</a></li>
-                            <li class="dropdown-item"><a href="examples/add-product.html"><i class="nc-icon nc-basket"></i>&nbsp; Add Product</a></li>
-                            <li class="dropdown-item"><a href="examples/blog-post.html"><i class="nc-icon nc-badge"></i>&nbsp; Blog Post</a></li>
-                            <li class="dropdown-item"><a href="examples/blog-posts.html"><i class="nc-icon nc-bullet-list-67"></i>&nbsp; Blog Posts</a></li>
-                            <li class="dropdown-item"><a href="examples/contact-us.html"><i class="nc-icon nc-mobile"></i>&nbsp; Contact Us</a></li>
-                            <li class="dropdown-item"><a href="examples/discover.html"><i class="nc-icon nc-world-2"></i>&nbsp; Discover</a></li>
-                            <li class="dropdown-item"><a href="examples/ecommerce.html"><i class="nc-icon nc-send"></i>&nbsp; Ecommerce</a></li>
-                            <li class="dropdown-item"><a href="examples/landing.html"><i class="nc-icon nc-spaceship"></i>&nbsp; Landing</a></li>
-                            <li class="dropdown-item"><a href="examples/login.html"><i class="nc-icon nc-lock-circle-open"></i>&nbsp; Login</a></li>
-                            <li class="dropdown-item"><a href="examples/product-page.html"><i class="nc-icon nc-album-2"></i>&nbsp; Product Page</a></li>
-                            <li class="dropdown-item"><a href="examples/profile.html"><i class="nc-icon nc-single-02"></i>&nbsp; Profile</a></li>
-                            <li class="dropdown-item"><a href="examples/register.html"><i class="nc-icon nc-bookmark-2"></i>&nbsp; Register</a></li>
-                            <li class="dropdown-item"><a href="examples/search-with-sidebar.html"><i class="nc-icon nc-zoom-split"></i>&nbsp; Search</a></li>
-                            <li class="dropdown-item"><a href="examples/settings.html"><i class="nc-icon nc-settings-gear-65"></i>&nbsp; Settings</a></li>
-                            <li class="dropdown-item"><a href="examples/twitter-redesign.html"><i class="nc-icon nc-tie-bow"></i>&nbsp; Twitter</a></li>
+                            @foreach ($categories as $category)
+                            <li class="dropdown-item"><a href=""><i class="material-icons">{{ $category->icon }}</i>&nbsp; {{ $category->name }}</a></li>
+                            @endforeach
                         </ul>
                     </li>
                     <li class="nav-item">

@@ -19,7 +19,7 @@
                         <a class="nav-link dropdown-toggle"  data-toggle="dropdown" href="javascript:void(0)">Партнерская сеть</a>
                         <ul class="dropdown-menu dropdown-menu-right dropdown-danger">
                             @foreach ($categories as $category)
-                            <li class="dropdown-item"><a href=""><i class="material-icons">{{ $category->icon }}</i>&nbsp; {{ $category->name }}</a></li>
+                            <li class="dropdown-item"><a href="{{ route('site.show-category.get', ['id' => $category->id]) }}"><i class="material-icons">{{ $category->icon }}</i>&nbsp; {{ $category->name }}</a></li>
                             @endforeach
                         </ul>
                     </li>

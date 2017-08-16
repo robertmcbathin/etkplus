@@ -14,7 +14,12 @@
 Route::get('/', function () {
     return view('index');
 });
-
+Route::group(['middleware' => 'web'], function () {
+	Route::get('category/{id}',[
+		'uses' => 'SiteController@showCategory',
+		'as' => 'site.show-category.get'
+		]);
+});
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -4,7 +4,7 @@
 @section('keywords')
 @endsection
 @section('title')
-ЕТКплюс
+{{ $category_name->name }}
 @endsection
 @section('content')
 <div class="wrapper">
@@ -13,7 +13,7 @@
             <div class="filter filter-danger"></div>
             <div class="content-center">
                 <div class="container">
-                    <h2 class="presentation-subtitle text-center">Крутой слоган</h3>
+                    <h2 class="presentation-subtitle text-center">{{ $category_name->name }}</h3>
                 </div>
             </div>
         </div>
@@ -23,25 +23,29 @@
                 <h3>Новые партнеры в нашей сети</h3>
                 <br>
                 <div class="row items-row">
-                    <div class="col-md-4  col-sm-4">
+                @foreach ($partners as $partner)
+                                    <div class="col-md-4  col-sm-4">
                         <div class="card card-plain">
 
                             <div class="card-image">
                                 <a href="#paper-kit">
-                                    <img src="/assets/img/partners/1/thumbnail.jpg" alt="Rounded Image" class="img-rounded img-responsive">
+                                    <img src="{{ $partner->thumbnail }}" alt="Rounded Image" class="img-rounded img-responsive">
                                 </a>
                                 <div class="card-block">
                                     <a href="#paper-kit">
                                         <div class="author">
-                                            <img src="/assets/img/partners/1/logo.png" alt="Circle Image" class="img-circle img-no-padding img-responsive img-raised">
+                                            <img src="{{ $partner->logo }}" alt="Circle Image" class="img-circle img-no-padding img-responsive img-raised">
                                         </div>
-                                        <span class="name">Лечебно-диагностическая поликлиника</span>
+                                        <span class="name">{{ $partner->name }}</span>
                                     </a>
-                                    <div class="meta">Медицина и здоровье</div>
+                                    <div class="meta"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                @endforeach
+                </div>
+                <div class="row items-row">
                     <div class="col-md-4 col-sm-4">
                         <div class="card card-plain text-center">
                             <div class="card-image">

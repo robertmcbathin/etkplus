@@ -7,7 +7,7 @@
                     <span class="navbar-toggler-bar"></span>
                 </button>
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="presentation.html">ЕТКплюс</a>
+                    <a class="navbar-brand" href="/">ЕТКплюс</a>
                 </div>
             </div>
             <div class="collapse navbar-collapse">

@@ -19,6 +19,10 @@ Route::group(['middleware' => 'web'], function () {
 		'uses' => 'SiteController@showCategory',
 		'as' => 'site.show-category.get'
 		]);
+	Route::get('categories',[
+		'uses' => 'SiteController@showCategories',
+		'as' => 'site.show-categories.get'
+		]);
 });
 Auth::routes();
 

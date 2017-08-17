@@ -24,4 +24,11 @@ class SiteController extends Controller
     		'category_name' => $category_name
     		]);
     }
+
+    public function showCategories(){
+        $categories = DB::table('ETKPLUS_PARTNER_CATEGORIES')
+                        ->orderBy('name')
+                        ->get();
+        return view('pages.categories');
+    }
 }

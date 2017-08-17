@@ -16,12 +16,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#paper-kit">
-                                        Company
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#paper-kit">
+                                    <a href="{{ route('site.show-categories.get') }}">
                                        Партнерская сеть
                                     </a>
                                 </li>
@@ -38,6 +33,11 @@
                                 <li>
                                     <a href="#paper-kit">
                                        Сотрудничество
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#paper-kit">
+                                        Вход для партнеров
                                     </a>
                                 </li>
                             </ul>

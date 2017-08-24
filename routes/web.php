@@ -23,6 +23,10 @@ Route::group(['middleware' => 'web'], function () {
 		'uses' => 'SiteController@showCategories',
 		'as' => 'site.show-categories.get'
 		]);
+	Route::get('partner/{id}',[
+		'uses' => 'SiteController@showPartner',
+		'as' => 'site.show-partner.get'
+		]);
 });
 Auth::routes();
 

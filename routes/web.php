@@ -27,6 +27,14 @@ Route::group(['middleware' => 'web'], function () {
 		'uses' => 'SiteController@showPartner',
 		'as' => 'site.show-partner.get'
 		]);
+	Route::get('dashboard',[
+		'uses' => 'AdminController@showDashboard',
+		'as' => 'dashboard.show-dashboard.get'
+		]);
+	Route::get('profile',[
+		'uses' => 'UserController@showProfilePage',
+		'as' => 'profile.show-profile-page.get'
+		]);
 });
 Auth::routes();
 

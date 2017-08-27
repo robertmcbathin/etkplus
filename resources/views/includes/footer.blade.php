@@ -36,7 +36,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#paper-kit">
+                                    <a href="{{ route('login') }}">
                                         Вход для партнеров
                                     </a>
                                 </li>

@@ -11,10 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
 Route::group(['middleware' => 'web'], function () {
+	Route::get('/',[
+		'uses' => 'SiteController@showIndex',
+		'as' => 'site.show-index.get'
+		]);
 	Route::get('category/{id}',[
 		'uses' => 'SiteController@showCategory',
 		'as' => 'site.show-category.get'
@@ -37,5 +38,6 @@ Route::group(['middleware' => 'web'], function () {
 		]);
 });
 Auth::routes();
+Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index')->name('home');

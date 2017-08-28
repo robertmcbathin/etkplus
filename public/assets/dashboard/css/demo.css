@@ -31,7 +31,6 @@
 	position: absolute;
 	margin-top: 3px;
 	transition: .3s;
-    font-size: 1.2em;
 }
 .icon-container:hover [class^="ti-"],
 .icon-container:hover [class*=" ti-"] {
@@ -68,6 +67,9 @@
 .table-upgrade td:nth-child(2),
 .table-upgrade td:nth-child(3){
     text-align: center;
+}
+body.nude{
+    background-color: #f4f3ef;
 }
 
 /* fixed plugin on the right */
@@ -165,6 +167,9 @@
 }
 .fixed-plugin .badge-danger{
     background-color: #EB5E28;
+}
+.fixed-plugin .badge-brown{
+    background-color: #66615B;
 }
 
 .fixed-plugin h5{

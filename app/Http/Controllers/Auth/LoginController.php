@@ -92,4 +92,22 @@ class LoginController extends Controller
             return redirect()->route('login');
         } 
     }
+
+    public function logout(Request $request){
+        Auth::logout();
+        return redirect()->route('site.show-index.get');
+    }
+
+    public function authenticate()
+    {
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+        // Authentication passed...
+            if(Auth::user()->role >= $this->cardholder_role)
+            {
+                return redirect()->intended('profile');
+            } else {
+                return redirect()->intended('dashboard');
+            }
+        }
+    }
 }

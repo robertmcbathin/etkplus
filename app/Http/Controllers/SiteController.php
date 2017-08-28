@@ -7,6 +7,9 @@ use DB;
 
 class SiteController extends Controller
 {
+    public function showIndex(){
+        return view('index');
+    }
     public function showCategory($id){
     	$partners = DB::table('ETKPLUS_PARTNERS')
     				  ->join('ETKPLUS_PARTNER_PHOTOS', 'ETKPLUS_PARTNERS.id', '=', 'ETKPLUS_PARTNER_PHOTOS.partner_id')

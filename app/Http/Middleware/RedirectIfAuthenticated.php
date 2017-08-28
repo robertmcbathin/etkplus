@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
 {
+    protected $cardholder_role = 31;
     /**
      * Handle an incoming request.
      *
@@ -18,7 +19,12 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            if(Auth::user()->role >= $this->cardholder_role)
+            {
+                return redirect()->intended('profile');
+            } else {
+                return redirect()->intended('dashboard');
+            }
         }
 
         return $next($request);

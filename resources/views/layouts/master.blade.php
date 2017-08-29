@@ -9,16 +9,9 @@
     <title>@yield('title')</title>
 
     <!--  Social tags      -->
-    <meta name="keywords" content="">
+    <meta name="keywords" content="@yield('keywords')">
 
-    <meta name="description" content="">
-
-    <!-- Schema.org markup for Google+ -->
-    <meta itemprop="name" content="ЕТКплюс">
-    <meta itemprop="description" content="Система лояльности для пользователей электронных транспортных карт">
-
-    <meta itemprop="image" content="http://s3.amazonaws.com/creativetim_bucket/products/60/original/opt_pk2p_thumbnail.jpg">
-
+    <meta name="description" content="@yield('description')">
 
     <!--  end meta tags-->
 
@@ -37,7 +30,7 @@
     <link href="/assets/css/nucleo-icons.css" rel="stylesheet">
 
 </head>
-<body class="presentation-page loading">
+<body class="full-screen login">
 @include('includes.top-nav')
 @yield('content')
 @include('includes.footer')

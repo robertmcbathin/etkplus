@@ -32,6 +32,10 @@ Route::group(['middleware' => 'web'], function () {
 		'uses' => 'AdminController@showDashboard',
 		'as' => 'dashboard.show-dashboard.get'
 		]);
+	Route::get('profile/{id}',[
+		'uses' => 'SiteController@showProfilePage',
+		'as' => 'site.show-profile-page.get'
+		]);
 	Route::get('profile',[
 		'uses' => 'UserController@showProfilePage',
 		'as' => 'profile.show-profile-page.get'

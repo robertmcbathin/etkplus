@@ -4,11 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use \App\User;
 
 class SiteController extends Controller
 {
     public function showIndex(){
-        return view('index');
+        $partners = DB::table('ETKPLUS_PARTNERS')
+                      ->join('ETKPLUS_PARTNER_PHOTOS', 'ETKPLUS_PARTNERS.id', '=', 'ETKPLUS_PARTNER_PHOTOS.partner_id')
+                      ->select('ETKPLUS_PARTNERS.id','ETKPLUS_PARTNERS.name','ETKPLUS_PARTNERS.fullname','ETKPLUS_PARTNERS.created_at', 'ETKPLUS_PARTNERS.updated_at',
+                        'ETKPLUS_PARTNERS.rating','ETKPLUS_PARTNERS.default_discount','ETKPLUS_PARTNERS.default_cashback','ETKPLUS_PARTNER_PHOTOS.logo', 'ETKPLUS_PARTNER_PHOTOS.thumbnail')
+                      ->orderBy('ETKPLUS_PARTNERS.created_at')
+                      ->get();
+
+        return view('index',[
+            'partners' => $partners
+            ]);
     }
     public function showCategory($id){
     	$partners = DB::table('ETKPLUS_PARTNERS')
@@ -53,6 +63,12 @@ class SiteController extends Controller
             'partner' => $partner,
             'addresses' => $addresses,
             'category_name' => $category_name
+            ]);
+    }
+    public function showProfilePage($id){
+        $user = \App\User::find($id);
+        return view('profile',[
+            'user' => $user 
             ]);
     }
 }

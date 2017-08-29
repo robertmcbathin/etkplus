@@ -24,8 +24,13 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-round btn-danger" href="http://www.creative-tim.com/product/paper-kit-2-pro"><i class="fa fa-user-circle"></i>Личный кабинет</a>
+                        <a class="btn btn-round btn-danger" href="{{ route('login') }}"><i class="fa fa-user-circle"></i>Личный кабинет</a>
                     </li>
+                    @if (Auth::user())
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('logout') }}" data-scroll="true" href="javascript:void(0)">Выйти</a>
+                    </li>
+                    @endif
                 </ul>
             </div>
         </div>

@@ -66,7 +66,7 @@ class LoginController extends Controller
                      * ЕСЛИ ЭТО ДЕРЖАТЕЛЬ КАРТЫ, ТО ОТПРАВИТЬ ЕГО НА СТРАНИЦУ ПРОФИЛЯ
                      */
                     if ($user_isset->role_id >= $this->cardholder_role){
-                        return redirect()->route('profile.show-profile-page.get',['id' => $user_isset->id]);
+                        return redirect()->route('profile.show-profile-page.get');
                     } else{
                         /**
                          * ЕСЛИ ЭТО ПАРТНЕР ИЛИ АДМИН - ТО В ПАНЕЛЬ УПРАВЛЕНИЯ
@@ -104,7 +104,7 @@ class LoginController extends Controller
         // Authentication passed...
             if(Auth::user()->role_id >= $this->cardholder_role)
             {
-                return redirect()->intended('profile',['id' => Auth::user()->id]);
+                return redirect()->intended('profile.show-profile-page.get');
             } else {
                 return redirect()->intended('dashboard');
             }

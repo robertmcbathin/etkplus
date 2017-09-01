@@ -21,7 +21,11 @@
                         <div class="avatar">
                             <img src="{{ $partner->logo }}" alt="{{ $partner->name }}" class="img-circle img-responsive">
                         </div>
-
+                                 <div class='starrr'></div>
+         <a href="" class="btn btn-danger btn-link">
+           <i class="fa fa-star"></i> {{ $rating }}
+         </a>
+         <a href="" class ="fa fa-star"></a>
                         <div class="name">
                             <h4>{{ $partner->name }}</h4>
                         </div>

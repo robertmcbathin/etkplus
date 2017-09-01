@@ -48,11 +48,20 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
 
     <!--  Plugins for presentation page -->
+    <script src="/js/starrr.js"></script>
     <script src="/assets/js/presentation-page/main.js"></script>
     <script src="/assets/js/presentation-page/jquery.sharrre.js"></script>
 
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
+    <script>
+                $(document).ready(function(){
+            console.log('Fuck');
+            $('.starrr').starrr({
+                rating: 3
+            });
+        });
+    </script>
     <script type="text/javascript">
         (function() {
             function getRandomInt(min, max) {

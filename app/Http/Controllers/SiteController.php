@@ -60,10 +60,16 @@ class SiteController extends Controller
         $category_name = DB::table('ETKPLUS_PARTNER_CATEGORIES')
                             ->where('id', $id)
                             ->first();
+        $rating = DB::table('ETKPLUS_REVIEWS')
+                    ->where('partner_id', $partner->id)
+                    ->selectRaw('AVG(rating) as rating')
+                    ->first();
+        $rating = round($rating->rating,1);
         return view('pages.partner',[
             'partner' => $partner,
             'addresses' => $addresses,
-            'category_name' => $category_name
+            'category_name' => $category_name,
+            'rating' => $rating
             ]);
     }
     public function showProfilePage($id){

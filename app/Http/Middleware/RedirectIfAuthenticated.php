@@ -19,11 +19,14 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
+            if (Auth::user()){
+              $auth_user_id = Auth::user()->id;
+            }
             if(Auth::user()->role_id >= $this->cardholder_role)
             {
-                return redirect()->intended('profile');
+                return redirect()->route('profile.show-profile-page.get');
             } else {
-                return redirect()->intended('dashboard');
+                return return redirect()->route('dashboard.show-dashboard.get');
             }
         }
 

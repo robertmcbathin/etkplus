@@ -10,7 +10,8 @@ class UserController extends Controller
     public function showProfilePage(){
     	$user = Auth::user();
     	return view('profile',[
-    		'user' => $user
+    		'user' => $user,
+    		'auth_user_id' => $user->id
     		]);
     }
 }

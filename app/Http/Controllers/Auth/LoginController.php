@@ -102,11 +102,18 @@ class LoginController extends Controller
     {
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
         // Authentication passed...
+            if (Auth::user()){
+              $auth_user_id = Auth::user()->id;
+            }
             if(Auth::user()->role_id >= $this->cardholder_role)
             {
-                return redirect()->intended('profile.show-profile-page.get');
+                return redirect()->intended('profile.show-profile-page.get',[
+                            'auth_user_id' => $auth_user_id
+                            ]);
             } else {
-                return redirect()->intended('dashboard');
+                return redirect()->intended('dashboard',[
+                            'auth_user_id' => $auth_user_id
+                            ]);
             }
         }
     }

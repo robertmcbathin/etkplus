@@ -9,8 +9,8 @@
 @section('content')
 <div class="wrapper">
 
-    <div class="page-header page-header-small filter pattern-image" style="background-image: url('../assets/img/sections/etkplus-bg2.jpg');">
-        <div class="filter filter-danger"></div>
+    <div class="page-header page-header-small filter pattern-image" style="background-image: url('/assets/img/etkplus-bg.jpg');">
+        <div class="filter filter-category"></div>
         <div class="content-center">
             <div class="container">
                 <h2 class="presentation-subtitle text-center">{{ $category_name->name }}</h2>

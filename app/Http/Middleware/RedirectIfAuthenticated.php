@@ -26,7 +26,7 @@ class RedirectIfAuthenticated
             {
                 return redirect()->route('profile.show-profile-page.get');
             } else {
-                return return redirect()->route('dashboard.show-dashboard.get');
+                return redirect()->route('dashboard.show-dashboard.get');
             }
         }
 

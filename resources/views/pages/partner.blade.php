@@ -9,463 +9,297 @@
 @section('content')
 <div class="wrapper">
 
-    <div class="page-header page-header-xs filter pattern-image" style="background-image: url('{{ $partner->thumbnail }}');">
-        <div class="content-center">
-            </div>
-        </div>        
+  <div class="page-header page-header-xs filter pattern-image" style="background-image: url('{{ $partner->thumbnail }}');">
+    <div class="content-center">
+    </div>
+  </div>        
 </div>
 <div class="profile-content section-white-gray">
-            <div class="container">
-                <div class="row owner">
-                    <div class="col-md-2 offset-md-5 col-sm-4 offset-md-4 col-xs-6 offset-md-3 text-center">
-                        <div class="avatar">
-                            <img src="{{ $partner->logo }}" alt="{{ $partner->name }}" class="img-circle img-responsive">
-                        </div>
-                                 <div class='starrr'></div>
-         <a href="" class="btn btn-danger btn-link">
-           <i class="fa fa-star"></i> {{ $rating }}
-         </a>
-         <a href="" class ="fa fa-star"></a>
-                        <div class="name">
-                            <h4>{{ $partner->name }}</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 offset-md-3 text-center">
-                        <p>{{ $partner->description }}</p>
-                        <div class="description-details">
-                            <ul class="list-unstyled">
-                                <li><i class="fa fa-map-marker"></i>{{ $partner->address }}</li>
-                                <li><i class="fa fa-link"></i> <a href="{{ $partner->site }}">{{ $partner->site }}</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="profile-tabs">
-                    <div class="nav-tabs-navigation">
-                        <div class="nav-tabs-wrapper">
-                            <ul id="tabs" class="nav nav-tabs" role="tablist">
-                                <li class="nav-item ">
-                                    <a class="nav-link active" href="#tweets" data-toggle="tab" role="tab">Tweets</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#connections" data-toggle="tab" role="tab">Connections</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#media" data-toggle="tab" role="tab">Media</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div id="my-tab-content" class="tab-content">
-                        <div class="tab-pane active" id="tweets" role="tabpanel">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="tweets">
-                                        <div class="media">
-                                              <a class="pull-left" href="#paper-kit">
-                                               <div class="avatar">
-                                                    <img class="media-object" src="../assets/img/rihanna.jpg" alt="...">
-                                                </div>
-                                              </a>
-                                              <div class="media-body">
-                                                <strong>Rihanna</strong>
-                                                <h5 class="media-heading"><small>@rihanna · 1h</small></h5>
-                                                <p>It's just beyond the vault. Discover room 7 of the <a href="javascript: void(0);" class="link-danger">#ANTIdiaRy</a> at <a href="" class="link-info">http://smarturl.it/AntidiaRyTW</a></p>
-
-                                                <div class="media-footer">
-                                                    <a href="#paper-kit" class="btn btn-link">
-                                                         <i class="fa fa-reply"></i>
-                                                    </a>
-                                                    <a href="#paper-kit" class="btn btn-success btn-link">
-                                                         <i class="fa fa-retweet"></i> 2.1k
-                                                    </a>
-                                                    <a href="#paper-kit" class="btn btn-danger btn-link">
-                                                         <i class="fa fa-heart"></i> 3.2k
-                                                    </a>
-                                                    <div class="dropdown">
-                                                      <button id="dLabel" type="button" class="btn btn-just-icon btn-link btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fa fa-ellipsis-h"></i>
-                                                      </button>
-                                                      <ul class="dropdown-menu dropdown-menu-right">
-                                                            <li class="dropdown-item">
-                                                                <a href="#paper-kit">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-2">
-                                                                            <span class="icon-simple"><i class="fa fa-envelope"></i></span>
-                                                                        </div>
-                                                                        <div class="col-sm-9">Direct Message</div>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <div class="dropdown-divider"></div>
-                                                            <li class="dropdown-item">
-                                                                <a href="#paper-kit">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-2">
-                                                                            <span class="icon-simple"><i class="fa fa-microphone-slash"></i></span>
-                                                                        </div>
-                                                                        <div class="col-sm-9">Mute</div>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <div class="dropdown-divider"></div>
-                                                            <li class="dropdown-item">
-                                                                <a href="#paper-kit">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-2">
-                                                                            <span class="icon-simple"><i class="fa fa-exclamation-circle"></i></span>
-                                                                        </div>
-                                                                        <div class="col-sm-9">Report</div>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                              </div>
-                                        </div> <!-- end media -->
-
-                                        <div class="media">
-                                          <a class="pull-left" href="#paper-kit">
-                                              <div class="avatar">
-                                                 <img class="media-object" alt="Tim Picture" src="../assets/img/khaled.jpg">
-                                              </div>
-                                              <div class="retweet">
-                                                    <btn class="btn btn-xs btn-success btn-just-icon btn-sm" rel="tooltip" title="Follow"><i class="fa fa-retweet"></i></btn>
-                                              </div>
-                                          </a>
-                                          <div class="media-body">
-                                            <strong>DJ KHALED</strong>
-                                            <h5 class="media-heading"><small>@djkhaled ·  6 Jan 2016</small></h5>
-                                             <p><a href="#paper-kit" class="link-danger">#LA</a> fan luv I'm be <a href="#paper-kit" class="link-info">@1oakla</a> tonight i want see fan luv let's win more ! <a href="#paper-kit" class="link-danger">#wethebest</a> </p>
-                                            <div class="tweet-link">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <img src="../assets/img/khaled_tweet.png" alt="Rounded Image" class="img-rounded img-tweet-link img-responsive">
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <strong>Let's win more by DJ Khaled</strong>
-                                                        <a href="#0"><p>This is a 3-day event hosted by DJ Khaled for his fan luv in LA. Major 🔑 to success. Bless up!</p>
-                                                        <small></small></a><small><a href="#paper-kit" class="text-muted">djkhaled.com</a></small>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-                                            <div class="media-footer">
-                                                <a href="#paper-kit" class="btn btn-link">
-                                                     <i class="fa fa-reply"></i>
-                                                </a>
-                                                <a href="#paper-kit" class="btn btn-link">
-                                                     <i class="fa fa-retweet"></i> 100
-                                                </a>
-                                                <a href="#paper-kit" class="btn btn-danger btn-link">
-                                                     <i class="fa fa-heart"></i> 234
-                                                </a>
-                                                <div class="dropdown">
-                                                      <button id="dLabel" type="button" class="btn btn-icon btn-link btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fa fa-ellipsis-h"></i>
-                                                      </button>
-                                                      <ul class="dropdown-menu dropdown-menu-right">
-                                                          <li class="dropdown-item">
-                                                              <a href="#paper-kit">
-                                                                  <div class="row">
-                                                                      <div class="col-sm-2">
-                                                                          <span class="icon-simple"><i class="fa fa-envelope"></i></span>
-                                                                      </div>
-                                                                      <div class="col-sm-9">Direct Message</div>
-                                                                  </div>
-                                                              </a>
-                                                          </li>
-                                                          <div class="dropdown-divider"></div>
-                                                          <li class="dropdown-item">
-                                                              <a href="#paper-kit">
-                                                                  <div class="row">
-                                                                      <div class="col-sm-2">
-                                                                          <span class="icon-simple"><i class="fa fa-microphone-slash"></i></span>
-                                                                      </div>
-                                                                      <div class="col-sm-9">Mute</div>
-                                                                  </div>
-                                                              </a>
-                                                          </li>
-                                                          <div class="dropdown-divider"></div>
-                                                          <li class="dropdown-item">
-                                                              <a href="#paper-kit">
-                                                                  <div class="row">
-                                                                      <div class="col-sm-2">
-                                                                          <span class="icon-simple"><i class="fa fa-exclamation-circle"></i></span>
-                                                                      </div>
-                                                                      <div class="col-sm-9">Report</div>
-                                                                  </div>
-                                                              </a>
-                                                          </li>
-                                                      </ul>
-                                                    </div>
-                                            </div>
-                                          </div>
-                                        </div> <!-- end media -->
-                                        <div class="media">
-                                          <a class="pull-left" href="#paper-kit">
-                                              <div class="avatar">
-                                                 <img class="media-object" alt="Tim Picture" src="../assets/img/rihanna.jpg">
-                                              </div>
-                                          </a>
-                                          <div class="media-body">
-                                            <strong>Rihanna</strong>
-                                            <h5 class="media-heading"><small>@rihanna ·  8 Jan 2016</small></h5>
-                                             <p>bitch better have my mistletoe <a href="#paper-kit" class="link-danger">#rihannaxstance</a> </p>
-                                             <img src="../assets/img/rihanna_tweet.jpeg" alt="Rounded Image" class="img-rounded img-tweet">
-
-
-                                            <div class="media-footer">
-                                                <a href="#paper-kit" class="btn btn-link">
-                                                     <i class="fa fa-reply"></i>
-                                                </a>
-                                                <a href="#paper-kit" class="btn btn-link">
-                                                     <i class="fa fa-retweet"></i> 5.8K
-                                                </a>
-                                                <a href="#paper-kit" class="btn btn-danger btn-link">
-                                                     <i class="fa fa-heart"></i> 12K
-                                                </a>
-                                                <a href="#paper-kit" class="btn btn-link">
-                                                     <i class="fa fa-ellipsis-h"></i>
-                                                </a>
-                                            </div>
-                                          </div>
-                                        </div> <!-- end media -->
-                                        <div class="media">
-                                          <a class="pull-left" href="#paper-kit">
-                                              <div class="avatar">
-                                                 <img class="media-object" alt="Tim Picture" src="../assets/img/rihanna.jpg">
-                                              </div>
-                                          </a>
-                                          <div class="media-body">
-                                            <strong>Rihanna</strong>
-                                            <h5 class="media-heading"><small>@rihanna ·  9 Jan 2016</small></h5>
-                                             <p>Thank you God for fulfilling Your plans in my life.... All the Glory belongs to You!!!! <a href="https://instagram.com/p/4m5W4sBMzj/">https://instagram.com/p/4m5W4sBMzj/</a> </p>
-
-
-                                            <div class="media-footer">
-                                                <a href="#paper-kit" class="btn btn-link">
-                                                     <i class="fa fa-reply"></i>
-                                                </a>
-                                                <a href="#paper-kit" class="btn btn-link">
-                                                     <i class="fa fa-retweet"></i> 5.9K
-                                                </a>
-                                                <a href="#paper-kit" class="btn btn-link">
-                                                     <i class="fa fa-heart"></i> 11K
-                                                </a>
-                                                <div class="dropdown">
-                                                      <button id="dLabel" type="button" class="btn btn-icon btn-link btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fa fa-ellipsis-h"></i>
-                                                      </button>
-                                                      <ul class="dropdown-menu dropdown-menu-right">
-                                                            <li class="dropdown-item">
-                                                                <a href="#paper-kit">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-2">
-                                                                            <span class="icon-simple"><i class="fa fa-envelope"></i></span>
-                                                                        </div>
-                                                                        <div class="col-sm-9">Direct Message</div>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <div class="dropdown-divider"></div>
-                                                            <li class="dropdown-item">
-                                                                <a href="#paper-kit">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-2">
-                                                                            <span class="icon-simple"><i class="fa fa-microphone-slash"></i></span>
-                                                                        </div>
-                                                                        <div class="col-sm-9">Mute</div>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <div class="dropdown-divider"></div>
-                                                            <li class="dropdown-item">
-                                                                <a href="#paper-kit">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-2">
-                                                                            <span class="icon-simple"><i class="fa fa-exclamation-circle"></i></span>
-                                                                        </div>
-                                                                        <div class="col-sm-9">Report</div>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                            </div>
-                                          </div>
-                                        </div> <!-- end media -->
-                                        <div class="media last-media">
-                                          <a class="pull-left" href="#paper-kit">
-                                              <div class="avatar">
-                                                 <img class="media-object" alt="Tim Picture" src="../assets/img/billboard.jpeg">
-                                              </div>
-                                              <div class="retweet">
-                                                    <btn class="btn btn-xs btn-success btn-just-icon btn-sm" rel="tooltip" title="Follow"><i class="fa fa-retweet"></i></btn>
-                                              </div>
-                                          </a>
-                                          <div class="media-body">
-                                            <strong>billboard</strong>
-                                            <h5 class="media-heading"><small>@billboard ·  1 Jul 2016</small></h5>
-                                             <p><a href="#paper-kit">@Rihanna</a> has become the first artist to surpass RIAA's 100 million cumulative singles award threshold: <a href="http://blbrd.cm/3rQ3Iq">http://blbrd.cm/3rQ3Iq</a> </p>
-
-                                            <div class="media-footer">
-                                                <a href="#paper-kit" class="btn btn-link">
-                                                     <i class="fa fa-reply"></i>
-                                                </a>
-                                                <a href="#paper-kit" class="btn btn-link">
-                                                     <i class="fa fa-retweet"></i> 5.6K
-                                                </a>
-                                                <a href="#paper-kit" class="btn btn-danger btn-link">
-                                                     <i class="fa fa-heart"></i> 7.2K
-                                                </a>
-                                                <div class="dropdown">
-                                                      <button id="dLabel" type="button" class="btn btn-icon btn-link btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fa fa-ellipsis-h"></i>
-                                                      </button>
-                                                      <ul class="dropdown-menu dropdown-menu-right">
-                                                            <li class="dropdown-item">
-                                                                <a href="#paper-kit">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-2">
-                                                                            <span class="icon-simple"><i class="fa fa-envelope"></i></span>
-                                                                        </div>
-                                                                        <div class="col-sm-9">Direct Message</div>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <li class="dropdown-item">
-                                                                <a href="#paper-kit">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-2">
-                                                                            <span class="icon-simple"><i class="fa fa-microphone-slash"></i></span>
-                                                                        </div>
-                                                                        <div class="col-sm-9">Mute</div>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <li class="dropdown-item">
-                                                                <a href="#paper-kit">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-2">
-                                                                            <span class="icon-simple"><i class="fa fa-exclamation-circle"></i></span>
-                                                                        </div>
-                                                                        <div class="col-sm-9">Report</div>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                            </div>
-                                          </div>
-                                        </div> <!-- end media -->
-                                        <br>
-                                        <div class="text-center">
-                                         <btn class="btn btn-outline-info btn-round">Load more tweets</btn>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="card card-with-shadow">
-                                        <div class="card-block">
-                                            <h5 class="card-title">Who to follow · <small><a href="javascript: void(0);" class="link-info">View all</a></small></h5>
-                                            <div class="accounts-suggestion">
-                                                <ul class="list-unstyled">
-                                                    <li class="account">
-                                                        <div class="row">
-                                                            <div class="col-md-3">
-                                                                <div class="avatar">
-                                                                    <img src="../assets/img/chet_faker_1.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-7 description-section">
-                                                                Chet Faker <a href="#paper-kit" class="text-muted">@chetfaker</a>
-                                                                <br>
-                                                                <span class="text-muted"><small>Followed by <a href="#paper-kit" class="link-info">@banks</a> and <a href="#paper-kit" class="link-info">@rihanna</a> </small></span>
-                                                            </div>
-
-                                                            <div class="col-md-2 follow">
-                                                                <btn class="btn btn-sm btn-outline-info btn-just-icon"><i class="fa fa-plus"></i></btn>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li class="account">
-                                                        <div class="row">
-                                                            <div class="col-md-3">
-                                                                <div class="avatar">
-                                                                    <img src="../assets/img/placeholder.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-7 description-section">
-                                                                John Green <a href="#paper-kit" class="text-muted">@johngreen</a>
-                                                                <br>
-                                                                <span class="text-muted"><small>Followed by <a href="#paper-kit" class="link-info">@rihanna</a> </small></span>
-                                                            </div>
-
-                                                            <div class="col-md-2 follow">
-                                                                <btn class="btn btn-sm btn-outline-info btn-just-icon"><i class="fa fa-plus"></i></btn>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li class="account">
-                                                        <div class="row">
-                                                            <div class="col-md-3">
-                                                                <div class="avatar">
-                                                                    <img src="../assets/img/drake.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-7 description-section">
-                                                                Drake <a href="#paper-kit" class="text-muted">@drake</a>
-                                                                <br>
-                                                                <span class="text-muted"><small>Followed by <a href="#paper-kit" class="link-info">@chetfaker</a> </small></span>
-                                                            </div>
-
-                                                            <div class="col-md-2 follow">
-                                                                <btn class="btn btn-sm btn-outline-info btn-just-icon"><i class="fa fa-plus"></i></btn>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-
-                                        </div>
-                                    </div> <!-- end card -->
-                                    <div class="card card-with-shadow">
-                                        <div class="card-block">
-                                            <h5 class="card-title">Trends · <small><a href="javascript: void(0);" class="link-info">Change</a></small></h5>
-                                            <div class="hashtag-suggestions">
-                                                <ul class="list-unstyled">
-                                                    <li><a href="#paper-kit" class="link-danger">#JeSuisToujoursCharlie</a></li>
-                                                    <li><a href="#paper-kit">Oculus Rift</a></li>
-                                                    <li><a href="#paper-kit" class="link-danger">#CarenAndLarryAreNotReal</a></li>
-                                                    <li><a href="#paper-kit" class="link-danger">#Twitter10k</a></li>
-                                                    <li><a href="#paper-kit">EXCLUSIVE MOVE WITHINGTON</a></li>
-                                                    <li><a href="#paper-kit">London</a>
-                                                    </li><li><a href="#paper-kit">DJ Khaled Snapchat</a>
-                                                </li></ul>
-                                            </div>
-
-                                        </div>
-                                    </div> <!-- end card -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane text-center" id="connections" role="tabpanel"></div>
-
-                        <div class="tab-pane" id="media" role="tabpanel"></div>
-                    </div>
-
-                </div>
-            </div>
+  <div class="container">
+    <div class="row owner">
+      <div class="col-md-2 offset-md-5 col-sm-4 offset-md-4 col-xs-6 offset-md-3 text-center">
+        <div class="avatar">
+          <img src="{{ $partner->logo }}" alt="{{ $partner->name }}" class="img-circle img-responsive">
         </div>
+        <div class="static rating"> 
+          @if ($star_rating == 5)
+          <input type="radio" id="star5" name="rating" value="5" checked disabled><label for="star5" title="Отлично">5 stars</label>
+          @else
+          <input type="radio" id="star5" name="rating" value="5" disabled><label for="star5" title="Отлично">5 stars</label>
+          @endif
+          @if ($star_rating == 4)
+          <input type="radio" id="star4" name="rating" value="4" checked disabled><label for="star4" title="Хорошо">4 stars</label>
+          @else
+          <input type="radio" id="star4" name="rating" value="4" disabled><label for="star4" title="Хорошо">4 stars</label>
+          @endif
+          @if ($star_rating == 3)
+          <input type="radio" id="star3" name="rating" value="3" checked disabled><label for="star3" title="Удовлетворительно">3 stars</label>
+          @else
+          <input type="radio" id="star3" name="rating" value="3" disabled><label for="star3" title="Удовлетворительно">3 stars</label>
+          @endif
+          @if ($star_rating == 2)
+          <input type="radio" id="star2" name="rating" value="2" checked disabled><label for="star2" title="Плохо">2 stars</label>
+          @else
+          <input type="radio" id="star2" name="rating" value="2" disabled><label for="star2" title="Плохо">2 stars</label>
+          @endif
+          @if ($star_rating == 1)
+          <input type="radio" id="star1" name="rating" value="1" checked disabled><label for="star1" title="Отвратительно">1 star</label> 
+          @else
+          <input type="radio" id="star1" name="rating" value="1" disabled><label for="star1" title="Отвратительно">1 star</label> 
+          @endif
+        </div>
+        <a href="" class="btn btn-info btn-link" data-toggle="tooltip" data-placement="right" title="" data-original-title="Среднее значение от количества посетителей, оставивших отзыв">
+          Рейтинг: {{ $rating }} ({{ $review_count }})
+        </a>
+        <div class="name">
+          <h4>{{ $partner->name }}</h4>
+        </div>
+      </div>
     </div>
-    @endsection
+    <div class="row">
+      <div class="col-md-6 offset-md-3 text-center">
+        <p>{{ $partner->description }}</p>
+        <div class="description-details">
+          <ul class="list-unstyled">
+            <li><i class="fa fa-map-marker"></i>{{ $partner->address }}</li>
+            <li><i class="fa fa-link"></i> <a href="{{ $partner->site }}">{{ $partner->site }}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="profile-tabs">
+      <div class="nav-tabs-navigation">
+        <div class="nav-tabs-wrapper">
+          <ul id="tabs" class="nav nav-tabs" role="tablist">
+            <li class="nav-item ">
+              <a class="nav-link active" href="#about-partner" data-toggle="tab" role="tab">О партнере</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#connections" data-toggle="tab" role="tab">Отзывы</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="my-tab-content" class="tab-content">
+        <div class="tab-pane active" id="about-partner" role="tabpanel">
+        <div class="row">
+          <div class="col-md-8">
+
+
+
+
+
+            <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+             @if ($partner_images)
+             @foreach ($partner_images as $partner_image)
+             <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="col-md-3 col-sm-4 gallery-item">
+               <a href="{{ $partner_image->image_path }}" itemprop="contentUrl" data-size="{{ $partner_image->image_width }}x{{ $partner_image->image_height }}">
+                 <img src="{{ $partner_image->image_path }}" itemprop="thumbnail" alt="" class="horizontal-image img-rounded img-responsive">
+               </a>
+               <figcaption itemprop="caption description">{{ $partner_image->image_caption }}</figcaption>
+             </figure>
+             @endforeach
+            @else 
+            <h2>Нет изображений</h2>
+            @endif
+          </div>
+          <!-- Root element of PhotoSwipe. Must have class pswp. -->
+          <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+    It's a separate element, as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+      <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
+      <!-- don't modify these 3 pswp__item elements, data is added later on. -->
+      <div class="pswp__container">
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+      </div>
+
+      <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+      <div class="pswp__ui pswp__ui--hidden">
+
+        <div class="pswp__top-bar">
+
+          <!--  Controls are self-explanatory. Order can be changed. -->
+
+          <div class="pswp__counter"></div>
+
+          <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+          <button class="pswp__button pswp__button--share" title="Share"></button>
+
+          <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+          <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+          <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+          <!-- element will get class pswp__preloader--active when preloader is running -->
+          <div class="pswp__preloader">
+            <div class="pswp__preloader__icn">
+              <div class="pswp__preloader__cut">
+                <div class="pswp__preloader__donut"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+          <div class="pswp__share-tooltip"></div> 
+        </div>
+
+        <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+        </button>
+
+        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+        </button>
+
+        <div class="pswp__caption">
+          <div class="pswp__caption__center"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="col-md-4 col-sm-6">
+  <div class="card card-with-shadow">
+    <div class="card-block">
+      <h5 class="card-title">Who to follow · <small><a href="javascript: void(0);" class="link-info">View all</a></small></h5>
+      <div class="accounts-suggestion">
+        <ul class="list-unstyled">
+          <li class="account">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="avatar">
+                  <img src="../assets/img/chet_faker_1.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                </div>
+              </div>
+              <div class="col-md-7 description-section">
+                Chet Faker <a href="#paper-kit" class="text-muted">@chetfaker</a>
+                <br>
+                <span class="text-muted"><small>Followed by <a href="#paper-kit" class="link-info">@banks</a> and <a href="#paper-kit" class="link-info">@rihanna</a> </small></span>
+              </div>
+
+              <div class="col-md-2 follow">
+                <btn class="btn btn-sm btn-outline-info btn-just-icon"><i class="fa fa-plus"></i></btn>
+              </div>
+            </div>
+          </li>
+          <li class="account">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="avatar">
+                  <img src="../assets/img/placeholder.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                </div>
+              </div>
+              <div class="col-md-7 description-section">
+                John Green <a href="#paper-kit" class="text-muted">@johngreen</a>
+                <br>
+                <span class="text-muted"><small>Followed by <a href="#paper-kit" class="link-info">@rihanna</a> </small></span>
+              </div>
+
+              <div class="col-md-2 follow">
+                <btn class="btn btn-sm btn-outline-info btn-just-icon"><i class="fa fa-plus"></i></btn>
+              </div>
+            </div>
+          </li>
+          <li class="account">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="avatar">
+                  <img src="../assets/img/drake.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                </div>
+              </div>
+              <div class="col-md-7 description-section">
+                Drake <a href="#paper-kit" class="text-muted">@drake</a>
+                <br>
+                <span class="text-muted"><small>Followed by <a href="#paper-kit" class="link-info">@chetfaker</a> </small></span>
+              </div>
+
+              <div class="col-md-2 follow">
+                <btn class="btn btn-sm btn-outline-info btn-just-icon"><i class="fa fa-plus"></i></btn>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div> <!-- end card -->
+  <div class="card card-with-shadow">
+    <div class="card-block">
+      <h5 class="card-title">Trends · <small><a href="javascript: void(0);" class="link-info">Change</a></small></h5>
+      <div class="hashtag-suggestions">
+        <ul class="list-unstyled">
+          <li><a href="#paper-kit" class="link-danger">#JeSuisToujoursCharlie</a></li>
+          <li><a href="#paper-kit">Oculus Rift</a></li>
+          <li><a href="#paper-kit" class="link-danger">#CarenAndLarryAreNotReal</a></li>
+          <li><a href="#paper-kit" class="link-danger">#Twitter10k</a></li>
+          <li><a href="#paper-kit">EXCLUSIVE MOVE WITHINGTON</a></li>
+          <li><a href="#paper-kit">London</a>
+          </li><li><a href="#paper-kit">DJ Khaled Snapchat</a>
+        </li></ul>
+      </div>
+
+    </div>
+  </div> <!-- end card -->
+</div>
+</div>
+</div>
+
+<div class="tab-pane text-center" id="connections" role="tabpanel">
+      @foreach ($reviews as $review)
+      <div class="media">
+        <div class="pull-left">
+        <div class="static rating"> 
+          @if ($review->rating == 5)
+          <input type="radio" id="star5"  value="5" checked disabled><label for="star5" title="Отлично">5 stars</label>
+          @else
+          <input type="radio" id="star5"  value="5" disabled><label for="star5" title="Отлично">5 stars</label>
+          @endif
+          @if ($review->rating == 4)
+          <input type="radio" id="star4"  value="4" checked disabled><label for="star4" title="Хорошо">4 stars</label>
+          @else
+          <input type="radio" id="star4"  value="4" disabled><label for="star4" title="Хорошо">4 stars</label>
+          @endif
+          @if ($review->rating == 3)
+          <input type="radio" id="star3"  value="3" checked disabled><label for="star3" title="Удовлетворительно">3 stars</label>
+          @else
+          <input type="radio" id="star3"  value="3" disabled><label for="star3" title="Удовлетворительно">3 stars</label>
+          @endif
+          @if ($review->rating == 2)
+          <input type="radio" id="star2"  value="2" checked disabled><label for="star2" title="Плохо">2 stars</label>
+          @else
+          <input type="radio" id="star2"  value="2" disabled><label for="star2" title="Плохо">2 stars</label>
+          @endif
+          @if ($review->rating == 1)
+          <input type="radio" id="star1"  value="1" checked disabled><label for="star1" title="Отвратительно">1 star</label> 
+          @else
+          <input type="radio" id="star1"  value="1" disabled><label for="star1" title="Отвратительно">1 star</label> 
+          @endif
+        </div>
+        </div>
+      <div class="media-body">
+        <h5 class="media-heading">{{ $review->title }} <small>{{ $review->created_at }} </small></h5>
+        <p>{{ $review->description }}</p>
+    </div>
+  </div> <!-- end media -->
+  @endforeach
+</div>
+
+
+</div>
+</div>
+</div>
+</div>
+@endsection

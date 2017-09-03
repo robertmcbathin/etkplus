@@ -9,7 +9,7 @@
 @section('content')
 <div class="wrapper">
 
-  <div class="page-header page-header-xs filter pattern-image" style="background-image: url('../assets/img/sections/etkplus-bg2.jpg');">
+  <div class="page-header page-header-xs filter pattern-image" style="background-image: url('/assets/img/etkplus-bg.jpg');">
     <div class="content-center">
     </div>
   </div>        
@@ -27,6 +27,7 @@
         </div>
       </div>
     </div>
+    @include('includes.notifications')
     <div class="row">
       <div class="col-md-6 offset-md-3 text-center">
         <div class="description-details">
@@ -63,313 +64,40 @@
           <div class="row">
             <div class="col-md-8">
               <div class="tweets">
+
+                @foreach ($visits as $visit)
                 <div class="media">
-                  <a class="pull-left" href="#paper-kit">
+                  <a class="pull-left" href="{{route('site.show-partner.get', $visit->partner_id) }}">
                    <div class="avatar">
-                    <img class="media-object" src="../assets/img/rihanna.jpg" alt="...">
+                    <img class="media-object" src="{{ $visit->logo }}" alt="{{ $visit->name }}" alt="">
                   </div>
                 </a>
                 <div class="media-body">
-                  <strong>Rihanna</strong>
-                  <h5 class="media-heading"><small>@rihanna · 1h</small></h5>
-                  <p>It's just beyond the vault. Discover room 7 of the <a href="javascript: void(0);" class="link-danger">#ANTIdiaRy</a> at <a href="" class="link-info">http://smarturl.it/AntidiaRyTW</a></p>
+                  <strong>{{ $visit->name }}</strong>
+                  <h5 class="media-heading"><small>{{ $visit->created_at }}</small></h5>
+                  <p><span data-toggle="tooltip" data-placement="bottom" data-original-title="Счет со скидкой"><i class="fa fa-file"></i> <b>{{ $visit->bill_with_discount }} р.</b></span>
+                     <span data-toggle="tooltip" data-placement="bottom" data-original-title="Скидка"><i class="fa fa-percent"></i> <b>{{ $visit->discount }} р.</b></span>
+                     <span data-toggle="tooltip" data-placement="bottom" data-original-title="Бонус"><i class="fa fa-gift"></i> <b>{{ $visit->bonus }} р.</b></span>
+                     <span data-toggle="tooltip" data-placement="bottom" data-original-title="Кэшбэк на транспортную карту"><i class="fa fa-money"></i> <b>{{ $visit->cashback }} р.</b></p></span>
 
                   <div class="media-footer">
-                    <a href="#paper-kit" class="btn btn-link">
-                     <i class="fa fa-reply"></i>
-                   </a>
-                   <a href="#paper-kit" class="btn btn-success btn-link">
-                     <i class="fa fa-retweet"></i> 2.1k
-                   </a>
-                   <a href="#paper-kit" class="btn btn-danger btn-link">
-                     <i class="fa fa-heart"></i> 3.2k
-                   </a>
-                   <div class="dropdown">
-                    <button id="dLabel" type="button" class="btn btn-just-icon btn-link btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fa fa-ellipsis-h"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                      <li class="dropdown-item">
-                        <a href="#paper-kit">
-                          <div class="row">
-                            <div class="col-sm-2">
-                              <span class="icon-simple"><i class="fa fa-envelope"></i></span>
-                            </div>
-                            <div class="col-sm-9">Direct Message</div>
-                          </div>
-                        </a>
-                      </li>
-                      <div class="dropdown-divider"></div>
-                      <li class="dropdown-item">
-                        <a href="#paper-kit">
-                          <div class="row">
-                            <div class="col-sm-2">
-                              <span class="icon-simple"><i class="fa fa-microphone-slash"></i></span>
-                            </div>
-                            <div class="col-sm-9">Mute</div>
-                          </div>
-                        </a>
-                      </li>
-                      <div class="dropdown-divider"></div>
-                      <li class="dropdown-item">
-                        <a href="#paper-kit">
-                          <div class="row">
-                            <div class="col-sm-2">
-                              <span class="icon-simple"><i class="fa fa-exclamation-circle"></i></span>
-                            </div>
-                            <div class="col-sm-9">Report</div>
-                          </div>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+                    @if ($visit->is_reviewed == 0)
+                    <button class="btn btn-link" data-toggle="modal" data-target="#leave-review-{{ $visit->id }}">
+                     Оставить отзыв <i class="fa fa-reply"></i>
+                   </button>
+                   @endif
+                 </div>
 
-              </div>
-            </div> <!-- end media -->
-
-            <div class="media">
-              <a class="pull-left" href="#paper-kit">
-                <div class="avatar">
-                 <img class="media-object" alt="Tim Picture" src="../assets/img/khaled.jpg">
                </div>
-               <div class="retweet">
-                <btn class="btn btn-xs btn-success btn-just-icon btn-sm" rel="tooltip" title="Follow"><i class="fa fa-retweet"></i></btn>
+             </div> <!-- end media -->
+             @endforeach
               </div>
-            </a>
-            <div class="media-body">
-              <strong>DJ KHALED</strong>
-              <h5 class="media-heading"><small>@djkhaled ·  6 Jan 2016</small></h5>
-              <p><a href="#paper-kit" class="link-danger">#LA</a> fan luv I'm be <a href="#paper-kit" class="link-info">@1oakla</a> tonight i want see fan luv let's win more ! <a href="#paper-kit" class="link-danger">#wethebest</a> </p>
-              <div class="tweet-link">
-                <div class="row">
-                  <div class="col-md-4">
-                    <img src="../assets/img/khaled_tweet.png" alt="Rounded Image" class="img-rounded img-tweet-link img-responsive">
-                  </div>
-                  <div class="col-md-8">
-                    <strong>Let's win more by DJ Khaled</strong>
-                    <a href="#0"><p>This is a 3-day event hosted by DJ Khaled for his fan luv in LA. Major 🔑 to success. Bless up!</p>
-                      <small></small></a><small><a href="#paper-kit" class="text-muted">djkhaled.com</a></small>
-                    </div>
-                  </div>
-                </div>
-
-
-
-                <div class="media-footer">
-                  <a href="#paper-kit" class="btn btn-link">
-                   <i class="fa fa-reply"></i>
-                 </a>
-                 <a href="#paper-kit" class="btn btn-link">
-                   <i class="fa fa-retweet"></i> 100
-                 </a>
-                 <a href="#paper-kit" class="btn btn-danger btn-link">
-                   <i class="fa fa-heart"></i> 234
-                 </a>
-                 <div class="dropdown">
-                  <button id="dLabel" type="button" class="btn btn-icon btn-link btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-ellipsis-h"></i>
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-right">
-                    <li class="dropdown-item">
-                      <a href="#paper-kit">
-                        <div class="row">
-                          <div class="col-sm-2">
-                            <span class="icon-simple"><i class="fa fa-envelope"></i></span>
-                          </div>
-                          <div class="col-sm-9">Direct Message</div>
-                        </div>
-                      </a>
-                    </li>
-                    <div class="dropdown-divider"></div>
-                    <li class="dropdown-item">
-                      <a href="#paper-kit">
-                        <div class="row">
-                          <div class="col-sm-2">
-                            <span class="icon-simple"><i class="fa fa-microphone-slash"></i></span>
-                          </div>
-                          <div class="col-sm-9">Mute</div>
-                        </div>
-                      </a>
-                    </li>
-                    <div class="dropdown-divider"></div>
-                    <li class="dropdown-item">
-                      <a href="#paper-kit">
-                        <div class="row">
-                          <div class="col-sm-2">
-                            <span class="icon-simple"><i class="fa fa-exclamation-circle"></i></span>
-                          </div>
-                          <div class="col-sm-9">Report</div>
-                        </div>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+              <br>
+              <div class="row">
+                            <div class="text-center">
+                <?php echo $visits->render(); ?>
             </div>
-          </div> <!-- end media -->
-          <div class="media">
-            <a class="pull-left" href="#paper-kit">
-              <div class="avatar">
-               <img class="media-object" alt="Tim Picture" src="../assets/img/rihanna.jpg">
-             </div>
-           </a>
-           <div class="media-body">
-            <strong>Rihanna</strong>
-            <h5 class="media-heading"><small>@rihanna ·  8 Jan 2016</small></h5>
-            <p>bitch better have my mistletoe <a href="#paper-kit" class="link-danger">#rihannaxstance</a> </p>
-            <img src="../assets/img/rihanna_tweet.jpeg" alt="Rounded Image" class="img-rounded img-tweet">
-
-
-            <div class="media-footer">
-              <a href="#paper-kit" class="btn btn-link">
-               <i class="fa fa-reply"></i>
-             </a>
-             <a href="#paper-kit" class="btn btn-link">
-               <i class="fa fa-retweet"></i> 5.8K
-             </a>
-             <a href="#paper-kit" class="btn btn-danger btn-link">
-               <i class="fa fa-heart"></i> 12K
-             </a>
-             <a href="#paper-kit" class="btn btn-link">
-               <i class="fa fa-ellipsis-h"></i>
-             </a>
-           </div>
-         </div>
-       </div> <!-- end media -->
-       <div class="media">
-        <a class="pull-left" href="#paper-kit">
-          <div class="avatar">
-           <img class="media-object" alt="Tim Picture" src="../assets/img/rihanna.jpg">
-         </div>
-       </a>
-       <div class="media-body">
-        <strong>Rihanna</strong>
-        <h5 class="media-heading"><small>@rihanna ·  9 Jan 2016</small></h5>
-        <p>Thank you God for fulfilling Your plans in my life.... All the Glory belongs to You!!!! <a href="https://instagram.com/p/4m5W4sBMzj/">https://instagram.com/p/4m5W4sBMzj/</a> </p>
-
-
-        <div class="media-footer">
-          <a href="#paper-kit" class="btn btn-link">
-           <i class="fa fa-reply"></i>
-         </a>
-         <a href="#paper-kit" class="btn btn-link">
-           <i class="fa fa-retweet"></i> 5.9K
-         </a>
-         <a href="#paper-kit" class="btn btn-link">
-           <i class="fa fa-heart"></i> 11K
-         </a>
-         <div class="dropdown">
-          <button id="dLabel" type="button" class="btn btn-icon btn-link btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-ellipsis-h"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-right">
-            <li class="dropdown-item">
-              <a href="#paper-kit">
-                <div class="row">
-                  <div class="col-sm-2">
-                    <span class="icon-simple"><i class="fa fa-envelope"></i></span>
-                  </div>
-                  <div class="col-sm-9">Direct Message</div>
-                </div>
-              </a>
-            </li>
-            <div class="dropdown-divider"></div>
-            <li class="dropdown-item">
-              <a href="#paper-kit">
-                <div class="row">
-                  <div class="col-sm-2">
-                    <span class="icon-simple"><i class="fa fa-microphone-slash"></i></span>
-                  </div>
-                  <div class="col-sm-9">Mute</div>
-                </div>
-              </a>
-            </li>
-            <div class="dropdown-divider"></div>
-            <li class="dropdown-item">
-              <a href="#paper-kit">
-                <div class="row">
-                  <div class="col-sm-2">
-                    <span class="icon-simple"><i class="fa fa-exclamation-circle"></i></span>
-                  </div>
-                  <div class="col-sm-9">Report</div>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div> <!-- end media -->
-  <div class="media last-media">
-    <a class="pull-left" href="#paper-kit">
-      <div class="avatar">
-       <img class="media-object" alt="Tim Picture" src="../assets/img/billboard.jpeg">
-     </div>
-     <div class="retweet">
-      <btn class="btn btn-xs btn-success btn-just-icon btn-sm" rel="tooltip" title="Follow"><i class="fa fa-retweet"></i></btn>
-    </div>
-  </a>
-  <div class="media-body">
-    <strong>billboard</strong>
-    <h5 class="media-heading"><small>@billboard ·  1 Jul 2016</small></h5>
-    <p><a href="#paper-kit">@Rihanna</a> has become the first artist to surpass RIAA's 100 million cumulative singles award threshold: <a href="http://blbrd.cm/3rQ3Iq">http://blbrd.cm/3rQ3Iq</a> </p>
-
-    <div class="media-footer">
-      <a href="#paper-kit" class="btn btn-link">
-       <i class="fa fa-reply"></i>
-     </a>
-     <a href="#paper-kit" class="btn btn-link">
-       <i class="fa fa-retweet"></i> 5.6K
-     </a>
-     <a href="#paper-kit" class="btn btn-danger btn-link">
-       <i class="fa fa-heart"></i> 7.2K
-     </a>
-     <div class="dropdown">
-      <button id="dLabel" type="button" class="btn btn-icon btn-link btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fa fa-ellipsis-h"></i>
-      </button>
-      <ul class="dropdown-menu dropdown-menu-right">
-        <li class="dropdown-item">
-          <a href="#paper-kit">
-            <div class="row">
-              <div class="col-sm-2">
-                <span class="icon-simple"><i class="fa fa-envelope"></i></span>
               </div>
-              <div class="col-sm-9">Direct Message</div>
-            </div>
-          </a>
-        </li>
-        <li class="dropdown-item">
-          <a href="#paper-kit">
-            <div class="row">
-              <div class="col-sm-2">
-                <span class="icon-simple"><i class="fa fa-microphone-slash"></i></span>
-              </div>
-              <div class="col-sm-9">Mute</div>
-            </div>
-          </a>
-        </li>
-        <li class="dropdown-item">
-          <a href="#paper-kit">
-            <div class="row">
-              <div class="col-sm-2">
-                <span class="icon-simple"><i class="fa fa-exclamation-circle"></i></span>
-              </div>
-              <div class="col-sm-9">Report</div>
-            </div>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
-</div> <!-- end media -->
-<br>
-<div class="text-center">
- <btn class="btn btn-outline-info btn-round">Load more tweets</btn>
-</div>
-</div>
 
 </div>
 <div class="col-md-4 col-sm-6">
@@ -477,9 +205,9 @@
 <div class="row">
   <div class="col-md-8">
     <div class="tweets">
-    <h5 class="card-title">Последние отзывы</h5>
+      <h5 class="card-title">Последние отзывы</h5>
 
-    @foreach ($reviews as $review)
+      @foreach ($reviews as $review)
       <div class="media">
         <a class="pull-left" href="{{route('site.show-partner.get', $review->partner_id) }}">
          <div class="avatar">
@@ -491,17 +219,43 @@
         <p>{{ $review->description }}</p>
 
         <div class="media-footer">
-         <a href="" class="btn btn-danger btn-link">
-           <i class="fa fa-star"></i> {{ $review->rating }}
-         </a>
+          <div class="pull-left">
+            <div class="static rating"> 
+              @if ($review->rating == 5)
+              <input type="radio" id="star5"  value="5" checked disabled><label for="star5" title="Отлично">5 stars</label>
+              @else
+              <input type="radio" id="star5"  value="5" disabled><label for="star5" title="Отлично">5 stars</label>
+              @endif
+              @if ($review->rating == 4)
+              <input type="radio" id="star4"  value="4" checked disabled><label for="star4" title="Хорошо">4 stars</label>
+              @else
+              <input type="radio" id="star4"  value="4" disabled><label for="star4" title="Хорошо">4 stars</label>
+              @endif
+              @if ($review->rating == 3)
+              <input type="radio" id="star3"  value="3" checked disabled><label for="star3" title="Удовлетворительно">3 stars</label>
+              @else
+              <input type="radio" id="star3"  value="3" disabled><label for="star3" title="Удовлетворительно">3 stars</label>
+              @endif
+              @if ($review->rating == 2)
+              <input type="radio" id="star2"  value="2" checked disabled><label for="star2" title="Плохо">2 stars</label>
+              @else
+              <input type="radio" id="star2"  value="2" disabled><label for="star2" title="Плохо">2 stars</label>
+              @endif
+              @if ($review->rating == 1)
+              <input type="radio" id="star1"  value="1" checked disabled><label for="star1" title="Отвратительно">1 star</label> 
+              @else
+              <input type="radio" id="star1"  value="1" disabled><label for="star1" title="Отвратительно">1 star</label> 
+              @endif
+            </div>
+          </div>
+        </div>
+
       </div>
+    </div> <!-- end media -->
+    @endforeach
 
-    </div>
-  </div> <!-- end media -->
-  @endforeach
-
-<br>
-</div>
+    <br>
+  </div>
 
 </div>
 <div class="col-md-4 col-sm-6">
@@ -577,3 +331,60 @@
 </div>
 </div>
 @endsection
+@foreach ($visits as $visit)
+<div class="modal fade" id="leave-review-{{ $visit->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Оставить отзыв</h5>
+        <a class="text-center" href="{{route('site.show-partner.get', $visit->partner_id) }}" target="_blank">
+         <div class="avatar">
+          <img class="media-object" src="{{ $visit->logo }}" alt="{{ $visit->name }}" alt="">
+        </div>
+        <strong>{{ $visit->name }}</strong>
+      </a>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body"> 
+      <p class="description">
+        Оставив отзыв о посещении данной организации, Вы поможете другим пользователям сформировать впечатление о ней, а также возможность получать дополнительные бонусы от этой организации в дальнейшем
+      </p>
+
+
+      <form action="{{ route('profile.leave-review.post') }}" method="POST">
+        {{ csrf_field() }}
+        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+        <input type="hidden" name="partner_id" value="{{ $visit->partner_id }}">
+        <input type="hidden" name="visit_id" value="{{ $visit->id }}">
+        <div class="form-group">
+        <input type="text" class="form-control" placeholder="Общее впечатление" name="review_title" minlength="1" maxlength="50">
+       </div>
+       <textarea class="form-control" placeholder="Напишите что-нибудь хорошее или не очень" rows="6" name="review_description" minlength="1" maxlength="4096"></textarea>
+       <div class="text-center">
+          <div class="rating"> 
+              <input type="radio" id="star5-{{ $visit->id }}" name="rating" required value="5" ><label for="star5-{{ $visit->id }}" title="Отлично">5 stars</label>
+              <input type="radio" id="star4-{{ $visit->id }}" name="rating" required value="4" ><label for="star4-{{ $visit->id }}" title="Хорошо">4 stars</label>
+              <input type="radio" id="star3-{{ $visit->id }}" name="rating" required value="3" ><label for="star3-{{ $visit->id }}" title="Удовлетворительно">3 stars</label>
+              <input type="radio" id="star2-{{ $visit->id }}" name="rating" required value="2" ><label for="star2-{{ $visit->id }}" title="Плохо">2 stars</label>
+              <input type="radio" id="star1-{{ $visit->id }}" name="rating" required value="1" ><label for="star1-{{ $visit->id }}" title="Отвратительно">1 star</label> 
+            </div>
+       </div>
+        </div>
+   <div class="modal-footer">
+    <div class="left-side">
+      <button type="button" class="btn btn-default btn-link" data-dismiss="modal">В следующий раз</button>
+    </div>
+    <div class="divider"></div>
+    <div class="right-side">
+      <input type="submit" class="btn btn-success btn-link" value="Оставить отзыв" >
+    </div>
+  </div>
+     </form>
+
+
+</div>
+</div>
+</div>
+@endforeach

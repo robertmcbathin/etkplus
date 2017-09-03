@@ -28,10 +28,6 @@ Route::group(['middleware' => 'web'], function () {
 		'uses' => 'SiteController@showPartner',
 		'as' => 'site.show-partner.get'
 		]);
-	Route::get('dashboard',[
-		'uses' => 'AdminController@showDashboard',
-		'as' => 'dashboard.show-dashboard.get'
-		]);
 	Route::get('profile/{id}',[
 		'uses' => 'SiteController@showProfilePage',
 		'as' => 'site.show-profile-page.get'
@@ -42,6 +38,36 @@ Route::group(['middleware' => 'web'], function () {
 		]);
 });
 Auth::routes();
+Route::group(['middleware' => 'auth'], function () {
+	/**
+	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ
+	 */
+	Route::get('dashboard',[
+		'uses' => 'AdminController@showDashboard',
+		'as' => 'dashboard.show-dashboard.get'
+		])->middleware('can:show-dashboard,App\User');
+	/**
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 * 
+	 */
+	/**
+	 * ПОКАЗЫВАТЬ ЛИЧНЫЙ КАБИНЕТ
+	 */
+	Route::get('profile',[
+		'uses' => 'UserController@showProfilePage',
+		'as' => 'profile.show-profile-page.get'
+		]);
+	Route::post('profile/leave-review',[
+		'uses' =>'UserController@leaveReview',
+		'as' => 'profile.leave-review.post'
+		]);
+});
 Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index')->name('home');

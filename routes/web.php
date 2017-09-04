@@ -32,6 +32,10 @@ Route::group(['middleware' => 'web'], function () {
 		'uses' => 'SiteController@showProfilePage',
 		'as' => 'site.show-user-profile-page.get'
 		]);
+	Route::get('partner/{id}/reviews',[
+		'uses' => 'SiteController@showPartnerReviewsPage',
+		'as' => 'site.show-partner-reviews-page.get'
+		]);
 });
 Auth::routes();
 Route::group(['middleware' => 'auth'], function () {

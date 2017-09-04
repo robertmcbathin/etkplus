@@ -95,6 +95,7 @@ class SiteController extends Controller
              ->where('partner_id',$partner->id)
              ->select('ETKPLUS_REVIEWS.title','ETKPLUS_REVIEWS.description','ETKPLUS_REVIEWS.rating','ETKPLUS_REVIEWS.created_at','ETKPLUS_REVIEWS.updated_at','ETKPLUS_PARTNERS.logo','ETKPLUS_REVIEWS.partner_id','ETKPLUS_PARTNERS.name','users.profile_image','ETKPLUS_REVIEWS.user_id')
              ->limit(9)
+             ->orderBy('created_at','DESC')
              ->get();
         /**
          * УДОБОЧИТАЕМЫЕ ДАТА И ВРЕМЯ, ЦВЕТ БЭКГРАУНДА
@@ -136,6 +137,79 @@ class SiteController extends Controller
             'reviews' => $reviews
             ]);
     }
+    /**
+     * ВСЕ ОТЗЫВЫ
+     */
+    
+    public function showPartnerReviewsPage($id){
+      $id = $id;
+    $partner = DB::table('ETKPLUS_PARTNERS')
+                  ->select('ETKPLUS_PARTNERS.id','ETKPLUS_PARTNERS.name','ETKPLUS_PARTNERS.fullname','ETKPLUS_PARTNERS.created_at', 'ETKPLUS_PARTNERS.updated_at',
+                    'ETKPLUS_PARTNERS.rating','ETKPLUS_PARTNERS.default_discount','ETKPLUS_PARTNERS.default_cashback','ETKPLUS_PARTNERS.logo', 'ETKPLUS_PARTNERS.thumbnail', 'ETKPLUS_PARTNERS.address', 'ETKPLUS_PARTNERS.site', 'ETKPLUS_PARTNERS.description')
+                  ->where('ETKPLUS_PARTNERS.id', $id)
+                  ->where('ETKPLUS_PARTNERS.is_active',1)
+                  ->first();
+    $reviews = DB::table('ETKPLUS_REVIEWS')
+                ->join('ETKPLUS_PARTNERS','ETKPLUS_REVIEWS.partner_id','=','ETKPLUS_PARTNERS.id')
+                ->join('users','ETKPLUS_REVIEWS.user_id', '=', 'users.id')
+                ->where('partner_id', $id)
+                ->select('ETKPLUS_REVIEWS.title','ETKPLUS_REVIEWS.description','ETKPLUS_REVIEWS.rating','ETKPLUS_REVIEWS.created_at','ETKPLUS_REVIEWS.updated_at','ETKPLUS_PARTNERS.logo','ETKPLUS_REVIEWS.partner_id','ETKPLUS_PARTNERS.name','users.profile_image','ETKPLUS_REVIEWS.user_id')
+                ->orderBy('created_at','DESC')
+                ->paginate(12);
+        /**
+     * УДОБОЧИТАЕМЫЕ ДАТА И ВРЕМЯ, ЦВЕТ БЭКГРАУНДА
+     */
+    Carbon::setLocale('ru');
+    foreach ($reviews as $review) {
+      $non_formatted_date = new Carbon($review->created_at);
+      $date = $non_formatted_date->diffForHumans();
+      switch ($review->rating){
+        case 5:
+            $review->background_color = 'green';
+            break;
+        case 4:
+            $review->background_color = 'green';
+            break;
+        case 3:
+            $review->background_color = 'yellow';
+            break;
+        case 2:
+            $review->background_color = 'yellow';
+            break;
+        case 1:
+            $review->background_color = 'orange';
+            break;
+        default:
+            $review->background_color = 'blue';
+            break;                
+      }
+      $review->created_at = $date;
+     }
+    /**
+     * СЧИТАЕМ РЕЙТИНГ
+     * 
+     */
+    $rating = DB::table('ETKPLUS_REVIEWS')
+                ->where('partner_id', $id)
+                ->selectRaw('AVG(rating) as rating')
+                ->first();
+    $star_rating = round($rating->rating,0);
+    $rating = round($rating->rating,1);
+    /**
+     * КОЛИЧЕСТВО ПРОГОЛОСОВАВШИХ
+     */
+    $review_count = DB::table('ETKPLUS_REVIEWS')
+                ->where('partner_id', $id)
+                ->count();
+    return view('pages.partner_reviews',[
+      'partner' => $partner,
+      'star_rating' => $star_rating,
+      'rating' => $rating,
+      'review_count' => $review_count,
+      'reviews' => $reviews
+      ]);
+    }
+
     public function showProfilePage($id){
         $user = \App\User::find($id);
         $reviews = DB::table('ETKPLUS_REVIEWS')

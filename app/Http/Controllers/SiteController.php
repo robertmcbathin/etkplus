@@ -91,16 +91,38 @@ class SiteController extends Controller
          */
         $reviews = DB::table('ETKPLUS_REVIEWS')
              ->join('ETKPLUS_PARTNERS','ETKPLUS_REVIEWS.partner_id','=','ETKPLUS_PARTNERS.id')
+             ->join('users','ETKPLUS_REVIEWS.user_id', '=', 'users.id')
              ->where('partner_id',$partner->id)
-             ->select('ETKPLUS_REVIEWS.title','ETKPLUS_REVIEWS.description','ETKPLUS_REVIEWS.rating','ETKPLUS_REVIEWS.created_at','ETKPLUS_REVIEWS.updated_at','ETKPLUS_PARTNERS.logo','ETKPLUS_REVIEWS.partner_id','ETKPLUS_PARTNERS.name')
+             ->select('ETKPLUS_REVIEWS.title','ETKPLUS_REVIEWS.description','ETKPLUS_REVIEWS.rating','ETKPLUS_REVIEWS.created_at','ETKPLUS_REVIEWS.updated_at','ETKPLUS_PARTNERS.logo','ETKPLUS_REVIEWS.partner_id','ETKPLUS_PARTNERS.name','users.profile_image','ETKPLUS_REVIEWS.user_id')
+             ->limit(9)
              ->get();
         /**
-         * УДОБОЧИТАЕМЫЕ ДАТА И ВРЕМЯ
+         * УДОБОЧИТАЕМЫЕ ДАТА И ВРЕМЯ, ЦВЕТ БЭКГРАУНДА
          */
         Carbon::setLocale('ru');
         foreach ($reviews as $review) {
           $non_formatted_date = new Carbon($review->created_at);
           $date = $non_formatted_date->diffForHumans();
+          switch ($review->rating){
+            case 5:
+                $review->background_color = 'green';
+                break;
+            case 4:
+                $review->background_color = 'green';
+                break;
+            case 3:
+                $review->background_color = 'yellow';
+                break;
+            case 2:
+                $review->background_color = 'yellow';
+                break;
+            case 1:
+                $review->background_color = 'orange';
+                break;
+            default:
+                $review->background_color = 'blue';
+                break;                
+          }
           $review->created_at = $date;
          }
         return view('pages.partner',[
@@ -124,10 +146,9 @@ class SiteController extends Controller
         if (Auth::user()){
             $auth_user_id = Auth::user()->id;
         }
-        return view('profile',[
+        return view('pages.show-user-profile-page',[
             'user' => $user,
-            'reviews' => $reviews,
-            'auth_user_id' => $auth_user_id 
+            'reviews' => $reviews
             ]);
     }
 }

@@ -30,11 +30,7 @@ Route::group(['middleware' => 'web'], function () {
 		]);
 	Route::get('profile/{id}',[
 		'uses' => 'SiteController@showProfilePage',
-		'as' => 'site.show-profile-page.get'
-		]);
-	Route::get('profile',[
-		'uses' => 'UserController@showProfilePage',
-		'as' => 'profile.show-profile-page.get'
+		'as' => 'site.show-user-profile-page.get'
 		]);
 });
 Auth::routes();

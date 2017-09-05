@@ -11,26 +11,20 @@
                             <span class="icon-bar bar3"></span>
                         </button>
                         <a class="navbar-brand" href="overview.html#Dashboard">
-                            Overview
+                            Панель управления
                         </a>
                     </div>
                     <div class="collapse navbar-collapse">
 
-                        <form class="navbar-form navbar-left navbar-search-form" role="search">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                                <input type="text" value="" class="form-control" placeholder="Search...">
-                            </div>
-                        </form>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li>
+                        <!--<li>
                                 <a href="overview.html#stats" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
                                     <i class="ti-panel"></i>
                                     <p>Stats</p>
                                 </a>
-                            </li>
-                            <li class="dropdown">
+                            </li>  --> 
+                           <!--<li class="dropdown">
                                 <a href="overview.html#notifications" class="dropdown-toggle btn-rotate" data-toggle="dropdown">
                                     <i class="ti-bell"></i>
                                     <span class="notification">5</span>
@@ -54,7 +48,7 @@
                                         Settings
                                     </p>
                                 </a>
-                            </li>
+                            </li>  --> 
                         </ul>
                     </div>
                 </div>

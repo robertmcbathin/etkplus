@@ -362,3 +362,17 @@ body.nude{
         display: none;
     }
 }
+
+
+.fileinput {
+    display: inline-block;
+    margin-bottom: 9px;
+}
+.fileinput .thumbnail {
+    display: inline-block;
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 4px;
+}

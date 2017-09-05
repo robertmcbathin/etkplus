@@ -1,3 +1,13 @@
+        <div class="sidebar" data-background-color="white" data-active-color="info">
+            <div class="logo">
+                <a href="/" class="simple-text logo-mini">
+                    ЕТК+
+                </a>
+
+                <a href="/" class="simple-text logo-normal">
+                    ЕТКплюс
+                </a>
+            </div>
             <div class="sidebar-wrapper">
                 <div class="user">
                     <div class="info">
@@ -25,10 +35,11 @@
                     </div>
                 </div>
                 <ul class="nav">
+                @can('show-dashboard-admin')
                     <li class="active">
-                        <a data-toggle="collapse" href="overview.html#dashboardOverview" aria-expanded="true">
-                            <i class="ti-panel"></i>
-                            <p>Dashboard
+                        <a data-toggle="collapse" href="overview.html#dashboardOverview">
+                            <i class="fa fa-bars"></i>
+                            <p>Панель управления
                                 <b class="caret"></b>
                             </p>
                         </a>
@@ -36,19 +47,39 @@
                             <ul class="nav">
                                 <li class="active">
                                     <a href="overview.html">
-                                        <span class="sidebar-mini">O</span>
-                                        <span class="sidebar-normal">Overview</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="stats.html">
-                                        <span class="sidebar-mini">S</span>
-                                        <span class="sidebar-normal">Stats</span>
+                                        <span class="sidebar-mini"><i class="fa fa-line-chart"></i></span>
+                                        <span class="sidebar-normal">Статистика</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </li>
+                    <li>
+                        <a data-toggle="collapse" href="overview.html#partners">
+                            <i class="fa fa-building"></i>
+                            <p>Предприятия
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="partners">
+                            <ul class="nav">
+                                <li>
+                                    <a href="{{ route('dashboard.create-partner.get') }}">
+                                        <span class="sidebar-mini"><i class="fa fa-plus-square"></i></span>
+                                        <span class="sidebar-normal">Создать</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="stats.html">
+                                        <span class="sidebar-mini"><i class="fa fa-list"></i></span>
+                                        <span class="sidebar-normal">Список</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                @endcan
+
                     <li>
                         <a data-toggle="collapse" href="overview.html#componentsExamples">
                             <i class="ti-package"></i>
@@ -265,3 +296,4 @@
                     </li>
                 </ul>
             </div>
+        </div>

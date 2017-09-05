@@ -42,10 +42,14 @@ Route::group(['middleware' => 'auth'], function () {
 	/**
 	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ
 	 */
-	Route::get('dashboard',[
+	Route::get('/dashboard',[
 		'uses' => 'AdminController@showDashboard',
 		'as' => 'dashboard.show-dashboard.get'
 		])->middleware('can:show-dashboard,App\User');
+	Route::get('/dashboard/create-partner',[
+		'uses' => 'AdminController@showCreatePartnerPage',
+		'as' => 'dashboard.create-partner.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
 	/**
 	 *
 	 *

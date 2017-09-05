@@ -12,6 +12,7 @@
     <link href="/assets/dashboard/css/bootstrap.min.css" rel="stylesheet" />
 
     <!--  Paper Dashboard core CSS    -->
+        <link href="/assets/css/paper-kit.css" rel="stylesheet"/>
     <link href="/assets/dashboard/css/paper-dashboard.css" rel="stylesheet"/>
 
 
@@ -87,14 +88,17 @@
     <script src="/assets/dashboard/js/jquery.sharrre.js"></script>
 
     <!-- Paper Dashboard PRO DEMO methods, don't include it in your project! -->
-    <script src="/assets/dashboard//js/demo.js"></script>
+    <script src="/assets/dashboard/js/demo.js"></script>
 
-
+    <script src="/assets/js/jasny-bootstrap.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function(){
             demo.initOverviewDashboard();
             demo.initCirclePercentage();
+            $(document).ready(function(){
+                demo.initWizard();
+            });
 
         });
     </script>

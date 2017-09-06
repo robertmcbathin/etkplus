@@ -16,9 +16,11 @@
 
         <div class="content">
             <div class="container-fluid">
+            @include('includes/notifications');
                 <div class="col-md-10 col-md-offset-1">
                     <div class="card card-wizard" id="wizardCard">
-                        <form id="wizardForm" method="" action="" novalidate="novalidate">
+                        <form id="wizardForm" method="POST" action="{{ route('dashboard.create-partner.post') }}" novalidate="novalidate" enctype="multipart/form-data">
+                            {{ csrf_field() }}
                             <div class="card-header text-center">
                                 <h4 class="card-title">Мастер создания и настройки предприятия</h4>
                                 <p class="category">Здесь можно было добавить некоторую полезную информацию, но ее нет</p>
@@ -142,8 +144,7 @@
                                             <div class="fileinput-preview fileinput-exists thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;"></div>
                                             <div>
                                             <span class="btn btn-outline-default btn-round btn-file"><span class="fileinput-new">Выбрать фон (1307 на 392)</span><span class="fileinput-exists">Изменить</span>
-                                              <input type="hidden" value="" name="...">
-                                              <input type="file" name="">
+                                              <input type="file" name="background_image">
                                             </span>
                                                 <a href="#paper-kit" class="btn btn-link btn-danger fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
                                             </div>
@@ -157,8 +158,7 @@
                                             <div class="fileinput-preview fileinput-exists thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;"></div>
                                             <div>
                                             <span class="btn btn-outline-default btn-round btn-file"><span class="fileinput-new">Выбрать логотип (150 на 150)</span><span class="fileinput-exists">Изменить</span>
-                                              <input type="hidden" value="" name="...">
-                                              <input type="file" name="">
+                                              <input type="file" name="logo_image">
                                             </span>
                                                 <a href="#paper-kit" class="btn btn-link btn-danger fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
                                             </div>
@@ -167,9 +167,11 @@
                                     </div>
                                         </div>
                                         <div class="tab-pane" id="tab3">
+                                            <div class="row">
                                             <div class="col-md-6 col-md-offset-3">
                                                 <p class="category">Активировать учетную запись</p>
-                                                <input type="checkbox" class="switch-plain">
+                                                <input type="checkbox" class="switch-plain" name="is_active">
+                                            </div>
                                             </div>
                                         </div>
                                     </div>

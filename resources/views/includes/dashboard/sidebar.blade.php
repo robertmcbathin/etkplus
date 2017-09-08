@@ -70,7 +70,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="stats.html">
+                                    <a href="{{ route('dashboard.show-partner-list.get') }}">
                                         <span class="sidebar-mini"><i class="fa fa-list"></i></span>
                                         <span class="sidebar-normal">Список</span>
                                     </a>

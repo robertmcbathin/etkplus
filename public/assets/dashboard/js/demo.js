@@ -708,6 +708,32 @@ demo = {
 
                     })
                 }).catch(swal.noop)
+            } else if(type == 'delete-partner'){
+              swal({
+                title: 'Вы уверены?',
+                cancelButtonText: 'Отмена',
+                showCancelButton: true,
+                confirmButtonText: 'Удалить',
+                showLoaderOnConfirm: true,
+                preConfirm: function (email) {
+                  return new Promise(function (resolve, reject) {
+                    setTimeout(function() {
+                      if (email === 'taken@example.com') {
+                        reject('This email is already taken.')
+                      } else {
+                        resolve()
+                      }
+                    }, 2000)
+                  })
+                },
+                allowOutsideClick: false
+              }).then(function (email) {
+                swal({
+                  type: 'success',
+                  title: 'Ajax request finished!',
+                  html: 'Submitted email: ' + email
+                })
+              })
             }
         },
 

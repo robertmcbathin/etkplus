@@ -20,7 +20,7 @@
     <!--  Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
-    <link href="/assets/dashboard/assets/css/themify-icons.css" rel="stylesheet">
+    <link href="/assets/dashboard/css/themify-icons.css" rel="stylesheet">
 </head>
 
 <body>
@@ -101,6 +101,13 @@
             });
 
         });
+    </script>
+    <script>
+        $('.toggle-activate-partner').on('click',function(){
+            var partnerId = $(this).data('id');
+            console.log(partnerId);
+            console.log(1);
+            });
     </script>
 
 </html>

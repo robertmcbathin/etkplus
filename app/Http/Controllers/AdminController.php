@@ -94,4 +94,20 @@ class AdminController extends Controller
         Session::flash('success', 'Создано новое предприятие');
         return redirect()->back();
     }
+
+    public function getPartnerList(){
+        $partners = DB::table('ETKPLUS_PARTNERS')
+                        ->get();
+        return view('dashboard.partner_list',[
+            'partners' => $partners
+            ]);
+    }
+
+
+    /**
+     * AJAX ЗАПРОСЫ
+     */
+    public function postChangeStatus(Request $request){
+        
+    }
 }

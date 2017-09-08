@@ -54,6 +54,10 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'AdminController@postCreatePartner',
 		'as' => 'dashboard.create-partner.post'	
 		])->middleware('can:show-dashboard-admin,App\User');
+	Route::get('/dashboard/partners/list',[
+		'uses' => 'AdminController@getPartnerList',
+		'as' => 'dashboard.show-partner-list.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
 	/**
 	 *
 	 *
@@ -74,6 +78,14 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('profile/leave-review',[
 		'uses' =>'UserController@leaveReview',
 		'as' => 'profile.leave-review.post'
+		]);
+
+	/**
+	 * AJAX ЗАПРОСЫ
+	 */
+	Route::post('/ajax/change_active_status',[
+		'uses' => 'AdminController@postChangeStatus',
+		'as' => 'ajax.change_active_status'
 		]);
 });
 Route::get('/logout', 'Auth\LoginController@logout');

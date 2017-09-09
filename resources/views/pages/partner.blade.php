@@ -61,7 +61,7 @@
         <div class="description-details">
           <ul class="list-unstyled">
             <li><i class="fa fa-map-marker"></i>{{ $partner->address }}</li>
-            <li><i class="fa fa-link"></i> <a href="{{ $partner->site }}">{{ $partner->site }}</a></li>
+            <li><i class="fa fa-link"></i> <a href="{{ $partner->site }}" target="_blank" rel="nofollow">{{ $partner->site }}</a></li>
           </ul>
         </div>
       </div>

@@ -1,7 +1,7 @@
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <div class="navbar-minimize">
-                        <button id="minimizeSidebar" class="btn btn-fill btn-icon"><i class="ti-more-alt"></i></button>
+                        <button id="minimizeSidebar" class="btn btn-fill btn-icon"><i class="fa fa-dashcube"></i></button>
                     </div>
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle">

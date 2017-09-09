@@ -58,6 +58,30 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'AdminController@getPartnerList',
 		'as' => 'dashboard.show-partner-list.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
+	Route::post('/dashboard/partner/delete',[
+		'uses' => 'AdminController@postDeletePartner',
+		'as' => 'dashboard.delete_partner.post'
+		]);
+	Route::post('/dashboard/partner/edit',[
+		'uses' => 'AdminController@postEditPartner',
+		'as' => 'dashboard.edit_partner.post'
+		]);	
+	Route::post('/dashboard/partner/edit-logos',[
+		'uses' => 'AdminController@postEditPartnerLogos',
+		'as' => 'dashboard.edit_partner_logos.post'
+		]);
+	Route::post('/dashboard/partner/load-gallery',[
+		'uses' => 'AdminController@postLoadGallery',
+		'as' => 'dashboard.load-gallery.post'
+		]);	
+	Route::post('/dashboard/partner/edit-gallery-item',[
+		'uses' => 'AdminController@postEditGalleryItem',
+		'as' => 'dashboard.edit-gallery-item.post'
+		]);	
+	Route::post('/dashboard/partner/delete-gallery-item',[
+		'uses' => 'AdminController@postDeleteGalleryItem',
+		'as' => 'dashboard.delete-gallery-item.post'
+		]);		
 	/**
 	 *
 	 *
@@ -83,10 +107,6 @@ Route::group(['middleware' => 'auth'], function () {
 	/**
 	 * AJAX ЗАПРОСЫ
 	 */
-	Route::post('/ajax/change_active_status',[
-		'uses' => 'AdminController@postChangeStatus',
-		'as' => 'ajax.change_active_status'
-		]);
 });
 Route::get('/logout', 'Auth\LoginController@logout');
 

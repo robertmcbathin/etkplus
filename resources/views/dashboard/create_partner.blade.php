@@ -21,6 +21,7 @@
                     <div class="card card-wizard" id="wizardCard">
                         <form id="wizardForm" method="POST" action="{{ route('dashboard.create-partner.post') }}" novalidate="novalidate" enctype="multipart/form-data">
                             {{ csrf_field() }}
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                             <div class="card-header text-center">
                                 <h4 class="card-title">Мастер создания и настройки предприятия</h4>
                                 <p class="category">Здесь можно было добавить некоторую полезную информацию, но ее нет</p>

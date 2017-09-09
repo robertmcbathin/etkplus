@@ -14,6 +14,7 @@
     <!--  Paper Dashboard core CSS    -->
         <link href="/assets/css/paper-kit.css" rel="stylesheet"/>
     <link href="/assets/dashboard/css/paper-dashboard.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/assets/dashboard/css/app.css">
 
 
 

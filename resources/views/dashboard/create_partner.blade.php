@@ -98,7 +98,7 @@
                                                     <label class="control-label">
                                                         Сайт
                                                     </label>
-                                                    <input class="form-control" type="text" name="site" placeholder="http://example.com">
+                                                    <input class="form-control" type="text" name="site" placeholder="http://example.com" value="http://">
                                                 </div>
                                             </div>
                                         </div>

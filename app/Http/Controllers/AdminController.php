@@ -122,6 +122,7 @@ class AdminController extends Controller
         /**
          * 
          */
+        $user->password->$encrypted_password;
         $user->phone = $phone;
         $user->profile_image = $partner->logo;
         $user->role_id = 21;

@@ -46,6 +46,9 @@
                                             <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Галерея" data-toggle="modal" data-target="#edit-gallery-partner-{{ $partner->id }}">
                                                 <i class="fa fa-picture-o"></i>
                                             </a>
+                                            <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Адреса" data-toggle="modal" data-target="#edit-addresses-partner-{{ $partner->id }}">
+                                                <i class="fa fa-map-marker"></i>
+                                            </a>
                                             <a href="#" rel="tooltip" title="" class="btn btn-danger btn-simple btn-xs" data-original-title="Удалить" data-toggle="modal" data-target="#delete-partner-{{ $partner->id }}">
                                                 <i class="fa fa-trash"></i>
                                             </a>
@@ -61,6 +64,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="text-center">
+                            <?php echo $partners->render(); ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -279,71 +285,71 @@
                 </button>
             </div>
             <div class="modal-body"> 
-                    <div class="col-md-10 col-md-offset-1">
-                        <div class="table-responsive">
-                                    <table class="table table-shopping">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center"></th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach ($gallery_items as $gallery_item)
-                                        @if ($gallery_item->partner_id == $partner->id)
-                                            <tr>
-                                                <td>
-                                                    <div class="img-container">
-                                                        <img src="{{ $gallery_item->image_path }}" alt="">
-                                                    </div>
-                                                </td>
-                                                <td class="td-product">
-                                                    <form action="{{ route('dashboard.edit-gallery-item.post') }}" method="POST">
-                                                      {{ csrf_field() }}
-                                                      <input type="hidden" name="partner_id" value="{{ $partner->id }}">
-                                                      <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                                      <input type="hidden" name="gallery_item_id" value="{{ $gallery_item->id }}">
-                                                      <div class="form-group">
-                                                        <input type="text" class="form-control" value="{{ $gallery_item->image_caption }}" name="image_caption">
-                                                      </div>
-                                                      <input type="submit" class="btn btn-info" value="Изменить описание">
-                                                    </form>
-                                                    <form action="{{ route('dashboard.delete-gallery-item.post') }}" method="POST">
-                                                      {{ csrf_field() }}
-                                                      <input type="hidden" name="partner_id" value="{{ $partner->id }}">
-                                                      <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                                      <input type="hidden" name="gallery_item_id" value="{{ $gallery_item->id }}">
-                                                      <input type="hidden" name="gallery_item_path" value="{{ $gallery_item->image_path }}">
-                                                      <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i>Удалить</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                    </div>
-            <div class="col-md-10 col-md-offset-1">
-                <h5 class="text-center">Добавить фотографии</h5>
-                <form action="{{ route('dashboard.load-gallery.post') }}" method="POST" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    <input type="hidden" name="partner_id" value="{{ $partner->id }}">
-                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                    <input type="file" class="btn-file" name="gallery[]" multiple>
-                    <button class="btn btn-info" type="submit"><i class="fa fa-download"></i>Загрузить</button>
-                </form>
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="table-responsive">
+                        <table class="table table-shopping">
+                            <thead>
+                                <tr>
+                                    <th class="text-center"></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($gallery_items as $gallery_item)
+                                @if ($gallery_item->partner_id == $partner->id)
+                                <tr>
+                                    <td>
+                                        <div class="img-container">
+                                            <img src="{{ $gallery_item->image_path }}" alt="">
+                                        </div>
+                                    </td>
+                                    <td class="td-product">
+                                        <form action="{{ route('dashboard.edit-gallery-item.post') }}" method="POST">
+                                          {{ csrf_field() }}
+                                          <input type="hidden" name="partner_id" value="{{ $partner->id }}">
+                                          <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                          <input type="hidden" name="gallery_item_id" value="{{ $gallery_item->id }}">
+                                          <div class="form-group">
+                                            <input type="text" class="form-control" value="{{ $gallery_item->image_caption }}" name="image_caption">
+                                        </div>
+                                        <input type="submit" class="btn btn-info" value="Изменить описание">
+                                    </form>
+                                    <form action="{{ route('dashboard.delete-gallery-item.post') }}" method="POST">
+                                      {{ csrf_field() }}
+                                      <input type="hidden" name="partner_id" value="{{ $partner->id }}">
+                                      <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                      <input type="hidden" name="gallery_item_id" value="{{ $gallery_item->id }}">
+                                      <input type="hidden" name="gallery_item_path" value="{{ $gallery_item->image_path }}">
+                                      <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i>Удалить</button>
+                                  </form>
+                              </td>
+                          </tr>
+                          @endif
+                          @endforeach
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+          <div class="col-md-10 col-md-offset-1">
+            <h5 class="text-center">Добавить фотографии</h5>
+            <form action="{{ route('dashboard.load-gallery.post') }}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <input type="hidden" name="partner_id" value="{{ $partner->id }}">
+                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                <input type="file" class="btn-file" name="gallery[]" multiple>
+                <button class="btn btn-info" type="submit"><i class="fa fa-download"></i>Загрузить</button>
+            </form>
+        </div>
     </div>
-</div>
-<div class="modal-footer">
-    <div class="left-side">
-        <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+    <div class="modal-footer">
+        <div class="left-side">
+            <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+        </div>
+        <div class="divider"></div>
+        <div class="right-side">
+            <button type="submit" class="btn btn-success btn-link">Сохранить</button>
+        </div>
     </div>
-    <div class="divider"></div>
-    <div class="right-side">
-        <button type="submit" class="btn btn-success btn-link">Сохранить</button>
-    </div>
-</div>
 </div>
 </div>
 </div>

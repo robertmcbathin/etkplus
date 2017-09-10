@@ -80,6 +80,7 @@ class AdminController extends Controller
             'created_by' => $user_id
     		]);
     	$partner = \App\Partner::find($partnerId);
+        $partner->contract_id = date('y') . '-' . $partner->id;
     	/**
     	 * CHECK FILES
     	 */
@@ -128,28 +129,27 @@ class AdminController extends Controller
         $user->role_id = 21;
         $user->is_active = 1;
         $user->save();
+        /**
+         * SEND EMAIL
+         */
         try {
             Mail::to($email)->send(new PartnerRegistered($email,$password));
-            Session::flash('success', 'Создано новое предприятие');
-            return redirect()->back();
         } catch (Exception $e) {
             Session::flash('error', $e);
             return redirect()->back();
         }
         /**
-         * SEND EMAIL
-         */
-        
-        /**
          * USER CREATED
          */
+                    Session::flash('success', 'Создано новое предприятие');
+            return redirect()->back();
     }
 
     public function getPartnerList(){
         $partners = DB::table('ETKPLUS_PARTNERS')
                         ->join('ETKPLUS_PARTNER_CATEGORIES','ETKPLUS_PARTNERS.category','=','ETKPLUS_PARTNER_CATEGORIES.id')
                         ->select('ETKPLUS_PARTNERS.*','ETKPLUS_PARTNER_CATEGORIES.name as category_name','ETKPLUS_PARTNER_CATEGORIES.id as category_id')
-                        ->get();
+                        ->paginate(20);
         $gallery_items = DB::table('ETKPLUS_PARTNER_PHOTOS')
                             ->get();
         return view('dashboard.partner_list',[

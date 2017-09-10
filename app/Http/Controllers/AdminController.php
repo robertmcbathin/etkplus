@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Session;
+use Mail;
+use \App\User;
 use \App\Partner;
+use App\Mail\PartnerRegistered;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -103,8 +106,42 @@ class AdminController extends Controller
           $partner->logo = $logo_imagename;
           $partner->save();
         }
-        Session::flash('success', 'Создано новое предприятие');
-        return redirect()->back();
+        /**
+         * CREATE USER
+         * @var [type]
+         */
+        $user = new \App\User;
+        $user->username = $email;
+        $user->email = $email;
+        $user->name = $name;
+        /**
+         * GENERATE PASSWORD
+         */
+        $password = $this->generateRandomString(); //TO SEND VIA EMAIL
+        $encrypted_password = bcrypt($password);
+        /**
+         * 
+         */
+        $user->phone = $phone;
+        $user->profile_image = $partner->logo;
+        $user->role_id = 21;
+        $user->is_active = 1;
+        $user->save();
+        try {
+            Mail::to($email)->send(new PartnerRegistered($email,$password));
+            Session::flash('success', 'Создано новое предприятие');
+            return redirect()->back();
+        } catch (Exception $e) {
+            Session::flash('error', $e);
+            return redirect()->back();
+        }
+        /**
+         * SEND EMAIL
+         */
+        
+        /**
+         * USER CREATED
+         */
     }
 
     public function getPartnerList(){

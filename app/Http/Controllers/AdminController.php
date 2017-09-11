@@ -150,11 +150,14 @@ class AdminController extends Controller
                         ->join('ETKPLUS_PARTNER_CATEGORIES','ETKPLUS_PARTNERS.category','=','ETKPLUS_PARTNER_CATEGORIES.id')
                         ->select('ETKPLUS_PARTNERS.*','ETKPLUS_PARTNER_CATEGORIES.name as category_name','ETKPLUS_PARTNER_CATEGORIES.id as category_id')
                         ->paginate(20);
+        $addresses = DB::table('ETKPLUS_ADDRESSES')
+                       ->get();
         $gallery_items = DB::table('ETKPLUS_PARTNER_PHOTOS')
                             ->get();
         return view('dashboard.partner_list',[
             'partners' => $partners,
-            'gallery_items' => $gallery_items
+            'gallery_items' => $gallery_items,
+            'addresses' => $addresses
             ]);
     }
 /**
@@ -273,6 +276,14 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+/**
+ * GALLERY ITEMS
+ *
+ *
+ * 
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
     public function postEditGalleryItem(Request $request){
         $gallery_item_id = $request->gallery_item_id;
         $image_caption = $request->image_caption;
@@ -328,6 +339,15 @@ class AdminController extends Controller
         }
         Session::flash('success','Изображение удалено');
         return redirect()->back();
+    }
+
+    /**
+     * ADDRESSES
+     *
+     * 
+     */
+    public function postAddAddress(Request $request){
+
     }
 
 }

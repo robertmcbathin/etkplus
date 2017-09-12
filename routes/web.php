@@ -46,42 +46,62 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'AdminController@showDashboard',
 		'as' => 'dashboard.show-dashboard.get'
 		])->middleware('can:show-dashboard,App\User');
+
 	Route::get('/dashboard/create-partner',[
 		'uses' => 'AdminController@showCreatePartnerPage',
 		'as' => 'dashboard.create-partner.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
+
 	Route::post('/dashboard/create-partner',[
 		'uses' => 'AdminController@postCreatePartner',
 		'as' => 'dashboard.create-partner.post'	
 		])->middleware('can:show-dashboard-admin,App\User');
+
 	Route::get('/dashboard/partners/list',[
 		'uses' => 'AdminController@getPartnerList',
 		'as' => 'dashboard.show-partner-list.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
+
 	Route::post('/dashboard/partner/delete',[
 		'uses' => 'AdminController@postDeletePartner',
 		'as' => 'dashboard.delete_partner.post'
-		]);
+		])->middleware('can:show-dashboard-admin,App\User');
+
 	Route::post('/dashboard/partner/edit',[
 		'uses' => 'AdminController@postEditPartner',
 		'as' => 'dashboard.edit_partner.post'
-		]);	
+		])->middleware('can:show-dashboard-admin,App\User');
+
 	Route::post('/dashboard/partner/edit-logos',[
 		'uses' => 'AdminController@postEditPartnerLogos',
 		'as' => 'dashboard.edit_partner_logos.post'
-		]);
+		])->middleware('can:show-dashboard-admin,App\User');
+
 	Route::post('/dashboard/partner/load-gallery',[
 		'uses' => 'AdminController@postLoadGallery',
 		'as' => 'dashboard.load-gallery.post'
-		]);	
+		])->middleware('can:show-dashboard-admin,App\User');
+
 	Route::post('/dashboard/partner/edit-gallery-item',[
 		'uses' => 'AdminController@postEditGalleryItem',
 		'as' => 'dashboard.edit-gallery-item.post'
-		]);	
+		])->middleware('can:show-dashboard-admin,App\User');
+
 	Route::post('/dashboard/partner/delete-gallery-item',[
 		'uses' => 'AdminController@postDeleteGalleryItem',
 		'as' => 'dashboard.delete-gallery-item.post'
-		]);		
+		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/partner/delete-partner-address',[
+		'uses' => 'AdminController@postDeletePartnerAddress',
+		'as' => 'dashboard.delete-partner-address.post'
+		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/partner/add-partner-address',[
+		'uses' => 'AdminController@postAddPartnerAddress',
+		'as' => 'dashboard.add-partner-address.post'
+		])->middleware('can:show-dashboard-admin,App\User');
+
 	/**
 	 *
 	 *

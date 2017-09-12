@@ -51,7 +51,6 @@
     <!--  Photoswipe files -->
 <script src="/assets/js/photoswipe.min.js"></script>
 <script src="/assets/js/photoswipe-ui-default.min.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
 
     <!--  Plugins for presentation page -->
     <script src="/assets/js/presentation-page/main.js"></script>

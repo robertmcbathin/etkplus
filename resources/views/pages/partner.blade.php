@@ -160,7 +160,7 @@
   </h5>
   <p>{{ $partner->description }}</p>
   <h5 class="card-title">
-  Последние отзывы · <small><a href="{{ route('site.show-partner-reviews-page.get',['id' => $partner->id]) }}" class="link-info">Смотреть все</a></small>
+    Последние отзывы · <small><a href="{{ route('site.show-partner-reviews-page.get',['id' => $partner->id]) }}" class="link-info">Смотреть все</a></small>
   </h5>
   <div class="container">
 
@@ -217,70 +217,23 @@
 </div>
 
 <div class="col-md-4 col-sm-6">
+<div id="geocoding-block" onload="initialize()">
+  @isset($addresses)
+  @foreach ($addresses as $address)
   <div class="card card-with-shadow">
     <div class="card-block">
-      <h5 class="card-title">Who to follow</h5>
-      <div class="accounts-suggestion">
-        <ul class="list-unstyled">
-          <li class="account">
-            <div class="row">
-              <div class="col-md-3">
-                <div class="avatar">
-                  <img src="../assets/img/chet_faker_1.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                </div>
-              </div>
-              <div class="col-md-7 description-section">
-                Chet Faker <a href="#paper-kit" class="text-muted">@chetfaker</a>
-                <br>
-                <span class="text-muted"><small>Followed by <a href="#paper-kit" class="link-info">@banks</a> and <a href="#paper-kit" class="link-info">@rihanna</a> </small></span>
-              </div>
+      <h5 class="card-title">{{ $address->name }}</h5>
+      <div id="partner-address-map-{{ $address->id }}" class="mini-map">
 
-              <div class="col-md-2 follow">
-                <btn class="btn btn-sm btn-outline-info btn-just-icon"><i class="fa fa-plus"></i></btn>
-              </div>
-            </div>
-          </li>
-          <li class="account">
-            <div class="row">
-              <div class="col-md-3">
-                <div class="avatar">
-                  <img src="../assets/img/placeholder.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                </div>
-              </div>
-              <div class="col-md-7 description-section">
-                John Green <a href="#paper-kit" class="text-muted">@johngreen</a>
-                <br>
-                <span class="text-muted"><small>Followed by <a href="#paper-kit" class="link-info">@rihanna</a> </small></span>
-              </div>
-
-              <div class="col-md-2 follow">
-                <btn class="btn btn-sm btn-outline-info btn-just-icon"><i class="fa fa-plus"></i></btn>
-              </div>
-            </div>
-          </li>
-          <li class="account">
-            <div class="row">
-              <div class="col-md-3">
-                <div class="avatar">
-                  <img src="../assets/img/drake.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                </div>
-              </div>
-              <div class="col-md-7 description-section">
-                Drake <a href="#paper-kit" class="text-muted">@drake</a>
-                <br>
-                <span class="text-muted"><small>Followed by <a href="#paper-kit" class="link-info">@chetfaker</a> </small></span>
-              </div>
-
-              <div class="col-md-2 follow">
-                <btn class="btn btn-sm btn-outline-info btn-just-icon"><i class="fa fa-plus"></i></btn>
-              </div>
-            </div>
-          </li>
-        </ul>
       </div>
-
+      <p><i class="fa fa-map-marker"></i>{{ $address->text }} @isset($address->comment) ({{ $address->comment }}) @endisset</p>
+      <p><i class="fa fa-calendar"></i>{{ $address->schedule }}</p>
+      <p><i class="fa fa-mobile"></i>{{ $address->phones }}</p>
     </div>
   </div> <!-- end card -->
+  @endforeach
+  @endisset
+</div>
   <div class="card card-with-shadow">
     <div class="card-block">
       <h5 class="card-title">Trends · <small><a href="javascript: void(0);" class="link-info">Change</a></small></h5>
@@ -300,7 +253,45 @@
   </div> <!-- end card -->
 </div>
 </div>
+<script type="text/javascript">
+  function initMap() {
+    var styleArray = [
+    {
+      featureType: 'all',
+      stylers: [
+      { saturation: -80 }
+      ]
+    },{
+      featureType: 'road.arterial',
+      elementType: 'geometry',
+      stylers: [
+      { hue: '#00ffee' },
+      { saturation: 50 }
+      ]
+    },{
+      featureType: 'poi.business',
+      elementType: 'labels',
+      stylers: [
+      { visibility: 'off' }
+      ]
+    }
+    ];
+    @foreach ( $addresses as $address )
+    var map{{ $address->id }} = new google.maps.Map(document.getElementById("partner-address-map-{{ $address->id }}"), {
+      zoom: 14,
+      mapTypeControl: false,
+      styles: styleArray,
+      center: {lat: {{ $address->latitude }}, lng: {{ $address->longitude }} }
+    });
+    var marker{{ $address->id }} = new google.maps.Marker({
+      position: {lat: {{ $address->latitude }}, lng: {{ $address->longitude }} },
+      map: map{{ $address->id }}
+    });
+    @endforeach
+  }
 
+</script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsfO8qFpSStho6O8-HQwpZEkaOv1ynK5A&callback=initMap"></script>
 </div>
 </div>
 </div>

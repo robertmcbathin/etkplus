@@ -16,6 +16,8 @@ class SiteController extends Controller
                       ->select('ETKPLUS_PARTNERS.id','ETKPLUS_PARTNERS.name','ETKPLUS_PARTNERS.fullname','ETKPLUS_PARTNERS.created_at', 'ETKPLUS_PARTNERS.updated_at',
                         'ETKPLUS_PARTNERS.rating','ETKPLUS_PARTNERS.default_discount','ETKPLUS_PARTNERS.default_cashback','ETKPLUS_PARTNERS.logo', 'ETKPLUS_PARTNERS.thumbnail', 'ETKPLUS_PARTNERS.address', 'ETKPLUS_PARTNERS.site', 'ETKPLUS_PARTNERS.description')
                       ->where('ETKPLUS_PARTNERS.is_active',1)
+                      ->orderBy('created_at', 'DESC')
+                      ->limit(9)
                       ->get();
 
         return view('index',[
@@ -45,7 +47,11 @@ class SiteController extends Controller
                         ->get();
         return view('pages.categories');
     }
-
+/**
+ * PARTNER METHODS
+ * @param  [type] $id [description]
+ * @return [type]     [description]
+ */
     public function showPartner($id){
         $rating = 2.5;
         $review_count = 0;

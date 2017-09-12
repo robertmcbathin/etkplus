@@ -346,8 +346,45 @@ class AdminController extends Controller
      *
      * 
      */
-    public function postAddAddress(Request $request){
+    public function postAddPartnerAddress(Request $request){
+        $partner_id = $request->partner_id;
+        $name       = $request->name;
+        $text       = $request->text;
+        $comment    = $request->comment;
+        $schedule   = $request->schedule;
+        $phones     = $request->phones;
+        try {
+            DB::table('ETKPLUS_ADDRESSES')
+              ->insert([
+                'partner_id' => $partner_id,
+                'text' => $text,
+                'comment' => $comment,
+                'schedule' => $schedule,
+                'phones' => $phones
+                ]);
+            Session::flash('success','Адрес успешно добавлен');
+            return redirect()->back();
 
+        } catch (Exception $e) {
+            Session::flash('error',$e);
+            return redirect()->back();              
+        }
     }
+    public function postDeletePartnerAddress(Request $request){
+        $address_id = $request->address_id;
+        try {
+            DB::table('ETKPLUS_ADDRESSES')
+              ->where('id',$address_id)
+              ->delete();
+            Session::flash('success','Адрес успешно удален');
+            return redirect()->back();
+        } catch (Exception $e) {
+              Session::flash('error',$e);
+              return redirect()->back();           
+        }
+    }
+    /**
+     * END OF ADDRESSES
+     */
 
 }

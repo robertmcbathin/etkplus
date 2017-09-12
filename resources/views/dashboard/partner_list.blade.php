@@ -65,7 +65,7 @@
                                 </tbody>
                             </table>
                             <div class="text-center">
-                            <?php echo $partners->render(); ?>
+                                <?php echo $partners->render(); ?>
                             </div>
                         </div>
                     </div>
@@ -366,46 +366,105 @@
                 </button>
             </div>
             <div class="modal-body"> 
-                <div class="card-content table-responsive table-full-width">
-                @isset($addresses)
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                            <th>Адрес</th>
-                                            <th>Доп.инфо</th>
-                                            <th>Режим работы</th>
-                                            <th>Телефон</th>
-                                            <th>Действие</th>
-                                        </tr></thead>
-                                        <tbody>
-                                        @foreach ($addresses as $address)
-                                            @if ($address->partner_id == $partner->id)
-                                            <tr>
-                                                <td>{{ $address->text }}</td>
-                                                <td>{{ $address->comment }}</td>
-                                                <td>{{ $address->schedule }}</td>
-                                                <td>{{ $address->phones }}</td>
-                                                <td></td>
-                                            </tr>
-                                            @endif
-                                        @endforeach 
-                                        </tbody>
-
-                                    </table>
-                @endisset
+                    @isset($addresses)
+                    @foreach ($addresses as $address)
+                    @if ($address->partner_id == $partner->id)
+                    <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                {{ $address->name }}
+                            </h4>
+                        </div>
+                        <div class="card-content">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Адрес</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static pull-right">{{ $address->text }}</p>
+                                    </div>
                                 </div>
-    </div>
-    <div class="modal-footer">
-        <div class="left-side">
-            <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group">
+                                <label class="col-sm-2 control-label">Дополнительное поле</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static pull-right">{{ $address->comment }}</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group">
+                                <label class="col-sm-2 control-label">Режим работы</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static pull-right">{{ $address->schedule }}</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group">
+                                <label class="col-sm-2 control-label">Телефоны</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static pull-right">{{ $address->phones }}</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <form action="{{ route('dashboard.delete-partner-address.post') }}" method="POST">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="address_id"  value="{{ $address->id }}">
+                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Удалить</button>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                    @endif
+                    @endforeach
+                    @endisset
+                <div class="col-md-12">
+                    <div class="card">
+                                <form method="POST" action="{{ route('dashboard.add-partner-address.post') }}">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="partner_id" value="{{ $partner->id }}">
+                                    <div class="card-header">
+                                        <h4 class="card-title">
+                                            Добавить адрес
+                                        </h4>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="form-group">
+                                            <label>Название точки</label>
+                                            <input type="text" placeholder="филиал №..., дополнительный офис №..." class="form-control" maxlength="100">
+                                            <span class="help-block">Если планируется только один адрес, то оставить поле пустым</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Адрес</label>
+                                            <input type="text" name="text" placeholder="г. Чебоксары, ул. Ленина, д.22" class="form-control" maxlength="255">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Доп. поле</label>
+                                            <input type="text" name="comment" placeholder="помещение, офис и т.п." class="form-control" maxlength="255">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Режим работы</label>
+                                            <input type="text" name="schedule" placeholder="пн-пт: с 8 до 17" class="form-control" maxlength="255">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Телефоны</label>
+                                            <input type="text" name="phones" placeholder="+79003454545," class="form-control" maxlength="255">
+                                        </div>
+                                        <button type="submit" class="btn btn-fill btn-info">Добавить</button>
+                                    </div>
+                                </form>
+                            </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="left-side">
+                    <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
         </div>
-        <div class="divider"></div>
-        <div class="right-side">
-            <button type="submit" class="btn btn-success btn-link">Сохранить</button>
-        </div>
     </div>
-</div>
-</div>
 </div>
 @endforeach
 

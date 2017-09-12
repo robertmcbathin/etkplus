@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
     <title>@yield('title')</title>
@@ -12,7 +12,7 @@
     <link href="/assets/dashboard/css/bootstrap.min.css" rel="stylesheet" />
 
     <!--  Paper Dashboard core CSS    -->
-        <link href="/assets/css/paper-kit.css" rel="stylesheet"/>
+    <link href="/assets/css/paper-kit.css" rel="stylesheet"/>
     <link href="/assets/dashboard/css/paper-dashboard.css" rel="stylesheet"/>
     <link rel="stylesheet" href="/assets/dashboard/css/app.css">
 

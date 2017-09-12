@@ -354,6 +354,62 @@
 </div>
 </div>
 @endforeach
+
+@foreach ($partners as $partner)
+<div class="modal fade" id="edit-addresses-partner-{{ $partner->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Адреса</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body"> 
+                <div class="card-content table-responsive table-full-width">
+                @isset($addresses)
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                            <th>Адрес</th>
+                                            <th>Доп.инфо</th>
+                                            <th>Режим работы</th>
+                                            <th>Телефон</th>
+                                            <th>Действие</th>
+                                        </tr></thead>
+                                        <tbody>
+                                        @foreach ($addresses as $address)
+                                            @if ($address->partner_id == $partner->id)
+                                            <tr>
+                                                <td>{{ $address->text }}</td>
+                                                <td>{{ $address->comment }}</td>
+                                                <td>{{ $address->schedule }}</td>
+                                                <td>{{ $address->phones }}</td>
+                                                <td></td>
+                                            </tr>
+                                            @endif
+                                        @endforeach 
+                                        </tbody>
+
+                                    </table>
+                @endisset
+                                </div>
+    </div>
+    <div class="modal-footer">
+        <div class="left-side">
+            <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+        </div>
+        <div class="divider"></div>
+        <div class="right-side">
+            <button type="submit" class="btn btn-success btn-link">Сохранить</button>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+@endforeach
+
+
 <script>
   var token = '{{ Session::token() }}';
 </script>

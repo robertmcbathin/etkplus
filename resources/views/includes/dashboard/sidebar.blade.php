@@ -1,4 +1,4 @@
-        <div class="sidebar" data-background-color="white" data-active-color="info">
+        <div class="sidebar" data-background-color="brown" data-active-color="danger">
             <div class="logo">
                 <a href="/" class="simple-text logo-mini">
                     ЕТК+
@@ -47,7 +47,7 @@
                             <ul class="nav">
                                 <li class="active">
                                     <a href="overview.html">
-                                        <span class="sidebar-mini"><i class="fa fa-line-chart"></i></span>
+                                        <span class="sidebar-mini"></span>
                                         <span class="sidebar-normal">Статистика</span>
                                     </a>
                                 </li>
@@ -65,13 +65,13 @@
                             <ul class="nav">
                                 <li>
                                     <a href="{{ route('dashboard.create-partner.get') }}">
-                                        <span class="sidebar-mini"><i class="fa fa-plus-square"></i></span>
+                                        <span class="sidebar-mini"></span>
                                         <span class="sidebar-normal">Создать</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{ route('dashboard.show-partner-list.get') }}">
-                                        <span class="sidebar-mini"><i class="fa fa-list"></i></span>
+                                        <span class="sidebar-mini"></span>
                                         <span class="sidebar-normal">Список</span>
                                     </a>
                                 </li>

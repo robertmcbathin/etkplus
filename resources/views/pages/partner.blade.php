@@ -217,6 +217,30 @@
 </div>
 
 <div class="col-md-4 col-sm-6">
+  <div class="row">
+    <div class="col-md-6">
+              <div class="card" data-background="color" data-color="green">
+                <div class="card-block text-center black-text-card">
+                  <div class="card-icon">
+                    <i class="fa fa-percent"></i>
+                  </div>
+                  <h4 class="card-title">{{ $partner->default_discount }} %</h4>
+                  <p class="card-description">Скидка</p>
+                </div>
+              </div>
+    </div>
+        <div class="col-md-6">
+              <div class="card" data-background="color" data-color="green">
+                <div class="card-block text-center black-text-card">
+                  <div class="card-icon">
+                    <i class="nc-icon nc-money-coins"></i>
+                  </div>
+                  <h4 class="card-title">{{ $partner->default_cashback }} %</h4>
+                  <p class="card-description">Кэшбэк</p>
+                </div>
+              </div>
+    </div>
+  </div>
 <div id="geocoding-block" onload="initialize()">
   @isset($addresses)
   @foreach ($addresses as $address)
@@ -234,23 +258,6 @@
   @endforeach
   @endisset
 </div>
-  <div class="card card-with-shadow">
-    <div class="card-block">
-      <h5 class="card-title">Trends · <small><a href="javascript: void(0);" class="link-info">Change</a></small></h5>
-      <div class="hashtag-suggestions">
-        <ul class="list-unstyled">
-          <li><a href="#paper-kit" class="link-danger">#JeSuisToujoursCharlie</a></li>
-          <li><a href="#paper-kit">Oculus Rift</a></li>
-          <li><a href="#paper-kit" class="link-danger">#CarenAndLarryAreNotReal</a></li>
-          <li><a href="#paper-kit" class="link-danger">#Twitter10k</a></li>
-          <li><a href="#paper-kit">EXCLUSIVE MOVE WITHINGTON</a></li>
-          <li><a href="#paper-kit">London</a>
-          </li><li><a href="#paper-kit">DJ Khaled Snapchat</a>
-        </li></ul>
-      </div>
-
-    </div>
-  </div> <!-- end card -->
 </div>
 </div>
 <script type="text/javascript">

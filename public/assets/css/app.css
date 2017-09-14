@@ -59,3 +59,6 @@ h1,h2,h3,h4,h5,h6,p,a,small{
     height: 200px;
     width: 100%;
 }
+.black-text-card{
+    color: #000000 !important;
+}

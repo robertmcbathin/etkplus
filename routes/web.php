@@ -62,6 +62,16 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.show-partner-list.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
+	Route::get('/dashboard/visits/list',[
+		'uses' => 'AdminController@getVisitsList',
+		'as' => 'dashboard.show-visits-list.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::get('/dashboard/visits/partner/{partner_id}/list',[
+		'uses' => 'AdminController@getPartnerVisitsList',
+		'as' => 'dashboard.partner_visits_list.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
+
 	Route::post('/dashboard/partner/delete',[
 		'uses' => 'AdminController@postDeletePartner',
 		'as' => 'dashboard.delete_partner.post'

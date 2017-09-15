@@ -47,18 +47,23 @@ class AdminController extends Controller
     	/**
     	 * GET VARIABLES
     	 */
-        $user_id     = $request->user_id;
-    	$name 		 = $request->name;
-    	$fullname    = $request->fullname;
-    	$description = $request->description;
-    	$phone 		 = $request->phone;
-    	$address 	 = $request->phone;
-    	$email 		 = $request->email;
-    	$site 		 = $request->site;
-    	$comission   = $request->comission;
-    	$discount    = $request->discount;
-    	$category    = $request->category;
-    	$is_active   = $request->is_active;
+        $user_id          = $request->user_id;
+    	$name 		      = $request->name;
+    	$fullname         = $request->fullname;
+    	$description      = $request->description;
+    	$phone 		      = $request->phone;
+    	$address 	      = $request->phone;
+    	$email 		      = $request->email;
+    	$site 		      = $request->site;
+    	$comission        = $request->comission;
+        $contract_id      = $request->contract_id;
+        $legal_address    = $request->legal_address;
+        $physical_address = $request->physical_address;
+        $inn              = $request->inn;
+        $kpp              = $request->kpp;
+    	$discount         = $request->discount;
+    	$category         = $request->category;
+    	$is_active        = $request->is_active;
     	if ($is_active == 'on'){
     		$is_active = 1;
     	} else $is_active = 0;
@@ -75,12 +80,16 @@ class AdminController extends Controller
     		'site' => $site,
     		'default_comission' => $comission,
     		'default_discount' => $discount,
+            'contract_id' => $contract_id,
+            'legal_address' => $legal_address,
+            'physical_address' => $physical_address,
+            'inn' => $inn,
+            'kpp' => $kpp,
     		'category' => $category,
     		'is_active' => $is_active,
             'created_by' => $user_id
     		]);
     	$partner = \App\Partner::find($partnerId);
-        $partner->contract_id = date('y') . '-' . $partner->id;
     	/**
     	 * CHECK FILES
     	 */
@@ -141,8 +150,8 @@ class AdminController extends Controller
         /**
          * USER CREATED
          */
-                    Session::flash('success', 'Создано новое предприятие');
-            return redirect()->back();
+        Session::flash('success', 'Создано новое предприятие');
+        return redirect()->back();
     }
 
     public function getPartnerList(){
@@ -160,6 +169,47 @@ class AdminController extends Controller
             'addresses' => $addresses
             ]);
     }
+
+/**
+ * [getVisitsList description]
+ * @return [type] [description]
+ */
+    public function getVisitsList(){
+        $visits = DB::table('ETKPLUS_VISITS')
+                    ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_VISITS.partner_id', '=', 'ETKPLUS_PARTNERS.id')
+                    ->leftJoin('users','ETKPLUS_VISITS.user_id', '=', 'users.id')
+                    ->select('ETKPLUS_VISITS.*','ETKPLUS_PARTNERS.name as partner_name','users.name as user_name')
+                    ->orderBy('ETKPLUS_VISITS.created_at', 'DESC')
+                    ->paginate(50);
+        return view('dashboard.visits_list',[
+            'visits' => $visits
+            ]);
+    }
+    /**
+     * [getVisitsList description]
+     * @return [type] [description]
+     */
+    public function getPartnerVisitsList($partner_id){
+        $visits = DB::table('ETKPLUS_VISITS')
+                    ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_VISITS.partner_id', '=', 'ETKPLUS_PARTNERS.id')
+                    ->leftJoin('users','ETKPLUS_VISITS.user_id', '=', 'users.id')
+                    ->select('ETKPLUS_VISITS.*','ETKPLUS_PARTNERS.name as partner_name','users.name as user_name')
+                    ->where('ETKPLUS_VISITS.partner_id', $partner_id)
+                    ->orderBy('ETKPLUS_VISITS.created_at', 'DESC')
+                    ->paginate(50);
+        $earnings = DB::table('ETKPLUS_VISITS')
+                        ->where('partner_id',$partner_id)
+                        ->sum('bill');
+        $balance = DB::table('ETKPLUS_PARTNER_ACCOUNTS')
+                    ->where('partner_id',$partner_id)
+                    ->first();
+        return view('dashboard.partner_visits_list',[
+            'visits' => $visits,
+            'earnings' => $earnings,
+            'balance' => $balance
+            ]);
+    }
+
 /**
  * [postDeletePartner description]
  * @param  Request $request [description]
@@ -199,19 +249,24 @@ class AdminController extends Controller
         /**
          * GET VARIABLES
          */
-        $partner_id  = $request->partner_id;
-        $user_id     = $request->user_id;
-        $name        = $request->name;
-        $fullname    = $request->fullname;
-        $description = $request->description;
-        $phone       = $request->phone;
-        $address     = $request->phone;
-        $email       = $request->email;
-        $site        = $request->site;
-        $comission   = $request->comission;
-        $discount    = $request->discount;
-        $category    = $request->category;
-        $is_active   = $request->is_active;
+        $partner_id       = $request->partner_id;
+        $user_id          = $request->user_id;
+        $name             = $request->name;
+        $fullname         = $request->fullname;
+        $description      = $request->description;
+        $phone            = $request->phone;
+        $address          = $request->phone;
+        $email            = $request->email;
+        $site             = $request->site;
+        $comission        = $request->comission;
+        $contract_id      = $request->contract_id;
+        $legal_address    = $request->legal_address;
+        $physical_address = $request->physical_address;
+        $inn              = $request->inn;
+        $kpp              = $request->kpp;
+        $discount         = $request->discount;
+        $category         = $request->category;
+        $is_active        = $request->is_active;
         if ($is_active == 'on'){
             $is_active = 1;
         } else $is_active = 0;
@@ -231,6 +286,11 @@ class AdminController extends Controller
             'site' => $site,
             'default_comission' => $comission,
             'default_discount' => $discount,
+            'contract_id' => $contract_id,
+            'legal_address' => $legal_address,
+            'physical_address' => $physical_address,
+            'inn' => $inn,
+            'kpp' => $kpp,
             'category' => $category,
             'is_active' => $is_active,
             'updated_by' => $user_id

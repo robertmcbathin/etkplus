@@ -124,6 +124,49 @@
                                         <div class="row">
                                             <div class="col-md-10 col-md-offset-1">
                                                 <div class="form-group">
+                                                    <label class="control-label">
+                                                        Номер договора
+                                                    </label>
+                                                    <input class="form-control" type="text" name="contract_id" placeholder="17001" value ="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5 col-md-offset-1">
+                                                <div class="form-group">
+                                                    <label class="control-label">
+                                                        Юридический адрес
+                                                    </label>
+                                                    <input class="form-control" type="text" name="legal_address" placeholder="428000, город Чебоксары, ..." value ="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label class="control-label">
+                                                        Физический адрес
+                                                    </label>
+                                                    <input class="form-control" type="text" name="physical_address" placeholder="428000, город Чебоксары, ..." value ="">
+                                                </div>
+                                            </div>  
+                                            <div class="col-md-5 col-md-offset-1">
+                                                <div class="form-group">
+                                                    <label class="control-label">
+                                                        ИНН
+                                                    </label>
+                                                    <input class="form-control" type="text" name="inn" placeholder="" value ="" minlength="10" maxlength="10">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label class="control-label">
+                                                        КПП
+                                                    </label>
+                                                    <input class="form-control" type="text" name="kpp" placeholder="" value ="" minlength="9" maxlength="9">
+                                                </div>
+                                            </div>  
+                                        </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-10 col-md-offset-1">
+                                                <div class="form-group">
                                                     <select class="form-control" name="category" title="Выберите категорию" data-size="7" tabindex="-98">
                                                         <option class="bs-title-option" value="">Выберите категорию</option>
                                                         @foreach ($categories as $category)
@@ -133,7 +176,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
                                     <div class="tab-pane" id="tab2">
                                         <h5 class="text-center">Прикрепите медиафайлы</h5>
                                         <div class="row">

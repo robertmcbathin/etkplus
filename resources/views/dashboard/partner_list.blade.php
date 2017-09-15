@@ -182,6 +182,37 @@
                         <input class="form-control" type="text" name="discount" placeholder="" value ="{{ $partner->default_discount }}">
                     </div>
                     <div class="form-group">
+                        <label class="control-label">
+                            Номер договора
+                        </label>
+                        <input class="form-control" type="text" name="contract_id" placeholder="17001" value ="{{ $partner->contract_id }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">
+                            Юридический адрес
+                        </label>
+                        <input class="form-control" type="text" name="legal_address" placeholder="428000, город Чебоксары, ..." value ="{{ $partner->legal_address }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">
+                            Физический адрес
+                        </label>
+                        <input class="form-control" type="text" name="physical_address" placeholder="428000, город Чебоксары, ..." value ="{{ $partner->physical_address }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">
+                            ИНН
+                        </label>
+                        <input class="form-control" type="text" name="inn" placeholder="" value ="{{ $partner->inn }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">
+                            КПП
+                        </label>
+                        <input class="form-control" type="text" name="kpp" placeholder="" value ="{{ $partner->kpp }}">
+                    </div>
+
+                    <div class="form-group">
                         <select class="form-control" name="category" title="Выберите категорию" data-size="7" tabindex="-98">
                             <option class="bs-title-option" value="{{ $partner->category_id }}">{{ $partner->category_name }}</option>
                             @foreach ($categories as $category)
@@ -366,10 +397,10 @@
                 </button>
             </div>
             <div class="modal-body"> 
-                    @isset($addresses)
-                    @foreach ($addresses as $address)
-                    @if ($address->partner_id == $partner->id)
-                    <div class="col-md-12">
+                @isset($addresses)
+                @foreach ($addresses as $address)
+                @if ($address->partner_id == $partner->id)
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">
@@ -387,7 +418,7 @@
                             </fieldset>
                             <fieldset>
                                 <div class="form-group">
-                                <label class="col-sm-2 control-label">Дополнительное поле</label>
+                                    <label class="col-sm-2 control-label">Дополнительное поле</label>
                                     <div class="col-sm-10">
                                         <p class="form-control-static pull-right">{{ $address->comment }}</p>
                                     </div>
@@ -395,7 +426,7 @@
                             </fieldset>
                             <fieldset>
                                 <div class="form-group">
-                                <label class="col-sm-2 control-label">Режим работы</label>
+                                    <label class="col-sm-2 control-label">Режим работы</label>
                                     <div class="col-sm-10">
                                         <p class="form-control-static pull-right">{{ $address->schedule }}</p>
                                     </div>
@@ -403,7 +434,7 @@
                             </fieldset>
                             <fieldset>
                                 <div class="form-group">
-                                <label class="col-sm-2 control-label">Телефоны</label>
+                                    <label class="col-sm-2 control-label">Телефоны</label>
                                     <div class="col-sm-10">
                                         <p class="form-control-static pull-right">{{ $address->phones }}</p>
                                     </div>
@@ -416,46 +447,46 @@
                             </form>
                         </div>
                     </div>
-                    </div>
-                    @endif
-                    @endforeach
-                    @endisset
+                </div>
+                @endif
+                @endforeach
+                @endisset
                 <div class="col-md-12">
                     <div class="card">
-                                <form method="POST" action="{{ route('dashboard.add-partner-address.post') }}">
-                                {{ csrf_field() }}
-                                <input type="hidden" name="partner_id" value="{{ $partner->id }}">
-                                    <div class="card-header">
-                                        <h4 class="card-title">
-                                            Добавить адрес
-                                        </h4>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="form-group">
-                                            <label>Название точки</label>
-                                            <input type="text" placeholder="филиал №..., дополнительный офис №..." class="form-control" maxlength="100">
-                                            <span class="help-block">Если планируется только один адрес, то оставить поле пустым</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Адрес</label>
-                                            <input type="text" name="text" placeholder="г. Чебоксары, ул. Ленина, д.22" class="form-control" maxlength="255">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Доп. поле</label>
-                                            <input type="text" name="comment" placeholder="помещение, офис и т.п." class="form-control" maxlength="255">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Режим работы</label>
-                                            <input type="text" name="schedule" placeholder="пн-пт: с 8 до 17" class="form-control" maxlength="255">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Телефоны</label>
-                                            <input type="text" name="phones" placeholder="+79003454545," class="form-control" maxlength="255">
-                                        </div>
-                                        <button type="submit" class="btn btn-fill btn-info">Добавить</button>
-                                    </div>
-                                </form>
+                        <form method="POST" action="{{ route('dashboard.add-partner-address.post') }}">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="partner_id" value="{{ $partner->id }}">
+                            <div class="card-header">
+                                <h4 class="card-title">
+                                    Добавить адрес
+                                </h4>
                             </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label>Название точки</label>
+                                    <input type="text" placeholder="филиал №..., дополнительный офис №..." class="form-control" maxlength="100">
+                                    <span class="help-block">Если планируется только один адрес, то оставить поле пустым</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Адрес</label>
+                                    <input type="text" name="text" placeholder="г. Чебоксары, ул. Ленина, д.22" class="form-control" maxlength="255">
+                                </div>
+                                <div class="form-group">
+                                    <label>Доп. поле</label>
+                                    <input type="text" name="comment" placeholder="помещение, офис и т.п." class="form-control" maxlength="255">
+                                </div>
+                                <div class="form-group">
+                                    <label>Режим работы</label>
+                                    <input type="text" name="schedule" placeholder="пн-пт: с 8 до 17" class="form-control" maxlength="255">
+                                </div>
+                                <div class="form-group">
+                                    <label>Телефоны</label>
+                                    <input type="text" name="phones" placeholder="+79003454545," class="form-control" maxlength="255">
+                                </div>
+                                <button type="submit" class="btn btn-fill btn-info">Добавить</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

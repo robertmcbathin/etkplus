@@ -222,7 +222,7 @@
               <div class="card" data-background="color" data-color="green">
                 <div class="card-block text-center black-text-card">
                   <div class="card-icon">
-                    <i class="fa fa-percent"></i>
+                    <i class="fa fa-percentgit "></i>
                   </div>
                   <h4 class="card-title">{{ $partner->default_discount }} %</h4>
                   <p class="card-description">Скидка</p>

@@ -15,7 +15,7 @@
                             <img src="https://etk21.ru/{{ Auth::user()->profile_image }}" />
                         </div>
 
-                        <a data-toggle="collapse" href="overview.html#collapseExample" class="collapsed">
+                        <a data-toggle="collapse" href="" class="collapsed">
                             <span>
                                 {{ Auth::user()->name }}
                                 <b class="caret"></b>
@@ -47,7 +47,7 @@
                             <ul class="nav">
                                 <li class="active">
                                     <a href="overview.html">
-                                        <span class="sidebar-mini"></span>
+                                        <span class="sidebar-mini">С</span>
                                         <span class="sidebar-normal">Статистика</span>
                                     </a>
                                 </li>
@@ -55,7 +55,7 @@
                         </div>
                     </li>
                     <li>
-                        <a data-toggle="collapse" href="overview.html#partners">
+                        <a data-toggle="collapse" href="/dashboard#partners">
                             <i class="fa fa-building"></i>
                             <p>Предприятия
                                 <b class="caret"></b>
@@ -65,34 +65,32 @@
                             <ul class="nav">
                                 <li>
                                     <a href="{{ route('dashboard.create-partner.get') }}">
-                                        <span class="sidebar-mini"></span>
-                                        <span class="sidebar-normal">Создать</span>
+                                        <span class="sidebar-mini">Н</span>
+                                        <span class="sidebar-normal">Новое</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{ route('dashboard.show-partner-list.get') }}">
-                                        <span class="sidebar-mini"></span>
+                                        <span class="sidebar-mini">Сп</span>
                                         <span class="sidebar-normal">Список</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                @endcan
-
                     <li>
                         <a data-toggle="collapse" href="overview.html#componentsExamples">
-                            <i class="ti-package"></i>
-                            <p>Components
+                            <i class="fa fa-credit-card"></i>
+                            <p>Операции
                                <b class="caret"></b>
                             </p>
                         </a>
                         <div class="collapse" id="componentsExamples">
                             <ul class="nav">
                                 <li>
-                                    <a href="../components/buttons.html">
-                                        <span class="sidebar-mini">B</span>
-                                        <span class="sidebar-normal">Buttons</span>
+                                    <a href="{{ route('dashboard.show-visits-list.get') }}">
+                                        <span class="sidebar-mini">Сп</span>
+                                        <span class="sidebar-normal">Список</span>
                                     </a>
                                 </li>
                                 <li>
@@ -101,39 +99,10 @@
                                         <span class="sidebar-normal">Grid System</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="../components/panels.html">
-                                        <span class="sidebar-mini">P</span>
-                                        <span class="sidebar-normal">Panels</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../components/sweet-alert.html">
-                                        <span class="sidebar-mini">SA</span>
-                                        <span class="sidebar-normal">Sweet Alert</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../components/notifications.html">
-                                        <span class="sidebar-mini">N</span>
-                                        <span class="sidebar-normal">Notifications</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../components/icons.html">
-                                        <span class="sidebar-mini">I</span>
-                                        <span class="sidebar-normal">Icons</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../components/typography.html">
-                                        <span class="sidebar-mini"><i class="ti-panel"></i></span>
-                                        <span class="sidebar-normal">Typography</span>
-                                    </a>
-                                </li>
                             </ul>
                         </div>
                     </li>
+                @endcan
                     <li>
                         <a data-toggle="collapse" href="overview.html#formsExamples">
                             <i class="ti-clipboard"></i>

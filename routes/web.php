@@ -67,9 +67,9 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.show-visits-list.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
-	Route::get('/dashboard/visits/partner/{partner_id}/list',[
-		'uses' => 'AdminController@getPartnerVisitsList',
-		'as' => 'dashboard.partner_visits_list.get'	
+	Route::get('/dashboard/partner/{partner_id}/show',[
+		'uses' => 'AdminController@getPartnerPage',
+		'as' => 'dashboard.partner-page.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
 	Route::post('/dashboard/partner/delete',[
@@ -111,7 +111,18 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'AdminController@postAddPartnerAddress',
 		'as' => 'dashboard.add-partner-address.post'
 		])->middleware('can:show-dashboard-admin,App\User');
+	/**
+	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ ПАРТНЕРА
+	 */	
+	Route::get('/dashboard/create-operation',[
+		'uses' => 'PartnerController@getCreateOperation',
+		'as' => 'dashboard.partner.create-operation.get'	
+		])->middleware('can:show-dashboard-partner,App\User');
 
+	Route::get('/dashboard/show-operations',[
+		'uses' => 'AdminController@getShowOperations',
+		'as' => 'dashboard.partner.show-operations.get'	
+		])->middleware('can:show-dashboard-partner,App\User');
 	/**
 	 *
 	 *
@@ -137,6 +148,10 @@ Route::group(['middleware' => 'auth'], function () {
 	/**
 	 * AJAX ЗАПРОСЫ
 	 */
+	Route::post('/ajax/check_card_and_operations', [ 
+		'uses' => 'PartnerController@ajaxCheckCardAndOperations',
+   		'as' => 'ajax.check_card_and_operations.post'
+    ])->middleware('can:show-dashboard-partner,App\User');
 });
 Route::get('/logout', 'Auth\LoginController@logout');
 

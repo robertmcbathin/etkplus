@@ -98,7 +98,7 @@ class SiteController extends Controller
         $reviews = DB::table('ETKPLUS_REVIEWS')
              ->join('ETKPLUS_PARTNERS','ETKPLUS_REVIEWS.partner_id','=','ETKPLUS_PARTNERS.id')
              ->join('users','ETKPLUS_REVIEWS.user_id', '=', 'users.id')
-             ->where('partner_id',$partner->id)
+             ->where('ETKPLUS_REVIEWS.partner_id',$partner->id)
              ->select('ETKPLUS_REVIEWS.title','ETKPLUS_REVIEWS.description','ETKPLUS_REVIEWS.rating','ETKPLUS_REVIEWS.created_at','ETKPLUS_REVIEWS.updated_at','ETKPLUS_PARTNERS.logo','ETKPLUS_REVIEWS.partner_id','ETKPLUS_PARTNERS.name','users.profile_image','ETKPLUS_REVIEWS.user_id')
              ->limit(9)
              ->orderBy('created_at','DESC')

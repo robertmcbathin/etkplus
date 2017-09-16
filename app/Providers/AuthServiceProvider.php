@@ -31,5 +31,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('show-dashboard-admin', function($user){
             return $user->role_id < 10;
         });
+        Gate::define('show-dashboard-partner', function($user){
+            return (($user->role_id < 25) && ($user->role_id >= 20));
+        });
     }
 }

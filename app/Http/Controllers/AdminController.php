@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Auth;
 use Session;
 use Mail;
 use \App\User;
@@ -124,6 +125,7 @@ class AdminController extends Controller
         $user->username = $email;
         $user->email = $email;
         $user->name = $name;
+        $user->partner_id = $partnerId;
         /**
          * GENERATE PASSWORD
          */
@@ -189,7 +191,8 @@ class AdminController extends Controller
      * [getVisitsList description]
      * @return [type] [description]
      */
-    public function getPartnerVisitsList($partner_id){
+    public function getPartnerPage($partner_id){
+        $partner = Partner::find($partner_id);
         $visits = DB::table('ETKPLUS_VISITS')
                     ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_VISITS.partner_id', '=', 'ETKPLUS_PARTNERS.id')
                     ->leftJoin('users','ETKPLUS_VISITS.user_id', '=', 'users.id')
@@ -203,10 +206,19 @@ class AdminController extends Controller
         $balance = DB::table('ETKPLUS_PARTNER_ACCOUNTS')
                     ->where('partner_id',$partner_id)
                     ->first();
-        return view('dashboard.partner_visits_list',[
+        $addresses = DB::table('ETKPLUS_ADDRESSES')
+                            ->where('partner_id', $partner_id)
+                       ->get();
+        $gallery_items = DB::table('ETKPLUS_PARTNER_PHOTOS')
+                            ->where('partner_id', $partner_id)
+                            ->get();
+        return view('dashboard.partner_page',[
+            'partner' => $partner,
             'visits' => $visits,
             'earnings' => $earnings,
-            'balance' => $balance
+            'balance' => $balance,
+            'gallery_items' => $gallery_items,
+            'addresses' => $addresses
             ]);
     }
 

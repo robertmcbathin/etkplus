@@ -15,7 +15,7 @@
                             <img src="https://etk21.ru/{{ Auth::user()->profile_image }}" />
                         </div>
 
-                        <a data-toggle="collapse" href="" class="collapsed">
+                        <a data-toggle="collapse" href="/dashboard#logout" class="collapsed">
                             <span>
                                 {{ Auth::user()->name }}
                                 <b class="caret"></b>
@@ -23,7 +23,7 @@
                         </a>
                         <div class="clearfix"></div>
 
-                        <div class="collapse" id="collapseExample">
+                        <div class="collapse" id="logout">
                             <ul class="nav">
                                 <li>
                                     <a href="{{ route('logout') }}">
@@ -97,6 +97,51 @@
                                     <a href="../components/grid.html">
                                         <span class="sidebar-mini">GS</span>
                                         <span class="sidebar-normal">Grid System</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                @endcan
+
+                @can('show-dashboard-partner')
+                    <li class="active">
+                        <a data-toggle="collapse" href="overview.html#dashboardOverview">
+                            <i class="fa fa-bars"></i>
+                            <p>Панель управления
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse in" id="dashboardOverview">
+                            <ul class="nav">
+                                <li class="active">
+                                    <a href="overview.html">
+                                        <span class="sidebar-mini">С</span>
+                                        <span class="sidebar-normal">Статистика</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" href="/dashboard#partners">
+                            <i class="fa fa-building"></i>
+                            <p>Операции
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="partners">
+                            <ul class="nav">
+                                <li>
+                                    <a href="{{ route('dashboard.partner.create-operation.get') }}">
+                                        <span class="sidebar-mini">С</span>
+                                        <span class="sidebar-normal">Создать</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('dashboard.partner.show-operations.get') }}">
+                                        <span class="sidebar-mini">И</span>
+                                        <span class="sidebar-normal">История</span>
                                     </a>
                                 </li>
                             </ul>

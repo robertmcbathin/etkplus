@@ -339,11 +339,17 @@ initPhotoSwipeFromDOM('.my-gallery');
                 .done(function(msg){
                     console.log(JSON.stringify(msg));
                     if (msg['message'] == 'success'){
+                        $('#co-search-status').addClass('has-success');
+                        $('#co-search-status').removeClass('has-error');
+
                         $('#co-card-number').replaceWith("<p class=\"form-control-static pull-right \" id=\"co-card-number\">" + msg['card'].num + "</p>");
                         $('#co-bonuses').replaceWith("<p class=\"form-control-static pull-right \" id=\"co-bonuses\">" + msg['bonuses'] + "</p>");
                         $('#co-operations-count').replaceWith("<p class=\"form-control-static pull-right \" id=\"co-operations-count\">" + msg['visit_count'] + "</p>");
                         $('#co-operations-summary').replaceWith("<p class=\"form-control-static pull-right \" id=\"co-operations-summary\">" + msg['visit_summary'] + "</p>");
 
+                    } else if (msg['message'] == 'error'){
+                        $('#co-search-status').removeClass('has-success');
+                        $('#co-search-status').addClass('has-error');
                     }
                     $('#co-card-info-loader').replaceWith('<i id="co-card-info-loader"></i>');
                 });

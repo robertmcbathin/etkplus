@@ -24,7 +24,7 @@
                                     </h4>
                                 </div>
                                 <div class="card-content">
-                                    <div class="form-group">
+                                    <div class="form-group" id="co-search-status">
                                         <input id="co-card-input-number" type="text" value="023333092" placeholder="023000000" class="form-control" maxlength="9" minlength="9">
                                     </div>
                                     <button class="btn btn-fill btn-info" id="co-find-card">Найти</button>

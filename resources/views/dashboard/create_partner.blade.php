@@ -115,21 +115,13 @@
                                             <div class="col-md-5">
                                                 <div class="form-group">
                                                     <label class="control-label">
-                                                        Скидка по умолчанию (%)
-                                                    </label>
-                                                    <input class="form-control" type="text" name="discount" placeholder="" value ="5">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-10 col-md-offset-1">
-                                                <div class="form-group">
-                                                    <label class="control-label">
                                                         Номер договора
                                                     </label>
                                                     <input class="form-control" type="text" name="contract_id" placeholder="17001" value ="">
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-md-5 col-md-offset-1">
                                                 <div class="form-group">
                                                     <label class="control-label">
@@ -160,6 +152,14 @@
                                                         КПП
                                                     </label>
                                                     <input class="form-control" type="text" name="kpp" placeholder="" value ="" minlength="9" maxlength="9">
+                                                </div>
+                                            </div>  
+                                            <div class="col-md-5 col-md-offset-1">
+                                                <div class="form-group">
+                                                    <label class="control-label">
+                                                        ОГРН
+                                                    </label>
+                                                    <input class="form-control" type="text" name="ogrn" placeholder="" value ="" minlength="1" maxlength="20">
                                                 </div>
                                             </div>  
                                         </div>

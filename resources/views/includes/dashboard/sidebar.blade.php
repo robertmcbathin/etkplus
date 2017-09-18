@@ -47,7 +47,7 @@
                             <ul class="nav">
                                 <li class="active">
                                     <a href="overview.html">
-                                        <span class="sidebar-mini">С</span>
+                                        <span class="sidebar-mini">Ст</span>
                                         <span class="sidebar-normal">Статистика</span>
                                     </a>
                                 </li>
@@ -116,8 +116,8 @@
                             <ul class="nav">
                                 <li class="active">
                                     <a href="overview.html">
-                                        <span class="sidebar-mini">С</span>
-                                        <span class="sidebar-normal">Статистика</span>
+                                        <span class="sidebar-mini">О</span>
+                                        <span class="sidebar-normal">Обзор</span>
                                     </a>
                                 </li>
                             </ul>

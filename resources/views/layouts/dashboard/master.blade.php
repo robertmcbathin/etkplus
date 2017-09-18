@@ -100,10 +100,10 @@
         $(document).ready(function(){
             demo.initOverviewDashboard();
             demo.initCirclePercentage();
+            demo.initFormExtendedDatetimepickers();
             $(document).ready(function(){
                 demo.initWizard();
             });
-
         });
     </script>
     <script>

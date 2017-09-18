@@ -53,7 +53,7 @@ class AdminController extends Controller
     	$fullname         = $request->fullname;
     	$description      = $request->description;
     	$phone 		      = $request->phone;
-    	$address 	      = $request->phone;
+    	$address 	      = $request->address;
     	$email 		      = $request->email;
     	$site 		      = $request->site;
     	$comission        = $request->comission;
@@ -62,7 +62,7 @@ class AdminController extends Controller
         $physical_address = $request->physical_address;
         $inn              = $request->inn;
         $kpp              = $request->kpp;
-    	$discount         = $request->discount;
+        $ogrn             = $request->ogrn;
     	$category         = $request->category;
     	$is_active        = $request->is_active;
     	if ($is_active == 'on'){
@@ -80,12 +80,12 @@ class AdminController extends Controller
     		'email' => $email,
     		'site' => $site,
     		'default_comission' => $comission,
-    		'default_discount' => $discount,
             'contract_id' => $contract_id,
             'legal_address' => $legal_address,
             'physical_address' => $physical_address,
             'inn' => $inn,
             'kpp' => $kpp,
+            'ogrn' => $ogrn,
     		'category' => $category,
     		'is_active' => $is_active,
             'created_by' => $user_id
@@ -165,10 +165,16 @@ class AdminController extends Controller
                        ->get();
         $gallery_items = DB::table('ETKPLUS_PARTNER_PHOTOS')
                             ->get();
+        $discounts = DB::table('ETKPLUS_PARTNER_DISCOUNTS')
+                        ->get();
+        $bonuses = DB::table('ETKPLUS_PARTNER_BONUSES')
+                    ->get();
         return view('dashboard.partner_list',[
             'partners' => $partners,
             'gallery_items' => $gallery_items,
-            'addresses' => $addresses
+            'addresses' => $addresses,
+            'discounts' => $discounts,
+            'bonuses' => $bonuses
             ]);
     }
 
@@ -449,6 +455,50 @@ class AdminController extends Controller
               ->where('id',$address_id)
               ->delete();
             Session::flash('success','Адрес успешно удален');
+            return redirect()->back();
+        } catch (Exception $e) {
+              Session::flash('error',$e);
+              return redirect()->back();           
+        }
+    }
+    /**
+     * END OF ADDRESSES
+     */
+    /**
+     * DISCOUNTS
+     */
+    public function postAddPartnerDiscount(Request $request){
+        $partner_id  = $request->partner_id;
+        $description = $request->description;
+        $value       = $request->value;
+        $lifetime = date_create_from_format('d/m/Y',$request->lifetime);
+        if (intval($value) == 0){
+            Session::flash('error', 'Значение должно быть целым числом');
+            return redirect()->back(); 
+        }
+        try {
+            DB::table('ETKPLUS_PARTNER_DISCOUNTS')
+              ->insert([
+                'partner_id' => $partner_id,
+                'value' => $value,
+                'description' => $description,
+                'lifetime' => $lifetime
+                ]);
+            Session::flash('success','Скидка успешно добавлена');
+            return redirect()->back();
+
+        } catch (Exception $e) {
+            Session::flash('error',$e);
+            return redirect()->back();              
+        }
+    }
+    public function postDeletePartnerDiscount(Request $request){
+        $discount_id = $request->discount_id;
+        try {
+            DB::table('ETKPLUS_PARTNER_DISCOUNTS')
+              ->where('id',$discount_id)
+              ->delete();
+            Session::flash('success','Скидка успешно удалена');
             return redirect()->back();
         } catch (Exception $e) {
               Session::flash('error',$e);

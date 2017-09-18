@@ -19,13 +19,13 @@
 	</div>
 </div>
 @endif
-@if(Session::has('danger'))
+@if(Session::has('error'))
 <div class="alert alert-danger">
 	<div class="container">
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<i class="nc-icon nc-simple-remove"></i>
 		</button>
-		<span>{{ Session::pull('danger') }}</span>
+		<span>{{ Session::pull('error') }}</span>
 	</div>
 </div>
 @endif

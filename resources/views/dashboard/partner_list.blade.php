@@ -49,6 +49,12 @@
                                             <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Адреса" data-toggle="modal" data-target="#edit-addresses-partner-{{ $partner->id }}">
                                                 <i class="fa fa-map-marker"></i>
                                             </a>
+                                            <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Скидки" data-toggle="modal" data-target="#edit-discounts-partner-{{ $partner->id }}">
+                                                <i class="fa fa-percent"></i>
+                                            </a>
+                                            <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Бонусы" data-toggle="modal" data-target="#edit-bonuses-partner-{{ $partner->id }}">
+                                                <i class="fa fa-gift"></i>
+                                            </a>
                                             <a href="#" rel="tooltip" title="" class="btn btn-danger btn-simple btn-xs" data-original-title="Удалить" data-toggle="modal" data-target="#delete-partner-{{ $partner->id }}">
                                                 <i class="fa fa-trash"></i>
                                             </a>
@@ -464,7 +470,7 @@
                             <div class="card-content">
                                 <div class="form-group">
                                     <label>Название точки</label>
-                                    <input type="text" placeholder="филиал №..., дополнительный офис №..." class="form-control" maxlength="100">
+                                    <input type="text" name="name" placeholder="филиал №..., дополнительный офис №..." class="form-control" maxlength="100">
                                     <span class="help-block">Если планируется только один адрес, то оставить поле пустым</span>
                                 </div>
                                 <div class="form-group">
@@ -499,7 +505,211 @@
 </div>
 @endforeach
 
+@foreach ($partners as $partner)
+<div class="modal fade" id="edit-discounts-partner-{{ $partner->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Скидки</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body"> 
+                @isset($discounts)
+                @foreach ($discounts as $discount)
+                @if ($discount->partner_id == $partner->id)
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Наименование</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static pull-right">{{ $discount->description }}</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Размер скидки</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static pull-right">{{ $discount->value }}</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Срок действия</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static pull-right">{{ $discount->lifetime }}</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <form action="{{ route('dashboard.delete-partner-discount.post') }}" method="POST">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="discount_id"  value="{{ $discount->id }}">
+                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Удалить</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @endif
+                @endforeach
+                @endisset
+                <div class="col-md-12">
+                    <div class="card">
+                        <form method="POST" action="{{ route('dashboard.add-partner-discount.post') }}">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="partner_id" value="{{ $partner->id }}">
+                            <div class="card-header">
+                                <h4 class="card-title">
+                                    Добавить адрес
+                                </h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label>Наименование</label>
+                                    <input type="text" placeholder="На весь ассортимент" class="form-control" maxlength="100" minlength="1" name="description" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Размер скидки</label>
+                                    <input type="text" name="value" placeholder="10" class="form-control" minlength="1" required>
+                                    <span class="help-block">проценты указывать не нужно</span>
+                                </div>
+                                <div class="form-group">
+                                        <label>Срок действия</label>
+                                        <input type="text" name="lifetime" class="form-control datepicker" placeholder="Добавить" value="01/01/2030">
+                                        <span class="help-block">по умолчанию до 1 января 2030 года</span>
+                                    </div>
+                                <button type="submit" class="btn btn-fill btn-info">Добавить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="left-side">
+                    <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 
+@foreach ($partners as $partner)
+<div class="modal fade" id="edit-bonuses-partner-{{ $partner->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Бонусы</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body"> 
+                @isset($bonuses)
+                @foreach ($bonuses as $bonus)
+                @if ($bonus->partner_id == $partner->id)
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Наименование</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static pull-right">{{ $bonus->description }}</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Размер бонуса</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static pull-right">{{ $bonus->value }}</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Единица измерения</label>
+                                    <div class="col-sm-10">
+                                        <div class="radio">
+                                        <input type="radio" name="type" id="radio1" value="1" checked>
+                                        <label for="radio1">
+                                            В рублях (р)
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <input type="radio" name="type" id="radio2" value="2">
+                                        <label for="radio2">
+                                            В процентах (%)
+                                        </label>
+                                    </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <form action="{{ route('dashboard.delete-partner-discount.post') }}" method="POST">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="discount_id"  value="{{ $discount->id }}">
+                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Удалить</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @endif
+                @endforeach
+                @endisset
+                <div class="col-md-12">
+                    <div class="card">
+                        <form method="POST" action="{{ route('dashboard.add-partner-discount.post') }}">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="partner_id" value="{{ $partner->id }}">
+                            <div class="card-header">
+                                <h4 class="card-title">
+                                    Добавить адрес
+                                </h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label>Наименование</label>
+                                    <input type="text" placeholder="На весь ассортимент" class="form-control" maxlength="100" minlength="1" name="description" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Размер бонуса</label>
+                                    <input type="text" name="value" placeholder="10" class="form-control" minlength="1" required>
+                                    <span class="help-block">только числовое значение</span>
+                                </div>
+                                <div class="form-group">
+                                        <div class="radio">
+                                        <input type="radio" name="type" id="radio1" value="1" checked>
+                                        <label for="radio1">
+                                            В рублях (р)
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <input type="radio" name="type" id="radio2" value="2">
+                                        <label for="radio2">
+                                            В процентах (%)
+                                        </label>
+                                    </div>
+                                    </div>
+                                <button type="submit" class="btn btn-fill btn-info">Добавить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="left-side">
+                    <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 <script>
   var token = '{{ Session::token() }}';
 </script>

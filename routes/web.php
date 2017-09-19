@@ -121,6 +121,16 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'AdminController@postAddPartnerDiscount',
 		'as' => 'dashboard.add-partner-discount.post'
 		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/partner/delete-partner-bonus',[
+		'uses' => 'AdminController@postDeletePartnerBonus',
+		'as' => 'dashboard.delete-partner-bonus.post'
+		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/partner/add-partner-bonus',[
+		'uses' => 'AdminController@postAddPartnerBonus',
+		'as' => 'dashboard.add-partner-bonus.post'
+		])->middleware('can:show-dashboard-admin,App\User');
 	/**
 	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ ПАРТНЕРА
 	 */	

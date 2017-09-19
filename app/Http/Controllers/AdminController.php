@@ -48,49 +48,62 @@ class AdminController extends Controller
     	/**
     	 * GET VARIABLES
     	 */
-        $user_id          = $request->user_id;
-    	$name 		      = $request->name;
-    	$fullname         = $request->fullname;
-    	$description      = $request->description;
-    	$phone 		      = $request->phone;
-    	$address 	      = $request->address;
-    	$email 		      = $request->email;
-    	$site 		      = $request->site;
-    	$comission        = $request->comission;
-        $contract_id      = $request->contract_id;
-        $legal_address    = $request->legal_address;
-        $physical_address = $request->physical_address;
-        $inn              = $request->inn;
-        $kpp              = $request->kpp;
-        $ogrn             = $request->ogrn;
-    	$category         = $request->category;
-    	$is_active        = $request->is_active;
+        $user_id           = $request->user_id;
+    	$name 		       = $request->name;
+    	$fullname          = $request->fullname;
+    	$description       = $request->description;
+    	$phone 		       = $request->phone;
+    	$address 	       = $request->address;
+    	$email 		       = $request->email;
+    	$site 		       = $request->site;
+    	$comission         = $request->comission;
+        $contract_id       = $request->contract_id;
+        $account_value     = $request->account_value;
+        $account_min_value = $request->account_min_value;
+        $legal_address     = $request->legal_address;
+        $physical_address  = $request->physical_address;
+        $inn               = $request->inn;
+        $kpp               = $request->kpp;
+        $ogrn              = $request->ogrn;
+    	$category          = $request->category;
+    	$is_active         = $request->is_active;
     	if ($is_active == 'on'){
     		$is_active = 1;
     	} else $is_active = 0;
     	/**
     	 * INSERT ROW
     	 */
-    	$partnerId = DB::table('ETKPLUS_PARTNERS')->insertGetId([
-    		'name' => $name,
-    		'fullname' => $fullname,
-    		'description' => $description,
-    		'phone' => $phone,
-    		'address' => $address,
-    		'email' => $email,
-    		'site' => $site,
-    		'default_comission' => $comission,
+        try {
+            $partnerId = DB::table('ETKPLUS_PARTNERS')->insertGetId([
+            'name' => $name,
+            'fullname' => $fullname,
+            'description' => $description,
+            'phone' => $phone,
+            'address' => $address,
+            'email' => $email,
+            'site' => $site,
+            'default_comission' => $comission,
             'contract_id' => $contract_id,
             'legal_address' => $legal_address,
             'physical_address' => $physical_address,
             'inn' => $inn,
             'kpp' => $kpp,
             'ogrn' => $ogrn,
-    		'category' => $category,
-    		'is_active' => $is_active,
+            'category' => $category,
+            'is_active' => $is_active,
             'created_by' => $user_id
-    		]);
-    	$partner = \App\Partner::find($partnerId);
+            ]);
+            $partner = \App\Partner::find($partnerId);   
+            DB::table('ETKPLUS_PARTNER_ACCOUNTS')
+                ->insert([
+                    'partner_id' => $partnerId,
+                    'value' => $value,
+                    'min_value' => $min_value
+                ]);
+        } catch (Exception $e) {
+            Session::flash('error', $e);
+            return redirect()->back();
+        }
     	/**
     	 * CHECK FILES
     	 */
@@ -206,6 +219,13 @@ class AdminController extends Controller
                     ->where('ETKPLUS_VISITS.partner_id', $partner_id)
                     ->orderBy('ETKPLUS_VISITS.created_at', 'DESC')
                     ->paginate(50);
+
+        $discounts = DB::table('ETKPLUS_PARTNER_DISCOUNTS')
+                        ->where('partner_id',$partner_id)
+                        ->get();
+        $bonuses = DB::table('ETKPLUS_PARTNER_BONUSES')
+                        ->where('partner_id',$partner_id)
+                    ->get();
         $earnings = DB::table('ETKPLUS_VISITS')
                         ->where('partner_id',$partner_id)
                         ->sum('bill');
@@ -224,7 +244,9 @@ class AdminController extends Controller
             'earnings' => $earnings,
             'balance' => $balance,
             'gallery_items' => $gallery_items,
-            'addresses' => $addresses
+            'addresses' => $addresses,
+            'discounts' => $discounts,
+            'bonuses' => $bonuses
             ]);
     }
 
@@ -506,7 +528,53 @@ class AdminController extends Controller
         }
     }
     /**
-     * END OF ADDRESSES
+     * END OF DUSCOUNTS
+     */
+    /**
+     * DISCOUNTS
+     */
+    public function postAddPartnerBonus(Request $request){
+        $partner_id  = $request->partner_id;
+        $description = $request->description;
+        $type        = $request->type;
+        $value       = $request->value;
+        $lifetime = date_create_from_format('d/m/Y',$request->lifetime);
+        if (intval($value) == 0){
+            Session::flash('error', 'Значение должно быть целым числом');
+            return redirect()->back(); 
+        }
+        try {
+            DB::table('ETKPLUS_PARTNER_BONUSES')
+              ->insert([
+                'partner_id' => $partner_id,
+                'value' => $value,
+                'description' => $description,
+                'type' => $type,
+                'lifetime' => $lifetime
+                ]);
+            Session::flash('success','Бонус успешно добавлен');
+            return redirect()->back();
+
+        } catch (Exception $e) {
+            Session::flash('error',$e);
+            return redirect()->back();              
+        }
+    }
+    public function postDeletePartnerBonus(Request $request){
+        $bonus_id = $request->bonus_id;
+        try {
+            DB::table('ETKPLUS_PARTNER_BONUSES')
+              ->where('id',$bonus_id)
+              ->delete();
+            Session::flash('success','Бонус успешно удален');
+            return redirect()->back();
+        } catch (Exception $e) {
+              Session::flash('error',$e);
+              return redirect()->back();           
+        }
+    }
+    /**
+     * END OF DUSCOUNTS
      */
 
 }

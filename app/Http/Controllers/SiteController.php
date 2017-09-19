@@ -71,6 +71,18 @@ class SiteController extends Controller
                             ->where('id', $id)
                             ->first();
         /**
+         * СКИДКИ
+         */
+        $discounts = DB::table('ETKPLUS_PARTNER_DISCOUNTS')
+                      ->where('partner_id',$partner->id)
+                      ->get();
+        /**
+         * БОНУСЫ
+         */
+        $bonuses = DB::table('ETKPLUS_PARTNER_BONUSES')
+                      ->where('partner_id',$partner->id)
+                      ->get();
+        /**
          * СЧИТАЕМ РЕЙТИНГ
          * 
          */
@@ -140,7 +152,9 @@ class SiteController extends Controller
             'rating' => $rating,
             'review_count' => $review_count,
             'partner_images' => $partner_images,
-            'reviews' => $reviews
+            'reviews' => $reviews,
+            'discounts' => $discounts,
+            'bonuses' => $bonuses
             ]);
     }
     /**

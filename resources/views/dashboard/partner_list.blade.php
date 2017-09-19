@@ -26,8 +26,9 @@
                                     <tr>
                                         <th class="text-center">#</th>
                                         <th>Название</th>
-                                        <th>Действие</th>
-                                        <th class="text-right">Активность</th>
+                                        <th>Номер договора</th>
+                                        <th>Блокировка</th>
+                                        <th class="text-right"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -35,36 +36,56 @@
                                     <tr>
                                         <td class="text-center">{{ $partner->id }}</td>
                                         <td><a href="{{ route('dashboard.partner-page.get', ['partner_id' => $partner->id]) }}">{{ $partner->name }}</a></td>
+                                        <td>{{ $partner->contract_id }}</td>
                                         <td>
-
-                                            <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Редактировать" data-toggle="modal" data-target="#edit-partner-{{ $partner->id }}">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Заменить логотип и фон" data-toggle="modal" data-target="#edit-logos-partner-{{ $partner->id }}">
-                                                <i class="fa fa-file-image-o"></i>
-                                            </a>
-                                            <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Галерея" data-toggle="modal" data-target="#edit-gallery-partner-{{ $partner->id }}">
-                                                <i class="fa fa-picture-o"></i>
-                                            </a>
-                                            <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Адреса" data-toggle="modal" data-target="#edit-addresses-partner-{{ $partner->id }}">
-                                                <i class="fa fa-map-marker"></i>
-                                            </a>
-                                            <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Скидки" data-toggle="modal" data-target="#edit-discounts-partner-{{ $partner->id }}">
-                                                <i class="fa fa-percent"></i>
-                                            </a>
-                                            <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Бонусы" data-toggle="modal" data-target="#edit-bonuses-partner-{{ $partner->id }}">
-                                                <i class="fa fa-gift"></i>
-                                            </a>
-                                            <a href="#" rel="tooltip" title="" class="btn btn-danger btn-simple btn-xs" data-original-title="Удалить" data-toggle="modal" data-target="#delete-partner-{{ $partner->id }}">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
+                                            @if ($partner->is_blocked == 0)
+                                            <div class="checkbox">
+                                                <input id="checkbox4" type="checkbox"  disabled>
+                                                <label for="checkbox4">
+                                                    Активен
+                                                </label>
+                                            </div>
+                                            @elseif ($partner->is_blocked == 1)
+                                            <div class="checkbox">
+                                                <input id="checkbox4" type="checkbox" checked disabled>
+                                                <label for="checkbox4">
+                                                    Блокирован
+                                                </label>
+                                           </div>
+                                           @endif
                                         </td>
                                         <td class="text-right">
-                                            @if ($partner->is_active == 1)
-                                            <input type="checkbox" data-id="{{ $partner->id }}" class="switch-plain toggle-activate-partner" checked disabled>
-                                            @else
-                                            <input type="checkbox" data-id="{{ $partner->id }}"" class="switch-plain toggle-activate-partner" disabled>
-                                            @endif
+                                            <div class="dropdown">
+                                                  <button href="#" class="btn btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                      Редактировать
+                                                      <b class="caret"></b>
+                                                  </button>
+                                                  <ul class="dropdown-menu">
+                                                    <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-partner-{{ $partner->id }}">
+                                                <i class="fa fa-pencil"></i>
+                                            Общие данные </a></li>
+                                                    <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-logos-partner-{{ $partner->id }}">
+                                                <i class="fa fa-file-image-o"></i>
+                                            Заменить логотип и фон</a></li>
+                                                    <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-gallery-partner-{{ $partner->id }}">
+                                                <i class="fa fa-picture-o"></i> Галерея
+                                            </a></li>
+                                            <li>                                            <a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-addresses-partner-{{ $partner->id }}">
+                                                <i class="fa fa-map-marker"></i> Адреса
+                                            </a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-discounts-partner-{{ $partner->id }}">
+                                                <i class="fa fa-percent"></i> Скидки
+                                            </a></li>
+                                            <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-bonuses-partner-{{ $partner->id }}">
+                                                <i class="fa fa-gift"></i> Бонусы
+                                            </a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#delete-partner-{{ $partner->id }}">
+                                                <i class="fa fa-trash"></i> Удалить
+                                            </a></li>
+                                                  </ul>
+                                            </div>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -564,7 +585,7 @@
                             <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                             <div class="card-header">
                                 <h4 class="card-title">
-                                    Добавить адрес
+                                    Добавить скидку
                                 </h4>
                             </div>
                             <div class="card-content">
@@ -578,10 +599,10 @@
                                     <span class="help-block">проценты указывать не нужно</span>
                                 </div>
                                 <div class="form-group">
-                                        <label>Срок действия</label>
-                                        <input type="text" name="lifetime" class="form-control datepicker" placeholder="Добавить" value="01/01/2030">
-                                        <span class="help-block">по умолчанию до 1 января 2030 года</span>
-                                    </div>
+                                    <label>Срок действия</label>
+                                    <input type="text" name="lifetime" class="form-control datepicker" placeholder="Добавить" value="01/01/2030">
+                                    <span class="help-block">по умолчанию до 1 января 2030 года</span>
+                                </div>
                                 <button type="submit" class="btn btn-fill btn-info">Добавить</button>
                             </div>
                         </form>
@@ -635,24 +656,25 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Единица измерения</label>
                                     <div class="col-sm-10">
-                                        <div class="radio">
-                                        <input type="radio" name="type" id="radio1" value="1" checked>
-                                        <label for="radio1">
-                                            В рублях (р)
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <input type="radio" name="type" id="radio2" value="2">
-                                        <label for="radio2">
-                                            В процентах (%)
-                                        </label>
-                                    </div>
+                                        @if ($bonus->type == 1)
+                                        <p class="form-control-static pull-right">В рублях</p>
+                                        @elseif ($bonus->type == 2)
+                                        <p class="form-control-static pull-right">В процентах</p>
+                                        @endif
                                     </div>
                                 </div>
                             </fieldset>
-                            <form action="{{ route('dashboard.delete-partner-discount.post') }}" method="POST">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Срок действия</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static pull-right">{{ $bonus->lifetime }}</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <form action="{{ route('dashboard.delete-partner-bonus.post') }}" method="POST">
                                 {{ csrf_field() }}
-                                <input type="hidden" name="discount_id"  value="{{ $discount->id }}">
+                                <input type="hidden" name="bonus_id"  value="{{ $bonus->id }}">
                                 <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Удалить</button>
                             </form>
                         </div>
@@ -663,18 +685,18 @@
                 @endisset
                 <div class="col-md-12">
                     <div class="card">
-                        <form method="POST" action="{{ route('dashboard.add-partner-discount.post') }}">
+                        <form method="POST" action="{{ route('dashboard.add-partner-bonus.post') }}">
                             {{ csrf_field() }}
                             <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                             <div class="card-header">
                                 <h4 class="card-title">
-                                    Добавить адрес
+                                    Добавить бонус
                                 </h4>
                             </div>
                             <div class="card-content">
                                 <div class="form-group">
                                     <label>Наименование</label>
-                                    <input type="text" placeholder="На весь ассортимент" class="form-control" maxlength="100" minlength="1" name="description" required>
+                                    <input type="text" placeholder="За заказ от 1000 рублей" class="form-control" maxlength="100" minlength="1" name="description" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Размер бонуса</label>
@@ -682,7 +704,7 @@
                                     <span class="help-block">только числовое значение</span>
                                 </div>
                                 <div class="form-group">
-                                        <div class="radio">
+                                    <div class="radio">
                                         <input type="radio" name="type" id="radio1" value="1" checked>
                                         <label for="radio1">
                                             В рублях (р)
@@ -694,7 +716,12 @@
                                             В процентах (%)
                                         </label>
                                     </div>
-                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Срок действия</label>
+                                    <input type="text" name="lifetime" class="form-control datepicker" placeholder="Добавить" value="01/01/2030">
+                                    <span class="help-block">по умолчанию до 1 января 2030 года</span>
+                                </div>
                                 <button type="submit" class="btn btn-fill btn-info">Добавить</button>
                             </div>
                         </form>

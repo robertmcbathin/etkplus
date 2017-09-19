@@ -57,20 +57,20 @@
                                                     <td>
                                                         <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
                                                             @if ($gallery_items)
-                                                           @foreach ($gallery_items as $gallery_item)
-                                                           <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="col-md-3 col-sm-4 gallery-item">
-                                                             <a href="{{ $gallery_item->image_path }}" itemprop="contentUrl" data-size="{{ $gallery_item->image_width }}x{{ $gallery_item->image_height }}">
-                                                               <img src="{{ $gallery_item->image_path }}" itemprop="thumbnail" alt="" class="horizontal-image img-rounded img-responsive">
-                                                           </a>
-                                                           <figcaption itemprop="caption description">{{ $gallery_item->image_caption }}</figcaption>
-                                                       </figure>
-                                                       @endforeach
-                                                       @else 
-                                                       <h2>Нет изображений</h2>
-                                                       @endif
-                                                   </div>
-                                                   <!-- Root element of PhotoSwipe. Must have class pswp. -->
-                                                   <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+                                                            @foreach ($gallery_items as $gallery_item)
+                                                            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="col-md-3 col-sm-4 gallery-item">
+                                                               <a href="{{ $gallery_item->image_path }}" itemprop="contentUrl" data-size="{{ $gallery_item->image_width }}x{{ $gallery_item->image_height }}">
+                                                                 <img src="{{ $gallery_item->image_path }}" itemprop="thumbnail" alt="" class="horizontal-image img-rounded img-responsive">
+                                                             </a>
+                                                             <figcaption itemprop="caption description">{{ $gallery_item->image_caption }}</figcaption>
+                                                         </figure>
+                                                         @endforeach
+                                                         @else 
+                                                         <h2>Нет изображений</h2>
+                                                         @endif
+                                                     </div>
+                                                     <!-- Root element of PhotoSwipe. Must have class pswp. -->
+                                                     <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
     <!-- Background of PhotoSwipe. 
         It's a separate element, as animating opacity is faster than rgba(). -->
@@ -137,30 +137,40 @@
 </td>
 <td></td>
 </tr>
-<tr>
-    <td>
 
-    </td>
-    <td>
-        <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Редактировать" data-toggle="modal" data-target="#edit-partner">
-            <i class="fa fa-pencil"></i>
-        </a>
-        <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Заменить логотип и фон" data-toggle="modal" data-target="#edit-logos-partner">
-            <i class="fa fa-file-image-o"></i>
-        </a>
-        <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Галерея" data-toggle="modal" data-target="#edit-gallery-partner">
-            <i class="fa fa-picture-o"></i>
-        </a>
-        <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Адреса" data-toggle="modal" data-target="#edit-addresses-partner">
-            <i class="fa fa-map-marker"></i>
-        </a>
-        <a href="#" rel="tooltip" title="" class="btn btn-danger btn-simple btn-xs" data-original-title="Удалить" data-toggle="modal" data-target="#delete-partner">
-            <i class="fa fa-trash"></i>
-        </a>
-    </td>
-</tr>
 </tbody>
 </table>
+<div class="dropup">
+  <button href="#" class="btn btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+      Редактировать
+      <b class="caret"></b>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-partner">
+        <i class="fa fa-pencil"></i>
+    Общие данные </a></li>
+    <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-logos-partner">
+        <i class="fa fa-file-image-o"></i>
+    Заменить логотип и фон</a></li>
+    <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-gallery-partner">
+        <i class="fa fa-picture-o"></i> Галерея
+    </a></li>
+    <li>                                            <a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-addresses-partner-{{ $partner->id }}">
+        <i class="fa fa-map-marker"></i> Адреса
+    </a></li>
+    <li class="divider"></li>
+    <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-discounts-partner">
+        <i class="fa fa-percent"></i> Скидки
+    </a></li>
+    <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-bonuses-partner">
+        <i class="fa fa-gift"></i> Бонусы
+    </a></li>
+    <li class="divider"></li>
+    <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#delete-partner">
+        <i class="fa fa-trash"></i> Удалить
+    </a></li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -249,33 +259,8 @@
             <div class="card-content">
                 <div class="row">
                     <div class="col-xs-5">
-                        <div class="icon-big icon-success text-center">
-                            <i class="fa fa-percent"></i>
-                        </div>
-                    </div>
-                    <div class="col-xs-7">
-                        <div class="numbers">
-                            <p>Комиссия</p>
-                            {{ $partner->default_comission }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer">
-                <hr>
-                <div class="stats">
-                    По умолчанию
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6 col-sm-6">
-        <div class="card info-block">
-            <div class="card-content">
-                <div class="row">
-                    <div class="col-xs-5">
                         <div class="icon-big icon-danger text-center">
-                            <i class="fa fa-percent"></i>
+                            <i class="fa fa-money"></i>
                         </div>
                     </div>
                     <div class="col-xs-7">
@@ -297,6 +282,7 @@
 </div>  
 </div>
 </div>
+@isset($visits)
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -337,6 +323,7 @@
         </div>
     </div>
 </div>
+@endisset
 </div>
 </div>
 @include('includes.dashboard.footer')
@@ -739,6 +726,214 @@
                                 <div class="form-group">
                                     <label>Телефоны</label>
                                     <input type="text" name="phones" placeholder="+79003454545," class="form-control" maxlength="255">
+                                </div>
+                                <button type="submit" class="btn btn-fill btn-info">Добавить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="left-side">
+                    <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="edit-discounts-partner" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Скидки</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body"> 
+                @isset($discounts)
+                @foreach ($discounts as $discount)
+                @if ($discount->partner_id == $partner->id)
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Наименование</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static pull-right">{{ $discount->description }}</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Размер скидки</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static pull-right">{{ $discount->value }}</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Срок действия</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static pull-right">{{ $discount->lifetime }}</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <form action="{{ route('dashboard.delete-partner-discount.post') }}" method="POST">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="discount_id"  value="{{ $discount->id }}">
+                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Удалить</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @endif
+                @endforeach
+                @endisset
+                <div class="col-md-12">
+                    <div class="card">
+                        <form method="POST" action="{{ route('dashboard.add-partner-discount.post') }}">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="partner_id" value="{{ $partner->id }}">
+                            <div class="card-header">
+                                <h4 class="card-title">
+                                    Добавить скидку
+                                </h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label>Наименование</label>
+                                    <input type="text" placeholder="На весь ассортимент" class="form-control" maxlength="100" minlength="1" name="description" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Размер скидки</label>
+                                    <input type="text" name="value" placeholder="10" class="form-control" minlength="1" required>
+                                    <span class="help-block">проценты указывать не нужно</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Срок действия</label>
+                                    <input type="text" name="lifetime" class="form-control datepicker" placeholder="Добавить" value="01/01/2030">
+                                    <span class="help-block">по умолчанию до 1 января 2030 года</span>
+                                </div>
+                                <button type="submit" class="btn btn-fill btn-info">Добавить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="left-side">
+                    <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="edit-bonuses-partner" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Бонусы</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body"> 
+                @isset($bonuses)
+                @foreach ($bonuses as $bonus)
+                @if ($bonus->partner_id == $partner->id)
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Наименование</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static pull-right">{{ $bonus->description }}</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Размер бонуса</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static pull-right">{{ $bonus->value }}</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Единица измерения</label>
+                                    <div class="col-sm-10">
+                                        @if ($bonus->type == 1)
+                                        <p class="form-control-static pull-right">В рублях</p>
+                                        @elseif ($bonus->type == 2)
+                                        <p class="form-control-static pull-right">В процентах</p>
+                                        @endif
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Срок действия</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static pull-right">{{ $bonus->lifetime }}</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <form action="{{ route('dashboard.delete-partner-bonus.post') }}" method="POST">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="bonus_id"  value="{{ $bonus->id }}">
+                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Удалить</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @endif
+                @endforeach
+                @endisset
+                <div class="col-md-12">
+                    <div class="card">
+                        <form method="POST" action="{{ route('dashboard.add-partner-bonus.post') }}">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="partner_id" value="{{ $partner->id }}">
+                            <div class="card-header">
+                                <h4 class="card-title">
+                                    Добавить бонус
+                                </h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label>Наименование</label>
+                                    <input type="text" placeholder="За заказ от 1000 рублей" class="form-control" maxlength="100" minlength="1" name="description" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Размер бонуса</label>
+                                    <input type="text" name="value" placeholder="10" class="form-control" minlength="1" required>
+                                    <span class="help-block">только числовое значение</span>
+                                </div>
+                                <div class="form-group">
+                                    <div class="radio">
+                                        <input type="radio" name="type" id="radio1" value="1" checked>
+                                        <label for="radio1">
+                                            В рублях (р)
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <input type="radio" name="type" id="radio2" value="2">
+                                        <label for="radio2">
+                                            В процентах (%)
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Срок действия</label>
+                                    <input type="text" name="lifetime" class="form-control datepicker" placeholder="Добавить" value="01/01/2030">
+                                    <span class="help-block">по умолчанию до 1 января 2030 года</span>
                                 </div>
                                 <button type="submit" class="btn btn-fill btn-info">Добавить</button>
                             </div>

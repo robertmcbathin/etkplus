@@ -14,9 +14,13 @@
         @include('includes.dashboard.top_nav')
         <div class="content">
             <div class="container-fluid">
-                @include('includes/notifications');
+                @include('includes/notifications')
                 <div class="col-md-12">
-                    <div class="card">
+                    <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                <input type="text" id='search-partner-list' value="" class="form-control" placeholder="Название или номер договора">
+                            </div>
+                    <div class="card" id="partner-list-results">
                         <div class="card-header">
                             <h4 class="card-title">Список предприятий</h4>
                         </div>
@@ -238,7 +242,13 @@
                         </label>
                         <input class="form-control" type="text" name="kpp" placeholder="" value ="{{ $partner->kpp }}">
                     </div>
-
+                    <div class="form-group">
+                        <label class="control-label">
+                            ОГРН
+                        </label>
+                        <input class="form-control" type="text" name="ogrn" placeholder="" value ="{{ $partner->ogrn }}">
+                    </div>
+                    <h5 class="text-center">Категория</h5>
                     <div class="form-group">
                         <select class="form-control" name="category" title="Выберите категорию" data-size="7" tabindex="-98">
                             <option class="bs-title-option" value="{{ $partner->category_id }}">{{ $partner->category_name }}</option>
@@ -739,4 +749,5 @@
 @endforeach
 <script>
   var token = '{{ Session::token() }}';
+  var searchPartnerListUrl = '{{ route('ajax.search-partner-list.post') }}';
 </script>

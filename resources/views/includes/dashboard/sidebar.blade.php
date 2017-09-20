@@ -79,6 +79,25 @@
                         </div>
                     </li>
                     <li>
+                        <a data-toggle="collapse" href="/dashboard#users">
+                            <i class="fa fa-user"></i>
+                            <p>Пользователи
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="users">
+                            <ul class="nav">
+
+                                <li>
+                                    <a href="{{ route('dashboard.show-user-list.get') }}">
+                                        <span class="sidebar-mini">Сп</span>
+                                        <span class="sidebar-normal">Список</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
                         <a data-toggle="collapse" href="overview.html#componentsExamples">
                             <i class="fa fa-credit-card"></i>
                             <p>Операции

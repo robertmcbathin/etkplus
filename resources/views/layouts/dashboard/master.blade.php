@@ -359,4 +359,32 @@ initPhotoSwipeFromDOM('.my-gallery');
             }
         });
     </script>
+    <script>
+        $('#search-partner-list').on('keyup',function(){
+            $.ajax({
+                method: 'POST',
+                url: searchPartnerListUrl,
+                data: {
+                    searchString: $('#search-partner-list').val(),
+                    _token: token
+                }
+            })
+            .done(function(msg){
+                console.log(JSON.stringify(msg));
+                $('#partner-list-results').replaceWith('<div id="partner-list-results"></div>');
+                var searchHtml = '<div id="partner-list-results">';
+                for (var i = 0; i <= msg['results'].length - 1; i++){
+                   searchHtml += '<a href="/dashboard/partner/' + msg.results[i].id +'/show" ><div class="col-lg-4 col-sm-6"><div class="card"><div class="card-content"><div class="row"><div class="col-xs-12"><div class="numbers"><p>' +
+                                msg.results[i].name +
+                                '</p>' +
+                                msg.results[i].contract_id + 
+                                ' </div></div></div></div><div class="card-footer"></div></div></div></a>';
+                }
+                searchHtml += '</div>';
+
+
+                $('#partner-list-results').replaceWith(searchHtml);
+            });
+        });
+    </script>
 </html>

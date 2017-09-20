@@ -62,6 +62,11 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.show-partner-list.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
+	Route::get('/dashboard/users/list',[
+		'uses' => 'AdminController@getUserList',
+		'as' => 'dashboard.show-user-list.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
+
 	Route::get('/dashboard/visits/list',[
 		'uses' => 'AdminController@getVisitsList',
 		'as' => 'dashboard.show-visits-list.get'	
@@ -172,6 +177,10 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'PartnerController@ajaxCheckCardAndOperations',
    		'as' => 'ajax.check_card_and_operations.post'
     ])->middleware('can:show-dashboard-partner,App\User');
+	Route::post('/ajax/search-partner-list', [ 
+		'uses' => 'AdminController@ajaxSearchPartnerList',
+   		'as' => 'ajax.search-partner-list.post'
+    ])->middleware('can:show-dashboard-admin,App\User');
 });
 Route::get('/logout', 'Auth\LoginController@logout');
 

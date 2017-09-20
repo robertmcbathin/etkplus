@@ -39,8 +39,16 @@ class PartnerController extends Controller
     	$partner = DB::table('ETKPLUS_PARTNERS')
     				->where('id', Auth::user()->partner_id)
     				->first();
+      $discounts = DB::table('ETKPLUS_PARTNER_DISCOUNTS')
+                      ->where('partner_id',$request->partner_id)
+                      ->get();
+      $bonuses = DB::table('ETKPLUS_PARTNER_BONUSES')
+                    ->where('partner_id',$request->partner_id)
+                    ->get();
     	return view('dashboard.partner.create-operation',[
-    		'partner' => $partner
+    		'partner' => $partner,
+        'discounts' => $discounts,
+        'bonuses' => $bonuses
     	]);
     }
     /**
@@ -55,33 +63,43 @@ class PartnerController extends Controller
        * ПРОВЕРКА НА БОНУСЫ
        * @var [type]
        */
-      if ($bonuses = DB::table('ETKPLUS_BONUSES')
+      if ($user_bonuses = DB::table('ETKPLUS_PARTNER_USER_BONUSES')
       				->where('partner_id', $request->partner_id)
       				->where('card_number',$request->card_number)
       				->first() == NULL){
-      	$bonuses = 0;
+      	$user_bonuses = 0;
       } else {
-      	$bonuses = $bonuses->value;
+      	$user_bonuses = $bonuses->value;
       };
       /**
        * ПРОВЕРКА ВИЗИТОВ
        */
-      if ($visit_count = DB::table('ETKPLUS_VISITS')
+      if (($visit_count = DB::table('ETKPLUS_VISITS')
       				->where('card_number',$request->card_number)
       				->where('partner_id', $request->partner_id)
-      				->count() == NULL){
+      				->count()) == NULL){
       	$visit_count = 0;
       };
-      if ($visit_summary = DB::table('ETKPLUS_VISITS')
+      if (($visit_summary = DB::table('ETKPLUS_VISITS')
       				->where('card_number',$request->card_number)
       				->where('partner_id', $request->partner_id)
-      				->count() == NULL){
+      				->sum('ETKPLUS_VISITS.bill')) == NULL){
       	$visit_summary = 0;
       };
-
+      /**
+       * СПИСОК СКИДОК
+       * @var [type]
+       */
+      $discounts = DB::table('ETKPLUS_PARTNER_DISCOUNTS')
+                      ->where('partner_id',$request->partner_id)
+                      ->get();
+      $bonuses = DB::table('ETKPLUS_PARTNER_BONUSES')
+                    ->where('partner_id',$request->partner_id)
+                    ->get();
       if ($card == NULL)
         return response()->json(['message' => 'error'],200);
       if ($card !== NULL)
-        return response()->json(['message' => 'success', 'card' => $card, 'bonuses' => $bonuses, 'visit_count' => $visit_count, 'visit_summary' => $visit_summary],200);
+        return response()->json(['message' => 'success', 'card' => $card, 'user_bonuses' => $user_bonuses, 'visit_count' => $visit_count, 'visit_summary' => $visit_summary,
+          'discounts' => $discounts, 'bonuses' => $bonuses],200);
     }
 }

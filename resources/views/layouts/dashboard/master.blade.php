@@ -22,7 +22,6 @@
     <!--  Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
-    <link href="/assets/dashboard/css/themify-icons.css" rel="stylesheet">
 </head>
 
 <body>
@@ -343,7 +342,7 @@ initPhotoSwipeFromDOM('.my-gallery');
                         $('#co-search-status').removeClass('has-error');
 
                         $('#co-card-number').replaceWith("<p class=\"form-control-static pull-right \" id=\"co-card-number\">" + msg['card'].num + "</p>");
-                        $('#co-bonuses').replaceWith("<p class=\"form-control-static pull-right \" id=\"co-bonuses\">" + msg['bonuses'] + "</p>");
+                        $('#co-bonuses').replaceWith("<p class=\"form-control-static pull-right \" id=\"co-bonuses\">" + msg['user_bonuses'] + "</p>");
                         $('#co-operations-count').replaceWith("<p class=\"form-control-static pull-right \" id=\"co-operations-count\">" + msg['visit_count'] + "</p>");
                         $('#co-operations-summary').replaceWith("<p class=\"form-control-static pull-right \" id=\"co-operations-summary\">" + msg['visit_summary'] + "</p>");
 

@@ -192,24 +192,14 @@ class AdminController extends Controller
     }
 
     public function getUserList(){
-        $partners = DB::table('ETKPLUS_PARTNERS')
-        ->join('ETKPLUS_PARTNER_CATEGORIES','ETKPLUS_PARTNERS.category','=','ETKPLUS_PARTNER_CATEGORIES.id')
-        ->select('ETKPLUS_PARTNERS.*','ETKPLUS_PARTNER_CATEGORIES.name as category_name','ETKPLUS_PARTNER_CATEGORIES.id as category_id')
-        ->paginate(20);
-        $addresses = DB::table('ETKPLUS_ADDRESSES')
-        ->get();
-        $gallery_items = DB::table('ETKPLUS_PARTNER_PHOTOS')
-        ->get();
-        $discounts = DB::table('ETKPLUS_PARTNER_DISCOUNTS')
-        ->get();
-        $bonuses = DB::table('ETKPLUS_PARTNER_BONUSES')
-        ->get();
+        $cards = DB::table('ETKPLUS_VISITS')
+                    ->selectRaw('ETKPLUS_VISITS.card_num, ETKPLUS_VISITS.card_chip, sum(ETKPLUS_VISITS.bill) as card_sum')
+                    ->groupBy('ETK_CARDS.num')
+                    ->orderBy('card_sum')
+                    ->get();
+        dd($cards);
         return view('dashboard.user_list',[
-            'partners' => $partners,
-            'gallery_items' => $gallery_items,
-            'addresses' => $addresses,
-            'discounts' => $discounts,
-            'bonuses' => $bonuses
+            'users' => $users
         ]);
     }
 
@@ -218,6 +208,37 @@ class AdminController extends Controller
  * @return [type] [description]
  */
 public function getVisitsList(){
+    $visits = DB::table('ETKPLUS_VISITS')
+    ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_VISITS.partner_id', '=', 'ETKPLUS_PARTNERS.id')
+    ->leftJoin('users','ETKPLUS_VISITS.user_id', '=', 'users.id')
+    ->select('ETKPLUS_VISITS.*','ETKPLUS_PARTNERS.name as partner_name','users.name as user_name')
+    ->orderBy('ETKPLUS_VISITS.created_at', 'DESC')
+    ->paginate(50);
+    return view('dashboard.visits_list',[
+        'visits' => $visits
+    ]);
+}
+
+/**
+ * [getVisitsList description]
+ * @return [type] [description]
+ */
+public function getVisitsListByParam($sort_param){
+    switch ($sort_param) {
+        case 'amount':
+            $visits = DB::table('ETKPLUS_VISITS')
+                ->selectRaw('ETKPLUS_VISITS.card_chip, sum(ETKPLUS_VISITS.bill) as bill_sum')
+                ->groupBy('ETKPLUS_VISITS.card_chip')
+                ->orderBy('bill_sum', 'DESC')
+                ->paginate(50);
+            dd($visits);
+            break;
+        
+        default:
+            # code...
+            break;
+    }
+
     $visits = DB::table('ETKPLUS_VISITS')
     ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_VISITS.partner_id', '=', 'ETKPLUS_PARTNERS.id')
     ->leftJoin('users','ETKPLUS_VISITS.user_id', '=', 'users.id')

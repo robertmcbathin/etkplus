@@ -72,6 +72,11 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.show-visits-list.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
+	Route::get('/dashboard/visits/{sort_param}/list',[
+		'uses' => 'AdminController@getVisitsListByParam',
+		'as' => 'dashboard.show-visits-list-by-param.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
+
 	Route::get('/dashboard/partner/{partner_id}/show',[
 		'uses' => 'AdminController@getPartnerPage',
 		'as' => 'dashboard.partner-page.get'	

@@ -80,8 +80,8 @@
                     </li>
                     <li>
                         <a data-toggle="collapse" href="/dashboard#users">
-                            <i class="fa fa-user"></i>
-                            <p>Пользователи
+                            <i class="fa fa-credit-card"></i>
+                            <p>Карты
                                 <b class="caret"></b>
                             </p>
                         </a>
@@ -99,7 +99,7 @@
                     </li>
                     <li>
                         <a data-toggle="collapse" href="overview.html#componentsExamples">
-                            <i class="fa fa-credit-card"></i>
+                            <i class="fa fa-handshake-o"></i>
                             <p>Операции
                                <b class="caret"></b>
                             </p>

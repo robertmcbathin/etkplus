@@ -324,8 +324,9 @@ initPhotoSwipeFromDOM('.my-gallery');
     <script>
         $('#co-find-card').on('click',function(){
             if ($('#co-card-input-number').val().length > 8){
-                $('#co-card-info-loader').replaceWith('<i class="fa fa-circle-o-notch fa-spin fa-1x fa-fw" id="co-card-info-loader"></i>');
 
+                $('#co-card-info-loader').replaceWith('<i class="fa fa-circle-o-notch fa-spin fa-1x fa-fw" id="co-card-info-loader"></i>');
+                $('#co-create-operation-loader').replaceWith('<i class="fa fa-spinner fa-pulse fa-3x fa-fw" id="co-create-operation-loader"></i>');
                 $.ajax({
                     method: 'POST',
                     url: checkCardUrl,
@@ -341,16 +342,19 @@ initPhotoSwipeFromDOM('.my-gallery');
                         $('#co-search-status').addClass('has-success');
                         $('#co-search-status').removeClass('has-error');
 
-                        $('#co-card-number').replaceWith("<p class=\"form-control-static pull-right \" id=\"co-card-number\">" + msg['card'].num + "</p>");
-                        $('#co-bonuses').replaceWith("<p class=\"form-control-static pull-right \" id=\"co-bonuses\">" + msg['user_bonuses'] + "</p>");
-                        $('#co-operations-count').replaceWith("<p class=\"form-control-static pull-right \" id=\"co-operations-count\">" + msg['visit_count'] + "</p>");
-                        $('#co-operations-summary').replaceWith("<p class=\"form-control-static pull-right \" id=\"co-operations-summary\">" + msg['visit_summary'] + "</p>");
+                        $('#co-card-number').replaceWith("<h6 class=\"card-category \" id=\"co-card-number\"><span class=\"pull-left\">Номер: </span><span class=\"upper-text\">" + msg['card'].num + "</span></h6>");
+                        $('#co-bonuses').replaceWith("<h6 class=\"card-category \" id=\"co-bonuses\"><span class=\"pull-left\">Бонусы на карте: </span><span class=\"upper-text\">" + msg['user_bonuses'] + "</span></h6>");
+                        $('#co-operations-count').replaceWith("<h6 class=\"card-category \" id=\"co-operations-count\"><span class=\"pull-left\">Количество посещений: </span><span class=\"upper-text\">" + msg['visit_count'] + "</span></h6>");
+                        $('#co-operations-summary').replaceWith("<h6 class=\"card-category \" id=\"co-operations-summary\"><span class=\"pull-left\">Сумма посещений: </span><span class=\"upper-text\">" + msg['visit_summary'] + "</span></h6>");
 
+                        $('#co-card-number').val($('#co-card-input-number').val());
                     } else if (msg['message'] == 'error'){
                         $('#co-search-status').removeClass('has-success');
                         $('#co-search-status').addClass('has-error');
                     }
                     $('#co-card-info-loader').replaceWith('<i id="co-card-info-loader"></i>');
+                    $('#co-max-bonuses').replaceWith('<b id="co-max-bonuses">' + msg['user_bonuses'] + '</b>');
+                    $('#co-create-operation-loader').replaceWith('<i id="co-create-operation-loader"></i>');
                 });
 
             } else {

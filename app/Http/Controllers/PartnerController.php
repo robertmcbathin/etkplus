@@ -40,10 +40,10 @@ class PartnerController extends Controller
     				->where('id', Auth::user()->partner_id)
     				->first();
       $discounts = DB::table('ETKPLUS_PARTNER_DISCOUNTS')
-                      ->where('partner_id',$request->partner_id)
+                      ->where('partner_id',$partner->id)
                       ->get();
       $bonuses = DB::table('ETKPLUS_PARTNER_BONUSES')
-                    ->where('partner_id',$request->partner_id)
+                    ->where('partner_id',$partner->id)
                     ->get();
     	return view('dashboard.partner.create-operation',[
     		'partner' => $partner,
@@ -101,5 +101,16 @@ class PartnerController extends Controller
       if ($card !== NULL)
         return response()->json(['message' => 'success', 'card' => $card, 'user_bonuses' => $user_bonuses, 'visit_count' => $visit_count, 'visit_summary' => $visit_summary,
           'discounts' => $discounts, 'bonuses' => $bonuses],200);
+    }
+
+    public function postCreateOperation(Request $request){
+      $partner_id  = $request->partner_id;
+      $operator_id = $request->operator_id;
+      $card_number = $request->card_number;
+      $bill        = $request->bill;
+      $discount    = $request->discount;
+      $bonus       = $request->bonus;
+      $sub_bonus   = $request->sub_bonus;
+      dd($request);
     }
 }

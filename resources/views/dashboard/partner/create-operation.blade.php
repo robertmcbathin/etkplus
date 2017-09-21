@@ -16,27 +16,6 @@
             <div class="container-fluid">
                 @include('includes/notifications')
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-success text-center">
-                                            <i class="fa fa-percent"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers">
-                                            <p>Активные скидки</p>
-                                            <p class="form-control-static"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> 
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
@@ -58,98 +37,146 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">
-                                    Информация по карте <i id="co-card-info-loader"></i>
+                                    Данные по операции <i id="co-card-info-loader"></i>
                                 </h4>
                             </div>
                             <div class="card-content">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="row">
+                                                    <div class="col-xs-5">
+                                                        <div class="icon-big icon-danger text-center">
+                                                            <i class="fa fa-percent"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-7">
+                                                        <div class="numbers">
+                                                            <p>Активные скидки</p>
+                                                            @foreach ($discounts as $discount)
+                                                            <h6 class="card-category"><span class="upper-text">{{ $discount->value }}%</span>   {{ $discount->description }}</h6>
+                                                            @endforeach
+                                                            <p class="form-control-static"></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-5">
+                                                        <div class="icon-big icon-danger text-center">
+                                                            <i class="fa fa-gift"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-7">
+                                                        <div class="numbers">
+                                                            <p>Активные бонусы</p>
+                                                            @foreach ($bonuses as $bonus)
+                                                            <h6 class="card-category"><span class="upper-text">{{ $bonus->value }}@if ($bonus->type == 1) руб. @elseif ($bonus->type == 2) % @endif </span>   {{ $bonus->description }}</h6>
+                                                            @endforeach
+                                                            <p class="form-control-static"></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-6">
                                       <div class="card">
                                         <div class="card-content">
                                             <div class="row">
                                                 <div class="col-xs-5">
-                                                    <div class="icon-big icon-success text-center">
+                                                    <div class="icon-big icon-danger text-center">
                                                         <i class="fa fa-credit-card"></i>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-7">
                                                     <div class="numbers">
-                                                        <p>Номер</p>
-                                                        <p class="form-control-static" id="co-card-number"></p>
+                                                        <p>Информация по карте</p>
+                                                        <h6 class="card-category" id="co-card-number"></h6>
+                                                        <h6 class="card-category" id="co-bonuses"></h6>
+                                                        <h6 class="card-category" id="co-operations-count"></h6>
+                                                        <h6 class="card-category" id="co-operations-summary"></h6>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>  
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="card">
-                                        <div class="card-content">
-                                            <div class="row">
-                                                <div class="col-xs-5">
-                                                    <div class="icon-big icon-success text-center">
-                                                        <i class="fa fa-gift"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-7">
-                                                    <div class="numbers">
-                                                        <p>Количество бонусов</p>
-                                                        <p class="form-control-static" id="co-bonuses"></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>  
-                                </div>
-                                <div class="col-md-3">
-                                   <div class="card">
-                                    <div class="card-content">
-                                        <div class="row">
-                                            <div class="col-xs-5">
-                                                <div class="icon-big icon-success text-center">
-                                                    <i class="fa fa-handshake-o"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-7">
-                                                <div class="numbers">
-                                                    <p>Всего операций</p>
-                                                    <p class="form-control-static" id="co-operations-count"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>  
                             </div>
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <div class="card-content">
-                                        <div class="row">
-                                            <div class="col-xs-5">
-                                                <div class="icon-big icon-success text-center">
-                                                    <i class="fa fa-money"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-7">
-                                                <div class="numbers">
-                                                    <p>Сумма операций</p>
-                                                    <p class="form-control-static" id="co-operations-summary"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>  
-                            </div>
-                        </div>
-                    </div> <!-- end card -->
-                </div>
-            </div>
-            <div class="col-md-12">
 
-            </div>
-        </div>
-    </div>
-    @include('includes.dashboard.footer')
-</div>
+                            <div class="row">
+                                <div class="col-md-2 col-md-offset-5">
+                                    <i id="co-create-operation-loader"></i>
+                                </div>
+                                <div class="col-md-12" id="co-create-operation-form"">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">
+                                                Создание операции
+                                            </h4>
+                                        </div>
+                                        <div class="card-content">
+                                            <form method="POST" action="{{ route('dashboard.partner.create-operation.post') }}">
+                                             <input type="hidden" name="partner_id" value="{{ $partner->id }}">
+                                             <input type="hidden" name="operator_id"  value="{{ Auth::user()->id }}">
+                                             <input type="hidden" name="card_number" id="co-card-number" value="">
+                                             {{ csrf_field() }}
+                                             <fieldset>
+                                                 <div class="form-group">
+                                                     <label class="col-sm-2 control-label">Счет</label>
+                                                     <div class="col-sm-10">
+                                                         <input type="text" name="bill" class="form-control" minlength="1" placeholder="1000">
+
+                                                         <span class="help-block">в рублях</span>
+                                                     </div>
+                                                 </div>
+                                             </fieldset>
+                                            <fieldset>
+                                                 <div class="form-group">
+                                                     <label class="col-sm-2 control-label">Скидка</label>
+                                                     <div class="col-sm-10">
+                                                         <input type="text" name="discount" class="form-control" minlength="1" placeholder="10">
+
+                                                         <span class="help-block">в процентах (%)</span>
+                                                     </div>
+                                                 </div>
+                                             </fieldset>
+                                            <fieldset>
+                                                 <div class="form-group">
+                                                     <label class="col-sm-2 control-label">Начислить бонусы</label>
+                                                     <div class="col-sm-10">
+                                                         <input type="text" name="bonus" class="form-control" minlength="1" placeholder="50" value="0">
+
+                                                         <span class="help-block">в рублях</span>
+                                                     </div>
+                                                 </div>
+                                             </fieldset>
+                                            <fieldset>
+                                                 <div class="form-group">
+                                                     <label class="col-sm-2 control-label">Списать бонусы</label>
+                                                     <div class="col-sm-10">
+                                                         <input type="text" name="sub_bonus" class="form-control" minlength="1" placeholder="50" value="0">
+
+                                                         <span class="help-block">Не более <b id="co-max-bonuses"></b></span>
+                                                     </div>
+                                                 </div>
+                                             </fieldset>
+                                             <button type="submit" class="btn btn-fill btn-success">Подтвердить</button>
+                                         </form>  
+                                     </div>
+                                 </div>    
+                             </div>
+                         </div>
+                     </div> <!-- end card -->
+                 </div>
+             </div>
+             <div class="col-md-12">
+
+             </div>
+         </div>
+     </div>
+     @include('includes.dashboard.footer')
+ </div>
 </div>
 
 <script>

@@ -63,13 +63,13 @@ class PartnerController extends Controller
        * ПРОВЕРКА НА БОНУСЫ
        * @var [type]
        */
-      if ($user_bonuses = DB::table('ETKPLUS_PARTNER_USER_BONUSES')
+      if (($user_bonuses = DB::table('ETKPLUS_PARTNER_USER_BONUSES')
       				->where('partner_id', $request->partner_id)
       				->where('card_number',$request->card_number)
-      				->first() == NULL){
+      				->first()) == NULL){
       	$user_bonuses = 0;
       } else {
-      	$user_bonuses = $bonuses->value;
+      	$user_bonuses = $user_bonuses->value;
       };
       /**
        * ПРОВЕРКА ВИЗИТОВ
@@ -111,6 +111,68 @@ class PartnerController extends Controller
       $discount    = $request->discount;
       $bonus       = $request->bonus;
       $sub_bonus   = $request->sub_bonus;
+
+      if ($card_number == NULL){
+        Session::flash('error', 'Не введен номер карты, введите номер карты еще раз и нажмите "Найти"');
+        return redirect()->back();        
+      } else {
+        try {
+          $card = DB::table('ETK_CARDS')
+            ->where('num',modifyToFullNumber($card))
+            ->first();
+          $card_chip = $card->chip; 
+        } catch (Exception $e) {
+         Session::flash('error', $e);
+         return redirect()->back();     
+        }
+      }
+      /**
+       * ПРОВЕРКА НА ПОЛОЖИТЕЛЬНОСТЬ
+       */
+      if ($bill < 0){
+        Session::flash('error', 'Счет не может принимать отрицательное значение');
+        return redirect()->back();
+      }
+      if ($discount < 0){
+        Session::flash('error', 'Размер скидки не может принимать отрицательное значение');
+        return redirect()->back();
+      }
+      if ($bonus < 0){
+        Session::flash('error', 'Начисленный бонус не может принимать отрицательное значение');
+        return redirect()->back();
+      }
+      if ($sub_bonus < 0){
+        Session::flash('error', 'Нельзя списать отрицательный бонус');
+        return redirect()->back();
+      }
+      /**
+       * 
+       */
+      /**
+       * ПРОВЕРКА СПИСАНИЯ БОНУСОВ
+       */
+      if (($user_bonuses = DB::table('ETKPLUS_PARTNER_USER_BONUSES')
+        ->where('partner_id', $partner_id)
+        ->where('card_number',$card_number)
+        ->first()) !== NULL){
+        if ($sub_bonus > $user_bonuses->value){
+          Session::flash('error', 'Нельзя списать бонусов больше, чем есть у клиента');
+          return redirect()->back();
+        }
+      }
+      /**
+       * 
+       */
+      DB::transaction(function(){
+        DB::table('ETKPLUS_VISITS')
+          ->insert([
+            'partner_id' => $partner_id,
+            'operator_id' => $operator_id,
+            'card_number' => $card_number,
+            'card_chip' => $card_chip,
+            
+          ]);
+      });
       dd($request);
     }
 }

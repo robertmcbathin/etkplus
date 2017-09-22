@@ -12,7 +12,7 @@
     <link href="/assets/dashboard/css/bootstrap.min.css" rel="stylesheet" />
 
     <!--  Paper Dashboard core CSS    -->
-    <link href="/assets/css/paper-kit.css" rel="stylesheet"/>
+
     <link href="/assets/dashboard/css/paper-dashboard.css" rel="stylesheet"/>
     <link rel="stylesheet" href="/assets/dashboard/css/app.css">
     <link href="/assets/css/photoswipe.css" rel="stylesheet" />
@@ -347,7 +347,7 @@ initPhotoSwipeFromDOM('.my-gallery');
                         $('#co-operations-count').replaceWith("<h6 class=\"card-category \" id=\"co-operations-count\"><span class=\"pull-left\">Количество посещений: </span><span class=\"upper-text\">" + msg['visit_count'] + "</span></h6>");
                         $('#co-operations-summary').replaceWith("<h6 class=\"card-category \" id=\"co-operations-summary\"><span class=\"pull-left\">Сумма посещений: </span><span class=\"upper-text\">" + msg['visit_summary'] + "</span></h6>");
 
-                        $('#co-card-number').val($('#co-card-input-number').val());
+                        $('#co-card-number-input').val($('#co-card-input-number').val());
                     } else if (msg['message'] == 'error'){
                         $('#co-search-status').removeClass('has-success');
                         $('#co-search-status').addClass('has-error');

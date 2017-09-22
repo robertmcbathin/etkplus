@@ -3,24 +3,20 @@
                     <nav class="pull-left">
                         <ul>
                             <li>
-                                <a href="http://www.creative-tim.com">
-                                    Creative Tim
+                                <a href="/">
+                                    Портал
                                 </a>
                             </li>
                             <li>
                                 <a href="http://blog.creative-tim.com">
-                                   Blog
+                                   Техподдержка
                                 </a>
                             </li>
-                            <li>
-                                <a href="http://www.creative-tim.com/license">
-                                    Licenses
-                                </a>
-                            </li>
+
                         </ul>
                     </nav>
                     <div class="copyright pull-right">
-                        &copy; <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by <a href="http://www.creative-tim.com">Creative Tim</a>
+                        &copy; <script>document.write(new Date().getFullYear())</script>, <a href="https://etk21.ru">Единая транспортная карта</a>
                     </div>
                 </div>
             </footer>

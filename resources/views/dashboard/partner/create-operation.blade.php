@@ -48,7 +48,7 @@
                                                 <div class="row">
                                                     <div class="col-xs-5">
                                                         <div class="icon-big icon-danger text-center">
-                                                            <i class="fa fa-percent"></i>
+                                                            <i class="fa fa-percent fa-1x"></i>
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-7">
@@ -119,7 +119,7 @@
                                             <form method="POST" action="{{ route('dashboard.partner.create-operation.post') }}">
                                              <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                                              <input type="hidden" name="operator_id"  value="{{ Auth::user()->id }}">
-                                             <input type="hidden" name="card_number" id="co-card-number" value="">
+                                             <input type="hidden" name="card_number" id="co-card-number-input" value="">
                                              {{ csrf_field() }}
                                              <fieldset>
                                                  <div class="form-group">

@@ -125,7 +125,7 @@
                                                  <div class="form-group">
                                                      <label class="col-sm-2 control-label">Счет</label>
                                                      <div class="col-sm-10">
-                                                         <input type="text" name="bill" class="form-control" minlength="1" placeholder="1000">
+                                                         <input type="text" id="co-form-bill" name="bill" class="form-control co-form-summary" minlength="1" placeholder="1000">
 
                                                          <span class="help-block">в рублях</span>
                                                      </div>
@@ -135,7 +135,7 @@
                                                  <div class="form-group">
                                                      <label class="col-sm-2 control-label">Скидка</label>
                                                      <div class="col-sm-10">
-                                                         <input type="text" name="discount" class="form-control" minlength="1" placeholder="10">
+                                                         <input type="text" id="co-form-discount" name="discount" class="form-control co-form-summary" minlength="1" placeholder="10">
 
                                                          <span class="help-block">в процентах (%)</span>
                                                      </div>
@@ -155,9 +155,18 @@
                                                  <div class="form-group">
                                                      <label class="col-sm-2 control-label">Списать бонусы</label>
                                                      <div class="col-sm-10">
-                                                         <input type="text" name="sub_bonus" class="form-control" minlength="1" placeholder="50" value="0">
+                                                         <input type="text" id="co-form-bonuses" name="sub_bonus" class="form-control co-form-summary" minlength="1" placeholder="50" value="0">
 
                                                          <span class="help-block">Не более <b id="co-max-bonuses"></b></span>
+                                                     </div>
+                                                 </div>
+                                             </fieldset>
+                                            <fieldset>
+                                                 <div class="form-group">
+                                                     <label class="col-sm-2 control-label">Итоговый счет</label>
+                                                     <div class="col-sm-10">
+
+                                                         <b id="co-bill-with-discount"></b>
                                                      </div>
                                                  </div>
                                              </fieldset>

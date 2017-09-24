@@ -363,6 +363,18 @@ initPhotoSwipeFromDOM('.my-gallery');
         });
     </script>
     <script>
+        $('.co-form-summary').on('keyup', function(){
+            var bill = $('#co-form-bill').val();
+            var discount = $('#co-form-discount').val();
+            var bonuses = $('#co-form-bonuses').val();
+            var billWithDiscount = (bill - (bill*(discount/100)) - bonuses);
+            if (!isNaN(billWithDiscount)){
+              var billHtml = '<b id=\"co-bill-with-discount\">' + billWithDiscount + '</b>';
+              $('#co-bill-with-discount').replaceWith(billHtml);
+            }
+        });
+    </script>
+    <script>
         $('#search-partner-list').on('keyup',function(){
             $.ajax({
                 method: 'POST',

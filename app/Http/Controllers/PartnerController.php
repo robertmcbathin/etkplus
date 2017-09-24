@@ -118,7 +118,7 @@ class PartnerController extends Controller
       } else {
         try {
           $card = DB::table('ETK_CARDS')
-            ->where('num',modifyToFullNumber($card))
+            ->where('num',$this->modifyToFullNumber($card_number))
             ->first();
           $card_chip = $card->chip; 
         } catch (Exception $e) {
@@ -154,6 +154,23 @@ class PartnerController extends Controller
       if (($user_bonuses = DB::table('ETKPLUS_PARTNER_USER_BONUSES')
         ->where('partner_id', $partner_id)
         ->where('card_number',$card_number)
+        ->first()) == NULL){
+      try {
+          DB::table('ETKPLUS_PARTNER_USER_BONUSES')
+            ->insert([
+              'partner_id' => $partner_id,
+              'card_number' => $card_number,
+              'value' => 0
+            ]);
+        } catch (Exception $e) {
+          Session::flash('error',$e);
+          return redirect()->back();
+        }
+      }
+
+      if (($user_bonuses = DB::table('ETKPLUS_PARTNER_USER_BONUSES')
+        ->where('partner_id', $partner_id)
+        ->where('card_number',$card_number)
         ->first()) !== NULL){
         if ($sub_bonus > $user_bonuses->value){
           Session::flash('error', 'Нельзя списать бонусов больше, чем есть у клиента');
@@ -163,16 +180,55 @@ class PartnerController extends Controller
       /**
        * 
        */
-      DB::transaction(function(){
-        DB::table('ETKPLUS_VISITS')
-          ->insert([
-            'partner_id' => $partner_id,
-            'operator_id' => $operator_id,
-            'card_number' => $card_number,
-            'card_chip' => $card_chip,
-            
-          ]);
-      });
-      dd($request);
+      /**
+       * ВЫЧИСЛЕНИЕ СКИДОК, БОНУСОВ И КЭШБЭКА
+       */
+      $bill_with_discount = ($bill - ($bill*($discount/100)) - $bonus);
+
+      $partner = \App\Partner::find($partner_id);
+      $cashback = ($bill*($partner->default_cashback/100));
+      try {
+        $user_bonuses = DB::table('ETKPLUS_PARTNER_USER_BONUSES')
+        ->where('partner_id', $partner_id)
+        ->where('card_number',$card_number)
+        ->first();
+        $new_user_bonus_value = ($user_bonuses->value + $bonus - $sub_bonus);
+
+      } catch (Exception $e) {
+        Session::flash('error',$e);
+        return redirect()->back();
+      }
+
+      /**
+       * 
+       */
+      try {
+        DB::transaction(function() use ($partner_id,$operator_id,$card_number,$card_chip,$bill,$bill_with_discount,$bonus,$sub_bonus,$discount,$cashback,$new_user_bonus_value) {
+          DB::table('ETKPLUS_VISITS')
+            ->insert([
+              'partner_id' => $partner_id,
+              'operator_id' => $operator_id,
+              'card_number' => $card_number,
+              'card_chip' => $card_chip,
+              'bill' => $bill,
+              'bill_with_discount' => $bill_with_discount,
+              'bonus' => $bonus,
+              'sub_bonus' => $sub_bonus,
+              'discount' => $discount,
+              'cashback' => $cashback   
+            ]);
+          DB::table('ETKPLUS_PARTNER_USER_BONUSES')
+            ->where('card_number',$card_number)
+            ->where('partner_id', $partner_id)
+            ->update([
+              'value' => $new_user_bonus_value
+            ]);
+        }); 
+      } catch (Exception $e) {
+        Session::flash('error',$e);
+        return redirect()->back();
+      }
+              Session::flash('success','Операция успешно проведена');
+        return redirect()->back();
     }
 }

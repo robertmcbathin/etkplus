@@ -124,16 +124,16 @@
                 @endcan
 
                 @can('show-dashboard-partner')
-                    <li class="active">
+                    <li @if (Request::path() == 'dashboard') class="active" @endif>
                         <a data-toggle="collapse" href="#dashboardOverview">
                             <i class="fa fa-bars"></i>
                             <p>Панель управления
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse in" id="dashboardOverview">
+                        <div class="collapse @if (Request::path() == 'dashboard') in @endif" id="dashboardOverview">
                             <ul class="nav">
-                                <li class="active">
+                                <li @if (Request::path() == 'dashboard') class="active" @endif>
                                     <a href="overview.html">
                                         <span class="sidebar-mini">О</span>
                                         <span class="sidebar-normal">Обзор</span>
@@ -142,10 +142,10 @@
                             </ul>
                         </div>
                     </li>
-                    <li>
+                    <li @if (Request::path() == 'dashboard') class="active" @endif>
                         <a data-toggle="collapse" href="#partners">
                             <i class="fa fa-building"></i>
-                            <p>Операции
+                            <p>Операции 
                                 <b class="caret"></b>
                             </p>
                         </a>
@@ -168,16 +168,16 @@
                     </li>
                 @endcan
                 @can('show-dashboard-partner-admin')
-                    <li>
+                    <li @if (Request::path() == 'dashboard/show-operators') class="active" @endif >
                         <a data-toggle="collapse" href="#operators">
                             <i class="fa fa-user"></i>
                             <p>Операторы
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="operators">
+                        <div class="collapse @if (Request::path() == 'dashboard/show-operators') in @endif" id="operators">
                             <ul class="nav">
-                                <li>
+                                <li @if (Request::path() == 'dashboard/show-operators') class="active" @endif>
                                     <a href="{{ route('dashboard.partner.show-operators-list.get') }}">
                                         <span class="sidebar-mini">Сп</span>
                                         <span class="sidebar-normal">Список операторов</span>
@@ -187,6 +187,12 @@
                         </div>
                     </li>
                 @endcan
+                <li>
+                        <a href="../calendar.html">
+                            <i class="ti-calendar"></i>
+                            <p>Calendar</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -15,7 +15,7 @@
                             <img src="https://etk21.ru/{{ Auth::user()->profile_image }}" />
                         </div>
 
-                        <a data-toggle="collapse" href="/dashboard#logout" class="collapsed">
+                        <a data-toggle="collapse" href="#logout" class="collapsed">
                             <span>
                                 {{ Auth::user()->name }}
                                 <b class="caret"></b>
@@ -34,10 +34,10 @@
                         </div>
                     </div>
                 </div>
-                <ul class="nav">
+                <ul class="nav" id="sidebar-nav">
                 @can('show-dashboard-admin')
                     <li class="active">
-                        <a data-toggle="collapse" href="overview.html#dashboardOverview">
+                        <a data-toggle="collapse" href="#dashboardOverview">
                             <i class="fa fa-bars"></i>
                             <p>Панель управления
                                 <b class="caret"></b>
@@ -55,7 +55,7 @@
                         </div>
                     </li>
                     <li>
-                        <a data-toggle="collapse" href="/dashboard#partners">
+                        <a data-toggle="collapse" href="#partners">
                             <i class="fa fa-building"></i>
                             <p>Предприятия
                                 <b class="caret"></b>
@@ -79,7 +79,7 @@
                         </div>
                     </li>
                     <li>
-                        <a data-toggle="collapse" href="/dashboard#users">
+                        <a data-toggle="collapse" href="#users">
                             <i class="fa fa-credit-card"></i>
                             <p>Карты
                                 <b class="caret"></b>
@@ -98,7 +98,7 @@
                         </div>
                     </li>
                     <li>
-                        <a data-toggle="collapse" href="overview.html#componentsExamples">
+                        <a data-toggle="collapse" href="l#componentsExamples">
                             <i class="fa fa-handshake-o"></i>
                             <p>Операции
                                <b class="caret"></b>
@@ -125,7 +125,7 @@
 
                 @can('show-dashboard-partner')
                     <li class="active">
-                        <a data-toggle="collapse" href="overview.html#dashboardOverview">
+                        <a data-toggle="collapse" href="#dashboardOverview">
                             <i class="fa fa-bars"></i>
                             <p>Панель управления
                                 <b class="caret"></b>
@@ -143,7 +143,7 @@
                         </div>
                     </li>
                     <li>
-                        <a data-toggle="collapse" href="/dashboard#partners">
+                        <a data-toggle="collapse" href="#partners">
                             <i class="fa fa-building"></i>
                             <p>Операции
                                 <b class="caret"></b>
@@ -161,6 +161,26 @@
                                     <a href="{{ route('dashboard.partner.show-operations.get') }}">
                                         <span class="sidebar-mini">И</span>
                                         <span class="sidebar-normal">История</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                @endcan
+                @can('show-dashboard-partner-admin')
+                    <li>
+                        <a data-toggle="collapse" href="#operators">
+                            <i class="fa fa-user"></i>
+                            <p>Операторы
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="operators">
+                            <ul class="nav">
+                                <li>
+                                    <a href="{{ route('dashboard.partner.show-operators-list.get') }}">
+                                        <span class="sidebar-mini">Сп</span>
+                                        <span class="sidebar-normal">Список операторов</span>
                                     </a>
                                 </li>
                             </ul>

@@ -150,7 +150,7 @@ Route::group(['middleware' => 'auth'], function () {
 		])->middleware('can:show-dashboard-partner,App\User');
 
 	Route::get('/dashboard/show-operations',[
-		'uses' => 'AdminController@getShowOperations',
+		'uses' => 'PartnerController@getShowOperations',
 		'as' => 'dashboard.partner.show-operations.get'	
 		])->middleware('can:show-dashboard-partner,App\User');
 
@@ -158,6 +158,31 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'PartnerController@postCreateOperation',
 		'as' => 'dashboard.partner.create-operation.post'
 	])->middleware('can:show-dashboard-partner,App\User');
+
+	Route::get('/dashboard/show-operators',[
+		'uses' => 'PartnerController@getShowOperatorsList',
+		'as' => 'dashboard.partner.show-operators-list.get'	
+		])->middleware('can:show-dashboard-partner-admin,App\User');
+
+	Route::post('/dashboard/create-operator',[
+		'uses' => 'PartnerController@postCreateOperator',
+		'as' => 'dashboard.partner.create-operator.post'
+	])->middleware('can:show-dashboard-partner-admin,App\User');
+
+	Route::post('/dashboard/delete-operator',[
+		'uses' => 'PartnerController@postDeleteOperator',
+		'as' => 'dashboard.partner.delete-operator.post'
+	])->middleware('can:show-dashboard-partner-admin,App\User');
+
+	Route::post('/dashboard/edit-operator',[
+		'uses' => 'PartnerController@postEditOperator',
+		'as' => 'dashboard.partner.edit-operator.post'
+	])->middleware('can:show-dashboard-partner-admin,App\User');
+
+	Route::post('/dashboard/edit-operator-password',[
+		'uses' => 'PartnerController@postEditOperatorPassword',
+		'as' => 'dashboard.partner.edit-operator-password.post'
+	])->middleware('can:show-dashboard-partner-admin,App\User');
 	/**
 	 *
 	 *

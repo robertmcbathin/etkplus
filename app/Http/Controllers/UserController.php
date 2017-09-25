@@ -23,7 +23,7 @@ class UserController extends Controller
          */
         $visits = DB::table('ETKPLUS_VISITS')
                     ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_VISITS.partner_id','=','ETKPLUS_PARTNERS.id')
-                    ->select('ETKPLUS_VISITS.id','ETKPLUS_VISITS.partner_id','ETKPLUS_VISITS.user_id','ETKPLUS_VISITS.bill','ETKPLUS_VISITS.bill_with_discount','ETKPLUS_VISITS.cashback','ETKPLUS_VISITS.bonus','ETKPLUS_VISITS.discount','ETKPLUS_VISITS.is_reviewed','ETKPLUS_VISITS.created_at','ETKPLUS_VISITS.updated_at',
+                    ->select('ETKPLUS_VISITS.id','ETKPLUS_VISITS.partner_id','ETKPLUS_VISITS.card_number','ETKPLUS_VISITS.bill','ETKPLUS_VISITS.bill_with_discount','ETKPLUS_VISITS.cashback','ETKPLUS_VISITS.bonus','ETKPLUS_VISITS.discount','ETKPLUS_VISITS.is_reviewed','ETKPLUS_VISITS.created_at','ETKPLUS_VISITS.updated_at',
                         'ETKPLUS_PARTNERS.logo','ETKPLUS_PARTNERS.name')
                     ->where('user_id',$user->id)
                     ->orderBy('created_at','DESC')

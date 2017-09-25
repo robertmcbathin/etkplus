@@ -67,8 +67,7 @@
     <!-- Vector Map plugin -->
     <script src="/assets/dashboard/js/jquery-jvectormap.js"></script>
 
-    <!--  Google Maps Plugin    -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFPQibxeDaLIUHsC6_KqDdFaUdhrbhZ3M"></script>
+
 
     <!-- Wizard Plugin    -->
     <script src="/assets/dashboard/js/jquery.bootstrap.wizard.min.js"></script>
@@ -85,8 +84,6 @@
     <!-- Paper Dashboard PRO Core javascript and methods for Demo purpose -->
     <script src="/assets/dashboard/js/paper-dashboard.js"></script>
 
-    <!--   Sharrre Library    -->
-    <script src="/assets/dashboard/js/jquery.sharrre.js"></script>
 
     <!-- Paper Dashboard PRO DEMO methods, don't include it in your project! -->
     <script src="/assets/dashboard/js/demo.js"></script>
@@ -100,9 +97,7 @@
             demo.initOverviewDashboard();
             demo.initCirclePercentage();
             demo.initFormExtendedDatetimepickers();
-            $(document).ready(function(){
-                demo.initWizard();
-            });
+            demo.initWizard();
         });
     </script>
     <script>

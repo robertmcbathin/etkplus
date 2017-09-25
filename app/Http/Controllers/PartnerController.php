@@ -10,6 +10,7 @@ use Mail;
 use \App\User;
 use \App\Partner;
 use App\Mail\PartnerRegistered;
+use App\Mail\OperatorCreated;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 class PartnerController extends Controller
@@ -228,7 +229,119 @@ class PartnerController extends Controller
         Session::flash('error',$e);
         return redirect()->back();
       }
-              Session::flash('success','Операция успешно проведена');
+        Session::flash('success','Операция успешно проведена');
         return redirect()->back();
     }
+
+    /**
+     * ОПЕРАТОРЫ
+     */
+    public function getShowOperatorsList(){
+      $partner_id = Auth::user()->partner_id;
+      $partner = \App\Partner::find($partner_id);
+
+      $operators = DB::table('users')
+                      ->where('partner_id',$partner_id)
+                      ->get();
+      return view('dashboard.partner.operators_list',[
+        'partner' => $partner,
+        'operators' => $operators
+      ]);
+    }
+    public function postCreateOperator(Request $request){
+      define('OPERATOR_ROLE_ID',22);
+
+      $partner_id = $request->partner_id;
+      $name       = $request->name;
+      $email      = $request->email;
+      $password   = $request->password;
+      $post       = $request->post;
+      $role_id    = OPERATOR_ROLE_ID;
+      $is_active  = 1;
+
+      $partner = \App\Partner::find($partner_id);
+      if (($operator = DB::table('users')
+                        ->where('email',$email)
+                        ->first()) !== NULL){
+        Session::flash('error','Пользователь с таким email уже существует. Вероятно, он зарегистрирован в личном кабинете ЕТК. Выберите другой email.');
+        return redirect()->back();
+      } else {
+        try {
+         // Mail::to($email)->send(new OperatorCreated($email,$password,$partner->name));
+          $operator = new \App\User;
+          $operator->name = $name;
+          $operator->partner_id = $partner_id;
+          $operator->email = $email;
+          $operator->username = $email;
+          $operator->password = bcrypt($password);
+          $operator->post = $post;
+          $operator->role_id = $role_id;
+          $operator->is_active = $is_active;
+          $operator->save(); 
+        } catch (Exception $e) {
+          Session::flash('error',$e);
+          return redirect()->back();
+        }
+        Session::flash('success','Оператор успешно создан. На указанный email отправлено письмо с паролем');
+        return redirect()->back();
+      }
+    }
+
+    public function postDeleteOperator(Request $request){
+      $operator_id = $request->operator_id;
+      try {
+        DB::table('users')
+          ->where('id',$operator_id)
+          ->delete();
+      } catch (Exception $e) {
+        Session::flash('error',$e);
+        return redirect()->back();
+      }
+        Session::flash('success','Оператор успешно удален');
+        return redirect()->back();      
+    }
+
+    public function postEditOperator(Request $request){
+      $operator_id = $request->operator_id;
+      $name        = $request->name;
+      $email       = $request->email;
+      $post        = $request->post;
+
+      try {
+        DB::table('users')
+          ->where('id',$operator_id)
+          ->update([
+            'name' => $name,
+            'username' => $email,
+            'email' => $email,
+            'post' => $post
+          ]);
+      } catch (Exception $e) {
+          Session::flash('error',$e);
+          return redirect()->back();
+      }
+        Session::flash('success','Данные успешно изменены');
+        return redirect()->back();      
+    }
+
+    public function postEditOperatorPassword(Request $request){
+      $operator_id     = $request->operator_id;
+      $password        = bcrypt($request->password);
+
+      try {
+        DB::table('users')
+          ->where('id',$operator_id)
+          ->update([
+            'password' => $password
+          ]);
+      } catch (Exception $e) {
+          Session::flash('error',$e);
+          return redirect()->back();
+      }
+        Session::flash('success','Пароль успешно изменен');
+        return redirect()->back();      
+    }
+    /**
+     * 
+     */
 }

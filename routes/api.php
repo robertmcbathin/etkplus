@@ -16,7 +16,15 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/user/{id}',[
-	'uses' => 'APIController@showUser',
-	'as' => 'api.show-user.get'
+Route::post('/mobile/partner/login',[
+	'uses' => 'APIController@postLogin',
+	'as' => 'api.login.post'
+]);
+Route::post('/mobile/partner/get-card',[
+	'uses' => 'APIController@postGetCard',
+	'as' => 'api.get-card.post'
+]);
+Route::post('/mobile/partner/create-operation',[
+	'uses' => 'APIController@postCreateOperation',
+	'as' => 'api.create-operation.post'
 ]);

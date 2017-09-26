@@ -36,7 +36,26 @@ class PartnerController extends Controller
    */
   
     public function showDashboard(){
-      return view('dashboard.partner.index');
+      $partner = \App\Partner::find(Auth::user()->partner_id);
+      $discounts = DB::table('ETKPLUS_PARTNER_DISCOUNTS')
+      ->where('partner_id',$partner->id)
+      ->get();
+      $bonuses = DB::table('ETKPLUS_PARTNER_BONUSES')
+      ->where('partner_id',$partner->id)
+      ->get();
+      $earnings = DB::table('ETKPLUS_VISITS')
+      ->where('partner_id',$partner->id)
+      ->sum('bill');
+      $balance = DB::table('ETKPLUS_PARTNER_ACCOUNTS')
+      ->where('partner_id',$partner->id)
+      ->first();
+      return view('dashboard.partner.index',[
+        'partner' => $partner,
+        'earnings' => $earnings,
+        'balance' => $balance,
+        'bonuses' => $bonuses,
+        'discounts' => $discounts
+      ]);
     }
 
     public function getShowOperations(){
@@ -193,7 +212,7 @@ class PartnerController extends Controller
         ->where('card_number',$card_number)
         ->first()) !== NULL){
         if ($sub_bonus > $user_bonuses->value){
-          Session::flash('error', 'Нельзя списать бонусов больше, чем есть у клиента');
+          Session::flash('error', 'Нельзя списать бонусов больше, чем есть на карте');
           return redirect()->back();
         }
       }
@@ -222,12 +241,18 @@ class PartnerController extends Controller
         Session::flash('error',$e);
         return redirect()->back();
       }
-
+      /**
+       * ДОСТАТОЧНО ЛИ СРЕДСТВ НА АККАУНТЕ
+       */
+      if (($current_balance->value - ($bill*$partner->default_comission/100)) < $current_balance->min_value ){
+        Session::flash('error','Недостаточно средств для проведения транзакции');
+        return redirect()->back();
+      } else $new_balance = ($current_balance->value - ($bill*$partner->default_comission/100));
       /**
        * 
        */
       try {
-        DB::transaction(function() use ($partner_id,$operator_id,$card_number,$card_chip,$bill,$bill_with_discount,$bonus,$sub_bonus,$discount,$cashback,$new_user_bonus_value) {
+        DB::transaction(function() use ($partner_id,$operator_id,$card_number,$card_chip,$bill,$bill_with_discount,$bonus,$sub_bonus,$discount,$cashback,$new_user_bonus_value,$new_balance) {
           DB::table('ETKPLUS_VISITS')
             ->insert([
               'partner_id' => $partner_id,
@@ -249,7 +274,7 @@ class PartnerController extends Controller
             ]);
           DB::table('ETKPLUS_PARTNER_ACCOUNTS')
             ->where('partner_id',$partner_id)
-            ->update(['value' => ])
+            ->update(['value' => $new_balance])
         }); 
       } catch (Exception $e) {
         Session::flash('error',$e);

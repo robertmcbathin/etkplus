@@ -18,14 +18,6 @@
 
 
                         <ul class="nav navbar-nav navbar-right">
-                            @if ($balance)
-                            <li>
-                                <a href="" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
-                                    <i class="fa fa-money"></i>
-                                    <p>{{ $balance->value }}</p>
-                                </a>
-                            </li> 
-                            @endif 
                             <li>
                                 <a href="{{ route('logout') }}" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
                                     <i class="fa fa-sign-out"></i>

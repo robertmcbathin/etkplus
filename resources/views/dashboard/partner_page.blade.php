@@ -199,7 +199,7 @@
             <div class="card-footer">
                 <hr>
                 <div class="stats">
-                    <i class="fa fa-ruble"></i> обещанный платеж: {{ $balance->min_value }}
+                    <i class="fa fa-ruble"></i> минимальный остаток: {{ $balance->min_value }}
                 </div>
             </div>
         </div>

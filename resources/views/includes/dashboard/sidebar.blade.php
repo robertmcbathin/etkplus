@@ -143,6 +143,12 @@
                             <p>Оплата услуг</p>
                         </a>
                     </li>
+                    <li @if (Request::path() == 'control-panel/show-operators') class="active" @endif>
+                        <a href="{{ route('dashboard.partner.show-operators-list.get') }}">
+                            <i class="fa fa-comments"></i>
+                            <p>Отзывы</p>
+                        </a>
+                    </li>
 
                 @endcan
                 @can('show-dashboard-partner-admin')

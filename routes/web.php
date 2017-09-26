@@ -45,7 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/dashboard',[
 		'uses' => 'AdminController@showDashboard',
 		'as' => 'dashboard.show-dashboard.get'
-		])->middleware('can:show-dashboard,App\User');
+		])->middleware('can:show-dashboard-admin,App\User');
 
 	Route::get('/dashboard/create-partner',[
 		'uses' => 'AdminController@showCreatePartnerPage',
@@ -144,42 +144,47 @@ Route::group(['middleware' => 'auth'], function () {
 	/**
 	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ ПАРТНЕРА
 	 */	
-	Route::get('/dashboard/create-operation',[
+	Route::get('/control-panel',[
+		'uses' => 'PartnerController@showDashboard',
+		'as' => 'dashboard.partner.show-dashboard.get'
+		])->middleware('can:show-dashboard-partner,App\User');
+
+	Route::get('/control-panel/create-operation',[
 		'uses' => 'PartnerController@getCreateOperation',
 		'as' => 'dashboard.partner.create-operation.get'	
 		])->middleware('can:show-dashboard-partner,App\User');
 
-	Route::get('/dashboard/show-operations',[
+	Route::get('/control-panel/show-operations',[
 		'uses' => 'PartnerController@getShowOperations',
 		'as' => 'dashboard.partner.show-operations.get'	
 		])->middleware('can:show-dashboard-partner,App\User');
 
-	Route::post('/dashboard/create-operation',[
+	Route::post('/control-panel/create-operation',[
 		'uses' => 'PartnerController@postCreateOperation',
 		'as' => 'dashboard.partner.create-operation.post'
 	])->middleware('can:show-dashboard-partner,App\User');
 
-	Route::get('/dashboard/show-operators',[
+	Route::get('/control-panel/show-operators',[
 		'uses' => 'PartnerController@getShowOperatorsList',
 		'as' => 'dashboard.partner.show-operators-list.get'	
 		])->middleware('can:show-dashboard-partner-admin,App\User');
 
-	Route::post('/dashboard/create-operator',[
+	Route::post('/control-panel/create-operator',[
 		'uses' => 'PartnerController@postCreateOperator',
 		'as' => 'dashboard.partner.create-operator.post'
 	])->middleware('can:show-dashboard-partner-admin,App\User');
 
-	Route::post('/dashboard/delete-operator',[
+	Route::post('/control-panel/delete-operator',[
 		'uses' => 'PartnerController@postDeleteOperator',
 		'as' => 'dashboard.partner.delete-operator.post'
 	])->middleware('can:show-dashboard-partner-admin,App\User');
 
-	Route::post('/dashboard/edit-operator',[
+	Route::post('/control-panel/edit-operator',[
 		'uses' => 'PartnerController@postEditOperator',
 		'as' => 'dashboard.partner.edit-operator.post'
 	])->middleware('can:show-dashboard-partner-admin,App\User');
 
-	Route::post('/dashboard/edit-operator-password',[
+	Route::post('/control-panel/edit-operator-password',[
 		'uses' => 'PartnerController@postEditOperatorPassword',
 		'as' => 'dashboard.partner.edit-operator-password.post'
 	])->middleware('can:show-dashboard-partner-admin,App\User');

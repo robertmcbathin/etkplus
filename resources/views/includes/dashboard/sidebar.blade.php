@@ -124,75 +124,41 @@
                 @endcan
 
                 @can('show-dashboard-partner')
-                    <li @if (Request::path() == 'dashboard') class="active" @endif>
-                        <a data-toggle="collapse" href="#dashboardOverview">
-                            <i class="fa fa-bars"></i>
-                            <p>Панель управления
-                                <b class="caret"></b>
-                            </p>
+                    <li @if (Request::path() == 'control-panel') class="active" @endif>
+                        <a href="{{ route('dashboard.partner.show-dashboard.get') }}">
+                            <i class="fa fa-area-chart"></i>
+                            <p>Панель управления</p>
                         </a>
-                        <div class="collapse @if (Request::path() == 'dashboard') in @endif" id="dashboardOverview">
-                            <ul class="nav">
-                                <li @if (Request::path() == 'dashboard') class="active" @endif>
-                                    <a href="overview.html">
-                                        <span class="sidebar-mini">О</span>
-                                        <span class="sidebar-normal">Обзор</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
                     </li>
-                    <li @if (Request::path() == 'dashboard') class="active" @endif>
-                        <a data-toggle="collapse" href="#partners">
-                            <i class="fa fa-building"></i>
-                            <p>Операции 
-                                <b class="caret"></b>
-                            </p>
+
+                    <li @if (Request::path() == 'control-panel/show-operations') class="active" @endif>
+                        <a href="{{ route('dashboard.partner.show-operations.get') }}">
+                            <i class="fa fa-handshake-o"></i>
+                            <p>Операции</p>
                         </a>
-                        <div class="collapse" id="partners">
-                            <ul class="nav">
-                                <li>
-                                    <a href="{{ route('dashboard.partner.create-operation.get') }}">
-                                        <span class="sidebar-mini">С</span>
-                                        <span class="sidebar-normal">Создать</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('dashboard.partner.show-operations.get') }}">
-                                        <span class="sidebar-mini">И</span>
-                                        <span class="sidebar-normal">История</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
                     </li>
+                    <li @if (Request::path() == 'control-panel/show-operators') class="active" @endif>
+                        <a href="{{ route('dashboard.partner.show-operators-list.get') }}">
+                            <i class="fa fa-money"></i>
+                            <p>Оплата услуг</p>
+                        </a>
+                    </li>
+
                 @endcan
                 @can('show-dashboard-partner-admin')
-                    <li @if (Request::path() == 'dashboard/show-operators') class="active" @endif >
-                        <a data-toggle="collapse" href="#operators">
+                    <li @if (Request::path() == 'control-panel/show-operators') class="active" @endif>
+                        <a href="{{ route('dashboard.partner.show-operators-list.get') }}">
                             <i class="fa fa-user"></i>
-                            <p>Операторы
-                                <b class="caret"></b>
-                            </p>
+                            <p>Операторы</p>
                         </a>
-                        <div class="collapse @if (Request::path() == 'dashboard/show-operators') in @endif" id="operators">
-                            <ul class="nav">
-                                <li @if (Request::path() == 'dashboard/show-operators') class="active" @endif>
-                                    <a href="{{ route('dashboard.partner.show-operators-list.get') }}">
-                                        <span class="sidebar-mini">Сп</span>
-                                        <span class="sidebar-normal">Список операторов</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                    </li>
+                    <li @if (Request::path() == 'control-panel/show-operators') class="active" @endif>
+                        <a href="{{ route('dashboard.partner.show-operators-list.get') }}">
+                            <i class="fa fa-wrench"></i>
+                            <p>Настройки</p>
+                        </a>
                     </li>
                 @endcan
-                <li>
-                        <a href="../calendar.html">
-                            <i class="ti-calendar"></i>
-                            <p>Calendar</p>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>

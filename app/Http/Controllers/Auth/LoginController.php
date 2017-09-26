@@ -65,17 +65,19 @@ class LoginController extends Controller
                     /**
                      * ЕСЛИ ЭТО ДЕРЖАТЕЛЬ КАРТЫ, ТО ОТПРАВИТЬ ЕГО НА СТРАНИЦУ ПРОФИЛЯ
                      */
-                    if ($user_isset->role_id >= $this->cardholder_role){
+                    if ($user_isset->role_id >= 31){
                         return redirect()->route('profile.show-profile-page.get');
-                    } else{
+                    } else
                         /**
                          * ЕСЛИ ЭТО ПАРТНЕР ИЛИ АДМИН - ТО В ПАНЕЛЬ УПРАВЛЕНИЯ
                          */
-                        if($user_isset->role_id < $this->cardholder_role)
+                        if (($user_isset->role_id < 25) && ($user_isset->role_id > 20))
+                        {
+                            return redirect()->route('dashboard.partner.show-dashboard.get');
+                        } else if ($user_isset->role_id < 15)
                         {
                             return redirect()->route('dashboard.show-dashboard.get');
                         }
-                    }
                 }
             } else {
                 /**
@@ -105,15 +107,13 @@ class LoginController extends Controller
             if (Auth::user()){
               $auth_user_id = Auth::user()->id;
             }
-            if(Auth::user()->role_id >= $this->cardholder_role)
+            if(Auth::user()->role_id >= 31)
             {
-                return redirect()->intended('profile.show-profile-page.get',[
-                            'auth_user_id' => $auth_user_id
-                            ]);
-            } else {
-                return redirect()->intended('dashboard',[
-                            'auth_user_id' => $auth_user_id
-                            ]);
+                return redirect()->intended('profile.show-profile-page.get');
+            } if (($user_isset->role_id < 25) && ($user_isset->role_id > 20)){
+                return redirect()->intended('dashboard.partner.show-dashboard.get');
+            } else if ($user_isset->role_id < 15){
+                return redirect()->intended('dashboard.show-dashboard.get');
             }
         }
     }

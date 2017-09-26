@@ -18,37 +18,20 @@
 
 
                         <ul class="nav navbar-nav navbar-right">
-                        <!--<li>
-                                <a href="overview.html#stats" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
-                                    <i class="ti-panel"></i>
-                                    <p>Stats</p>
-                                </a>
-                            </li>  --> 
-                           <!--<li class="dropdown">
-                                <a href="overview.html#notifications" class="dropdown-toggle btn-rotate" data-toggle="dropdown">
-                                    <i class="ti-bell"></i>
-                                    <span class="notification">5</span>
-                                    <p class="hidden-md hidden-lg">
-                                        Notifications
-                                        <b class="caret"></b>
-                                    </p>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="overview.html#not1">Notification 1</a></li>
-                                    <li><a href="overview.html#not2">Notification 2</a></li>
-                                    <li><a href="overview.html#not3">Notification 3</a></li>
-                                    <li><a href="overview.html#not4">Notification 4</a></li>
-                                    <li><a href="overview.html#another">Another notification</a></li>
-                                </ul>
-                            </li>
+                            @if ($balance)
                             <li>
-                                <a href="overview.html#settings" class="btn-rotate">
-                                    <i class="ti-settings"></i>
-                                    <p class="hidden-md hidden-lg">
-                                        Settings
-                                    </p>
+                                <a href="" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
+                                    <i class="fa fa-money"></i>
+                                    <p>{{ $balance->value }}</p>
                                 </a>
-                            </li>  --> 
+                            </li> 
+                            @endif 
+                            <li>
+                                <a href="{{ route('logout') }}" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
+                                    <i class="fa fa-sign-out"></i>
+                                    <p>Выйти</p>
+                                </a>
+                            </li> 
                         </ul>
                     </div>
                 </div>

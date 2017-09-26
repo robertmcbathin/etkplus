@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use DB;
+use Auth;
 use View;
 
 class AppServiceProvider extends ServiceProvider
@@ -18,7 +19,13 @@ class AppServiceProvider extends ServiceProvider
         $categories = DB::table('ETKPLUS_PARTNER_CATEGORIES')
                         ->orderBy('name','ASC')
                         ->get();
-        View::share(['categories' => $categories]);
+      /*  $balance = DB::table('ETKPLUS_PARTNER_ACCOUNTS')
+                     ->where('partner_id',Auth::user()->partner_id)
+                     ->first();*/
+        View::share([
+            'categories' => $categories,
+         //   'balance' => $balance
+        ]);
     }
 
     /**

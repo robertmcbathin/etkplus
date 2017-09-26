@@ -35,7 +35,26 @@ class PartnerController extends Controller
    * @return [type] [description]
    */
   
+    public function showDashboard(){
+      return view('dashboard.partner.index');
+    }
 
+    public function getShowOperations(){
+      $operations = DB::table('ETKPLUS_VISITS')
+        ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_VISITS.partner_id', '=', 'ETKPLUS_PARTNERS.id')
+        ->leftJoin('users','ETKPLUS_VISITS.operator_id', '=', 'users.id')
+        ->select('ETKPLUS_VISITS.*','ETKPLUS_PARTNERS.name as partner_name','users.name as operator')
+        ->where('ETKPLUS_VISITS.partner_id', Auth::user()->partner_id)
+        ->orderBy('ETKPLUS_VISITS.created_at', 'DESC')
+        ->paginate(50);
+      return view('dashboard.partner.operations_list',[
+        'operations' => $operations
+      ]);
+    }
+    /**
+     * [getCreateOperation description]
+     * @return [type] [description]
+     */
     public function getCreateOperation(){
     	$partner = DB::table('ETKPLUS_PARTNERS')
     				->where('id', Auth::user()->partner_id)
@@ -179,8 +198,12 @@ class PartnerController extends Controller
         }
       }
       /**
-       * 
+       * ПРОВЕРКА БАЛАНСА, ДОСТУПНОГО ДЛЯ ПРОВЕДЕНИЯ ОПЕРАЦИИ
        */
+      $current_balance = DB::table('ETKPLUS_PARTNER_ACCOUNTS')
+                            ->where('partner_id',$partner_id)
+                            ->first();
+
       /**
        * ВЫЧИСЛЕНИЕ СКИДОК, БОНУСОВ И КЭШБЭКА
        */
@@ -224,6 +247,9 @@ class PartnerController extends Controller
             ->update([
               'value' => $new_user_bonus_value
             ]);
+          DB::table('ETKPLUS_PARTNER_ACCOUNTS')
+            ->where('partner_id',$partner_id)
+            ->update(['value' => ])
         }); 
       } catch (Exception $e) {
         Session::flash('error',$e);

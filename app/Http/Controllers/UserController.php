@@ -11,27 +11,29 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function showProfilePage(){
-        /**
-         * ПРОВЕРКА НА АУТЕНТИФИКАЦИЮ
-         */
-    	if (Auth::user()){
-    		$user = Auth::user();
-    	} else
-    	return redirect()->route('login');
-        /**
-         * ЗАГРУЗКА ДАННЫХ
-         */
+        $usercards = DB::table('ETK_CARD_USERS')
+                        ->where('user_id', Auth::user()->id)
+                        ->get();
+        $cards = [];
+        foreach ($usercards as $usercard) {
+            $cards[] = $usercard->number;
+        }
         $visits = DB::table('ETKPLUS_VISITS')
                     ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_VISITS.partner_id','=','ETKPLUS_PARTNERS.id')
                     ->select('ETKPLUS_VISITS.id','ETKPLUS_VISITS.partner_id','ETKPLUS_VISITS.card_number','ETKPLUS_VISITS.bill','ETKPLUS_VISITS.bill_with_discount','ETKPLUS_VISITS.cashback','ETKPLUS_VISITS.bonus','ETKPLUS_VISITS.discount','ETKPLUS_VISITS.is_reviewed','ETKPLUS_VISITS.created_at','ETKPLUS_VISITS.updated_at',
                         'ETKPLUS_PARTNERS.logo','ETKPLUS_PARTNERS.name')
-                    ->where('user_id',$user->id)
+                    ->whereIn('card_number', $cards)
                     ->orderBy('created_at','DESC')
-                    ->paginate(10);
+                    ->paginate(5);
+        $bonuses = DB::table('ETKPLUS_PARTNER_USER_BONUSES')
+                    ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_PARTNER_USER_BONUSES.partner_id','=','ETKPLUS_PARTNERS.id')
+                    ->select('ETKPLUS_PARTNER_USER_BONUSES.*','ETKPLUS_PARTNERS.logo','ETKPLUS_PARTNERS.name')
+                    ->whereIn('card_number',$cards)
+                    ->get();
+                    dd($bonuses);
     	return view('profile',[
-    		'user' => $user,
-    		'auth_user_id' => $user->id,
-            'visits' => $visits
+            'visits' => $visits,
+            'bonuses' => $bonuses
     		]);
     }
     /**

@@ -226,7 +226,8 @@ class PartnerController extends Controller
       /**
        * ВЫЧИСЛЕНИЕ СКИДОК, БОНУСОВ И КЭШБЭКА
        */
-      $bill_with_discount = ($bill - ($bill*($discount/100)) - $bonus);
+      $discount_value = ($bill*($discount/100));
+      $bill_with_discount = (($bill - $discount_value) - $bonus);
 
       $partner = \App\Partner::find($partner_id);
       $cashback = ($bill*($partner->default_cashback/100));
@@ -247,12 +248,15 @@ class PartnerController extends Controller
       if (($current_balance->value - ($bill*$partner->default_comission/100)) < $current_balance->min_value ){
         Session::flash('error','Недостаточно средств для проведения транзакции');
         return redirect()->back();
-      } else $new_balance = ($current_balance->value - ($bill*$partner->default_comission/100));
+      } else {
+        $comission = ($bill*$partner->default_comission/100);
+        $new_balance = ($current_balance->value - $comission);
+      }
       /**
        * 
        */
       try {
-        DB::transaction(function() use ($partner_id,$operator_id,$card_number,$card_chip,$bill,$bill_with_discount,$bonus,$sub_bonus,$discount,$cashback,$new_user_bonus_value,$new_balance) {
+        DB::transaction(function() use ($partner_id,$operator_id,$card_number,$card_chip,$bill,$bill_with_discount,$bonus,$sub_bonus,$discount,$discount_value,$comission,$cashback,$new_user_bonus_value,$new_balance) {
           DB::table('ETKPLUS_VISITS')
             ->insert([
               'partner_id' => $partner_id,
@@ -264,6 +268,8 @@ class PartnerController extends Controller
               'bonus' => $bonus,
               'sub_bonus' => $sub_bonus,
               'discount' => $discount,
+              'discount_value' => $discount_value,
+              'comission' => $comission,
               'cashback' => $cashback   
             ]);
           DB::table('ETKPLUS_PARTNER_USER_BONUSES')
@@ -274,7 +280,7 @@ class PartnerController extends Controller
             ]);
           DB::table('ETKPLUS_PARTNER_ACCOUNTS')
             ->where('partner_id',$partner_id)
-            ->update(['value' => $new_balance])
+            ->update(['value' => $new_balance]);
         }); 
       } catch (Exception $e) {
         Session::flash('error',$e);
@@ -393,6 +399,16 @@ class PartnerController extends Controller
         return redirect()->back();      
     }
     /**
-     * 
+     * ОПЕРАТОРЫ
      */
+    public function getShowReviews(){
+      $partner_id = Auth::user()->partner_id;
+      $reviews = DB::table('ETKPLUS_REVIEWS')
+                 ->where('partner_id',$partner_id)
+                 ->get();
+
+      return view('dashboard.partner.reviews',[
+        'reviews' => $reviews
+      ]);
+    }
 }

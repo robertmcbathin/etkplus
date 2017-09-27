@@ -188,6 +188,11 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'PartnerController@postEditOperatorPassword',
 		'as' => 'dashboard.partner.edit-operator-password.post'
 	])->middleware('can:show-dashboard-partner-admin,App\User');
+
+	Route::get('/control-panel/show-reviews',[
+		'uses' => 'PartnerController@getShowReviews',
+		'as' => 'dashboard.partner.show-reviews.get'	
+		])->middleware('can:show-dashboard-partner,App\User');
 	/**
 	 *
 	 *

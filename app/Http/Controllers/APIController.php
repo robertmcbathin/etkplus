@@ -338,7 +338,8 @@ class APIController extends Controller
       /**
        * РАСЧЕТ ОПЕРАЦИИ
        */
-      $bill_with_discount = ($bill - ($bill*($discount/100)) - $bonus);
+      $discount_value = ($bill*($discount/100));
+      $bill_with_discount = (($bill - $discount_value) - $bonus);
       /**
        * РАСЧЕТ КЭШБЭКА
        */
@@ -360,12 +361,15 @@ class APIController extends Controller
             'status' => 'error',
             'errorText' => 'Недостаточно средств для проведения операции'
         ],200);
-      } else $new_balance = ($balance - ($bill*$partner->default_comission/100));
+      } else {
+        $comission = ($bill*$partner->default_comission/100);
+        $new_balance = ($current_balance->value - $comission);
+      }
       /**
        * ПРОВЕДЕНИЕ ОПЕРАЦИИ
        */
       try {
-        DB::transaction(function() use ($partner_id,$operator_id,$card_number,$card_chip,$bill,$bill_with_discount,$bonus,$sub_bonus,$discount,$cashback,$new_user_bonus_value,$new_balance) {
+        DB::transaction(function() use ($partner_id,$operator_id,$card_number,$card_chip,$bill,$bill_with_discount,$bonus,$sub_bonus,$discount,$discount_value,$comission,$cashback,$new_user_bonus_value,$new_balance) {
           DB::table('ETKPLUS_VISITS')
             ->insert([
               'partner_id' => $partner_id,
@@ -377,6 +381,8 @@ class APIController extends Controller
               'bonus' => $bonus,
               'sub_bonus' => $sub_bonus,
               'discount' => $discount,
+              'discount_value' => $discount_value,
+              'comission' => $comission,
               'cashback' => $cashback   
             ]);
           DB::table('ETKPLUS_PARTNER_USER_BONUSES')

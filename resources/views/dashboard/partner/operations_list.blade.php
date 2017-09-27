@@ -35,8 +35,9 @@
                                     <th class="text-center">#</th>
                                     <th>Карта</th>
                                     <th class="text-right">Счет</th>
-                                    <th class="text-right">Скидка</th>
-                                    <th class="text-right">Бонус</th>
+                                    <th class="text-right">Скидка (%)</th>
+                                    <th class="text-right">Скидка (р)</th>
+                                    <th class="text-right">Бонус (р)</th>
                                     <th class="text-right">Оператор</th>
                                     <th class="text-right">Дата</th>
                                 </tr>
@@ -48,6 +49,7 @@
                                     <td>{{ $operation->card_number }}</td>
                                     <td class="text-right">{{ $operation->bill }}</td>
                                     <td class="text-right">{{ $operation->discount }}</td>
+                                    <td class="text-right">{{ $operation->discount_value }}</td>
                                     <td class="text-right">{{ $operation->bonus }}</td>
                                     <td class="text-right">{{ $operation->operator }}</td>
                                     <td class="text-right">{{ $operation->created_at }}</td>
@@ -60,6 +62,6 @@
             </div>
         </div>
     </div>
+    </div>
     @include('includes.dashboard.footer')
-</div>
 </div>

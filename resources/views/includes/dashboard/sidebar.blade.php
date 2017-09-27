@@ -143,8 +143,8 @@
                             <p>Оплата услуг</p>
                         </a>
                     </li>
-                    <li @if (Request::path() == 'control-panel/show-operators') class="active" @endif>
-                        <a href="{{ route('dashboard.partner.show-operators-list.get') }}">
+                    <li @if (Request::path() == 'control-panel/show-reviews') class="active" @endif>
+                        <a href="{{ route('dashboard.partner.show-reviews.get') }}">
                             <i class="fa fa-comments"></i>
                             <p>Отзывы</p>
                         </a>

@@ -68,8 +68,8 @@
             </div>
         </div>
     </div>
+    </div>
     @include('includes.dashboard.footer')
-</div>
 </div>
 
 <div class="modal fade" id="create-operator" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">

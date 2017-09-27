@@ -19,7 +19,7 @@
 
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a href="{{ route('logout') }}" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
+                                <a href="{{ route('logout') }}" class=" btn-magnify">
                                     <i class="fa fa-sign-out"></i>
                                     <p>Выйти</p>
                                 </a>

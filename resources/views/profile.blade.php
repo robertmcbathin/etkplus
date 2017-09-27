@@ -4,7 +4,7 @@
 @section('keywords')
 @endsection
 @section('title')
-{{ $user->name }}
+{{ Auth::user()->name }}
 @endsection
 @section('content')
 <div class="wrapper">
@@ -19,11 +19,11 @@
     <div class="row owner">
       <div class="col-md-2 offset-md-5 col-sm-4 offset-md-4 col-xs-6 offset-md-3 text-center">
         <div class="avatar">
-          <img src="https://etk21.ru{{ $user->profile_image }}" alt="{{ $user->name }}" class="img-circle img-responsive">
+          <img src="https://etk21.ru{{ Auth::user()->profile_image }}" alt="{{ Auth::user()->name }}" class="img-circle img-responsive">
         </div>
 
         <div class="name">
-          <h4>{{ $user->name }}</h4>
+          <h4>{{ Auth::user()->name }}</h4>
         </div>
       </div>
     </div>
@@ -75,14 +75,18 @@
                   <strong>{{ $visit->name }}</strong>
                   <h5 class="media-heading"><small>{{ $visit->created_at }}</small></h5>
                   <p><span data-toggle="tooltip" data-placement="bottom" data-original-title="Счет со скидкой"><i class="fa fa-file"></i> <b>{{ $visit->bill_with_discount }} р.</b></span>
-                     <span data-toggle="tooltip" data-placement="bottom" data-original-title="Скидка"><i class="fa fa-percent"></i> <b>{{ $visit->discount }} р.</b></span>
-                     <span data-toggle="tooltip" data-placement="bottom" data-original-title="Бонус"><i class="fa fa-gift"></i> <b>{{ $visit->bonus }} р.</b></span>
-                     <span data-toggle="tooltip" data-placement="bottom" data-original-title="Кэшбэк на транспортную карту"><i class="fa fa-money"></i> <b>{{ $visit->cashback }} р.</b></p></span>
+                   <span data-toggle="tooltip" data-placement="bottom" data-original-title="Скидка"><i class="fa fa-percent"></i> <b>{{ $visit->discount }} р.</b></span>
+                   <span data-toggle="tooltip" data-placement="bottom" data-original-title="Бонус"><i class="fa fa-gift"></i> <b>{{ $visit->bonus }} р.</b></span>
+                   <span data-toggle="tooltip" data-placement="bottom" data-original-title="Кэшбэк на транспортную карту"><i class="fa fa-money"></i> <b>{{ $visit->cashback }} р.</b></p></span>
 
-                  <div class="media-footer">
+                   <div class="media-footer">
                     @if ($visit->is_reviewed == 0)
                     <button class="btn btn-link" data-toggle="modal" data-target="#leave-review-{{ $visit->id }}">
                      Оставить отзыв <i class="fa fa-reply"></i>
+                   </button>
+                   @elseif ($visit->is_reviewed == 1)
+                   <button class="btn btn-link">
+                     Отзыв оставлен
                    </button>
                    @endif
                  </div>
@@ -90,107 +94,107 @@
                </div>
              </div> <!-- end media -->
              @endforeach
-              </div>
-              <br>
-              <div class="row">
-                            <div class="text-center">
-                <?php echo $visits->render(); ?>
+           </div>
+           <br>
+           <div class="row">
+            <div class="text-center">
+              <?php echo $visits->render(); ?>
             </div>
+          </div>
+
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <div class="card card-with-shadow">
+            <div class="card-block">
+              <h5 class="card-title">Who to follow · <small><a href="javascript: void(0);" class="link-info">View all</a></small></h5>
+              <div class="accounts-suggestion">
+                <ul class="list-unstyled">
+                  <li class="account">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="avatar">
+                          <img src="../assets/img/chet_faker_1.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                        </div>
+                      </div>
+                      <div class="col-md-7 description-section">
+                        Chet Faker <a href="#paper-kit" class="text-muted">@chetfaker</a>
+                        <br>
+                        <span class="text-muted"><small>Followed by <a href="#paper-kit" class="link-info">@banks</a> and <a href="#paper-kit" class="link-info">@rihanna</a> </small></span>
+                      </div>
+
+                      <div class="col-md-2 follow">
+                        <btn class="btn btn-sm btn-outline-info btn-just-icon"><i class="fa fa-plus"></i></btn>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="account">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="avatar">
+                          <img src="../assets/img/placeholder.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                        </div>
+                      </div>
+                      <div class="col-md-7 description-section">
+                        John Green <a href="#paper-kit" class="text-muted">@johngreen</a>
+                        <br>
+                        <span class="text-muted"><small>Followed by <a href="#paper-kit" class="link-info">@rihanna</a> </small></span>
+                      </div>
+
+                      <div class="col-md-2 follow">
+                        <btn class="btn btn-sm btn-outline-info btn-just-icon"><i class="fa fa-plus"></i></btn>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="account">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="avatar">
+                          <img src="../assets/img/drake.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                        </div>
+                      </div>
+                      <div class="col-md-7 description-section">
+                        Drake <a href="#paper-kit" class="text-muted">@drake</a>
+                        <br>
+                        <span class="text-muted"><small>Followed by <a href="#paper-kit" class="link-info">@chetfaker</a> </small></span>
+                      </div>
+
+                      <div class="col-md-2 follow">
+                        <btn class="btn btn-sm btn-outline-info btn-just-icon"><i class="fa fa-plus"></i></btn>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
               </div>
 
-</div>
-<div class="col-md-4 col-sm-6">
-  <div class="card card-with-shadow">
-    <div class="card-block">
-      <h5 class="card-title">Who to follow · <small><a href="javascript: void(0);" class="link-info">View all</a></small></h5>
-      <div class="accounts-suggestion">
-        <ul class="list-unstyled">
-          <li class="account">
-            <div class="row">
-              <div class="col-md-3">
-                <div class="avatar">
-                  <img src="../assets/img/chet_faker_1.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+            </div>
+          </div> <!-- end card -->
+          <div class="card card-with-shadow">
+            <div class="card-block">
+              <h5 class="card-title">Trends · <small><a href="javascript: void(0);" class="link-info">Change</a></small></h5>
+              <div class="hashtag-suggestions">
+                <ul class="list-unstyled">
+                  <li><a href="#paper-kit" class="link-danger">#JeSuisToujoursCharlie</a></li>
+                  <li><a href="#paper-kit">Oculus Rift</a></li>
+                  <li><a href="#paper-kit" class="link-danger">#CarenAndLarryAreNotReal</a></li>
+                  <li><a href="#paper-kit" class="link-danger">#Twitter10k</a></li>
+                  <li><a href="#paper-kit">EXCLUSIVE MOVE WITHINGTON</a></li>
+                  <li><a href="#paper-kit">London</a>
+                  </li><li><a href="#paper-kit">DJ Khaled Snapchat</a>
+                  </li></ul>
                 </div>
-              </div>
-              <div class="col-md-7 description-section">
-                Chet Faker <a href="#paper-kit" class="text-muted">@chetfaker</a>
-                <br>
-                <span class="text-muted"><small>Followed by <a href="#paper-kit" class="link-info">@banks</a> and <a href="#paper-kit" class="link-info">@rihanna</a> </small></span>
-              </div>
 
-              <div class="col-md-2 follow">
-                <btn class="btn btn-sm btn-outline-info btn-just-icon"><i class="fa fa-plus"></i></btn>
               </div>
-            </div>
-          </li>
-          <li class="account">
-            <div class="row">
-              <div class="col-md-3">
-                <div class="avatar">
-                  <img src="../assets/img/placeholder.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                </div>
-              </div>
-              <div class="col-md-7 description-section">
-                John Green <a href="#paper-kit" class="text-muted">@johngreen</a>
-                <br>
-                <span class="text-muted"><small>Followed by <a href="#paper-kit" class="link-info">@rihanna</a> </small></span>
-              </div>
-
-              <div class="col-md-2 follow">
-                <btn class="btn btn-sm btn-outline-info btn-just-icon"><i class="fa fa-plus"></i></btn>
-              </div>
-            </div>
-          </li>
-          <li class="account">
-            <div class="row">
-              <div class="col-md-3">
-                <div class="avatar">
-                  <img src="../assets/img/drake.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                </div>
-              </div>
-              <div class="col-md-7 description-section">
-                Drake <a href="#paper-kit" class="text-muted">@drake</a>
-                <br>
-                <span class="text-muted"><small>Followed by <a href="#paper-kit" class="link-info">@chetfaker</a> </small></span>
-              </div>
-
-              <div class="col-md-2 follow">
-                <btn class="btn btn-sm btn-outline-info btn-just-icon"><i class="fa fa-plus"></i></btn>
-              </div>
-            </div>
-          </li>
-        </ul>
+            </div> <!-- end card -->
+          </div>
+        </div>
       </div>
 
+      <div class="tab-pane text-center" id="connections" role="tabpanel"></div>
+
+      <div class="tab-pane" id="media" role="tabpanel"></div>
     </div>
-  </div> <!-- end card -->
-  <div class="card card-with-shadow">
-    <div class="card-block">
-      <h5 class="card-title">Trends · <small><a href="javascript: void(0);" class="link-info">Change</a></small></h5>
-      <div class="hashtag-suggestions">
-        <ul class="list-unstyled">
-          <li><a href="#paper-kit" class="link-danger">#JeSuisToujoursCharlie</a></li>
-          <li><a href="#paper-kit">Oculus Rift</a></li>
-          <li><a href="#paper-kit" class="link-danger">#CarenAndLarryAreNotReal</a></li>
-          <li><a href="#paper-kit" class="link-danger">#Twitter10k</a></li>
-          <li><a href="#paper-kit">EXCLUSIVE MOVE WITHINGTON</a></li>
-          <li><a href="#paper-kit">London</a>
-          </li><li><a href="#paper-kit">DJ Khaled Snapchat</a>
-        </li></ul>
-      </div>
 
-    </div>
-  </div> <!-- end card -->
-</div>
-</div>
-</div>
-
-<div class="tab-pane text-center" id="connections" role="tabpanel"></div>
-
-<div class="tab-pane" id="media" role="tabpanel"></div>
-</div>
-
-</div>
+  </div>
 
 
 </div>
@@ -205,7 +209,7 @@
         <h5 class="modal-title text-center" id="exampleModalLabel">Оставить отзыв</h5>
         <a class="text-center" href="{{route('site.show-partner.get', $visit->partner_id) }}" target="_blank">
          <div class="avatar">
-          <img class="media-object" src="{{ $visit->logo }}" alt="{{ $visit->name }}" alt="">
+          <img class="media-object" src="{{ $visit->logo }}" alt="{{ $visit->name }}" width="60px" height="60px" alt="">
         </div>
         <strong>{{ $visit->name }}</strong>
       </a>
@@ -225,32 +229,32 @@
         <input type="hidden" name="partner_id" value="{{ $visit->partner_id }}">
         <input type="hidden" name="visit_id" value="{{ $visit->id }}">
         <div class="form-group">
-        <input type="text" class="form-control" placeholder="Общее впечатление" name="review_title" minlength="1" maxlength="50">
-       </div>
-       <textarea class="form-control" placeholder="Напишите что-нибудь хорошее или не очень" rows="6" name="review_description" minlength="1" maxlength="4096"></textarea>
-       <div class="text-center">
-          <div class="rating"> 
-              <input type="radio" id="star5-{{ $visit->id }}" name="rating" required value="5" ><label for="star5-{{ $visit->id }}" title="Отлично">5 stars</label>
-              <input type="radio" id="star4-{{ $visit->id }}" name="rating" required value="4" ><label for="star4-{{ $visit->id }}" title="Хорошо">4 stars</label>
-              <input type="radio" id="star3-{{ $visit->id }}" name="rating" required value="3" ><label for="star3-{{ $visit->id }}" title="Удовлетворительно">3 stars</label>
-              <input type="radio" id="star2-{{ $visit->id }}" name="rating" required value="2" ><label for="star2-{{ $visit->id }}" title="Плохо">2 stars</label>
-              <input type="radio" id="star1-{{ $visit->id }}" name="rating" required value="1" ><label for="star1-{{ $visit->id }}" title="Отвратительно">1 star</label> 
-            </div>
-       </div>
+          <input type="text" class="form-control" placeholder="Общее впечатление" name="review_title" minlength="1" maxlength="50">
         </div>
-   <div class="modal-footer">
-    <div class="left-side">
-      <button type="button" class="btn btn-default btn-link" data-dismiss="modal">В следующий раз</button>
-    </div>
-    <div class="divider"></div>
-    <div class="right-side">
-      <input type="submit" class="btn btn-success btn-link" value="Оставить отзыв" >
-    </div>
+        <textarea class="form-control" placeholder="Напишите что-нибудь хорошее или не очень" rows="6" name="review_description" minlength="1" maxlength="4096"></textarea>
+        <div class="text-center">
+          <div class="rating"> 
+            <input type="radio" id="star5-{{ $visit->id }}" name="rating" required value="5" ><label for="star5-{{ $visit->id }}" title="Отлично">5 stars</label>
+            <input type="radio" id="star4-{{ $visit->id }}" name="rating" required value="4" ><label for="star4-{{ $visit->id }}" title="Хорошо">4 stars</label>
+            <input type="radio" id="star3-{{ $visit->id }}" name="rating" required value="3" ><label for="star3-{{ $visit->id }}" title="Удовлетворительно">3 stars</label>
+            <input type="radio" id="star2-{{ $visit->id }}" name="rating" required value="2" ><label for="star2-{{ $visit->id }}" title="Плохо">2 stars</label>
+            <input type="radio" id="star1-{{ $visit->id }}" name="rating" required value="1" ><label for="star1-{{ $visit->id }}" title="Отвратительно">1 star</label> 
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="left-side">
+          <button type="button" class="btn btn-default btn-link" data-dismiss="modal">В следующий раз</button>
+        </div>
+        <div class="divider"></div>
+        <div class="right-side">
+          <input type="submit" class="btn btn-success btn-link" value="Оставить отзыв" >
+        </div>
+      </div>
+    </form>
+
+
   </div>
-     </form>
-
-
-</div>
 </div>
 </div>
 @endforeach

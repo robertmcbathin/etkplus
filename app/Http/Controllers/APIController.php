@@ -344,7 +344,10 @@ class APIController extends Controller
        * РАСЧЕТ КЭШБЭКА
        */
       $partner = \App\Partner::find($partner_id);
-      $cashback = ($bill*($partner->default_cashback/100));
+      /**
+       * ЗНАЧЕНИЕ КЭШБЭКА ДЛЯ ЗАЧИСЛЕНИЯ НА КАРТУ
+       */
+      $cashback = ceil(($bill*($partner->default_cashback/100))); //ОКРУГЛЯЕМ КЭШБЭК В БОЛЬШУЮ СТОРОНУ
       /**
        * РАСЧЕТ НОВОГО ЗНАЧЕНИЯ БОНУСА
        */
@@ -353,6 +356,10 @@ class APIController extends Controller
         ->where('card_number',$card_number)
         ->first();
       $new_user_bonus_value = ($user_bonuses->value + $bonus - $sub_bonus);
+      /**
+       * НОМЕР КАРТЫ ПО ФОРМАТУ В
+       */
+      $b_card_number = $this->modifyToFullNumber($card_number);
       /**
        * ДОСТАТОЧНО ЛИ СРЕДСТВ НА АККАУНТЕ
        */
@@ -369,7 +376,7 @@ class APIController extends Controller
        * ПРОВЕДЕНИЕ ОПЕРАЦИИ
        */
       try {
-        DB::transaction(function() use ($partner_id,$operator_id,$card_number,$card_chip,$bill,$bill_with_discount,$bonus,$sub_bonus,$discount,$discount_value,$comission,$cashback,$new_user_bonus_value,$new_balance) {
+        DB::transaction(function() use ($partner_id,$operator_id,$card_number,$card_chip,$bill,$bill_with_discount,$bonus,$sub_bonus,$discount,$discount_value,$comission,$cashback,$new_user_bonus_value,$new_balance,$b_card_number) {
           DB::table('ETKPLUS_VISITS')
             ->insert([
               'partner_id' => $partner_id,
@@ -396,6 +403,12 @@ class APIController extends Controller
             ->update([
                 'value' => $new_balance
             ]);
+            /**
+             * КЭШБЭК
+             */
+          DB::table('ETK_CARDS')
+            ->where('num',$b_card_number)
+            ->update(['cashback_to_pay' => $cashback]);
         }); 
       } catch (Exception $e) {
         return response()->json([

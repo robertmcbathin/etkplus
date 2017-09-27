@@ -23,13 +23,17 @@ class PartnerController extends Controller
    * @param  [type] $number [description]
    * @return [type]         [description]
    */
-  public function modifyToFullNumber($number){
-    $card_num_part2 = substr($number,1,2);
-    $card_num_part3  = substr($number,3,6);
-    if ($card_num_part2 !== 99){ $prefix = '01'; } else {$prefix = '02';}
-    $full_card_number = $prefix . $card_num_part2 . $card_num_part3;
-    return $full_card_number;
-  }
+    protected function modifyToShortNumber($num){
+        return substr_replace($num, '', 1,1);
+    }
+
+    protected function modifyToFullNumber($number){
+      $card_num_part2 = substr($number,1,2);
+      $card_num_part3  = substr($number,3,6);
+      if ($card_num_part2 !== 99){ $prefix = '01'; } else {$prefix = '02';}
+      $full_card_number = $prefix . $card_num_part2 . $card_num_part3;
+      return $full_card_number;
+    }
   /**
    * END SYSTEM FUNCTIONS
    * @return [type] [description]
@@ -230,7 +234,10 @@ class PartnerController extends Controller
       $bill_with_discount = (($bill - $discount_value) - $bonus);
 
       $partner = \App\Partner::find($partner_id);
-      $cashback = ($bill*($partner->default_cashback/100));
+      /**
+       * ЗНАЧЕНИЕ КЭШБЭКА ДЛЯ ЗАЧИСЛЕНИЯ НА КАРТУ
+       */
+      $cashback = ceil(($bill*($partner->default_cashback/100))); //ОКРУГЛЯЕМ КЭШБЭК В БОЛЬШУЮ СТОРОНУ
       try {
         $user_bonuses = DB::table('ETKPLUS_PARTNER_USER_BONUSES')
         ->where('partner_id', $partner_id)
@@ -243,6 +250,10 @@ class PartnerController extends Controller
         return redirect()->back();
       }
       /**
+       * НОМЕР КАРТЫ ПО ФОРМАТУ В
+       */
+      $b_card_number = $this->modifyToFullNumber($card_number);
+      /**
        * ДОСТАТОЧНО ЛИ СРЕДСТВ НА АККАУНТЕ
        */
       if (($current_balance->value - ($bill*$partner->default_comission/100)) < $current_balance->min_value ){
@@ -252,11 +263,9 @@ class PartnerController extends Controller
         $comission = ($bill*$partner->default_comission/100);
         $new_balance = ($current_balance->value - $comission);
       }
-      /**
-       * 
-       */
+      
       try {
-        DB::transaction(function() use ($partner_id,$operator_id,$card_number,$card_chip,$bill,$bill_with_discount,$bonus,$sub_bonus,$discount,$discount_value,$comission,$cashback,$new_user_bonus_value,$new_balance) {
+        DB::transaction(function() use ($partner_id,$operator_id,$card_number,$card_chip,$bill,$bill_with_discount,$bonus,$sub_bonus,$discount,$discount_value,$comission,$cashback,$new_user_bonus_value,$new_balance,$b_card_number) {
           DB::table('ETKPLUS_VISITS')
             ->insert([
               'partner_id' => $partner_id,
@@ -281,6 +290,12 @@ class PartnerController extends Controller
           DB::table('ETKPLUS_PARTNER_ACCOUNTS')
             ->where('partner_id',$partner_id)
             ->update(['value' => $new_balance]);
+            /**
+             * КЭШБЭК
+             */
+          DB::table('ETK_CARDS')
+            ->where('num',$b_card_number)
+            ->update(['cashback_to_pay' => $cashback]);
         }); 
       } catch (Exception $e) {
         Session::flash('error',$e);

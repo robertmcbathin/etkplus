@@ -43,23 +43,17 @@
         <div class="nav-tabs-wrapper">
           <ul id="tabs" class="nav nav-tabs" role="tablist">
             <li class="nav-item ">
-              <a class="nav-link active" href="#tweets" data-toggle="tab" role="tab">Лента</a>
+              <a class="nav-link active" href="#visits" data-toggle="tab" role="tab">Лента</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#connections" data-toggle="tab" role="tab">Бонусы</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#media" data-toggle="tab" role="tab">Накопительная система</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#media" data-toggle="tab" role="tab">Кэшбэк</a>
+              <a class="nav-link" href="#bonuses" data-toggle="tab" role="tab">Бонусы</a>
             </li>
           </ul>
         </div>
       </div>
 
       <div id="my-tab-content" class="tab-content">
-        <div class="tab-pane active" id="tweets" role="tabpanel">
+        <div class="tab-pane active" id="visits" role="tabpanel">
           <div class="row">
             <div class="col-md-8">
               <div class="tweets">
@@ -101,70 +95,28 @@
               <?php echo $visits->render(); ?>
             </div>
           </div>
+  
 
         </div>
         <div class="col-md-4 col-sm-6">
           <div class="card card-with-shadow">
             <div class="card-block">
-              <h5 class="card-title">Who to follow · <small><a href="javascript: void(0);" class="link-info">View all</a></small></h5>
+              <h5 class="card-title">Кэшбэк </h5>
+              <hr>
+              <small class="muted">Ожидает зачисления</small>
               <div class="accounts-suggestion">
-                <ul class="list-unstyled">
-                  <li class="account">
-                    <div class="row">
-                      <div class="col-md-3">
-                        <div class="avatar">
-                          <img src="../assets/img/chet_faker_1.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                        </div>
-                      </div>
-                      <div class="col-md-7 description-section">
-                        Chet Faker <a href="#paper-kit" class="text-muted">@chetfaker</a>
-                        <br>
-                        <span class="text-muted"><small>Followed by <a href="#paper-kit" class="link-info">@banks</a> and <a href="#paper-kit" class="link-info">@rihanna</a> </small></span>
-                      </div>
-
-                      <div class="col-md-2 follow">
-                        <btn class="btn btn-sm btn-outline-info btn-just-icon"><i class="fa fa-plus"></i></btn>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="account">
-                    <div class="row">
-                      <div class="col-md-3">
-                        <div class="avatar">
-                          <img src="../assets/img/placeholder.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                        </div>
-                      </div>
-                      <div class="col-md-7 description-section">
-                        John Green <a href="#paper-kit" class="text-muted">@johngreen</a>
-                        <br>
-                        <span class="text-muted"><small>Followed by <a href="#paper-kit" class="link-info">@rihanna</a> </small></span>
-                      </div>
-
-                      <div class="col-md-2 follow">
-                        <btn class="btn btn-sm btn-outline-info btn-just-icon"><i class="fa fa-plus"></i></btn>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="account">
-                    <div class="row">
-                      <div class="col-md-3">
-                        <div class="avatar">
-                          <img src="../assets/img/drake.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                        </div>
-                      </div>
-                      <div class="col-md-7 description-section">
-                        Drake <a href="#paper-kit" class="text-muted">@drake</a>
-                        <br>
-                        <span class="text-muted"><small>Followed by <a href="#paper-kit" class="link-info">@chetfaker</a> </small></span>
-                      </div>
-
-                      <div class="col-md-2 follow">
-                        <btn class="btn btn-sm btn-outline-info btn-just-icon"><i class="fa fa-plus"></i></btn>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
+                @foreach ($cashbacks as $cashback)
+                <p><i class="fa fa-credit-card"></i>{{ $cashback->num }} <b class="pull-right">{{ $cashback->cashback_to_pay }}<i class="fa fa-ruble"></i> </b></p>
+                @endforeach
               </div>
+              <hr>
+              <small class="muted">Зачислено ранее</small>
+              <div class="accounts-suggestion">
+                @foreach ($cashbacks as $cashback)
+                <p><i class="fa fa-credit-card"></i>{{ $cashback->num }} <b class="pull-right">{{ $cashback->cashback_payed }}<i class="fa fa-ruble"></i> </b></p>
+                @endforeach
+              </div>
+              <blockquote class="blockquote"><p class="mb-0">Суммы зачисляются ежедневно автоматически</p></blockquote>
 
             </div>
           </div> <!-- end card -->
@@ -189,9 +141,29 @@
         </div>
       </div>
 
-      <div class="tab-pane text-center" id="connections" role="tabpanel"></div>
+      <div class="tab-pane text-center" id="bonuses" role="tabpanel">
+       <div class="col-md-8 offset-md-2">
+                    @isset($bonuses)
+                    <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                          @foreach ($bonuses as $bonus)
+                            <tr>
+                                <td><img src="{{ $bonus->logo }}" alt="" width="60px" height="60px"></td>
+                                <td>{{ $bonus->name }}</td>
+                                <td><i class="fa fa-credit-card"></i>{{ $bonus->card_number }}</td>
+                                <td class="text-right">{{ $bonus->value }}<i class="fa fa-ruble"></i></td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                    </table>
+                    </div>
+                    @endisset
 
-      <div class="tab-pane" id="media" role="tabpanel"></div>
+                </div> 
+
+      </div>
+
     </div>
 
   </div>

@@ -15,6 +15,13 @@
         <div class="content">
             <div class="container-fluid">
                 @include('includes/notifications')
+            <div class="row">
+                 <div class="col-md-12">
+                    <a class="btn btn-danger btn-fill btn-wd" href="{{ route('dashboard.create-partner.get') }}">Добавить предприятие</a>
+                </div>
+
+            </div>
+            <br>
                 <div class="col-md-12">
                     <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-search"></i></span>

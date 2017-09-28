@@ -57,30 +57,13 @@
                         </a>
                     </li>
 
-                    <li>
-                        <a data-toggle="collapse" href="#partners">
+                    <li @if (Request::path() == 'dashboard/cards/list') class="active" @endif>
+                        <a href="{{ route('dashboard.show-partner-list.get') }}">
                             <i class="fa fa-building"></i>
-                            <p>Предприятия
-                                <b class="caret"></b>
-                            </p>
+                            <p>Предприятия</p>
                         </a>
-                        <div class="collapse" id="partners">
-                            <ul class="nav">
-                                <li>
-                                    <a href="{{ route('dashboard.create-partner.get') }}">
-                                        <span class="sidebar-mini">Н</span>
-                                        <span class="sidebar-normal">Новое</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('dashboard.show-partner-list.get') }}">
-                                        <span class="sidebar-mini">Сп</span>
-                                        <span class="sidebar-normal">Список</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
                     </li>
+
                     <li>
                         <a data-toggle="collapse" href="#users">
                             <i class="fa fa-credit-card"></i>

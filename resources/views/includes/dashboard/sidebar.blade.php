@@ -36,24 +36,27 @@
                 </div>
                 <ul class="nav" id="sidebar-nav">
                 @can('show-dashboard-admin')
-                    <li class="active">
-                        <a data-toggle="collapse" href="#dashboardOverview">
-                            <i class="fa fa-bars"></i>
-                            <p>Панель управления
-                                <b class="caret"></b>
-                            </p>
+                    <li @if (Request::path() == 'dashboard') class="active" @endif>
+                        <a href="{{ route('dashboard.show-dashboard.get') }}">
+                            <i class="fa fa-area-chart"></i>
+                            <p>Панель управления</p>
                         </a>
-                        <div class="collapse in" id="dashboardOverview">
-                            <ul class="nav">
-                                <li class="active">
-                                    <a href="overview.html">
-                                        <span class="sidebar-mini">Ст</span>
-                                        <span class="sidebar-normal">Статистика</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
                     </li>
+
+                    <li @if (Request::path() == 'dashboard/show-operations') class="active" @endif>
+                        <a href="{{ route('dashboard.show-operations.get') }}">
+                            <i class="fa fa-handshake-o"></i>
+                            <p>Операции</p>
+                        </a>
+                    </li>
+
+                    <li @if (Request::path() == 'dashboard/partners/list') class="active" @endif>
+                        <a href="{{ route('dashboard.show-partner-list.get') }}">
+                            <i class="fa fa-building"></i>
+                            <p>Предприятия</p>
+                        </a>
+                    </li>
+
                     <li>
                         <a data-toggle="collapse" href="#partners">
                             <i class="fa fa-building"></i>

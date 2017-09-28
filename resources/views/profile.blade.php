@@ -120,23 +120,6 @@
 
             </div>
           </div> <!-- end card -->
-          <div class="card card-with-shadow">
-            <div class="card-block">
-              <h5 class="card-title">Trends · <small><a href="javascript: void(0);" class="link-info">Change</a></small></h5>
-              <div class="hashtag-suggestions">
-                <ul class="list-unstyled">
-                  <li><a href="#paper-kit" class="link-danger">#JeSuisToujoursCharlie</a></li>
-                  <li><a href="#paper-kit">Oculus Rift</a></li>
-                  <li><a href="#paper-kit" class="link-danger">#CarenAndLarryAreNotReal</a></li>
-                  <li><a href="#paper-kit" class="link-danger">#Twitter10k</a></li>
-                  <li><a href="#paper-kit">EXCLUSIVE MOVE WITHINGTON</a></li>
-                  <li><a href="#paper-kit">London</a>
-                  </li><li><a href="#paper-kit">DJ Khaled Snapchat</a>
-                  </li></ul>
-                </div>
-
-              </div>
-            </div> <!-- end card -->
           </div>
         </div>
       </div>

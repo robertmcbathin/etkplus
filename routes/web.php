@@ -57,6 +57,16 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.create-partner.post'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
+
+
+	Route::get('/dashboard/show-operations',[
+		'uses' => 'AdminController@showOperationsPage',
+		'as' => 'dashboard.show-operations.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
+
+
+
+
 	Route::get('/dashboard/partners/list',[
 		'uses' => 'AdminController@getPartnerList',
 		'as' => 'dashboard.show-partner-list.get'	

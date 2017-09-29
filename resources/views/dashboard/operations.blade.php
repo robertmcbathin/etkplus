@@ -14,7 +14,7 @@
         @include('includes.dashboard.top_nav')
         <div class="content">
             <div class="container-fluid">
-                @include('includes/notifications');
+                @include('includes/notifications')
                 <div class="col-md-12">
 
 
@@ -42,7 +42,7 @@
                                     <tr>
                                         <th class="text-center">#</th>
                                         <th>Предприятие</th>
-                                        <th>Клиент</th>
+                                        <th>Номер карты</th>
                                         <th class="text-right">Счет</th>
                                         <th class="text-right">Скидка</th>
                                         <th class="text-right">Бонус</th>
@@ -55,7 +55,7 @@
                                     <tr>
                                         <td class="text-center">{{ $visit->id }}</td>
                                         <td><a href="{{ route('dashboard.partner-page.get', ['partner_id' => $visit->partner_id]) }}">{{ $visit->partner_name }}</a></td>
-                                        <td>{{ $visit->user_name }}</td>
+                                        <td><a href="">{{ $visit->card_number }}</a></td>
                                         <td class="text-right">{{ $visit->bill }}</td>
                                         <td class="text-right">{{ $visit->discount }}</td>
                                         <td class="text-right">{{ $visit->bonus }}</td>

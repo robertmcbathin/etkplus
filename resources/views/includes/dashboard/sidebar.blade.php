@@ -58,55 +58,12 @@
                     </li>
 
                     <li @if (Request::path() == 'dashboard/cards/list') class="active" @endif>
-                        <a href="{{ route('dashboard.show-partner-list.get') }}">
-                            <i class="fa fa-building"></i>
-                            <p>Предприятия</p>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a data-toggle="collapse" href="#users">
+                        <a href="{{ route('dashboard.show-card-list.get') }}">
                             <i class="fa fa-credit-card"></i>
-                            <p>Карты
-                                <b class="caret"></b>
-                            </p>
+                            <p>Карты</p>
                         </a>
-                        <div class="collapse" id="users">
-                            <ul class="nav">
+                    </li>
 
-                                <li>
-                                    <a href="{{ route('dashboard.show-user-list.get') }}">
-                                        <span class="sidebar-mini">Сп</span>
-                                        <span class="sidebar-normal">Список</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a data-toggle="collapse" href="l#componentsExamples">
-                            <i class="fa fa-handshake-o"></i>
-                            <p>Операции
-                               <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="componentsExamples">
-                            <ul class="nav">
-                                <li>
-                                    <a href="{{ route('dashboard.show-visits-list.get') }}">
-                                        <span class="sidebar-mini">Сп</span>
-                                        <span class="sidebar-normal">Список</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../components/grid.html">
-                                        <span class="sidebar-mini">GS</span>
-                                        <span class="sidebar-normal">Grid System</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
                 @endcan
 
                 @can('show-dashboard-partner')

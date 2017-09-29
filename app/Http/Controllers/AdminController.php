@@ -620,6 +620,18 @@ public function postLoadGallery(Request $request){
     /**
      * END OF DUSCOUNTS
      */
+    
+
+    public function showOperationsPage(){
+         $visits = DB::table('ETKPLUS_VISITS')
+        ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_VISITS.partner_id', '=', 'ETKPLUS_PARTNERS.id')
+        ->select('ETKPLUS_VISITS.*','ETKPLUS_PARTNERS.name as partner_name')
+        ->orderBy('ETKPLUS_VISITS.created_at', 'DESC')
+        ->paginate(50);
+        return view('dashboard.operations',[
+            'visits' => $visits
+        ]);
+    }
     /**
      * AJAX
      */

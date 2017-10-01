@@ -67,6 +67,9 @@ class AdminController extends Controller
         $ogrn              = $request->ogrn;
         $category          = $request->category;
         $is_active         = $request->is_active;
+
+        $account_value             = $request->account_value;
+        $account_min_value         = $request->account_min_value;
         if ($is_active == 'on'){
           $is_active = 1;
       } else $is_active = 0;
@@ -97,8 +100,8 @@ class AdminController extends Controller
             DB::table('ETKPLUS_PARTNER_ACCOUNTS')
             ->insert([
                 'partner_id' => $partnerId,
-                'value' => $value,
-                'min_value' => $min_value
+                'value' => $account_value,
+                'min_value' => $account_min_value
             ]);
         } catch (Exception $e) {
             Session::flash('error', $e);

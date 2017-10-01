@@ -78,6 +78,9 @@ class LoginController extends Controller
                         {
                             return redirect()->route('dashboard.show-dashboard.get');
                         }
+                } else {
+                    Session::flash('error', 'Ошибка авторизации');
+                    return redirect()->back();
                 }
             } else {
                 /**

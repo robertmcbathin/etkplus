@@ -332,7 +332,7 @@ class PartnerController extends Controller
       $is_active  = 1;
 
       $partner = \App\Partner::find($partner_id);
-      if (($operator = DB::table('users')
+      if (($isset_operator = DB::table('users')
                         ->where('email',$email)
                         ->first()) !== NULL){
         Session::flash('error','Пользователь с таким email уже существует. Вероятно, он зарегистрирован в личном кабинете ЕТК. Выберите другой email.');

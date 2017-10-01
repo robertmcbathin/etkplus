@@ -328,7 +328,7 @@ class PartnerController extends Controller
       $email      = $request->email;
       $password   = $request->password;
       $post       = $request->post;
-      $role_id    = OPERATOR_ROLE_ID;
+      $role_id    = 22;
       $is_active  = 1;
 
       $partner = \App\Partner::find($partner_id);

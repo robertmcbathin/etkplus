@@ -339,7 +339,7 @@ class PartnerController extends Controller
         return redirect()->back();
       } else {
         try {
-         // Mail::to($email)->send(new OperatorCreated($email,$password,$partner->name));
+          Mail::to($email)->send(new OperatorCreated($email,$password,$partner->name));
           $operator = new \App\User;
           $operator->name = $name;
           $operator->partner_id = $partner_id;

@@ -16,7 +16,7 @@
 
         <div class="content">
             <div class="container-fluid">
-            @include('includes/notifications');
+            @include('includes/notifications')
                 <div class="col-md-10 col-md-offset-1">
                     <div class="card card-wizard" id="wizardCard">
                         <form id="wizardForm" method="POST" action="{{ route('dashboard.create-partner.post') }}" novalidate="novalidate" enctype="multipart/form-data">

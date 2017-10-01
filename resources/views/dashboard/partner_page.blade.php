@@ -14,7 +14,7 @@
         @include('includes.dashboard.top_nav')
         <div class="content">
             <div class="container-fluid">
-                @include('includes/notifications');
+                @include('includes/notifications')
                 <div class="row">
                     <div class="col-md-8">
                         <div class="row">

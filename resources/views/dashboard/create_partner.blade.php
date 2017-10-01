@@ -183,7 +183,6 @@
                                                 </div>
                                             </div>  
                                         </div>
-                                        </div>
                                         <h5 class="text-center">Категория</h5>
                                         <div class="row">
                                             <div class="col-md-10 col-md-offset-1">
@@ -196,6 +195,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                        </div>
                                         </div>
                                     <div class="tab-pane" id="tab2">
                                         <h5 class="text-center">Прикрепите медиафайлы</h5>

@@ -339,7 +339,6 @@ class PartnerController extends Controller
         return redirect()->back();
       } else {
         try {
-          Mail::to($email)->send(new OperatorCreated($email,$password,$partner->name));
           $operator = new \App\User;
           $operator->name = $name;
           $operator->partner_id = $partner_id;
@@ -350,6 +349,7 @@ class PartnerController extends Controller
           $operator->role_id = $role_id;
           $operator->is_active = $is_active;
           $operator->save(); 
+          Mail::to($email)->send(new OperatorCreated($email,$password,$partner->name));
         } catch (Exception $e) {
           Session::flash('error',$e);
           return redirect()->back();

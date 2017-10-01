@@ -80,8 +80,8 @@
                             <p>Операции</p>
                         </a>
                     </li>
-                    <li @if (Request::path() == 'control-panel/show-operators') class="active" @endif>
-                        <a href="{{ route('dashboard.partner.show-operators-list.get') }}">
+                    <li @if (Request::path() == 'control-panel/billing') class="active" @endif>
+                        <a href="{{ route('dashboard.partner.billing.get') }}">
                             <i class="fa fa-money"></i>
                             <p>Оплата услуг</p>
                         </a>

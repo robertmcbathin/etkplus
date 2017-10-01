@@ -207,6 +207,13 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'PartnerController@getShowReviews',
 		'as' => 'dashboard.partner.show-reviews.get'	
 		])->middleware('can:show-dashboard-partner,App\User');
+
+	Route::get('/control-panel/billing',[
+		'uses' => 'PartnerController@getBillingPage',
+		'as' => 'dashboard.partner.billing.get'	
+		])->middleware('can:show-dashboard-partner,App\User');
+
+	Route::get('/pdf', 'PartnerController@createTestPDF');
 	/**
 	 *
 	 *

@@ -23,7 +23,7 @@ class OperatorCreated extends Mailable
     {
         $this->email = $email;
         $this->password = $password;
-        $this->name = $name
+        $this->name = $name;
     }
 
     /**

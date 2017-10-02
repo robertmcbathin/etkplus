@@ -294,7 +294,7 @@
                     <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th>Клиент</th>
+                            <th>Карта</th>
                             <th class="text-right">Счет</th>
                             <th class="text-right">Скидка</th>
                             <th class="text-right">Бонус</th>
@@ -306,7 +306,7 @@
                         @foreach ($visits as $visit)
                         <tr>
                             <td class="text-center">{{ $visit->id }}</td>
-                            <td>{{ $visit->user_name }}</td>
+                            <td>{{ $visit->card_number }}</td>
                             <td class="text-right">{{ $visit->bill }}</td>
                             <td class="text-right">{{ $visit->discount }}</td>
                             <td class="text-right">{{ $visit->bonus }}</td>

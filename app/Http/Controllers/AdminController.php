@@ -515,7 +515,7 @@ public function postLoadGallery(Request $request){
                 'comment' => $comment,
                 'schedule' => $schedule,
                 'latitude' => $latitude,
-                'longitude' => $longitude
+                'longitude' => $longitude,
                 'phones' => $phones
             ]);
             Session::flash('success','Адрес успешно добавлен');

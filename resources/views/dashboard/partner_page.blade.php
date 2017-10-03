@@ -484,13 +484,13 @@
                         </label>
                         <input class="form-control" type="text" name="kpp" placeholder="" value ="{{ $partner->kpp }}">
                     </div>
-                    <h5 class="text-center">Категория</h5>
                     <div class="form-group">
                         <label class="control-label">
                             ОГРН
                         </label>
                         <input class="form-control" type="text" name="ogrn" placeholder="" value ="{{ $partner->ogrn }}">
                     </div>
+                    <h5 class="text-center">Категория</h5>
 
                     <div class="form-group">
                         <select class="form-control" name="category" title="Выберите категорию" data-size="7" tabindex="-98">
@@ -738,7 +738,7 @@
                             <div class="card-content">
                                 <div class="form-group">
                                     <label>Название точки</label>
-                                    <input type="text" placeholder="филиал №..., дополнительный офис №..." class="form-control" maxlength="100">
+                                    <input type="text" name="name" placeholder="филиал №..., дополнительный офис №..." class="form-control" maxlength="100">
                                     <span class="help-block">Если планируется только один адрес, то оставить поле пустым</span>
                                 </div>
                                 <div class="form-group">

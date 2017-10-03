@@ -17,156 +17,191 @@
                 @include('includes/notifications')
                 <div class="row">
                     <div class="col-lg-4 col-md-5">
-                            <div class="card card-user">
-                                <div class="image">
-                                    <img src="{{ $partner->thumbnail }}">
-                                </div>
-                                <div class="card-content">
-                                    <div class="author">
-                                      <img class="avatar border-white" src="{{ $partner->logo }}">
-                                      <h4 class="card-title">{{ $partner->name }}<br>
-                                         <a><small>{{ $partner->fullname }}</small></a>
-                                      </h4>
-                                    </div>
-                                    <p class="description text-center">
-                                        "I like the way you work it <br>
-                                        No diggity <br>
-                                        I wanna bag it up"
-                                    </p>
-                                </div>
-                                <hr>
-                                <div class="text-center">
-                                    <div class="row">
-                                        <div class="col-md-3 col-md-offset-1">
-                                            <h5>{{ $balance->value }}<br><small><i class="fa fa-money"></i> Баланс</small></h5>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h5>2GB<br><small>Used</small></h5>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <h5>24,6$<br><small>Spent</small></h5>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="card card-user">
+                            <div class="image">
+                                <img src="{{ $partner->thumbnail }}">
                             </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Team Members</h4>
-                                </div>
-                                <div class="card-content">
-                                    <ul class="list-unstyled team-members">
-                                        <li>
-                                            <div class="row">
-                                                <div class="col-xs-3">
-                                                    <div class="avatar">
-                                                        <img src="../../assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6">
-                                                    DJ Khaled
-                                                    <br>
-                                                    <span class="text-muted"><small>Offline</small></span>
-                                                </div>
-                                                <div class="col-xs-3 text-right">
-                                                    <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="row">
-                                                <div class="col-xs-3">
-                                                    <div class="avatar">
-                                                        <img src="../../assets/img/faces/face-1.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6">
-                                                    Creative Tim
-                                                    <br>
-                                                    <span class="text-success"><small>Available</small></span>
-                                                </div>
-                                                <div class="col-xs-3 text-right">
-                                                    <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="row">
-                                                <div class="col-xs-3">
-                                                    <div class="avatar">
-                                                        <img src="../../assets/img/faces/face-3.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6">
-                                                    Flume
-                                                    <br>
-                                                    <span class="text-danger"><small>Busy</small></span>
-                                                </div>
-                                                <div class="col-xs-3 text-right">
-                                                    <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                </div>
+                            <div class="card-content">
+                                <div class="author">
+                                  <img class="avatar border-white" src="{{ $partner->logo }}">
+                                  <h4 class="card-title">{{ $partner->name }}<br>
+                                     <a><small>{{ $partner->fullname }}</small></a>
+                                 </h4>
+                             </div>
+                             <div class="row">
+                                <div class="left-vertical-tabs">
+                                    <ul class="nav nav-stacked" role="tablist">
+                                        <li class="active">
+                                            <a href="#info" role="tab" data-toggle="tab">
+                                             Описание
+                                         </a>
+                                     </li>
+                                     <li>
+                                        <a href="#contacts" role="tab" data-toggle="tab">
+                                         Контактные данные
+                                     </a>
+                                 </li>
+                                 <li>
+                                    <a href="#agreement" role="tab" data-toggle="tab">
+                                     Данные договора
+                                 </a>
+                             </li>
+                        <li>
+                           <a href="#discounts" role="tab" data-toggle="tab">
+                            Скидки и бонусы
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="right-text-tabs">
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="info">
+                        <p>{{ $partner->description }}</p>
+                        <p>Создано: <b class="pull-right">{{ $partner->created_at }}</b></p>
+                    </div>
+                    <div class="tab-pane" id="contacts">
+                        <p>тел.: <b class="pull-right">{{ $partner->phone }}</b></p>
+                        <p>email: <b class="pull-right">{{ $partner->email }}</b></p>
+                        <p>адрес: <b class="pull-right">{{ $partner->address }}</b></p>
+                        <p>сайт: <b class="pull-right">{{ $partner->site }}</b></p>
+                    </div>
+                    <div class="tab-pane" id="agreement">
+                        <p>Номер: <b class="pull-right">{{ $partner->contract_id }}</b></p>
+                        <p>Юридический адрес: <b class="pull-right">{{ $partner->legal_address }}</b></p>
+                        <p>Физический адрес: <b class="pull-right">{{ $partner->physical_address }}</b></p>
+                        <p>ИНН: <b class="pull-right">{{ $partner->inn }}</b></p>
+                        <p>КПП: <b class="pull-right">{{ $partner->kpp }}</b></p>
+                        <p>ОГРН: <b class="pull-right">{{ $partner->ogrn }}</b></p>
+                    </div>
+                    <div class="tab-pane" id="discounts">
+                      @if (count($discounts) > 0)
+                      @foreach ($discounts as $discount)
+                      <h6 class="card-category"><span class="upper-text">{{ $discount->value }}%</span>   {{ $discount->description }}</h6>
+                      @endforeach
+                      @else
+                      <h6 class="card-category">Действующих скидок нет</h6>
+                      @endif
+                      @if (count($bonuses) > 0)
+                      @foreach ($bonuses as $bonus)
+                      <h6 class="card-category"><span class="upper-text">{{ $bonus->value }}@if ($bonus->type == 1) руб. @elseif ($bonus->type == 2) % @endif </span>   {{ $bonus->description }}</h6>
+                      @endforeach
+                      @else
+                      <h6 class="card-category">Действующих бонусов нет</h6>
+                      @endif
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+  </div>
+  <hr>
+  <div class="text-center">
+    <div class="row">
+        <div class="col-md-3 col-md-offset-1">
+            <h5>{{ $balance->value }} <i class="fa fa-ruble"></i><br><small><i class="fa fa-money"></i> Баланс</small></h5>
+        </div>
+        <div class="col-md-4">
+            <h5>{{ $balance->min_value }} <i class="fa fa-ruble"></i><br><small>Лимит</small></h5>
+        </div>
+        <div class="col-md-3">
+            <h5>{{ $earnings }} <i class="fa fa-ruble"></i><br><small>Выручка (за все время)</small></h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-1">
+            <h5>{{ $partner->rating }}<br><small><i class="fa fa-star"></i> Рейтинг</small></h5>
+        </div>
+        <div class="col-md-4">
+            <h5>{{ $partner->default_cashback }} <i class="fa fa-percent"></i><br><small><i class="fa fa-gift"></i> Кэшбэк</small></h5>
+        </div>
+        <div class="col-md-3">
+            <h5>{{ $partner->default_comission }} <i class="fa fa-percent"></i><br><small><i class="fa fa-percent"></i> Комиссия</small></h5>
+        </div>
+    </div>
+    <div class="dropup">
+  <button href="#" class="btn btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+      Редактировать
+      <b class="caret"></b>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-partner">
+        <i class="fa fa-pencil"></i>
+    Общие данные </a></li>
+    <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-logos-partner">
+        <i class="fa fa-file-image-o"></i>
+    Заменить логотип и фон</a></li>
+    <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-gallery-partner">
+        <i class="fa fa-picture-o"></i> Галерея
+    </a></li>
+    <li>                                            <a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-addresses-partner">
+        <i class="fa fa-map-marker"></i> Адреса
+    </a></li>
+    <li class="divider"></li>
+    <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-discounts-partner">
+        <i class="fa fa-percent"></i> Скидки
+    </a></li>
+    <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-bonuses-partner">
+        <i class="fa fa-gift"></i> Бонусы
+    </a></li>
+    <li class="divider"></li>
+    <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#delete-partner">
+        <i class="fa fa-trash"></i> Удалить
+    </a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Аккаунты</h4>
+    </div>
+    <div class="card-content">
+        <ul class="list-unstyled team-members">
+            @foreach ($accounts as $account)
+            <li>
                 <div class="row">
-                    <div class="col-md-8">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-header">
-
-                                        <h4 class="card-title"> {{ $partner->name }}                                             <div class="avatar avatar-logo pull-left">
-                                          <img src="{{ $partner->logo }}" alt="{{ $partner->name }}" class="img-circle img-responsive">
-                                      </div></h4>
-                                      <p class="category">{{ $partner->fullname }}</p>
-                                  </div>
-                                  <div class="card-content">
-                                    <div class="table-full-width table-tasks">
-                                        <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-
-                                                    </td>
-                                                    <td>
-                                                        <h5>Общие данные</h5>
-                                                        <p><b>Описание: </b>{{ $partner->description }}</p>
-                                                        <p><b>Создан: </b>{{ $partner->created_at }}</p>
-                                                        <p><b>Номер телефона: </b>{{ $partner->phone }}</p>
-                                                        <p><b>Email: </b>{{ $partner->email }}</p>
-                                                        <p><b>Адрес: </b>{{ $partner->address }}</p>
-                                                        <p><b>Сайт: </b>{{ $partner->site }}</p>
-                                                        <h5>Данные договора</h5>
-                                                        <p><b>Номер: </b>{{ $partner->contract_id }}</p>
-                                                        <p><b>Юридический адрес: </b>{{ $partner->legal_address }}</p>
-                                                        <p><b>Физический адрес: </b>{{ $partner->physical_address }}</p>
-                                                        <p><b>ИНН: </b>{{ $partner->inn }}</p>
-                                                        <p><b>КПП: </b>{{ $partner->kpp }}</p>
-                                                        <p><b>ОГРН: </b>{{ $partner->ogrn }}</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>
-                                                        <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-                                                            @if ($gallery_items)
-                                                            @foreach ($gallery_items as $gallery_item)
-                                                            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="col-md-3 col-sm-4 gallery-item">
-                                                               <a href="{{ $gallery_item->image_path }}" itemprop="contentUrl" data-size="{{ $gallery_item->image_width }}x{{ $gallery_item->image_height }}">
-                                                                 <img src="{{ $gallery_item->image_path }}" itemprop="thumbnail" alt="" class="horizontal-image img-rounded img-responsive">
-                                                             </a>
-                                                             <figcaption itemprop="caption description">{{ $gallery_item->image_caption }}</figcaption>
-                                                         </figure>
-                                                         @endforeach
-                                                         @else 
-                                                         <h2>Нет изображений</h2>
-                                                         @endif
-                                                     </div>
-                                                     <!-- Root element of PhotoSwipe. Must have class pswp. -->
-                                                     <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="col-xs-3">
+                        <div class="avatar">
+                            <img src="{{ $account->profile_image }}" class="img-circle img-no-padding img-responsive">
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        {{ $account->name }}
+                        <br>
+                        <span class="text-success"><small>{{ $account->post }}</small></span>
+                    </div>
+                    <div class="col-xs-3 text-right">
+                        
+                    </div>
+                </div>
+            </li>     
+            @endforeach
+        </ul>
+    </div>
+</div>
+</div>
+<div class="col-lg-8 col-md-7">
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Галерея</h4>
+    </div>
+    <div class="card-content">
+                                        <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+                                            @if (count($gallery_items) > 0)
+                                            @foreach ($gallery_items as $gallery_item)
+                                            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="col-md-3 col-sm-4 gallery-item">
+                                               <a href="{{ $gallery_item->image_path }}" itemprop="contentUrl" data-size="{{ $gallery_item->image_width }}x{{ $gallery_item->image_height }}">
+                                                 <img src="{{ $gallery_item->image_path }}" itemprop="thumbnail" alt="" class="horizontal-image img-rounded img-responsive">
+                                             </a>
+                                             <figcaption itemprop="caption description">{{ $gallery_item->image_caption }}</figcaption>
+                                         </figure>
+                                         @endforeach
+                                         @endif
+                                     </div>
+                                     <!-- Root element of PhotoSwipe. Must have class pswp. -->
+                                     <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
     <!-- Background of PhotoSwipe. 
         It's a separate element, as animating opacity is faster than rgba(). -->
@@ -229,43 +264,57 @@
 
 </div>
 
+</div> 
+    </div>
+</div>   
 </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+
+                        <h4 class="card-title"> {{ $partner->name }}                                             <div class="avatar avatar-logo pull-left">
+                          <img src="{{ $partner->logo }}" alt="{{ $partner->name }}" class="img-circle img-responsive">
+                      </div></h4>
+                      <p class="category">{{ $partner->fullname }}</p>
+                  </div>
+                  <div class="card-content">
+                    <div class="table-full-width table-tasks">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+
+                                    </td>
+                                    <td>
+                                        <h5>Общие данные</h5>
+                                        <p><b>Описание: </b>{{ $partner->description }}</p>
+                                        <p><b>Создан: </b>{{ $partner->created_at }}</p>
+                                        <p><b>Номер телефона: </b>{{ $partner->phone }}</p>
+                                        <p><b>Email: </b>{{ $partner->email }}</p>
+                                        <p><b>Адрес: </b>{{ $partner->address }}</p>
+                                        <p><b>Сайт: </b>{{ $partner->site }}</p>
+                                        <h5>Данные договора</h5>
+                                        <p><b>Номер: </b>{{ $partner->contract_id }}</p>
+                                        <p><b>Юридический адрес: </b>{{ $partner->legal_address }}</p>
+                                        <p><b>Физический адрес: </b>{{ $partner->physical_address }}</p>
+                                        <p><b>ИНН: </b>{{ $partner->inn }}</p>
+                                        <p><b>КПП: </b>{{ $partner->kpp }}</p>
+                                        <p><b>ОГРН: </b>{{ $partner->ogrn }}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
 </td>
 <td></td>
 </tr>
 
 </tbody>
 </table>
-<div class="dropup">
-  <button href="#" class="btn btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-      Редактировать
-      <b class="caret"></b>
-  </button>
-  <ul class="dropdown-menu">
-    <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-partner">
-        <i class="fa fa-pencil"></i>
-    Общие данные </a></li>
-    <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-logos-partner">
-        <i class="fa fa-file-image-o"></i>
-    Заменить логотип и фон</a></li>
-    <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-gallery-partner">
-        <i class="fa fa-picture-o"></i> Галерея
-    </a></li>
-    <li>                                            <a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-addresses-partner">
-        <i class="fa fa-map-marker"></i> Адреса
-    </a></li>
-    <li class="divider"></li>
-    <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-discounts-partner">
-        <i class="fa fa-percent"></i> Скидки
-    </a></li>
-    <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-bonuses-partner">
-        <i class="fa fa-gift"></i> Бонусы
-    </a></li>
-    <li class="divider"></li>
-    <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#delete-partner">
-        <i class="fa fa-trash"></i> Удалить
-    </a></li>
-</ul>
 </div>
 </div>
 </div>

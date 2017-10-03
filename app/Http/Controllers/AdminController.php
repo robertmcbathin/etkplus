@@ -284,6 +284,9 @@ public function getVisitsListByParam($sort_param){
         $gallery_items = DB::table('ETKPLUS_PARTNER_PHOTOS')
         ->where('partner_id', $partner_id)
         ->get();
+        $accounts = DB::table('users')
+                        ->where('partner_id',$partner_id)
+                        ->get();
         return view('dashboard.partner_page',[
             'partner' => $partner,
             'visits' => $visits,
@@ -292,7 +295,8 @@ public function getVisitsListByParam($sort_param){
             'gallery_items' => $gallery_items,
             'addresses' => $addresses,
             'discounts' => $discounts,
-            'bonuses' => $bonuses
+            'bonuses' => $bonuses,
+            'accounts' => $accounts
         ]);
     }
 

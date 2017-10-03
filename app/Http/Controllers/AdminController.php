@@ -505,6 +505,8 @@ public function postLoadGallery(Request $request){
         $comment    = $request->comment;
         $schedule   = $request->schedule;
         $phones     = $request->phones;
+        $latitude   = $request->latitude;
+        $longitude  = $request->longitude;
         try {
             DB::table('ETKPLUS_ADDRESSES')
             ->insert([
@@ -512,6 +514,8 @@ public function postLoadGallery(Request $request){
                 'text' => $text,
                 'comment' => $comment,
                 'schedule' => $schedule,
+                'latitude' => $latitude,
+                'longitude' => $longitude
                 'phones' => $phones
             ]);
             Session::flash('success','Адрес успешно добавлен');

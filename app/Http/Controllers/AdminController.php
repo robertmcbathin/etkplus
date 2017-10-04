@@ -103,6 +103,13 @@ class AdminController extends Controller
                 'value' => $account_value,
                 'min_value' => $account_min_value
             ]);
+            DB::table('ETKPLUS_PARTNER_BILLING')
+                ->insert([
+                    'partner_id' => $partnerId,
+                    'value' => $account_value,
+                    'status' => 0,
+                    'type' => 0
+                ]);
         } catch (Exception $e) {
             Session::flash('error', $e);
             return redirect()->back();
@@ -287,6 +294,9 @@ public function getVisitsListByParam($sort_param){
         $accounts = DB::table('users')
                         ->where('partner_id',$partner_id)
                         ->get();
+        $billings = DB::table('ETKPLUS_PARTNER_BILLING')
+                        ->where('partner_id',$partner_id)
+                        ->paginate(10);
         return view('dashboard.partner_page',[
             'partner' => $partner,
             'visits' => $visits,
@@ -296,7 +306,8 @@ public function getVisitsListByParam($sort_param){
             'addresses' => $addresses,
             'discounts' => $discounts,
             'bonuses' => $bonuses,
-            'accounts' => $accounts
+            'accounts' => $accounts,
+            'billings' => $billings
         ]);
     }
 

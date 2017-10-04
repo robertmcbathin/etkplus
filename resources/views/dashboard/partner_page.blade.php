@@ -194,7 +194,7 @@
                 <div class="row">
                     <div class="col-xs-3">
                         <div class="avatar">
-                            
+                            <i class="fa fa-map-marker"></i>
                         </div>
                     </div>
                     <div class="col-xs-6">
@@ -260,6 +260,59 @@
     </div>
 </div>
 @endisset
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Оплата услуг</h4>
+            </div>
+            <div class="card-content table-full-width">
+              @isset($billings)
+              @if (count($billings) > 0)
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th>Сумма</th>
+                            <th class="text-right">Тип</th>
+                            <th class="text-right">Статус</th>
+                            <th class="text-right">Дата</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($billings as $billing)
+                        <tr>
+                            <td class="text-center">{{ $billing->id }}</td>
+                            <td>{{ $billing->value }}</td>
+                            @if($billing->type == 0)
+                            <td class="text-right">При создании</td>
+                            @endif
+                            @if($billing->type == 1)
+                            <td class="text-right">Банковский перевод</td>
+                            @endif
+                            @if($billing->type == 2)
+                            <td class="text-right">Интернет-эквайринг</td>
+                            @endif
+                            @if($billing->type == 3)
+                            <td class="text-right">Другой способ</td>
+                            @endif
+                            <td class="text-right">{{ $billing->status }}</td>
+                            <td class="text-right">{{ $billing->created_at }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <?php echo $billings->render(); ?>
+                </div>
+                @else 
+                <h6>Операций по счету нет</h6>
+                @endif
+                @endisset
+            </div>
+        </div>
+    </div>
+</div>
     <div>
         <div>
             <h4>Галерея</h4>

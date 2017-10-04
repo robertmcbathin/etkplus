@@ -349,6 +349,7 @@ class PartnerController extends Controller
           $operator->post = $post;
           $operator->role_id = $role_id;
           $operator->is_active = $is_active;
+          $operator->profile_image = 'https://etk21.ru/images/account_circle.png';
           $operator->save(); 
           Mail::to($email)->send(new OperatorCreated($email,$password,$partner->name));
         } catch (Exception $e) {

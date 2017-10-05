@@ -296,7 +296,15 @@
                             @if($billing->type == 3)
                             <td class="text-right">Другой способ</td>
                             @endif
-                            <td class="text-right">{{ $billing->status }}</td>
+                            @if($billing->status == 0)
+                            <td class="text-right">Начислен</td>
+                            @endif
+                            @if($billing->status == 1)
+                            <td class="text-right">Оплачен</td>
+                            @endif
+                            @if($billing->status == 3)
+                            <td class="text-right">Создан, не оплачен</td>
+                            @endif
                             <td class="text-right">{{ $billing->created_at }}</td>
                         </tr>
                         @endforeach

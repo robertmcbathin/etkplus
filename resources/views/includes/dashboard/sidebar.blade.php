@@ -1,12 +1,6 @@
-        <div class="sidebar" data-background-color="brown" data-active-color="danger">
+        <div class="sidebar"  data-active-color="danger">
             <div class="logo">
-                <a href="/" class="simple-text logo-mini">
-                    ЕТК+
-                </a>
 
-                <a href="/" class="simple-text logo-normal">
-                    ЕТКплюс
-                </a>
             </div>
             <div class="sidebar-wrapper">
                 <div class="user">
@@ -27,7 +21,7 @@
                             <ul class="nav">
                                 <li>
                                     <a href="{{ route('logout') }}">
-                                        <span class="sidebar-normal">Выход</span>
+                                        <span class="sidebar-normal text-center"> <i class="fa fa-sign-out"></i> Выход</span>
                                     </a>
                                 </li>
                             </ul>
@@ -43,7 +37,7 @@
                         </a>
                     </li>
 
-                    <li @if (Request::path() == 'dashboard/show-operations') class="active" @endif>
+                    <li @if (Request::path() == 'dashboard/operations') class="active" @endif>
                         <a href="{{ route('dashboard.show-operations.get') }}">
                             <i class="fa fa-handshake-o"></i>
                             <p>Операции</p>
@@ -61,6 +55,59 @@
                         <a href="{{ route('dashboard.show-card-list.get') }}">
                             <i class="fa fa-credit-card"></i>
                             <p>Карты</p>
+                        </a>
+                    </li>
+
+                     <li @if (Request::path() == 'dashboard/agents/list') class="active" @endif>
+                        <a href="{{ route('dashboard.show-agent-list.get') }}">
+                            <i class="fa fa-user"></i>
+                            <p>Агенты</p>
+                        </a>
+                    </li>
+
+                     <li @if (Request::path() == 'dashboard/cards/list') class="active" @endif>
+                        <a href="{{ route('dashboard.show-card-list.get') }}">
+                            <i class="fa fa-money"></i>
+                            <p>Оплата услуг</p>
+                        </a>
+                    </li>
+
+                @endcan
+
+                @can('show-dashboard-agent')
+                    <li @if (Request::path() == 'dashboard') class="active" @endif>
+                        <a href="{{ route('dashboard.show-dashboard.get') }}">
+                            <i class="fa fa-area-chart"></i>
+                            <p>Панель управления</p>
+                        </a>
+                    </li>
+
+                    <li @if (Request::path() == 'dashboard/operations') class="active" @endif>
+                        <a href="{{ route('dashboard.show-operations.get') }}">
+                            <i class="fa fa-handshake-o"></i>
+                            <p>Операции</p>
+                        </a>
+                    </li>
+
+                    <li @if (Request::path() == 'dashboard/partners/list') class="active" @endif>
+                        <a href="{{ route('dashboard.show-partner-list.get') }}">
+                            <i class="fa fa-building"></i>
+                            <p>Предприятия</p>
+                        </a>
+                    </li>
+
+                    <li @if (Request::path() == 'dashboard/cards/list') class="active" @endif>
+                        <a href="{{ route('dashboard.show-card-list.get') }}">
+                            <i class="fa fa-credit-card"></i>
+                            <p>Карты</p>
+                        </a>
+                    </li>
+
+
+                     <li @if (Request::path() == 'dashboard/cards/list') class="active" @endif>
+                        <a href="{{ route('dashboard.show-card-list.get') }}">
+                            <i class="fa fa-money"></i>
+                            <p>Оплата услуг</p>
                         </a>
                     </li>
 

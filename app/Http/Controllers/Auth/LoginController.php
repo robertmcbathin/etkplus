@@ -74,9 +74,11 @@ class LoginController extends Controller
                         if (($user_isset->role_id < 25) && ($user_isset->role_id > 20))
                         {
                             return redirect()->route('dashboard.partner.show-dashboard.get');
-                        } else if ($user_isset->role_id < 15)
+                        } else if ($user_isset->role_id <= 10)
                         {
                             return redirect()->route('dashboard.show-dashboard.get');
+                        } else if (($user_isset->role_id == 14) || ($user_isset->role_id == 15)){
+                            return redirect()->route('dashboard.agent.show-dashboard.get');
                         }
                 } else {
                     Session::flash('error', 'Ошибка авторизации');
@@ -115,7 +117,7 @@ class LoginController extends Controller
                 return redirect()->intended('profile.show-profile-page.get');
             } if (($user_isset->role_id < 25) && ($user_isset->role_id > 20)){
                 return redirect()->intended('dashboard.partner.show-dashboard.get');
-            } else if ($user_isset->role_id < 15){
+            } else if ($user_isset->role_id <= 15){
                 return redirect()->intended('dashboard.show-dashboard.get');
             }
         }

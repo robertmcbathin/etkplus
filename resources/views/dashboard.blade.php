@@ -11,13 +11,7 @@
     <div class="wrapper">
         <div class="sidebar" data-background-color="white" data-active-color="info">
             <div class="logo">
-                <a href="/" class="simple-text logo-mini">
-                    ЕТК+
-                </a>
 
-                <a href="/" class="simple-text logo-normal">
-                    ЕТКплюс
-                </a>
             </div>
 @include('includes.dashboard.sidebar')
         </div>

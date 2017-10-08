@@ -58,6 +58,7 @@ class AdminController extends Controller
         $site 		       = $request->site;
         $comission         = $request->comission;
         $contract_id       = $request->contract_id;
+        $admin_name        = $request->admin_name;
         $account_value     = $request->account_value;
         $account_min_value = $request->account_min_value;
         $legal_address     = $request->legal_address;
@@ -147,7 +148,7 @@ class AdminController extends Controller
         $user = new \App\User;
         $user->username = $email;
         $user->email = $email;
-        $user->name = $name;
+        $user->name = $admin_name;
         $user->partner_id = $partnerId;
         /**
          * GENERATE PASSWORD
@@ -655,6 +656,45 @@ public function postLoadGallery(Request $request){
             'visits' => $visits
         ]);
     }
+
+    public function showAgentListPage(){
+         $agents = DB::table('users')
+         ->where('role_id',15)
+        ->get();
+        return view('dashboard.agents',[
+            'agents' => $agents
+        ]);
+    }
+
+    public function postAddAgent(Request $request){
+        $name          = $request->name;
+        $email         = $request->email;
+        $phone        = $request->phone;
+        $temp_password = $request->password;
+        $password      = bcrypt($temp_password);
+        $post          = 'Агент по продажам';
+        $role_id       = 15;
+        $is_active     = 1;
+
+        $agent = new \App\User;
+        $agent->name = $name;
+        $agent->username = $email;
+        $agent->email = $email;
+        $agent->phone = $phone;
+        $agent->temp_password = $temp_password;
+        $agent->password = $password;
+        $agent->post = $post;
+        $agent->role_id = $role_id;
+        $agent->is_active = $is_active;
+        if ($agent->save()){
+            Session::flash('success','Агент добавлен');
+            return redirect()->back();
+        } else {
+            Session::flash('error','Добавить агента не удалось');
+            return redirect()->back();
+        }
+    }
+
     /**
      * AJAX
      */

@@ -121,7 +121,7 @@
             </div>
         </div>
         <div class="dropup">
-          <button href="#" class="btn btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          <button href="#" class="btn btn-block btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
               Редактировать
               <b class="caret"></b>
           </button>

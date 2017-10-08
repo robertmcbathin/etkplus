@@ -40,7 +40,7 @@ Route::group(['middleware' => 'web'], function () {
 Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 	/**
-	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ
+	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ АДМИНА
 	 */
 	Route::get('/dashboard',[
 		'uses' => 'AdminController@showDashboard',
@@ -59,14 +59,19 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-	Route::get('/dashboard/show-operations',[
+	Route::get('/dashboard/operations',[
 		'uses' => 'AdminController@showOperationsPage',
 		'as' => 'dashboard.show-operations.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
-	Route::get('/dashboard/show-card-list',[
+	Route::get('/dashboard/cards/list',[
 		'uses' => 'AdminController@showCardListPage',
 		'as' => 'dashboard.show-card-list.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::get('/dashboard/agents/list',[
+		'uses' => 'AdminController@showAgentListPage',
+		'as' => 'dashboard.show-agent-list.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
 
@@ -155,6 +160,25 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'AdminController@postAddPartnerBonus',
 		'as' => 'dashboard.add-partner-bonus.post'
 		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/agent/add',[
+		'uses' => 'AdminController@postAddAgent',
+		'as' => 'dashboard.add-agent.post'
+		])->middleware('can:show-dashboard-admin,App\User');
+	/**
+	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ АГЕНТА
+	 */	
+		Route::get('/dashboard/agent',[
+		'uses' => 'AgentController@showDashboard',
+		'as' => 'dashboard.agent.show-dashboard.get'
+		])->middleware('can:show-dashboard-agent,App\User');
+	/**
+	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ БУХГАЛТЕРА
+	 */	
+		Route::get('/dashboard/accountant',[
+		'uses' => 'AccountantController@showDashboard',
+		'as' => 'dashboard.accountant.show-dashboard.get'
+		])->middleware('can:show-dashboard-accountant,App\User');
 	/**
 	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ ПАРТНЕРА
 	 */	

@@ -120,6 +120,14 @@
                                                     <input class="form-control" type="text" name="contract_id" placeholder="17001" value ="">
                                                 </div>
                                             </div>
+                                            <div class="col-md-10 col-md-offset-1">
+                                                <div class="form-group">
+                                                    <label class="control-label">
+                                                        ФИО администратора
+                                                    </label>
+                                                    <input class="form-control" type="text" name="admin_name" placeholder="Петров Петр Петрович" value ="">
+                                                </div>
+                                            </div>
                                         </div>
                                         <h5 class="text-center">Данные по счету</h5>
                                         <div class="row">

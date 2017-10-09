@@ -74,6 +74,11 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.show-agent-list.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
+	Route::get('/dashboard/reviews/list',[
+		'uses' => 'AdminController@showReviewListPage',
+		'as' => 'dashboard.show-review-list.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
+
 
 
 	Route::get('/dashboard/partners/list',[

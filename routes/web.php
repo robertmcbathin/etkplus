@@ -57,7 +57,15 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.create-partner.post'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
+	Route::post('/dashboard/approve-review',[
+		'uses' => 'AdminController@postApproveReview',
+		'as' => 'dashboard.approve-review.post'	
+		])->middleware('can:show-dashboard-admin,App\User');
 
+	Route::post('/dashboard/disapprove-review',[
+		'uses' => 'AdminController@postDisapproveReview',
+		'as' => 'dashboard.disapprove-review.post'	
+		])->middleware('can:show-dashboard-admin,App\User');
 
 	Route::get('/dashboard/operations',[
 		'uses' => 'AdminController@showOperationsPage',

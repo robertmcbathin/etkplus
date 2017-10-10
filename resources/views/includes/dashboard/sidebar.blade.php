@@ -72,6 +72,13 @@
                         </a>
                     </li>
 
+                    <li @if (Request::path() == 'dashboard/reviews/list') class="active" @endif>
+                        <a href="{{ route('dashboard.show-review-list.get') }}">
+                            <i class="fa fa-comments"></i>
+                            <p>Отзывы</p>
+                        </a>
+                    </li>
+
                 @endcan
 
                 @can('show-dashboard-agent')

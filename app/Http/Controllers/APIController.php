@@ -273,6 +273,12 @@ class APIController extends Controller
                 'errorText' => 'Скидка не может быть отрицательной либо равной нулю'
             ],200);            
         } 
+        if ($discount > 90){
+            return response()->json([
+                'status' => 'error',
+                'errorText' => 'Скидка не может быть больше 90%'
+            ],200);            
+        } 
         if (!is_numeric($discount)){
             return response()->json([
                 'status' => 'error',
@@ -333,6 +339,7 @@ class APIController extends Controller
       $balance_row = DB::table('ETKPLUS_PARTNER_ACCOUNTS')
                             ->where('partner_id',$partner_id)
                             ->first();
+
       $balance = $balance_row->value;
       $balance_min = $balance_row->min_value;
       /**

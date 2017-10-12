@@ -65,51 +65,50 @@
 
     <div class="row">
       @foreach ($reviews as $review)
-      <div class="col-4 col-md-auto col-lg-auto col-xs-auto">
-        <div class="card" data-background="color" data-color="{{ $review->background_color }}">
-          <div class="card-block">
-            <div class="author">
-              <a href="/profile/{{ $review->user_id }}">
-               <img src="https://etk21.ru{{ $review->profile_image }}" alt="" class="avatar img-raised">
-               <span>{{ $review->title }}</span>
-             </a>
-           </div>
-           <div class="pull-left">
-            <div class="static rating"> 
-              @if ($review->rating == 5)
-              <input type="radio" id="star5"  value="5" checked disabled><label for="star5" title="Отлично">5 stars</label>
-              @else
-              <input type="radio" id="star5"  value="5" disabled><label for="star5" title="Отлично">5 stars</label>
-              @endif
-              @if ($review->rating == 4)
-              <input type="radio" id="star4"  value="4" checked disabled><label for="star4" title="Хорошо">4 stars</label>
-              @else
-              <input type="radio" id="star4"  value="4" disabled><label for="star4" title="Хорошо">4 stars</label>
-              @endif
-              @if ($review->rating == 3)
-              <input type="radio" id="star3"  value="3" checked disabled><label for="star3" title="Удовлетворительно">3 stars</label>
-              @else
-              <input type="radio" id="star3"  value="3" disabled><label for="star3" title="Удовлетворительно">3 stars</label>
-              @endif
-              @if ($review->rating == 2)
-              <input type="radio" id="star2"  value="2" checked disabled><label for="star2" title="Плохо">2 stars</label>
-              @else
-              <input type="radio" id="star2"  value="2" disabled><label for="star2" title="Плохо">2 stars</label>
-              @endif
-              @if ($review->rating == 1)
-              <input type="radio" id="star1"  value="1" checked disabled><label for="star1" title="Отвратительно">1 star</label> 
-              @else
-              <input type="radio" id="star1"  value="1" disabled><label for="star1" title="Отвратительно">1 star</label> 
-              @endif
-            </div>
+      <div class="media">
+        <a class="pull-left" href="/profile/{{ $review->user_id }}">
+          <div class="avatar">
+            <img class="media-object" alt="64x64" src="https://etk21.ru{{ $review->profile_image }}">
           </div>
-          <div class="clearfix"></div>
-          <p class="card-description">
-            {{ $review->description }}
-          </p>
+        </a>
+        <div class="media-body">
+          <h5 class="media-heading">
+              <div class="static rating"> 
+                @if ($review->rating == 5)
+                <input type="radio" id="star5"  value="5" checked disabled><label for="star5" title="Отлично">5 stars</label>
+                @else
+                <input type="radio" id="star5"  value="5" disabled><label for="star5" title="Отлично">5 stars</label>
+                @endif
+                @if ($review->rating == 4)
+                <input type="radio" id="star4"  value="4" checked disabled><label for="star4" title="Хорошо">4 stars</label>
+                @else
+                <input type="radio" id="star4"  value="4" disabled><label for="star4" title="Хорошо">4 stars</label>
+                @endif
+                @if ($review->rating == 3)
+                <input type="radio" id="star3"  value="3" checked disabled><label for="star3" title="Удовлетворительно">3 stars</label>
+                @else
+                <input type="radio" id="star3"  value="3" disabled><label for="star3" title="Удовлетворительно">3 stars</label>
+                @endif
+                @if ($review->rating == 2)
+                <input type="radio" id="star2"  value="2" checked disabled><label for="star2" title="Плохо">2 stars</label>
+                @else
+                <input type="radio" id="star2"  value="2" disabled><label for="star2" title="Плохо">2 stars</label>
+                @endif
+                @if ($review->rating == 1)
+                <input type="radio" id="star1"  value="1" checked disabled><label for="star1" title="Отвратительно">1 star</label> 
+                @else
+                <input type="radio" id="star1"  value="1" disabled><label for="star1" title="Отвратительно">1 star</label> 
+                @endif
+              </div>
+          </h5>
+          <div class="pull-right">
+            <h6 class="text-muted">{{ $review->created_at }}</h6>
+
+          </div>
+          <p>{{ $review->title }}</p>
+          <p>{{ $review->description }}</p>
         </div>
       </div>
-    </div>
     @endforeach
   </div>
                 <br>

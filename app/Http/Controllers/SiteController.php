@@ -111,7 +111,8 @@ class SiteController extends Controller
              ->join('ETKPLUS_PARTNERS','ETKPLUS_REVIEWS.partner_id','=','ETKPLUS_PARTNERS.id')
              ->join('users','ETKPLUS_REVIEWS.user_id', '=', 'users.id')
              ->where('ETKPLUS_REVIEWS.partner_id',$partner->id)
-             ->select('ETKPLUS_REVIEWS.title','ETKPLUS_REVIEWS.description','ETKPLUS_REVIEWS.rating','ETKPLUS_REVIEWS.created_at','ETKPLUS_REVIEWS.updated_at','ETKPLUS_PARTNERS.logo','ETKPLUS_REVIEWS.partner_id','ETKPLUS_PARTNERS.name','users.profile_image','ETKPLUS_REVIEWS.user_id')
+             ->where('ETKPLUS_REVIEWS.published',1)
+             ->select('ETKPLUS_REVIEWS.*','ETKPLUS_PARTNERS.logo','ETKPLUS_PARTNERS.name','users.profile_image')
              ->limit(9)
              ->orderBy('created_at','DESC')
              ->get();
@@ -122,26 +123,6 @@ class SiteController extends Controller
         foreach ($reviews as $review) {
           $non_formatted_date = new Carbon($review->created_at);
           $date = $non_formatted_date->diffForHumans();
-          switch ($review->rating){
-            case 5:
-                $review->background_color = 'green';
-                break;
-            case 4:
-                $review->background_color = 'green';
-                break;
-            case 3:
-                $review->background_color = 'yellow';
-                break;
-            case 2:
-                $review->background_color = 'yellow';
-                break;
-            case 1:
-                $review->background_color = 'orange';
-                break;
-            default:
-                $review->background_color = 'blue';
-                break;                
-          }
           $review->created_at = $date;
          }
         return view('pages.partner',[
@@ -162,7 +143,6 @@ class SiteController extends Controller
      */
     
     public function showPartnerReviewsPage($id){
-      $id = $id;
     $partner = DB::table('ETKPLUS_PARTNERS')
                   ->select('ETKPLUS_PARTNERS.id','ETKPLUS_PARTNERS.name','ETKPLUS_PARTNERS.fullname','ETKPLUS_PARTNERS.created_at', 'ETKPLUS_PARTNERS.updated_at',
                     'ETKPLUS_PARTNERS.rating','ETKPLUS_PARTNERS.default_discount','ETKPLUS_PARTNERS.default_cashback','ETKPLUS_PARTNERS.logo', 'ETKPLUS_PARTNERS.thumbnail', 'ETKPLUS_PARTNERS.address', 'ETKPLUS_PARTNERS.site', 'ETKPLUS_PARTNERS.description')
@@ -172,8 +152,9 @@ class SiteController extends Controller
     $reviews = DB::table('ETKPLUS_REVIEWS')
                 ->join('ETKPLUS_PARTNERS','ETKPLUS_REVIEWS.partner_id','=','ETKPLUS_PARTNERS.id')
                 ->join('users','ETKPLUS_REVIEWS.user_id', '=', 'users.id')
-                ->where('partner_id', $id)
-                ->select('ETKPLUS_REVIEWS.title','ETKPLUS_REVIEWS.description','ETKPLUS_REVIEWS.rating','ETKPLUS_REVIEWS.created_at','ETKPLUS_REVIEWS.updated_at','ETKPLUS_PARTNERS.logo','ETKPLUS_REVIEWS.partner_id','ETKPLUS_PARTNERS.name','users.profile_image','ETKPLUS_REVIEWS.user_id')
+                ->where('ETKPLUS_REVIEWS.partner_id', $partner->id)
+                ->where('ETKPLUS_REVIEWS.published',1)
+                ->select('ETKPLUS_REVIEWS.*','ETKPLUS_PARTNERS.logo','ETKPLUS_PARTNERS.name','users.profile_image')
                 ->orderBy('created_at','DESC')
                 ->paginate(12);
         /**

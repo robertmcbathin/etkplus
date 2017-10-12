@@ -203,17 +203,6 @@ class AdminController extends Controller
         ]);
     }
 
-    public function getUserList(){
-        $cards = DB::table('ETKPLUS_VISITS')
-                    ->selectRaw('ETKPLUS_VISITS.card_num, ETKPLUS_VISITS.card_chip, sum(ETKPLUS_VISITS.bill) as card_sum')
-                    ->groupBy('ETK_CARDS.num')
-                    ->orderBy('card_sum')
-                    ->get();
-        dd($cards);
-        return view('dashboard.user_list',[
-            'users' => $users
-        ]);
-    }
 
 /**
  * [getVisitsList description]
@@ -658,23 +647,23 @@ public function postLoadGallery(Request $request){
         ]);
     }
 
-    public function showAgentListPage(){
-         $agents = DB::table('users')
-         ->where('role_id',15)
-        ->get();
-        return view('dashboard.agents',[
-            'agents' => $agents
+    public function showUserListPage(){
+         $users = DB::table('users')
+         ->whereIn('role_id',[13,14,15])
+         ->get();
+        return view('dashboard.users',[
+            'users' => $users
         ]);
     }
 
-    public function postAddAgent(Request $request){
+    public function postAddUser(Request $request){
         $name          = $request->name;
         $email         = $request->email;
         $phone        = $request->phone;
         $temp_password = $request->password;
         $password      = bcrypt($temp_password);
-        $post          = 'Агент по продажам';
-        $role_id       = 15;
+        $post          = $request->post;
+        $role_id       = $request->role_id;
         $is_active     = 1;
 
         $agent = new \App\User;
@@ -688,10 +677,10 @@ public function postLoadGallery(Request $request){
         $agent->role_id = $role_id;
         $agent->is_active = $is_active;
         if ($agent->save()){
-            Session::flash('success','Агент добавлен');
+            Session::flash('success','Пользователь добавлен');
             return redirect()->back();
         } else {
-            Session::flash('error','Добавить агента не удалось');
+            Session::flash('error','Добавить пользователя не удалось');
             return redirect()->back();
         }
     }
@@ -743,6 +732,45 @@ public function postLoadGallery(Request $request){
             return redirect()->back();            
         }
         
+    }
+    /**
+     * CATEGORIES
+     */
+    public function showCategoryListPage(){
+        $categories = DB::table('ETKPLUS_PARTNER_CATEGORIES')
+                    ->get();
+        return view('dashboard.categories',[
+            'categories' => $categories
+        ]);
+    }
+
+    public function postAddCategory(Request $request){
+        $name          = $request->name;
+        $description   = $request->description;
+        $         = $request->phone;
+        $temp_password = $request->password;
+        $password      = bcrypt($temp_password);
+        $post          = $request->post;
+        $role_id       = $request->role_id;
+        $is_active     = 1;
+
+        $agent = new \App\User;
+        $agent->name = $name;
+        $agent->username = $email;
+        $agent->email = $email;
+        $agent->phone = $phone;
+        $agent->temp_password = $temp_password;
+        $agent->password = $password;
+        $agent->post = $post;
+        $agent->role_id = $role_id;
+        $agent->is_active = $is_active;
+        if ($agent->save()){
+            Session::flash('success','Пользователь добавлен');
+            return redirect()->back();
+        } else {
+            Session::flash('error','Добавить пользователя не удалось');
+            return redirect()->back();
+        }
     }
     /**
      * AJAX

@@ -166,16 +166,15 @@
 
       <div class="row">
         @foreach ($reviews as $review)
-        <div class="col-4 col-md-auto col-lg-auto col-xs-auto">
-          <div class="card" data-background="color" data-color="{{ $review->background_color }}">
-            <div class="card-block">
-              <div class="author">
-                <a href="/profile/{{ $review->user_id }}">
-                 <img src="https://etk21.ru{{ $review->profile_image }}" alt="" class="avatar img-raised">
-                 <span>{{ $review->title }}</span>
-               </a>
-             </div>
-             <div class="pull-left">
+
+      <div class="media">
+        <a class="pull-left" href="/profile/{{ $review->user_id }}">
+          <div class="avatar">
+            <img class="media-object" alt="64x64" src="https://etk21.ru{{ $review->profile_image }}">
+          </div>
+        </a>
+        <div class="media-body">
+          <h5 class="media-heading">
               <div class="static rating"> 
                 @if ($review->rating == 5)
                 <input type="radio" id="star5"  value="5" checked disabled><label for="star5" title="Отлично">5 stars</label>
@@ -203,14 +202,16 @@
                 <input type="radio" id="star1"  value="1" disabled><label for="star1" title="Отвратительно">1 star</label> 
                 @endif
               </div>
-            </div>
-            <div class="clearfix"></div>
-            <p class="card-description">
-              {{ $review->description }}
-            </p>
+          </h5>
+          <div class="pull-right">
+            <h6 class="text-muted">{{ $review->created_at }}</h6>
+
           </div>
+          <p>{{ $review->title }}</p>
+          <p>{{ $review->description }}</p>
         </div>
       </div>
+
       @endforeach
     </div>
   </div>
@@ -231,7 +232,7 @@
           <h6 class="card-category"><span class="upper-text">{{ $discount->value }}%</span>   {{ $discount->description }}</h6>
           @endforeach
           @else
-            <h6 class="card-category">Действующих скидок нет</h6>
+          <h6 class="card-category">Действующих скидок нет</h6>
           @endif
         </div>
       </div>
@@ -249,7 +250,7 @@
           <h6 class="card-category"><span class="upper-text">{{ $bonus->value }}@if ($bonus->type == 1) руб. @elseif ($bonus->type == 2) % @endif </span>   {{ $bonus->description }}</h6>
           @endforeach
           @else
-            <h6 class="card-category">Действующих бонусов нет</h6>
+          <h6 class="card-category">Действующих бонусов нет</h6>
           @endif
         </div>
       </div> 

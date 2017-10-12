@@ -382,16 +382,16 @@ initPhotoSwipeFromDOM('.my-gallery');
             .done(function(msg){
                 console.log(JSON.stringify(msg));
                 $('#partner-list-results').replaceWith('<div id="partner-list-results"></div>');
-                var searchHtml = '<div id="partner-list-results">';
+                var searchHtml = '<div id="partner-list-results"><div class="card"><div class="card-header"><h4 class="card-title">Предприятия</h4></div><div class="card-content table-responsive table-full-width"><table class="table table-striped"><tbody>';
+                searchHtml += '<thead><th>#</th><th>Название</th><th>№ договора</th></thead>';
                 for (var i = 0; i <= msg['results'].length - 1; i++){
-                   searchHtml += '<a href="/dashboard/partner/' + msg.results[i].id +'/show" ><div class="col-lg-4 col-sm-6"><div class="card"><div class="card-content"><div class="row"><div class="col-xs-12"><div class="numbers"><p>' +
-                                msg.results[i].name +
-                                '</p>' +
-                                msg.results[i].contract_id + 
-                                ' </div></div></div></div><div class="card-footer"></div></div></div></a>';
+                    searchHtml += '<tr>';
+                    searchHtml += '<td>' + msg.results[i].id + '</td>';
+                    searchHtml += '<td><a href="/dashboard/partner/' + msg.results[i].id + '/show">' + msg.results[i].name + '</a></td>';
+                    searchHtml += '<td>' + msg.results[i].contract_id + '</td>';
+                    searchHtml += '</tr>';
                 }
-                searchHtml += '</div>';
-
+                searchHtml += '</tbody></table></div></div></div>';
 
                 $('#partner-list-results').replaceWith(searchHtml);
             });

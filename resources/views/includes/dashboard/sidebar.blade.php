@@ -44,6 +44,13 @@
                         </a>
                     </li>
 
+                    <li @if (Request::path() == 'dashboard/categories/list') class="active" @endif>
+                        <a href="{{ route('dashboard.show-category-list.get') }}">
+                            <i class="fa fa-list"></i>
+                            <p>Категории</p>
+                        </a>
+                    </li>
+
                     <li @if (Request::path() == 'dashboard/partners/list') class="active" @endif>
                         <a href="{{ route('dashboard.show-partner-list.get') }}">
                             <i class="fa fa-building"></i>
@@ -58,10 +65,10 @@
                         </a>
                     </li>
 
-                     <li @if (Request::path() == 'dashboard/agents/list') class="active" @endif>
-                        <a href="{{ route('dashboard.show-agent-list.get') }}">
+                     <li @if (Request::path() == 'dashboard/users/list') class="active" @endif>
+                        <a href="{{ route('dashboard.show-user-list.get') }}">
                             <i class="fa fa-user"></i>
-                            <p>Агенты</p>
+                            <p>Пользователи</p>
                         </a>
                     </li>
 
@@ -76,6 +83,13 @@
                         <a href="{{ route('dashboard.show-review-list.get') }}">
                             <i class="fa fa-comments"></i>
                             <p>Отзывы</p>
+                        </a>
+                    </li>
+
+                    <li @if (Request::path() == 'dashboard/tariffs/list') class="active" @endif>
+                        <a href="{{ route('dashboard.show-tariff-list.get') }}">
+                            <i class="fa fa-tasks"></i>
+                            <p>Тарифы</p>
                         </a>
                     </li>
 

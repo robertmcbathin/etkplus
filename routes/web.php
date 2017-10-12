@@ -77,14 +77,24 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.show-card-list.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
-	Route::get('/dashboard/agents/list',[
-		'uses' => 'AdminController@showAgentListPage',
-		'as' => 'dashboard.show-agent-list.get'	
+	Route::get('/dashboard/users/list',[
+		'uses' => 'AdminController@showUserListPage',
+		'as' => 'dashboard.show-user-list.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
 	Route::get('/dashboard/reviews/list',[
 		'uses' => 'AdminController@showReviewListPage',
 		'as' => 'dashboard.show-review-list.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::get('/dashboard/categories/list',[
+		'uses' => 'AdminController@showCategoryListPage',
+		'as' => 'dashboard.show-category-list.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::get('/dashboard/tariffs/list',[
+		'uses' => 'AdminController@showTariffListPage',
+		'as' => 'dashboard.show-tariff-list.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
 
@@ -94,10 +104,6 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.show-partner-list.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
-	Route::get('/dashboard/users/list',[
-		'uses' => 'AdminController@getUserList',
-		'as' => 'dashboard.show-user-list.get'	
-		])->middleware('can:show-dashboard-admin,App\User');
 
 	Route::get('/dashboard/visits/list',[
 		'uses' => 'AdminController@getVisitsList',
@@ -174,9 +180,9 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.add-partner-bonus.post'
 		])->middleware('can:show-dashboard-admin,App\User');
 
-	Route::post('/dashboard/agent/add',[
-		'uses' => 'AdminController@postAddAgent',
-		'as' => 'dashboard.add-agent.post'
+	Route::post('/dashboard/user/add',[
+		'uses' => 'AdminController@postAddUser',
+		'as' => 'dashboard.add-user.post'
 		])->middleware('can:show-dashboard-admin,App\User');
 	/**
 	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ АГЕНТА

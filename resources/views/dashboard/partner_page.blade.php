@@ -25,29 +25,29 @@
                                 <div class="author">
                                   <img class="avatar border-white" src="{{ $partner->logo }}">
                                   <h4 class="card-title">{{ $partner->name }}<br>
-                                   <a><small>{{ $partner->fullname }}</small></a>
-                               </h4>
-                           </div>
-                           <div class="row">
-                            <div class="left-vertical-tabs">
-                                <ul class="nav nav-stacked" role="tablist">
-                                    <li class="active">
-                                        <a href="#info" role="tab" data-toggle="tab">
-                                           Описание
-                                       </a>
-                                   </li>
-                                   <li>
-                                    <a href="#contacts" role="tab" data-toggle="tab">
-                                       Контактные данные
-                                   </a>
-                               </li>
-                               <li>
-                                <a href="#agreement" role="tab" data-toggle="tab">
-                                   Данные договора
-                               </a>
-                           </li>
-                           <li>
-                             <a href="#discounts" role="tab" data-toggle="tab">
+                                     <a><small>{{ $partner->fullname }}</small></a>
+                                 </h4>
+                             </div>
+                             <div class="row">
+                                <div class="left-vertical-tabs">
+                                    <ul class="nav nav-stacked" role="tablist">
+                                        <li class="active">
+                                            <a href="#info" role="tab" data-toggle="tab">
+                                             Описание
+                                         </a>
+                                     </li>
+                                     <li>
+                                        <a href="#contacts" role="tab" data-toggle="tab">
+                                         Контактные данные
+                                     </a>
+                                 </li>
+                                 <li>
+                                    <a href="#agreement" role="tab" data-toggle="tab">
+                                     Данные договора
+                                 </a>
+                             </li>
+                             <li>
+                               <a href="#discounts" role="tab" data-toggle="tab">
                                 Скидки и бонусы
                             </a>
                         </li>
@@ -145,6 +145,9 @@
             <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-bonuses-partner">
                 <i class="fa fa-gift"></i> Бонусы
             </a></li>
+            <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-limit-partner">
+                <i class="fa fa-ruble"></i> Изменить лимит
+            </a></li>
             <li class="divider"></li>
             <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#delete-partner">
                 <i class="fa fa-trash"></i> Удалить
@@ -210,7 +213,7 @@
             @endforeach
         </ul>
         @else
-            <p>Не указано ни одного адреса</p>
+        <p>Не указано ни одного адреса</p>
         @endif
     </div>
 </div>
@@ -219,57 +222,57 @@
 </div>
 <div class="col-lg-8 col-md-7">
     @isset($visits)
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Операции</h4>
-            </div>
-            <div class="card-content table-full-width">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th>Карта</th>
-                            <th class="text-right">Счет</th>
-                            <th class="text-right">Скидка</th>
-                            <th class="text-right">Бонус</th>
-                            <th class="text-right">Кэшбэк</th>
-                            <th class="text-right">Дата</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($visits as $visit)
-                        <tr>
-                            <td class="text-center">{{ $visit->id }}</td>
-                            <td>{{ $visit->card_number }}</td>
-                            <td class="text-right">{{ $visit->bill }}</td>
-                            <td class="text-right">{{ $visit->discount }}</td>
-                            <td class="text-right">{{ $visit->bonus }}</td>
-                            <td class="text-right">{{ $visit->cashback }}</td>
-                            <td class="text-right">{{ $visit->created_at }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div class="text-center">
-                    <?php echo $visits->render(); ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Операции</h4>
+                </div>
+                <div class="card-content table-full-width">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>Карта</th>
+                                <th class="text-right">Счет</th>
+                                <th class="text-right">Скидка</th>
+                                <th class="text-right">Бонус</th>
+                                <th class="text-right">Кэшбэк</th>
+                                <th class="text-right">Дата</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($visits as $visit)
+                            <tr>
+                                <td class="text-center">{{ $visit->id }}</td>
+                                <td>{{ $visit->card_number }}</td>
+                                <td class="text-right">{{ $visit->bill }}</td>
+                                <td class="text-right">{{ $visit->discount }}</td>
+                                <td class="text-right">{{ $visit->bonus }}</td>
+                                <td class="text-right">{{ $visit->cashback }}</td>
+                                <td class="text-right">{{ $visit->created_at }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <?php echo $visits->render(); ?>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-@endisset
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Оплата услуг</h4>
-            </div>
-            <div class="card-content table-full-width">
-              @isset($billings)
-              @if (count($billings) > 0)
-                <table class="table table-striped">
+    @endisset
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Оплата услуг</h4>
+                </div>
+                <div class="card-content table-full-width">
+                  @isset($billings)
+                  @if (count($billings) > 0)
+                  <table class="table table-striped">
                     <thead>
                         <tr>
                             <th class="text-center">#</th>
@@ -321,25 +324,25 @@
         </div>
     </div>
 </div>
+<div>
     <div>
-        <div>
-            <h4>Галерея</h4>
-        </div>
-        <div>
-            <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-                @if (count($gallery_items) > 0)
-                @foreach ($gallery_items as $gallery_item)
-                <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="col-md-3 col-sm-4 gallery-item">
-                 <a href="{{ $gallery_item->image_path }}" itemprop="contentUrl" data-size="{{ $gallery_item->image_width }}x{{ $gallery_item->image_height }}">
-                   <img src="{{ $gallery_item->image_path }}" itemprop="thumbnail" alt="" class="horizontal-image img-rounded img-responsive">
-               </a>
-               <figcaption itemprop="caption description">{{ $gallery_item->image_caption }}</figcaption>
-           </figure>
-           @endforeach
-           @endif
-       </div>
-       <!-- Root element of PhotoSwipe. Must have class pswp. -->
-       <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <h4>Галерея</h4>
+    </div>
+    <div>
+        <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+            @if (count($gallery_items) > 0)
+            @foreach ($gallery_items as $gallery_item)
+            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="col-md-3 col-sm-4 gallery-item">
+               <a href="{{ $gallery_item->image_path }}" itemprop="contentUrl" data-size="{{ $gallery_item->image_width }}x{{ $gallery_item->image_height }}">
+                 <img src="{{ $gallery_item->image_path }}" itemprop="thumbnail" alt="" class="horizontal-image img-rounded img-responsive">
+             </a>
+             <figcaption itemprop="caption description">{{ $gallery_item->image_caption }}</figcaption>
+         </figure>
+         @endforeach
+         @endif
+     </div>
+     <!-- Root element of PhotoSwipe. Must have class pswp. -->
+     <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
     <!-- Background of PhotoSwipe. 
         It's a separate element, as animating opacity is faster than rgba(). -->
@@ -641,6 +644,38 @@
 </div>
 </div>
 </div>
+</div>
+
+<div class="modal fade" id="edit-limit-partner" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Изменить минимальный баланс</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body"> 
+                <form action="{{ route('dashboard.edit_partner_logos.post') }}" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="partner_id" value="{{ $partner->id }}">
+                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                    <div class="col-md-10 col-md-offset-1">
+                        <input type="text" name="min_balance" value="{{ $partner->min_balance }}">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="left-side">
+                        <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="right-side">
+                        <button type="submit" class="btn btn-success btn-link">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="edit-gallery-partner" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">

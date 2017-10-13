@@ -97,6 +97,10 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.show-tariff-list.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
+	Route::get('/dashboard/billing',[
+		'uses' => 'AdminController@showBillingPage',
+		'as' => 'dashboard.show-billing-page.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
 
 
 	Route::get('/dashboard/partners/list',[
@@ -183,6 +187,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/dashboard/user/add',[
 		'uses' => 'AdminController@postAddUser',
 		'as' => 'dashboard.add-user.post'
+		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/category/add',[
+		'uses' => 'AdminController@postAddCategory',
+		'as' => 'dashboard.add-category.post'
 		])->middleware('can:show-dashboard-admin,App\User');
 	/**
 	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ АГЕНТА

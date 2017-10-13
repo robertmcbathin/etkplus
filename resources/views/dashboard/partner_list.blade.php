@@ -49,7 +49,7 @@
                                         <td><a href="{{ route('dashboard.partner-page.get', ['partner_id' => $partner->id]) }}">{{ $partner->name }}</a></td>
                                         <td>{{ $partner->contract_id }}</td>
                                         <td>
-                                            @if ($partner->is_blocked == 0)
+                                            @if ($partner->blocked_by_payment == 0)
                                             <div class="checkbox">
                                                 <input id="checkbox4" type="checkbox"  disabled>
                                                 <label for="checkbox4">

@@ -72,8 +72,8 @@
                         </a>
                     </li>
 
-                     <li @if (Request::path() == 'dashboard/cards/list') class="active" @endif>
-                        <a href="{{ route('dashboard.show-card-list.get') }}">
+                     <li @if (Request::path() == 'dashboard/billing') class="active" @endif>
+                        <a href="{{ route('dashboard.show-billing-page.get') }}">
                             <i class="fa fa-money"></i>
                             <p>Оплата услуг</p>
                         </a>

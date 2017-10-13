@@ -747,30 +747,25 @@ public function postLoadGallery(Request $request){
     public function postAddCategory(Request $request){
         $name          = $request->name;
         $description   = $request->description;
-        $         = $request->phone;
-        $temp_password = $request->password;
-        $password      = bcrypt($temp_password);
-        $post          = $request->post;
-        $role_id       = $request->role_id;
-        $is_active     = 1;
+        $icon          = $request->phone;
 
-        $agent = new \App\User;
-        $agent->name = $name;
-        $agent->username = $email;
-        $agent->email = $email;
-        $agent->phone = $phone;
-        $agent->temp_password = $temp_password;
-        $agent->password = $password;
-        $agent->post = $post;
-        $agent->role_id = $role_id;
-        $agent->is_active = $is_active;
-        if ($agent->save()){
-            Session::flash('success','Пользователь добавлен');
+        if (DB::table('ETKPLUS_PARTNER_CATEGORIES')->insert(['name' => $name, 'description' => $description, 'icon' => $icon])){
+            Session::flash('success','Категория добавлена');
             return redirect()->back();
         } else {
-            Session::flash('error','Добавить пользователя не удалось');
+            Session::flash('error','Добавить категорию не удалось');
             return redirect()->back();
         }
+    }
+
+    /**
+     * BILLING
+     */
+    public function showBillingPage(){
+
+        return view('dashboard.billing',[
+            
+        ]);
     }
     /**
      * AJAX

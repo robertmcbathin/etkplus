@@ -377,7 +377,7 @@ class APIController extends Controller
         ],200);
       } else {
         $comission = ($bill*$partner->default_comission/100);
-        $new_balance = ($current_balance->value - $comission);
+        $new_balance = ($balance - $comission);
       }
       /**
        * ПРОВЕДЕНИЕ ОПЕРАЦИИ

@@ -107,9 +107,20 @@
                                             <div class="col-md-5 col-md-offset-1">
                                                 <div class="form-group">
                                                     <label class="control-label">
-                                                        Комиссия (%)
+                                                        Тариф
                                                     </label>
-                                                    <input class="form-control" type="text" name="comission" placeholder="" value ="10">
+                                                    <div class="row">
+                                            <div class="col-md-10 col-md-offset-1">
+                                                <div class="form-group">
+                                                    <select class="form-control" name="tariff" title="Выберите тариф" data-size="7" tabindex="-98">
+                                                        <option class="bs-title-option" value="">Выберите тариф</option>
+                                                        @foreach ($tariffs as $tariff)
+                                                        <option value="{{ $tariff->id }}">{{ $tariff->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-5">

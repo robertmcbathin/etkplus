@@ -33,8 +33,11 @@ class AdminController extends Controller
     public function showCreatePartnerPage(){
     	$categories = DB::table('ETKPLUS_PARTNER_CATEGORIES')
        ->get();
+       $tariffs = DB::table('ETKPLUS_TARIFFS')
+       ->get();
        return view('dashboard.create_partner',[
-          'categories' => $categories
+          'categories' => $categories,
+          'tariffs' => $tariffs
       ]);
    }
     /**
@@ -57,7 +60,7 @@ class AdminController extends Controller
         $address 	       = $request->address;
         $email 		       = $request->email;
         $site 		       = $request->site;
-        $comission         = $request->comission;
+        $tariff            = $request->tariff;
         $contract_id       = $request->contract_id;
         $admin_name        = $request->admin_name;
         $account_value     = $request->account_value;
@@ -87,7 +90,7 @@ class AdminController extends Controller
                 'address' => $address,
                 'email' => $email,
                 'site' => $site,
-                'default_comission' => $comission,
+                'tariff_id' => $tariff,
                 'contract_id' => $contract_id,
                 'legal_address' => $legal_address,
                 'physical_address' => $physical_address,
@@ -766,6 +769,38 @@ public function postLoadGallery(Request $request){
         return view('dashboard.billing',[
             
         ]);
+    }
+    /**
+     * TARIFFS
+     */
+    public function showTariffListPage(){
+        $tariffs = DB::table('ETKPLUS_TARIFFS')
+                    ->get();
+        return view('dashboard.tariffs',[
+            'tariffs' => $tariffs
+        ]);
+    }
+
+    public function postAddTariff(Request $request){
+        $name               = $request->name;
+        $description        = $request->description;
+        $max_operator_count = $request->max_operator_count;
+        $comission          = $request->comission;
+        $monthly_payment    = $request->monthly_payment;
+
+        if (DB::table('ETKPLUS_TARIFFS')->insert([
+            'name' => $name,
+            'description' => $description,
+            'max_operator_count' => $max_operator_count,
+            'comission' => $comission,
+            'monthly_payment' => $monthly_payment
+        ])){
+            Session::flash('success', 'Тариф успешно добавлен');
+            return redirect()->back();
+        } else {
+            Session::flash('error', 'Добавить тариф не удалось');
+            return redirect()->back();            
+        }
     }
     /**
      * AJAX

@@ -117,7 +117,7 @@
                 <h5>{{ $partner->default_cashback }} <i class="fa fa-percent"></i><br><small><i class="fa fa-gift"></i> Кэшбэк</small></h5>
             </div>
             <div class="col-md-3">
-                <h5>{{ $partner->default_comission }} <i class="fa fa-percent"></i><br><small><i class="fa fa-percent"></i> Комиссия</small></h5>
+                <h5>{{ $tariff->comission }} <i class="fa fa-percent"></i><br><small> Комиссия</small></h5>
             </div>
         </div>
         <div class="dropup">
@@ -129,13 +129,16 @@
             <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-partner">
                 <i class="fa fa-pencil"></i>
             Общие данные </a></li>
+            <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-tariff">
+                <i class="fa fa-tasks"></i>
+            Сменить тариф </a></li>
             <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-logos-partner">
                 <i class="fa fa-file-image-o"></i>
             Заменить логотип и фон</a></li>
             <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-gallery-partner">
                 <i class="fa fa-picture-o"></i> Галерея
             </a></li>
-            <li>                                            <a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-addresses-partner">
+            <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-addresses-partner">
                 <i class="fa fa-map-marker"></i> Адреса
             </a></li>
             <li class="divider"></li>
@@ -155,6 +158,34 @@
         </ul>
     </div>
 </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Тариф</h4>
+    </div>
+    <div class="card-content">
+        <ul class="list-unstyled team-members">
+            <li>
+                <div class="row">
+                    <div class="col-xs-4">
+                        {{ $tariff->name }}
+                        <br>
+                        <span class="text-success"><small>{{ $tariff->description }}</small></span>
+                    </div>
+                    <div class="col-xs-4">
+                        {{ $tariff->comission }} %
+                        <br>
+                        <span class="text-success"><small>За операцию</small></span>      
+                    </div>
+                    <div class="col-xs-4">
+                        {{ $tariff->monthly_payment }} <i class="fa fa-ruble"></i>
+                        <br>
+                        <span class="text-success"><small>В месяц</small></span>      
+                    </div>
+                </div>
+            </li>     
+        </ul>
+    </div>
 </div>
 <div class="card">
     <div class="card-header">
@@ -508,18 +539,6 @@
                     <h5 class="text-center">Данные для подключения к системе</h5>
                     <div class="form-group">
                         <label class="control-label">
-                            Комиссия (%)
-                        </label>
-                        <input class="form-control" type="text" name="comission" placeholder="" value ="{{ $partner->default_comission }}">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">
-                            Скидка по умолчанию (%)
-                        </label>
-                        <input class="form-control" type="text" name="discount" placeholder="" value ="{{ $partner->default_discount }}">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">
                             Номер договора
                         </label>
                         <input class="form-control" type="text" name="contract_id" placeholder="17001" value ="{{ $partner->contract_id }}">
@@ -662,6 +681,54 @@
                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                     <div class="col-md-10 col-md-offset-1">
                         <input type="text" name="min_balance" value="{{ $partner->min_balance }}">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="left-side">
+                        <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="right-side">
+                        <button type="submit" class="btn btn-success btn-link">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="edit-tariff" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Сменить тариф</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body"> 
+                <form action="{{ route('dashboard.change-partner-tariff.post') }}" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="partner_id" value="{{ $partner->id }}">
+                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="form-group">
+                            <label class="control-label">
+                                Тариф
+                            </label>
+                            <div class="row">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div class="form-group">
+                                        <select class="form-control" name="tariff" title="Выберите тариф" data-size="7" tabindex="-98">
+                                            <option class="bs-title-option" value="{{ $tariff->id }}">{{ $tariff->name }}</option>
+                                            @foreach ($tariffs as $tariff)
+                                            <option value="{{ $tariff->id }}">{{ $tariff->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -15,103 +15,103 @@
         <div class="content">
             <div class="container-fluid">
                 @include('includes/notifications')
-            <div class="row">
-                 <div class="col-md-12">
+                <div class="row">
+                   <div class="col-md-12">
                     <a class="btn btn-danger btn-fill btn-wd" href="{{ route('dashboard.create-partner.get') }}">Добавить предприятие</a>
                 </div>
 
             </div>
             <br>
-                <div class="col-md-12">
-                    <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                                <input type="text" id='search-partner-list' value="" class="form-control" placeholder="Название или номер договора">
-                            </div>
-                    <div class="card" id="partner-list-results">
-                        <div class="card-header">
-                            <h4 class="card-title">Список предприятий</h4>
-                        </div>
-                        <div class="card-content table-full-width">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">#</th>
-                                        <th>Название</th>
-                                        <th>Номер договора</th>
-                                        <th>Блокировка</th>
-                                        <th class="text-right"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($partners as $partner)
-                                    <tr>
-                                        <td class="text-center">{{ $partner->id }}</td>
-                                        <td><a href="{{ route('dashboard.partner-page.get', ['partner_id' => $partner->id]) }}">{{ $partner->name }}</a></td>
-                                        <td>{{ $partner->contract_id }}</td>
-                                        <td>
-                                            @if ($partner->blocked_by_payment == 0)
-                                            <div class="checkbox">
-                                                <input id="checkbox4" type="checkbox"  disabled>
-                                                <label for="checkbox4">
-                                                    Активен
-                                                </label>
-                                            </div>
-                                            @elseif ($partner->is_blocked == 1)
-                                            <div class="checkbox">
-                                                <input id="checkbox4" type="checkbox" checked disabled>
-                                                <label for="checkbox4">
-                                                    Блокирован
-                                                </label>
-                                           </div>
-                                           @endif
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                  <button href="#" class="btn btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                                      Редактировать
-                                                      <b class="caret"></b>
-                                                  </button>
-                                                  <ul class="dropdown-menu">
-                                                    <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-partner-{{ $partner->id }}">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                    <input type="text" id='search-partner-list' value="" class="form-control" placeholder="Название или номер договора">
+                </div>
+                <div class="card" id="partner-list-results">
+                    <div class="card-header">
+                        <h4 class="card-title">Список предприятий</h4>
+                    </div>
+                    <div class="card-content table-full-width">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th>Название</th>
+                                    <th>Номер договора</th>
+                                    <th>Блокировка</th>
+                                    <th class="text-right"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($partners as $partner)
+                                <tr>
+                                    <td class="text-center">{{ $partner->id }}</td>
+                                    <td><a href="{{ route('dashboard.partner-page.get', ['partner_id' => $partner->id]) }}">{{ $partner->name }}</a></td>
+                                    <td>{{ $partner->contract_id }}</td>
+                                    <td>
+                                        @if ($partner->blocked_by_payment == 0)
+                                        <div class="checkbox">
+                                            <input id="checkbox4" type="checkbox"  disabled>
+                                            <label for="checkbox4">
+                                                Активен
+                                            </label>
+                                        </div>
+                                        @elseif ($partner->is_blocked == 1)
+                                        <div class="checkbox">
+                                            <input id="checkbox4" type="checkbox" checked disabled>
+                                            <label for="checkbox4">
+                                                Блокирован
+                                            </label>
+                                        </div>
+                                        @endif
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="dropdown">
+                                          <button href="#" class="btn btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                              Редактировать
+                                              <b class="caret"></b>
+                                          </button>
+                                          <ul class="dropdown-menu">
+                                            <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-partner-{{ $partner->id }}">
                                                 <i class="fa fa-pencil"></i>
                                             Общие данные </a></li>
-                                                    <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-logos-partner-{{ $partner->id }}">
+                                            <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-logos-partner-{{ $partner->id }}">
                                                 <i class="fa fa-file-image-o"></i>
                                             Заменить логотип и фон</a></li>
-                                                    <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-gallery-partner-{{ $partner->id }}">
+                                            <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-gallery-partner-{{ $partner->id }}">
                                                 <i class="fa fa-picture-o"></i> Галерея
                                             </a></li>
                                             <li>                                            <a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-addresses-partner-{{ $partner->id }}">
                                                 <i class="fa fa-map-marker"></i> Адреса
                                             </a></li>
-                                                    <li class="divider"></li>
-                                                    <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-discounts-partner-{{ $partner->id }}">
+                                            <li class="divider"></li>
+                                            <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-discounts-partner-{{ $partner->id }}">
                                                 <i class="fa fa-percent"></i> Скидки
                                             </a></li>
                                             <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-bonuses-partner-{{ $partner->id }}">
                                                 <i class="fa fa-gift"></i> Бонусы
                                             </a></li>
-                                                    <li class="divider"></li>
-                                                    <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#delete-partner-{{ $partner->id }}">
+                                            <li class="divider"></li>
+                                            <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#delete-partner-{{ $partner->id }}">
                                                 <i class="fa fa-trash"></i> Удалить
                                             </a></li>
-                                                  </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            <div class="text-center">
-                                <?php echo $partners->render(); ?>
-                            </div>
-                        </div>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <?php echo $partners->render(); ?>
                     </div>
                 </div>
             </div>
         </div>
-        @include('includes.dashboard.footer')
     </div>
+</div>
+@include('includes.dashboard.footer')
+</div>
 </div>
 
 
@@ -207,18 +207,6 @@
                         <input class="form-control" type="text" name="site" value="{{ $partner->site }}">
                     </div>
                     <h5 class="text-center">Данные для подключения к системе</h5>
-                    <div class="form-group">
-                        <label class="control-label">
-                            Комиссия (%)
-                        </label>
-                        <input class="form-control" type="text" name="comission" placeholder="" value ="{{ $partner->default_comission }}">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">
-                            Скидка по умолчанию (%)
-                        </label>
-                        <input class="form-control" type="text" name="discount" placeholder="" value ="{{ $partner->default_discount }}">
-                    </div>
                     <div class="form-group">
                         <label class="control-label">
                             Номер договора
@@ -754,6 +742,7 @@
     </div>
 </div>
 @endforeach
+
 <script>
   var token = '{{ Session::token() }}';
   var searchPartnerListUrl = '{{ route('ajax.search-partner-list.post') }}';

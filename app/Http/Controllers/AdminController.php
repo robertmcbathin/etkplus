@@ -291,6 +291,11 @@ public function getVisitsListByParam($sort_param){
         $billings = DB::table('ETKPLUS_PARTNER_BILLING')
                         ->where('partner_id',$partner_id)
                         ->paginate(10);
+        $tariffs = DB::table('ETKPLUS_TARIFFS')
+                    ->get();
+        $tariff = DB::table('ETKPLUS_TARIFFS')
+                    ->where('id',$partner->tariff_id)
+                    ->first();
         return view('dashboard.partner_page',[
             'partner' => $partner,
             'visits' => $visits,
@@ -301,7 +306,9 @@ public function getVisitsListByParam($sort_param){
             'discounts' => $discounts,
             'bonuses' => $bonuses,
             'accounts' => $accounts,
-            'billings' => $billings
+            'billings' => $billings,
+            'tariffs' => $tariffs,
+            'tariff' => $tariff
         ]);
     }
 
@@ -799,6 +806,20 @@ public function postLoadGallery(Request $request){
             return redirect()->back();
         } else {
             Session::flash('error', 'Добавить тариф не удалось');
+            return redirect()->back();            
+        }
+    }
+
+    public function postChangeTariff(Request $request){
+        $partner_id = $request->partner_id;
+        $tariff     = $request->tariff;
+        $partner = \App\Partner::find($partner_id);
+        $partner->tariff_id = $tariff;
+        if ($partner->save()){
+            Session::flash('success', 'Тариф успешно изменен');
+            return redirect()->back();
+        } else {
+            Session::flash('error', 'Изменить тариф не удалось');
             return redirect()->back();            
         }
     }

@@ -370,13 +370,16 @@ class APIController extends Controller
       /**
        * ДОСТАТОЧНО ЛИ СРЕДСТВ НА АККАУНТЕ
        */
-      if (($balance - ($bill*$partner->default_comission/100)) < $balance_min ){
+      $tariff = DB::table('ETKPLUS_TARIFFS')
+                  ->where('id',$partner->tariff_id)
+                  ->first();
+      if (($balance - ($bill*$tariff->comission/100)) < $balance_min ){
         return response()->json([
             'status' => 'error',
             'errorText' => 'Недостаточно средств для проведения операции'
         ],200);
       } else {
-        $comission = ($bill*$partner->default_comission/100);
+        $comission = ($bill*$tariff->comission/100);
         $new_balance = ($balance - $comission);
       }
       /**

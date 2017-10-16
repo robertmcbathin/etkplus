@@ -257,11 +257,14 @@ class PartnerController extends Controller
       /**
        * ДОСТАТОЧНО ЛИ СРЕДСТВ НА АККАУНТЕ
        */
-      if (($current_balance->value - ($bill*$partner->default_comission/100)) < $current_balance->min_value ){
+      $tariff = DB::table('ETKPLUS_TARIFFS')
+                  ->where('id',$partner->tariff_id)
+                  ->first();
+      if (($current_balance->value - ($bill*$tariff->comission/100)) < $current_balance->min_value ){
         Session::flash('error','Недостаточно средств для проведения транзакции');
         return redirect()->back();
       } else {
-        $comission = ($bill*$partner->default_comission/100);
+        $comission = ($bill*$tariff->comission/100);
         $new_balance = ($current_balance->value - $comission);
       }
       

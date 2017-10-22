@@ -11,7 +11,7 @@
                         <div class="links">
                             <ul>
                                 <li>
-                                    <a href="#paper-kit">
+                                    <a href="/about">
                                         О проекте
                                     </a>
                                 </li>

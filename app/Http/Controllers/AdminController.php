@@ -223,6 +223,9 @@ public function getVisitsList(){
     ]);
 }
 
+public function showCardListPage(){
+    return view('dashboard.cards_list');
+}
 /**
  * [getVisitsList description]
  * @return [type] [description]

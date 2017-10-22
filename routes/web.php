@@ -16,6 +16,10 @@ Route::group(['middleware' => 'web'], function () {
 		'uses' => 'SiteController@showIndex',
 		'as' => 'site.show-index.get'
 		]);
+	Route::get('/about',[
+		'uses' => 'SiteController@showAbout',
+		'as' => 'site.show-about.get'
+		]);	
 	Route::get('category/{id}',[
 		'uses' => 'SiteController@showCategory',
 		'as' => 'site.show-category.get'

@@ -24,6 +24,11 @@ class SiteController extends Controller
             'partners' => $partners
             ]);
     }
+
+    public function showAbout(){
+      return view('about');
+    }
+
     public function showCategory($id){
       $partners = DB::table('ETKPLUS_PARTNERS')
               ->select('ETKPLUS_PARTNERS.id','ETKPLUS_PARTNERS.name','ETKPLUS_PARTNERS.fullname','ETKPLUS_PARTNERS.created_at', 'ETKPLUS_PARTNERS.updated_at',

@@ -7,13 +7,13 @@
                     <span class="navbar-toggler-bar"></span>
                 </button>
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/">ЕТКплюс</a>
+                    <a class="navbar-brand" href="/"><img src="/images/logo_orange.png" alt=""></a>
                 </div>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html" data-scroll="true" href="javascript:void(0)">О проекте</a>
+                        <a class="nav-link" href="/about" data-scroll="true" href="javascript:void(0)">О проекте</a>
                     </li>
                     <li class="nav-item dropdown dropdown-danger">
                         <a class="nav-link dropdown-toggle"  data-toggle="dropdown" href="javascript:void(0)">Партнерская сеть</a>

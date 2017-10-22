@@ -107,6 +107,7 @@ class APIController extends Controller
                        ->where('partner_id',$partner->id)
                        ->where('operator_id',$user->id)
                        ->limit(5)
+                       ->orderBy('created_at','desc')
                        ->get();
 
         /**

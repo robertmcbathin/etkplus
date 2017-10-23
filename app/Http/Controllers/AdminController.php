@@ -246,8 +246,11 @@ public function getVisitsList(){
 
 public function getCard($card_number){
     $card = DB::table('ETK_CARDS')
-                ->where('num', $this->modifyToFullNumber)
+                ->where('num', $this->modifyToFullNumber($card_number))
                 ->first();
+    $operations = DB::table('ETKPLUS_VISITS')
+                    ->where('card_number',$card_number)
+                    ->orderBy('created_at','desc')
     return view('dashboard.card');
 }
 /**

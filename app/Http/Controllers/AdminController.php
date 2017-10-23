@@ -17,6 +17,27 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
+
+    /**
+     * SYSTEM FUNCTIONS
+     */
+    /**
+   * [modifyToFullNumber description]
+   * @param  [type] $number [description]
+   * @return [type]         [description]
+   */
+    protected function modifyToShortNumber($num){
+        return substr_replace($num, '', 1,1);
+    }
+
+    protected function modifyToFullNumber($number){
+      $card_num_part2 = substr($number,1,2);
+      $card_num_part3  = substr($number,3,6);
+      if ($card_num_part2 !== 99){ $prefix = '01'; } else {$prefix = '02';}
+      $full_card_number = $prefix . $card_num_part2 . $card_num_part3;
+      return $full_card_number;
+    }
+
     public function generateRandomString($length = 10) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -223,8 +244,11 @@ public function getVisitsList(){
     ]);
 }
 
-public function showCardListPage(){
-    return view('dashboard.cards_list');
+public function getCard($card_number){
+    $card = DB::table('ETK_CARDS')
+                ->where('num', $this->modifyToFullNumber)
+                ->first();
+    return view('dashboard.card');
 }
 /**
  * [getVisitsList description]

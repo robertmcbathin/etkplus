@@ -58,13 +58,6 @@
                         </a>
                     </li>
 
-                    <li @if (Request::path() == 'dashboard/cards/list') class="active" @endif>
-                        <a href="{{ route('dashboard.show-card-list.get') }}">
-                            <i class="fa fa-credit-card"></i>
-                            <p>Карты</p>
-                        </a>
-                    </li>
-
                      <li @if (Request::path() == 'dashboard/users/list') class="active" @endif>
                         <a href="{{ route('dashboard.show-user-list.get') }}">
                             <i class="fa fa-user"></i>

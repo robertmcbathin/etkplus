@@ -76,9 +76,9 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.show-operations.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
-	Route::get('/dashboard/cards/list',[
-		'uses' => 'AdminController@showCardListPage',
-		'as' => 'dashboard.show-card-list.get'	
+	Route::get('/dashboard/card/{card_number}/show',[
+		'uses' => 'AdminController@getCard',
+		'as' => 'dashboard.card.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
 	Route::get('/dashboard/users/list',[

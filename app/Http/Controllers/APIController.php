@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Hash;
 use \App\User;
+use Carbon\Carbon;
 class APIController extends Controller
 {
     protected function modifyToShortNumber($num){

@@ -251,6 +251,7 @@ public function getCard($card_number){
     $operations = DB::table('ETKPLUS_VISITS')
                     ->where('card_number',$card_number)
                     ->orderBy('created_at','desc')
+                    ->get();
     return view('dashboard.card');
 }
 /**

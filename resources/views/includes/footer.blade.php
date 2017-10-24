@@ -21,17 +21,17 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#paper-kit">
+                                    <a href="">
                                        Личный кабинет
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#paper-kit">
+                                    <a href="">
                                        Оплата услуг
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#paper-kit">
+                                    <a href="">
                                        Сотрудничество
                                     </a>
                                 </li>
@@ -49,13 +49,13 @@
                                 <div class="pull-right">
                                     <ul>
                                         <li>
-                                            <a href="#paper-kit">
+                                            <a href="">
                                                 Политика конфиденциальности
                                             </a>
                                         </li>
                                         |
                                         <li>
-                                            <a href="#paper-kit">
+                                            <a href="">
                                                 Пользовательское соглашение
                                             </a>
                                         </li>

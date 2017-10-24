@@ -29,11 +29,11 @@
     <!--     Fonts and icons     -->
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700|Material+Icons' rel='stylesheet' type='text/css'>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Exo+2:700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Exo+2:400,700,700i,900&amp;subset=cyrillic" rel="stylesheet">
     <link href="/assets/css/nucleo-icons.css" rel="stylesheet">
 
 </head>
-<body class="full-screen login">
+<body class="presentation-page loading">
 @include('includes.top-nav')
 @yield('content')
 @include('includes.footer')

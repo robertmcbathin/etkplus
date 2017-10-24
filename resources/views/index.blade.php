@@ -15,8 +15,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 text-left">
-                        <h1 class="title">ЕТКплюс</h1>
-                        <h5>Участвуйте в системе, получайте скидки и бонусы от партнеров программы лояльности и кэшбэк на транспортную карту!</h5>
+                        <h2 class="presentation-title">ЕТКплюс</h1>
+                        <h5 class="presentation-subtitle">Участвуйте в системе, получайте скидки и бонусы от партнеров программы лояльности и кэшбэк на транспортную карту!</h5>
                         <br>
                     </div>
                 </div>
@@ -25,7 +25,8 @@
     </div>
 </div>
 <div class="wrapper">
-    <div class="section section-content section-gray">
+    <div id="fadeInAnim">
+        <div class="section section-content section-gray">
             <div class="container">
                 <div class="row">
                     <div class="col-md-7">
@@ -46,6 +47,7 @@
                 </div>
             </div>
         </div>
+    </div>
    <!-- <div class="section">
         <div class="container">
             <h3>Новые партнеры в нашей сети</h3>

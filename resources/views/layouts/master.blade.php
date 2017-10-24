@@ -273,7 +273,7 @@
 initPhotoSwipeFromDOM('.my-gallery');
         });
     </script>
-
+    @endisset
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript" >
     (function (d, w, c) {
@@ -303,5 +303,4 @@ initPhotoSwipeFromDOM('.my-gallery');
 <noscript><div><img src="https://mc.yandex.ru/watch/45472806" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
-    @endisset
 </html>

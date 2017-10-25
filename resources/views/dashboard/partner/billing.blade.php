@@ -24,6 +24,56 @@
                         </div>
                         <div class="card-content">
                         <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            <div class="icon-big icon-success text-center">
+                                                <i class="fa fa-file-text"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-7">
+                                            <div class="numbers">
+                                                <p>Выписать счет для оплаты в банке</p>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <hr>
+                                    <div class="stats">
+                                        Период зачисления на виртуальный счет - <b>до 3-х рабочих дней</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            <div class="icon-big icon-success text-center">
+                                                <i class="ti-wallet"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-7">
+                                            <div class="numbers">
+                                                <p>Revenue</p>
+                                                $1,345
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="ti-calendar"></i> Last day
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                             <div class="col-md-3 col-md-offset-3">
                                 <div class="card card-circle-chart" data-background-color="blue">
                                 <div class="card-header text-center">

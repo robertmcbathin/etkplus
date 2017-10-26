@@ -23,7 +23,6 @@
             <div class="container">
                 <br>
                 <div class="row items-row">
-                    <!-- 
                                         @foreach ($partners as $partner)
                     <div class="col-md-4  col-sm-4">
                         <div class="card card-plain">
@@ -44,7 +43,7 @@
                             </div>
                         </div>
                     </div>
-                    @endforeach -->
+                    @endforeach 
                 </div>
             </div>
         </div>

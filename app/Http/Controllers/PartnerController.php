@@ -452,8 +452,8 @@ public function postAddInvoice(Request $request){
    * СОЗДАНИЕ СЧЕТА
    */
   
-  $bill_id = insertGetId('ETKPLUS_PARTNER_BILLING')
-                      ->([
+  $bill_id = DB::table('ETKPLUS_PARTNER_BILLING')
+                      ->insertGetId([
                         'partner_id' => $request->partner_id,
                         'type' => 1,
                         'status' => 0,

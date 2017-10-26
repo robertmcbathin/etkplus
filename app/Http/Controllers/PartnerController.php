@@ -10,6 +10,7 @@ use Auth;
 use Mail;
 use \App\User;
 use \App\Partner;
+use \App\Bill;
 use App\Mail\PartnerRegistered;
 use App\Mail\OperatorCreated;
 use Illuminate\Support\Facades\File;
@@ -435,12 +436,56 @@ class PartnerController extends Controller
      * ОПЛАТА УСЛУГ
      */
     public function getBillingPage(){
-      $partner_id = Auth::user()->partner_id;
+      $partner = \App\Partner::find(Auth::user()->partner_id);
 
       return view('dashboard.partner.billing',[
-
+        'partner' => $partner
       ]);
     }
+
+public function postAddInvoice(Request $request){
+  /**
+   * ДАННЫЕ ПО ОРГАНИЗАЦИИ
+   */
+  $partner = \App\Partner::find($request->partner_id);
+  /**
+   * СОЗДАНИЕ СЧЕТА
+   */
+  
+  $bill_id = insertGetId('ETKPLUS_PARTNER_BILLING')
+                      ->([
+                        'partner_id' => $request->partner_id,
+                        'type' => 1,
+                        'status' => 0,
+                        'value' => $request->value
+                      ]);
+
+  $invoice = \App::make('snappy.pdf');
+  $html = '<small class="text-center">Внимание! Оплата данного счета означает согласие с условиями оказания услуг. Пополнение виртуального счета производится по факту поступления денежных средств на расчетный счет Поставщика.</small>';
+  $html .= '<table style="width:100%; border-collapse: separate; border: 1px solid black;">';
+  $html .= '<tr><td>ЧУВАШСКОЕ ОТДЕЛЕНИЕ №8613</td><td>БИК</td><td>049706609</td></tr>';
+  $html .= '<tr><td>ПАО СБЕРБАНК Г. ЧЕБОКСАРЫ</td><td></td><td></td></tr>';
+  $html .= '<tr><td>Банк получателя</td><td>Счет №</td><td>30101810300000000609</td></tr>';
+  $html .= '</table>';
+  $html .= '<table style="width:100%; border-collapse: separate; border: 1px solid black;">';
+  $html .= '<tr><td>ИНН 210080498</td><td>КПП 213001001</td><td>Счет №40702810375000004536</td></tr>';
+  $html .= '<tr><td>ООО "Единая транспортная карта"</td><td></td><td></td></tr>';
+  $html .= '<tr><td>Получатель</td><td></td><td></td></tr>';
+  $html .= '</table>';
+  $html .= '<h3>Счет на оплату №' . $request->contract_id . '</h3>';
+  $invoice_name = '/tmp/invoice-' . $partner->contract_id . '-' . date('dmY-His');
+  $invoice->generateFromHtml($html,$invoice_name);
+      return new Response(
+        $invoice->getOutputFromHtml($html,array(
+          'encoding' => 'utf-8'
+        )),
+        200,
+        array(
+          'Content-Type'          => 'application/pdf',
+          'Content-Disposition'   => 'attachment; filename="file.pdf"'
+        )
+      );
+}
 
     public function createTestPDF(){
       $snappy = \App::make('snappy.pdf');
@@ -449,7 +494,7 @@ class PartnerController extends Controller
      // $snappy->generate('http://www.github.com', '/tmp/github.pdf');
 //Or output:
       return new Response(
-        $snappy->getOutput('http://www.github.com'),
+        $snappy->getOutputFromHtml($invoice),
         200,
         array(
           'Content-Type'          => 'application/pdf',

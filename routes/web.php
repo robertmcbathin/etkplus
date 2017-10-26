@@ -281,6 +281,11 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.partner.billing.get'	
 		])->middleware('can:show-dashboard-partner,App\User');
 
+	Route::post('/control-panel/add-invoice',[
+		'uses' => 'PartnerController@postAddInvoice',
+		'as' => 'dashboard.partner.add-invoice.post'
+	])->middleware('can:show-dashboard-partner-admin,App\User');
+
 	Route::get('/pdf', 'PartnerController@createTestPDF');
 	/**
 	 *

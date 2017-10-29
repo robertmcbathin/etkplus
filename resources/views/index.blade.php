@@ -15,10 +15,20 @@
             <div class="container">
                 <div class="row">
                     <div class="float-card-container">
-                        <div class="float-card">
-                            <img src="/images/floating-discounts-280-white.png" alt="">
+                        <div class="float-icons-container">
+                            <div class="float-card">
+                                <i class="fa fa-percent fa-3x"></i>
+                            </div>
+
+                            <div class="float-card-gift">
+                                <i class="fa fa-gift fa-3x"></i>
+                            </div>
+
+                            <div class="float-card-ruble">
+                                <i class="fa fa-ruble fa-3x"></i>
+                            </div>
                         </div>
-                        <img src="/images/lying-card.png" alt="">
+                        <img src="/images/lying-card-white.png" alt="">
                     </div>
                 <!--    <div class="col-md-6 text-left">
                         <h2 class="presentation-title">ЕТКплюс</h1>

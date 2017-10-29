@@ -11,6 +11,7 @@ use Mail;
 use \App\User;
 use \App\Partner;
 use \App\Bill;
+use Carbon\Carbon;
 use App\Mail\PartnerRegistered;
 use App\Mail\OperatorCreated;
 use Illuminate\Support\Facades\File;
@@ -459,6 +460,12 @@ public function postAddInvoice(Request $request){
                         'status' => 0,
                         'value' => $request->value
                       ]);
+  $bill_number = 's' .$bill_id;
+  $bill = DB::table('ETKPLUS_PARTNER_BILLING')
+            ->where('id',$bill_id)
+            ->update(['bill_number' => $bill_number]);
+  setlocale(LC_ALL, 'ru_RU.UTF-8');
+  $date_by = Carbon::now();
 
   $invoice = \App::make('snappy.pdf');
   $html = '<small class="text-center">Внимание! Оплата данного счета означает согласие с условиями оказания услуг. Пополнение виртуального счета производится по факту поступления денежных средств на расчетный счет Поставщика.</small>';
@@ -472,7 +479,22 @@ public function postAddInvoice(Request $request){
   $html .= '<tr><td>ООО "Единая транспортная карта"</td><td></td><td></td></tr>';
   $html .= '<tr><td>Получатель</td><td></td><td></td></tr>';
   $html .= '</table>';
-  $html .= '<h3>Счет на оплату №' . $request->contract_id . '</h3>';
+  $html .= '<h3>Счет на оплату № ' . $bill_id .  ' от ' . $date_by->format('d.m.Y') . '</h3>';
+  $html .= '<hr>';
+  $html .= '<p>Поставщик: <b>ООО "ЕТК", ИНН 2130080498, 428000, Чувашская - Чувашия Респ, Чебоксары г, Тракторостроителей пр-кт, дом №6б, тел.: (8352) 49-25-85, 36-03-30, 36-33-30</b></p>';
+  $html .= '<p>Покупатель: <b>' . $partner->fullname . ', ИНН ' . $partner->inn . ', КПП ' . $partner->kpp . ', ' . $partner->legal_address . ', тел.: ' . $partner->phone . '</b></p>';
+  $html .= '<table style="width:100%; border-collapse: separate; border: 2px solid black;">';
+  $html .= '<tr><td><b>№</b></td><td><b>Товары (работы, услуги)</b></td><td><b>Кол-во</b></td><td><b>Ед.</b></td><td><b>Цена</b></td><td><b>Сумма</b></td></tr>';
+  $html .= '<tr><td>1</td><td>Услуги системы лояльности (авансовый платеж)</td><td>1</td><td>шт</td><td>' . number_format($request->value,2,',', ' ') . '</td><td>' . number_format($request->value,2,',', ' ') . '</td></tr>';
+  $html .= '</table></br>';
+  $html .= '<table style="width:100%; border-collapse: none; border: none; text-align: right;" align="right">';
+  $html .= '<tr><td style="width:100%;"><b>Итого: ' . number_format($request->value,2,',', ' ') . '</b></td></tr>';
+  $html .= '<tr><td style="width:100%;"><b>Без налога (НДС)   -</b></td></tr>';
+  $html .= '<tr><td style="width:100%;"><b>Всего к оплате: ' . number_format($request->value,2,',', ' ') . '</b></td></tr>';
+  $html .= '</table></br>';
+  $html .= '<p>Всего наименований 1, на сумму ' . number_format($request->value,2,',', ' ') . ' руб.</p>';
+  $html .= '<hr>';
+  
   $invoice_name = '/tmp/invoice-' . $partner->contract_id . '-' . date('dmY-His');
   $invoice->generateFromHtml($html,$invoice_name);
       return new Response(

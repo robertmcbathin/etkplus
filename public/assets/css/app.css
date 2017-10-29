@@ -65,3 +65,45 @@ h1,h2,h3,h4,h5,h6,p,a,small{
 .upper-text{
     font-size: 2em;
 }
+
+/* FLOATING CARD */
+@keyframes float {
+    0% {
+      /*  box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);*/
+        transform: translatey(150px);
+    }
+    50% {
+      /*  box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);*/
+        transform: translatey(50px);
+    }
+    100% {
+    /*    box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);*/
+        transform: translatey(150px);
+    }
+}
+
+.float-card-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.float-card {
+    width: 400px;
+    height: 200px;
+    box-sizing: border-box;
+    border: none;
+    overflow: hidden;
+    transform: translatey(0px);
+    animation: float 6s ease-in-out infinite;
+    img { width: 100%; height: auto; }
+}
+.float-card-content {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px 40px;
+    box-sizing: border-box;
+    text-align: center;
+}

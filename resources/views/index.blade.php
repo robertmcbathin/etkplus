@@ -14,11 +14,17 @@
         <div class="content-center">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6 text-left">
+                    <div class="float-card-container">
+                        <div class="float-card">
+                            <img src="/images/floating-discounts-280-white.png" alt="">
+                        </div>
+                        <img src="/images/lying-card.png" alt="">
+                    </div>
+                <!--    <div class="col-md-6 text-left">
                         <h2 class="presentation-title">ЕТКплюс</h1>
                         <h5 class="presentation-subtitle">Участвуйте в системе, получайте скидки и бонусы от партнеров программы лояльности и кэшбэк на транспортную карту!</h5>
                         <br>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

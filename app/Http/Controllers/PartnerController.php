@@ -555,7 +555,7 @@ public function postAddInvoice(Request $request){
   $html .= '<table style="width:100%; border-collapse: none; border: none;">';
   $html .= '<tr>';
   $html .= '<td style="width: 20%;">Руководитель</br></br></br></br>Бухгалтер</td>';
-  $html .= '<td style="width: 60%;"><img src="http://etkplus-beta.ru/images/signs.jpg"></td>';
+  $html .= '<td style="width: 60%; text-align: right;"><img src="http://etkplus-beta.ru/images/signs.jpg"></td>';
   $html .= '<td style="width: 20%;">/Горбунов А.Е./</br></br></br></br>/Казакова Т.В./</td>';
   $html .= '</tr>';
   $html .= '</table></br>';

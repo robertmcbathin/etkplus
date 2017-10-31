@@ -17,25 +17,25 @@
                         </li>
                         <li>
                             <a href="{{ route('site.show-categories.get') }}">
-                             Партнерская сеть
-                         </a>
-                     </li>
-                     <li>
+                               Партнерская сеть
+                           </a>
+                       </li>
+                       <li>
                         <a href="">
-                         Личный кабинет
-                     </a>
-                 </li>
-                 <li>
+                           Личный кабинет
+                       </a>
+                   </li>
+                   <li>
                     <a href="" data-toggle="modal" data-target="#billing-choice">
-                     Оплата услуг
-                 </a>
-             </li>
-             <li>
+                       Оплата услуг
+                   </a>
+               </li>
+               <li>
                 <a href="">
-                 Сотрудничество
-             </a>
-         </li>
-         <li>
+                   Сотрудничество
+               </a>
+           </li>
+           <li>
             <a href="{{ route('login') }}">
                 Вход для партнеров
             </a>
@@ -44,9 +44,9 @@
     <hr>
     <div class="copyright">
         <div class="pull-left">
-         Все права защищены © <script>document.write(new Date().getFullYear())</script> ЕТКплюс
-     </div>
-     <div class="pull-right">
+           Все права защищены © <script>document.write(new Date().getFullYear())</script> ЕТКплюс
+       </div>
+       <div class="pull-right">
         <ul>
             <li>
                 <a href="">
@@ -128,67 +128,72 @@
                 <div class="instruction">
                     <div class="row">
                         <div class="col-md-8">
-                           <div class="form-group">
-                                    <input type="text" value="" placeholder="Simple" class="form-control">
-                                </div>
+                         <div class="form-group">
+                            <input type="text" value="" placeholder="Simple" class="form-control">
                         </div>
-                        <div class="col-md-4">
-                            <div class="picture">
-                                <img src="assets/img/sections/angelo-pantazis.jpg" alt="Thumbnail Image" class="img-rounded img-responsive">
-                            </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="picture">
+                            <img src="assets/img/sections/angelo-pantazis.jpg" alt="Thumbnail Image" class="img-rounded img-responsive">
                         </div>
                     </div>
                 </div>
-                <div class="instruction">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <p> <strong>2. Счет для оплаты в банке (только для юрлиц и ИП). </strong> Если Вам удобнее проводить оплату безналичным расчетом, Вы можете выписать счет для оплаты. Пополнение происходит в течение 3-х рабочих дней.</p>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="picture">
-                                <img src="assets/img/sections/rawpixel-coms.jpg" alt="Thumbnail Image" class="img-rounded img-responsive">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-            <div class="modal-footer">
-
-            </div>
-            @endif
-            @else
-            <div class="modal-body">
-                <div class="instruction">
-                    <div class="row">
-                        <div class="col-md-8">
-                           <div class="form-group">
-                                    <input type="text" value="" placeholder="Simple" class="form-control">
-                                </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="picture">
-                                <img src="assets/img/sections/angelo-pantazis.jpg" alt="Thumbnail Image" class="img-rounded img-responsive">
-                            </div>
+            <div class="instruction">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p> <strong>2. Счет для оплаты в банке (только для юрлиц и ИП). </strong> Если Вам удобнее проводить оплату безналичным расчетом, Вы можете выписать счет для оплаты. Пополнение происходит в течение 3-х рабочих дней.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="picture">
+                            <img src="assets/img/sections/rawpixel-coms.jpg" alt="Thumbnail Image" class="img-rounded img-responsive">
                         </div>
                     </div>
                 </div>
-                <div class="instruction">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <p> <strong>2. Счет для оплаты в банке (только для юрлиц и ИП). </strong> Если Вам удобнее проводить оплату безналичным расчетом, Вы можете выписать счет для оплаты. Пополнение происходит в течение 3-х рабочих дней.</p>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="picture">
-                                <img src="assets/img/sections/rawpixel-coms.jpg" alt="Thumbnail Image" class="img-rounded img-responsive">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-            @endif
+
         </div>
+        <div class="modal-footer">
+
+        </div>
+        @endif
+        @else
+        <div class="modal-body">
+            <div class="instruction">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id='index-bill-form-group' class="form-group">
+                            <input type="text" class="form-control form-control-danger" name="contract_id" id="index-bill-contract-id" placeholder="Номер договора" value="">
+                            <div id="index-bill-control-feedback" class="form-control-feedback"><small id="index-bill-notice"></small></div>
+                        </div>
+                        <br>
+                        .
+                    </div>
+                </div>
+                <div class="row">
+                     <p>Реквизиты</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="inn" value="" placeholder="ИНН" minlength="10" maxlength="12" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="kpp" value="" placeholder="КПП" minlength="9" maxlength="9" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        @endif
     </div>
 </div>
+</div>
+<script>
+    var checkContractIdUrl = '{{ route('ajax.check-contract-id') }}';
+    var token = '{{ Session::token() }}';
+</script>
 

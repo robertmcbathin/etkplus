@@ -231,4 +231,12 @@ class SiteController extends Controller
             'reviews' => $reviews
             ]);
     }
+
+    /**
+     * AJAX FUNCTIONS
+     */
+    public function ajaxCheckContractId(Request $request){
+      $contract_id = $request->contractId;
+      if (($partner = DB::table('ETKPLUS_PARTNERS')->where('contract_id',$contract_id)->first()) !== NULL){ return response()->json(['message' => 'success'],200); } else return response()->json(['message' => 'error'],200);
+    }
 }

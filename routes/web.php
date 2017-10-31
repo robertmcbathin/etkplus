@@ -323,4 +323,11 @@ Route::group(['middleware' => 'auth'], function () {
 });
 Route::get('/logout', 'Auth\LoginController@logout');
 
+/**
+ * AJAX NON-AUTHORIZED
+ */
+Route::post('/ajax/check-contract-id',[
+	'uses' => 'SiteController@ajaxCheckContractId',
+	'as' => 'ajax.check-contract-id'
+]);
 Route::get('/home', 'HomeController@index')->name('home');

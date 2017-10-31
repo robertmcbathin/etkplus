@@ -182,7 +182,7 @@
                                                     <label class="control-label">
                                                         ИНН
                                                     </label>
-                                                    <input class="form-control" type="text" name="inn" placeholder="" value ="" minlength="10" maxlength="10">
+                                                    <input class="form-control" type="text" name="inn" placeholder="" value ="" minlength="10" maxlength="12">
                                                 </div>
                                             </div>
                                             <div class="col-md-5">

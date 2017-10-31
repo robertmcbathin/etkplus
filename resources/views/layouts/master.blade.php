@@ -300,6 +300,38 @@ initPhotoSwipeFromDOM('.my-gallery');
         } else { f(); }
     })(document, window, "yandex_metrika_callbacks");
 </script>
+<script>
+    $('#index-bill-contract-id').on('keyup', function(){
+        if ($('#index-bill-contract-id').val() !== ''){
+            if ($('#index-bill-contract-id').val().length >= 5){
+                $.ajax({
+                    method: 'POST',
+                    url: checkContractIdUrl,
+                    data: {
+                        contractId : $('#index-bill-contract-id').val(),
+                        _token : token
+                    }
+                })
+                .done(function(msg){
+                    console.log(JSON.stringify(msg));
+                    if (msg['message'] == 'success'){
+                        $('#index-bill-form-group').removeClass('has-danger');
+                        $('#index-bill-form-group').addClass('has-success');
+                        $('#index-bill-control-feedback').removeClass('form-control-danger');
+                        $('#index-bill-control-feedback').addClass('form-control-success');
+                        $('#index-bill-notice').replaceWith("<small id='index-bill-notice'>Договор найден</small>");
+                    } else {
+                        $('#index-bill-form-group').removeClass('has-success');
+                        $('#index-bill-form-group').addClass('has-danger');
+                        $('#index-bill-control-feedback').removeClass('form-control-success');
+                        $('#index-bill-control-feedback').addClass('form-control-danger');
+                        $('#index-bill-notice').replaceWith("<small id='index-bill-notice'>Договор не найден. Проверьте правильность введенных данных</small>");
+                    }
+                });
+            }
+        }
+    });
+</script>
 <noscript><div><img src="https://mc.yandex.ru/watch/45472806" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 

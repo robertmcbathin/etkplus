@@ -232,6 +232,105 @@ class SiteController extends Controller
             ]);
     }
 
+
+public function postCreateInvoice(Request $request){
+  $request->validate([
+    'contract_id' => 'required',
+    'name' => 'required',
+    'inn' => 'required',
+    'kpp' => 'required',
+    'legal_address' => 'required',
+    'phone' => 'required',
+    'value' => 'required'
+  ]);
+  /**
+   * INIT VARIABLES
+   */
+  $contract_id = $request->contract_id;
+  $name = $request->name;
+  $inn = $request->inn;
+  $kpp = $request->kpp;
+  $legal_address = $request->legal_address;
+  $phone = $request->phone;
+  $value = $request->value;
+  /**
+   * СОЗДАНИЕ СЧЕТА
+   */
+  $partner = DB::table('ETKPLUS_PARTNERS')
+               ->where('contract_id',$contract_id)
+               ->first();
+  if ($partner !== NULL){
+    $contract_id = $partner->contract_id;
+  } else {
+    Session::flash('Такого договора не существует, попробуйте снова');
+    return redirect()->back();
+  }
+
+  $bill_id = DB::table('ETKPLUS_PARTNER_BILLING')
+                      ->insertGetId([
+                        'partner_id' => $request->partner_id,
+                        'type' => 1,
+                        'status' => 0,
+                        'value' => $request->value
+                      ]);
+  $bill_number = 's' .$bill_id;
+  $bill = DB::table('ETKPLUS_PARTNER_BILLING')
+            ->where('id',$bill_id)
+            ->update(['bill_number' => $bill_number]);
+  setlocale(LC_ALL, 'ru_RU.UTF-8');
+  $date_by = Carbon::now();
+
+  $invoice = \App::make('snappy.pdf');
+  $html = '<small class="text-center">Внимание! Оплата данного счета означает согласие с условиями оказания услуг. Пополнение виртуального счета производится по факту поступления денежных средств на расчетный счет Поставщика.</small>';
+  $html .= '<table style="width:100%; border-collapse: separate; border: 1px solid black;">';
+  $html .= '<tr><td>ЧУВАШСКОЕ ОТДЕЛЕНИЕ №8613</td><td>БИК</td><td>049706609</td></tr>';
+  $html .= '<tr><td>ПАО СБЕРБАНК Г. ЧЕБОКСАРЫ</td><td></td><td></td></tr>';
+  $html .= '<tr><td>Банк получателя</td><td>Счет №</td><td>30101810300000000609</td></tr>';
+  $html .= '</table>';
+  $html .= '<table style="width:100%; border-collapse: separate; border: 1px solid black;">';
+  $html .= '<tr><td>ИНН 210080498</td><td>КПП 213001001</td><td>Счет №40702810375000004536</td></tr>';
+  $html .= '<tr><td>ООО "Единая транспортная карта"</td><td></td><td></td></tr>';
+  $html .= '<tr><td>Получатель</td><td></td><td></td></tr>';
+  $html .= '</table>';
+  $html .= '<h3>Счет на оплату № ' . $bill_number .  ' от ' . $date_by->format('d.m.Y') . '</h3>';
+  $html .= '<hr>';
+  $html .= '<p>Поставщик: <b>ООО "ЕТК", ИНН 2130080498, 428000, Чувашская - Чувашия Респ, Чебоксары г, Тракторостроителей пр-кт, дом №6б, тел.: (8352) 49-25-85, 36-03-30, 36-33-30</b></p>';
+  $html .= '<p>Покупатель: <b>' . $partner->fullname . ', ИНН ' . $partner->inn . ', КПП ' . $partner->kpp . ', ' . $partner->legal_address . ', тел.: ' . $partner->phone . '</b></p>';
+  $html .= '<table style="width:100%; border-collapse: separate; border: 2px solid black;">';
+  $html .= '<tr><td><b>№</b></td><td><b>Товары (работы, услуги)</b></td><td><b>Кол-во</b></td><td><b>Ед.</b></td><td><b>Цена</b></td><td><b>Сумма</b></td></tr>';
+  $html .= '<tr><td>1</td><td>Услуги системы лояльности (авансовый платеж)</td><td>1</td><td>шт</td><td>' . number_format($request->value,2,',', ' ') . '</td><td>' . number_format($request->value,2,',', ' ') . '</td></tr>';
+  $html .= '</table></br>';
+  $html .= '<table style="width:100%; border-collapse: none; border: none; text-align: right;" align="right">';
+  $html .= '<tr><td style="width:100%;"><b>Итого: ' . number_format($request->value,2,',', ' ') . '</b></td></tr>';
+  $html .= '<tr><td style="width:100%;"><b>Без налога (НДС)   -</b></td></tr>';
+  $html .= '<tr><td style="width:100%;"><b>Всего к оплате: ' . number_format($request->value,2,',', ' ') . '</b></td></tr>';
+  $html .= '</table></br>';
+  $html .= '<p>Всего наименований 1, на сумму ' . number_format($request->value,2,',', ' ') . ' руб.</p>';
+  $html .= '<p><b>' . $this->num2str($request->value) . '</b></p>';
+  $html .= '<hr></br></br>';
+  $html .= '<table style="width:100%; border-collapse: none; border: none;">';
+  $html .= '<tr>';
+  $html .= '<td style="width: 20%;">Руководитель</br></br></br></br>Бухгалтер</td>';
+  $html .= '<td style="width: 60%; text-align: right;"><img src="http://etkplus-beta.ru/images/signs.jpg"></td>';
+  $html .= '<td style="width: 20%;">/Горбунов А.Е./</br></br></br></br>/Казакова Т.В./</td>';
+  $html .= '</tr>';
+  $html .= '</table></br>';
+
+  
+  $invoice_name = '/tmp/invoice-' . $partner->contract_id . '-' . date('dmY-His');
+  $invoice->generateFromHtml($html,$invoice_name);
+      return new Response(
+        $invoice->getOutputFromHtml($html,array(
+          'encoding' => 'utf-8'
+        )),
+        200,
+        array(
+          'Content-Type'          => 'application/pdf',
+          'Content-Disposition'   => 'attachment; filename="file.pdf"'
+        )
+      );
+}
+
     /**
      * AJAX FUNCTIONS
      */

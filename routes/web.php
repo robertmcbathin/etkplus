@@ -40,6 +40,10 @@ Route::group(['middleware' => 'web'], function () {
 		'uses' => 'SiteController@showPartnerReviewsPage',
 		'as' => 'site.show-partner-reviews-page.get'
 		]);
+	Route::post('create-invoice',[
+		'uses' => 'SiteController@createInvoice',
+		'as' => 'site.create-invoice.post'
+		]);
 });
 Auth::routes();
 Route::group(['middleware' => 'auth'], function () {

@@ -159,15 +159,29 @@
         @endif
         @else
         <div class="modal-body">
+            <form action="{{ route('site.create-invoice.post') }}" method="POST">
             <div class="instruction">
+                <div class="row">
+                    <p>Номер договора</p>
+                </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div id='index-bill-form-group' class="form-group">
-                            <input type="text" class="form-control form-control-danger" name="contract_id" id="index-bill-contract-id" placeholder="Номер договора" value="">
+                            <input type="text" class="form-control form-control-danger" name="contract_id" id="index-bill-contract-id" placeholder="00000" value="">
                             <div id="index-bill-control-feedback" class="form-control-feedback"><small id="index-bill-notice"></small></div>
                         </div>
                         <br>
                         .
+                    </div>
+                </div>
+                <div class="row">
+                    <p>Полное наименование</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                    <div class="form-group">
+                            <input type="text" name="name" value="" placeholder="ООО ..." minlength="5" maxlength="255" class="form-control" required>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -185,8 +199,42 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                     <p>Юридический адрес</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="text" name="legal_address" value="" placeholder="428000, ..." minlength="10" maxlength="255" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                     <p>Номер телефона</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="text" name="phone" value="" placeholder="+7" minlength="6" maxlength="50" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                     <p>Сумма (в рублях)</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="text" name="value" value="" placeholder="" minlength="2" maxlength="6" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button type="submit" id="index-bill-submit" class="btn btn-danger btn-fill btn-round" style="width:100%;" disabled>Выписать счет</button>
+                </div>
             </div>
-
+        </form>
         </div>
         @endif
     </div>

@@ -160,6 +160,7 @@
         @else
         <div class="modal-body">
             <form action="{{ route('site.create-invoice.post') }}" method="POST">
+                {{ csrf_field() }}
             <div class="instruction">
                 <div class="row">
                     <p>Номер договора</p>

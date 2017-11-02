@@ -320,12 +320,14 @@ initPhotoSwipeFromDOM('.my-gallery');
                         $('#index-bill-control-feedback').removeClass('form-control-danger');
                         $('#index-bill-control-feedback').addClass('form-control-success');
                         $('#index-bill-notice').replaceWith("<small id='index-bill-notice'>Договор найден</small>");
+                        $('#index-bill-submit').removeAttr('disabled');
                     } else {
                         $('#index-bill-form-group').removeClass('has-success');
                         $('#index-bill-form-group').addClass('has-danger');
                         $('#index-bill-control-feedback').removeClass('form-control-success');
                         $('#index-bill-control-feedback').addClass('form-control-danger');
                         $('#index-bill-notice').replaceWith("<small id='index-bill-notice'>Договор не найден. Проверьте правильность введенных данных</small>");
+                        $('#index-bill-submit').attr('disabled','disabled');
                     }
                 });
             }

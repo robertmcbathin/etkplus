@@ -41,7 +41,7 @@ Route::group(['middleware' => 'web'], function () {
 		'as' => 'site.show-partner-reviews-page.get'
 		]);
 	Route::post('create-invoice',[
-		'uses' => 'SiteController@createInvoice',
+		'uses' => 'SiteController@postCreateInvoice',
 		'as' => 'site.create-invoice.post'
 		]);
 });
@@ -108,6 +108,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/dashboard/billing',[
 		'uses' => 'AdminController@showBillingPage',
 		'as' => 'dashboard.show-billing-page.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::get('/dashboard/salary',[
+		'uses' => 'AdminController@showSalaryPage',
+		'as' => 'dashboard.show-salary-page.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
 
@@ -212,6 +217,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/dashboard/tariff/change',[
 		'uses' => 'AdminController@postChangeTariff',
 		'as' => 'dashboard.change-partner-tariff.post'
+		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/salary/pay',[
+		'uses' => 'AdminController@postPaySalary',
+		'as' => 'dashboard.pay-salary.post'
 		])->middleware('can:show-dashboard-admin,App\User');
 	/**
 	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ АГЕНТА

@@ -72,6 +72,13 @@
                         </a>
                     </li>
 
+                     <li @if (Request::path() == 'dashboard/salary') class="active" @endif>
+                        <a href="{{ route('dashboard.show-salary-page.get') }}">
+                            <i class="fa fa-credit-card-alt"></i>
+                            <p>Выплата агентам</p>
+                        </a>
+                    </li>
+
                     <li @if (Request::path() == 'dashboard/reviews/list') class="active" @endif>
                         <a href="{{ route('dashboard.show-review-list.get') }}">
                             <i class="fa fa-comments"></i>

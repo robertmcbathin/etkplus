@@ -808,6 +808,20 @@ public function postLoadGallery(Request $request){
             
         ]);
     }
+
+    /**
+     * SALARY
+     */
+    public function showSalaryPage(){
+        $accounts = DB::table('ETKPLUS_AGENT_ACCOUNTS')
+                        ->leftJoin('users','ETKPLUS_AGENT_ACCOUNTS.user_id','=','users.id')
+                        ->select('ETKPLUS_AGENT_ACCOUNTS.id','ETKPLUS_AGENT_ACCOUNTS.user_id','users.name','users.post','ETKPLUS_AGENT_ACCOUNTS.value')
+                        ->get();
+        return view('dashboard.salary',[
+            'accounts' => $accounts,
+
+        ]);
+    }
     /**
      * TARIFFS
      */

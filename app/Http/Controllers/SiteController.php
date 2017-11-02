@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Http\Response;
 use Auth;
 use Carbon\Carbon;
 use \App\User;
@@ -11,6 +12,59 @@ use \App\Review;
 
 class SiteController extends Controller
 {
+
+protected function num2str($num) {
+  $nul='ноль';
+  $ten=array(
+    array('','один','два','три','четыре','пять','шесть','семь', 'восемь','девять'),
+    array('','одна','две','три','четыре','пять','шесть','семь', 'восемь','девять'),
+  );
+  $a20=array('десять','одиннадцать','двенадцать','тринадцать','четырнадцать' ,'пятнадцать','шестнадцать','семнадцать','восемнадцать','девятнадцать');
+  $tens=array(2=>'двадцать','тридцать','сорок','пятьдесят','шестьдесят','семьдесят' ,'восемьдесят','девяносто');
+  $hundred=array('','сто','двести','триста','четыреста','пятьсот','шестьсот', 'семьсот','восемьсот','девятьсот');
+  $unit=array( // Units
+    array('копейка' ,'копейки' ,'копеек',  1),
+    array('рубль'   ,'рубля'   ,'рублей'    ,0),
+    array('тысяча'  ,'тысячи'  ,'тысяч'     ,1),
+    array('миллион' ,'миллиона','миллионов' ,0),
+    array('миллиард','милиарда','миллиардов',0),
+  );
+  //
+  list($rub,$kop) = explode(',',sprintf("%015.2f", floatval($num)));
+  $out = array();
+  if (intval($rub)>0) {
+    foreach(str_split($rub,3) as $uk=>$v) { // by 3 symbols
+      if (!intval($v)) continue;
+      $uk = sizeof($unit)-$uk-1; // unit key
+      $gender = $unit[$uk][3];
+      list($i1,$i2,$i3) = array_map('intval',str_split($v,1));
+      // mega-logic
+      $out[] = $hundred[$i1]; # 1xx-9xx
+      if ($i2>1) $out[]= $tens[$i2].' '.$ten[$gender][$i3]; # 20-99
+      else $out[]= $i2>0 ? $a20[$i3] : $ten[$gender][$i3]; # 10-19 | 1-9
+      // units without rub & kop
+      if ($uk>1) $out[]= $this->morph($v,$unit[$uk][0],$unit[$uk][1],$unit[$uk][2]);
+    } //foreach
+  }
+  else $out[] = $nul;
+  $out[] = $this->morph(intval($rub), $unit[1][0],$unit[1][1],$unit[1][2]); // rub
+  $out[] = $kop.' '. $this->morph($kop,$unit[0][0],$unit[0][1],$unit[0][2]); // kop
+  return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
+}
+
+/**
+ * Склоняем словоформу
+ * @ author runcore
+ */
+protected function morph($n, $f1, $f2, $f5) {
+  $n = abs(intval($n)) % 100;
+  if ($n>10 && $n<20) return $f5;
+  $n = $n % 10;
+  if ($n>1 && $n<5) return $f2;
+  if ($n==1) return $f1;
+  return $f5;
+}
+
     public function showIndex(){
         $partners = DB::table('ETKPLUS_PARTNERS')
                       ->select('ETKPLUS_PARTNERS.id','ETKPLUS_PARTNERS.name','ETKPLUS_PARTNERS.fullname','ETKPLUS_PARTNERS.created_at', 'ETKPLUS_PARTNERS.updated_at', 
@@ -234,15 +288,6 @@ class SiteController extends Controller
 
 
 public function postCreateInvoice(Request $request){
-  $request->validate([
-    'contract_id' => 'required',
-    'name' => 'required',
-    'inn' => 'required',
-    'kpp' => 'required',
-    'legal_address' => 'required',
-    'phone' => 'required',
-    'value' => 'required'
-  ]);
   /**
    * INIT VARIABLES
    */
@@ -268,10 +313,10 @@ public function postCreateInvoice(Request $request){
 
   $bill_id = DB::table('ETKPLUS_PARTNER_BILLING')
                       ->insertGetId([
-                        'partner_id' => $request->partner_id,
+                        'partner_id' => $partner->id,
                         'type' => 1,
                         'status' => 0,
-                        'value' => $request->value
+                        'value' => $value
                       ]);
   $bill_number = 's' .$bill_id;
   $bill = DB::table('ETKPLUS_PARTNER_BILLING')
@@ -295,18 +340,18 @@ public function postCreateInvoice(Request $request){
   $html .= '<h3>Счет на оплату № ' . $bill_number .  ' от ' . $date_by->format('d.m.Y') . '</h3>';
   $html .= '<hr>';
   $html .= '<p>Поставщик: <b>ООО "ЕТК", ИНН 2130080498, 428000, Чувашская - Чувашия Респ, Чебоксары г, Тракторостроителей пр-кт, дом №6б, тел.: (8352) 49-25-85, 36-03-30, 36-33-30</b></p>';
-  $html .= '<p>Покупатель: <b>' . $partner->fullname . ', ИНН ' . $partner->inn . ', КПП ' . $partner->kpp . ', ' . $partner->legal_address . ', тел.: ' . $partner->phone . '</b></p>';
+  $html .= '<p>Покупатель: <b>' . $name . ', ИНН ' . $inn . ', КПП ' . $kpp . ', ' . $legal_address . ', тел.: ' . $phone . '</b></p>';
   $html .= '<table style="width:100%; border-collapse: separate; border: 2px solid black;">';
   $html .= '<tr><td><b>№</b></td><td><b>Товары (работы, услуги)</b></td><td><b>Кол-во</b></td><td><b>Ед.</b></td><td><b>Цена</b></td><td><b>Сумма</b></td></tr>';
-  $html .= '<tr><td>1</td><td>Услуги системы лояльности (авансовый платеж)</td><td>1</td><td>шт</td><td>' . number_format($request->value,2,',', ' ') . '</td><td>' . number_format($request->value,2,',', ' ') . '</td></tr>';
+  $html .= '<tr><td>1</td><td>Услуги системы лояльности (авансовый платеж)</td><td>1</td><td>шт</td><td>' . number_format($value,2,',', ' ') . '</td><td>' . number_format($value,2,',', ' ') . '</td></tr>';
   $html .= '</table></br>';
   $html .= '<table style="width:100%; border-collapse: none; border: none; text-align: right;" align="right">';
-  $html .= '<tr><td style="width:100%;"><b>Итого: ' . number_format($request->value,2,',', ' ') . '</b></td></tr>';
+  $html .= '<tr><td style="width:100%;"><b>Итого: ' . number_format($value,2,',', ' ') . '</b></td></tr>';
   $html .= '<tr><td style="width:100%;"><b>Без налога (НДС)   -</b></td></tr>';
-  $html .= '<tr><td style="width:100%;"><b>Всего к оплате: ' . number_format($request->value,2,',', ' ') . '</b></td></tr>';
+  $html .= '<tr><td style="width:100%;"><b>Всего к оплате: ' . number_format($value,2,',', ' ') . '</b></td></tr>';
   $html .= '</table></br>';
-  $html .= '<p>Всего наименований 1, на сумму ' . number_format($request->value,2,',', ' ') . ' руб.</p>';
-  $html .= '<p><b>' . $this->num2str($request->value) . '</b></p>';
+  $html .= '<p>Всего наименований 1, на сумму ' . number_format($value,2,',', ' ') . ' руб.</p>';
+  $html .= '<p><b>' . $this->num2str($value) . '</b></p>';
   $html .= '<hr></br></br>';
   $html .= '<table style="width:100%; border-collapse: none; border: none;">';
   $html .= '<tr>';

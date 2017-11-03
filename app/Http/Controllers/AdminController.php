@@ -822,6 +822,32 @@ public function postLoadGallery(Request $request){
 
         ]);
     }
+
+    public function postPaySalary(Request $request){
+        $to_pay = $request->to_pay;
+        $user_id = $request->user_id;
+        $agent = DB::table('ETKPLUS_AGENT_ACCOUNTS')
+                    ->where('user_id',$user_id)
+                    ->first();
+        if ($to_pay > $agent->value){
+            Session::flash('error','Нельзя списать сумму больше начисленной');
+            return redirect()->back();
+        }
+        try {
+            $balance = $agent->value - $to_pay;
+            DB::table('ETKPLUS_AGENT_ACCOUNTS')
+                ->where('user_id', $user_id)
+                ->update([
+                    'value' => $balance
+                ]);
+            DB::table('ETKPLUS_AGENT_BILLING_HISTORY')
+                ->insert([
+                    
+                ]);
+        } catch (Exception $e) {
+            
+        }
+    }
     /**
      * TARIFFS
      */

@@ -102,6 +102,8 @@
                       <label class="control-label">
                           Сумма, которая будет выплачена
                       </label>
+                      {{ csrf_field() }}
+                      <input type="hidden" value="{{ $account->user_id }}" name="user_id">
                       <input class="form-control" type="text" name="to_pay" placeholder="1000" required>
                   </div>
               </div>

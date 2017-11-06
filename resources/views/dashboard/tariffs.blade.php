@@ -35,8 +35,10 @@
                                     <th>Название</th>
                                     <th>Описание</th>
                                     <th>Число операторов</th>
+                                    <th>Количество точек</th>
                                     <th>Комиссия</th>
                                     <th>Абонентская плата</th>
+                                    <th>Кем создано</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,8 +48,10 @@
                                     <td>{{ $tariff->name }}</td>
                                     <td>{{ $tariff->description }}</td>
                                     <td>{{ $tariff->max_operator_count }}</td>
+                                    <td>{{ $tariff->max_service_points }}</td>
                                     <td>{{ $tariff->comission }}</td>
                                     <td>{{ $tariff->monthly_payment }}</td>
+                                    <td>{{ $tariff->created_by }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -91,9 +95,15 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">
-                            Количество операторов (пока число не ограничено)
+                            Количество операторов 
                         </label>
-                        <input class="form-control" type="text" name="max_operator_count" placeholder="100" required>
+                        <input class="form-control" type="text" name="max_operator_count" placeholder="2" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">
+                            Количество торгово-сервисных точек
+                        </label>
+                        <input class="form-control" type="text" name="max_service_points" placeholder="1" required>
                     </div>
                     <div class="form-group">
                         <label class="control-label">

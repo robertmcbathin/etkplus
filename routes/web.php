@@ -149,9 +149,19 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.edit_partner.post'
 		])->middleware('can:show-dashboard-admin,App\User');
 
-	Route::post('/dashboard/partner/edit-logos',[
-		'uses' => 'AdminController@postEditPartnerLogos',
-		'as' => 'dashboard.edit_partner_logos.post'
+	Route::post('/dashboard/partner/edit-logo',[
+		'uses' => 'AdminController@postEditPartnerLogo',
+		'as' => 'dashboard.edit_partner_logo.post'
+		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/partner/edit-limit',[
+		'uses' => 'AdminController@postEditPartnerLimit',
+		'as' => 'dashboard.edit_partner_limit.post'
+		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/partner/edit-background',[
+		'uses' => 'AdminController@postEditPartnerBackground',
+		'as' => 'dashboard.edit_partner_background.post'
 		])->middleware('can:show-dashboard-admin,App\User');
 
 	Route::post('/dashboard/partner/load-gallery',[

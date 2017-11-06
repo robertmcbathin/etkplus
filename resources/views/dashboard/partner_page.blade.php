@@ -132,9 +132,12 @@
             <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-tariff">
                 <i class="fa fa-tasks"></i>
             Сменить тариф </a></li>
-            <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-logos-partner">
+            <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-logo-partner">
+                <i class="fa fa-user"></i>
+            Заменить логотип</a></li>
+            <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-background-partner">
                 <i class="fa fa-file-image-o"></i>
-            Заменить логотип и фон</a></li>
+            Заменить фон</a></li>
             <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-gallery-partner">
                 <i class="fa fa-picture-o"></i> Галерея
             </a></li>
@@ -228,7 +231,7 @@
                 <div class="row">
                     <div class="col-xs-3">
                         <div class="avatar">
-                            <i class="fa fa-map-marker"></i>
+                            
                         </div>
                     </div>
                     <div class="col-xs-6">
@@ -249,6 +252,69 @@
     </div>
 </div>
 
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Скидки</h4>
+    </div>
+    <div class="card-content">
+        @if (count($discounts) > 0)
+        <ul class="list-unstyled team-members">
+            @foreach ($discounts as $discount)
+            <li>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <div class="avatar">
+                        {{ $discount->value }} <i class="fa fa-percent"></i>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        {{ $discount->description }}
+                        
+                    </div>
+                    <div class="col-xs-3 text-right">
+
+                    </div>
+                </div>
+            </li>     
+            @endforeach
+        </ul>
+        @else
+        <p>Действующих скидок нет</p>
+        @endif
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Бонусы</h4>
+    </div>
+    <div class="card-content">
+        @if (count($bonuses) > 0)
+        <ul class="list-unstyled team-members">
+            @foreach ($bonuses as $bonus)
+            <li>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <div class="avatar">
+                            {{ $bonus->value }} <i class="fa fa-ruble"></i>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        {{ $bonus->description }}
+                        
+                    </div>
+                    <div class="col-xs-3 text-right">
+
+                    </div>
+                </div>
+            </li>     
+            @endforeach
+        </ul>
+        @else
+        <p>Действующих скидок нет</p>
+        @endif
+    </div>
+</div>
 
 </div>
 <div class="col-lg-8 col-md-7">
@@ -331,13 +397,13 @@
                             <td class="text-right">Другой способ</td>
                             @endif
                             @if($billing->status == 0)
-                            <td class="text-right">Начислен</td>
+                            <td class="text-right">Создан</td>
                             @endif
                             @if($billing->status == 1)
-                            <td class="text-right">Оплачен</td>
+                            <td class="text-right">Подтвержден</td>
                             @endif
                             @if($billing->status == 3)
-                            <td class="text-right">Создан, не оплачен</td>
+                            <td class="text-right">Проведен</td>
                             @endif
                             <td class="text-right">{{ $billing->created_at }}</td>
                         </tr>
@@ -608,17 +674,17 @@
     </div>
 </div>
 
-<div class="modal fade" id="edit-logos-partner" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+<div class="modal fade" id="edit-background-partner" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-center" id="exampleModalLabel">Изменить изображения</h5>
+                <h5 class="modal-title text-center" id="exampleModalLabel">Изменить фон</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body"> 
-                <form action="{{ route('dashboard.edit_partner_logos.post') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('dashboard.edit_partner_background.post') }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -636,6 +702,36 @@
                     </div>
                 </div>
             </div>
+</div>
+<div class="modal-footer">
+    <div class="left-side">
+        <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+    </div>
+    <div class="divider"></div>
+    <div class="right-side">
+        <button type="submit" class="btn btn-success btn-link">Сохранить</button>
+    </div>
+</form>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="edit-logo-partner" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Изменить логотип</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body"> 
+                <form action="{{ route('dashboard.edit_partner_logo.post') }}" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="partner_id" value="{{ $partner->id }}">
+                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+
             <div class="col-md-10 col-md-offset-1">
                 <div class="fileinput text-center fileinput-new" data-provides="fileinput">
                   <div class="fileinput-new thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;">
@@ -665,6 +761,7 @@
 </div>
 </div>
 
+
 <div class="modal fade" id="edit-limit-partner" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -675,7 +772,7 @@
                 </button>
             </div>
             <div class="modal-body"> 
-                <form action="{{ route('dashboard.edit_partner_logos.post') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('dashboard.edit_partner_limit.post') }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">

@@ -49,7 +49,14 @@ class AdminController extends Controller
     }
 
     public function showDashboard(){
-    	return view('dashboard');
+        $cashback_to_pay = DB::table('ETK_CARDS')
+                                ->sum('cashback_to_pay');
+        $cashback_payed = DB::table('ETK_CARDS')
+                                ->sum('cashback_payed');
+    	return view('dashboard',[
+            'cashback_to_pay' => $cashback_to_pay,
+            'cashback_payed' => $cashback_payed
+        ]);
     }
     public function showCreatePartnerPage(){
     	$categories = DB::table('ETKPLUS_PARTNER_CATEGORIES')
@@ -444,20 +451,11 @@ public function postEditPartner(Request $request){
      * @param  Request $request [description]
      * @return [type]           [description]
      */
-    public function postEditPartnerLogos(Request $request){
+    public function postEditPartnerLogo(Request $request){
         $partner_id  = $request->partner_id;
         $user_id     = $request->user_id;
 
         $partner = \App\Partner::find($partner_id);
-
-        $background_image = $request->file('background_image');
-        if ($background_image){
-          $background_image_extension = $request->file('background_image')->getClientOriginalExtension();
-          $background_imagename = '/assets/img/partners/' . $partner->id . '/background.' . $background_image_extension;          
-          Storage::disk('public')->put($background_imagename, File::get($background_image));
-          $partner->thumbnail = $background_imagename;
-          $partner->save();
-      } 
 
       $logo_image = $request->file('logo_image');
       if ($logo_image){
@@ -467,6 +465,24 @@ public function postEditPartner(Request $request){
           $partner->logo = $logo_imagename;
           $partner->save();
       }
+      Session::flash('success', 'Изменения сохранены');
+      return redirect()->back();
+  }
+
+    public function postEditPartnerBackground(Request $request){
+        $partner_id  = $request->partner_id;
+        $user_id     = $request->user_id;
+
+        $partner = \App\Partner::find($partner_id);
+        $background_image = $request->file('background_image');
+        if ($background_image){
+          $background_image_extension = $request->file('background_image')->getClientOriginalExtension();
+          $background_imagename = '/assets/img/partners/' . $partner->id . '/background.' . $background_image_extension;          
+          Storage::disk('public')->put($background_imagename, File::get($background_image));
+          $partner->thumbnail = $background_imagename;
+          $partner->save();
+      } 
+
       Session::flash('success', 'Изменения сохранены');
       return redirect()->back();
   }
@@ -638,6 +654,10 @@ public function postLoadGallery(Request $request){
         $type        = $request->type;
         $value       = $request->value;
         $lifetime = date_create_from_format('d/m/Y',$request->lifetime);
+        if (!(is_numeric($value))){
+            Session::flash('error', 'Значение должно быть числом');
+            return redirect()->back(); 
+        }
         if (intval($value) == 0){
             Session::flash('error', 'Значение должно быть целым числом');
             return redirect()->back(); 
@@ -853,6 +873,8 @@ public function postLoadGallery(Request $request){
      */
     public function showTariffListPage(){
         $tariffs = DB::table('ETKPLUS_TARIFFS')
+                    ->join('users','ETKPLUS_TARIFFS.created_by','=','users.id')
+                    ->select('ETKPLUS_TARIFFS.*','users.name as created_by')
                     ->get();
         return view('dashboard.tariffs',[
             'tariffs' => $tariffs
@@ -863,6 +885,7 @@ public function postLoadGallery(Request $request){
         $name               = $request->name;
         $description        = $request->description;
         $max_operator_count = $request->max_operator_count;
+        $max_service_points = $request->max_service_points;
         $comission          = $request->comission;
         $monthly_payment    = $request->monthly_payment;
 
@@ -870,8 +893,11 @@ public function postLoadGallery(Request $request){
             'name' => $name,
             'description' => $description,
             'max_operator_count' => $max_operator_count,
+            'max_service_points' => $max_service_points,
             'comission' => $comission,
-            'monthly_payment' => $monthly_payment
+            'monthly_payment' => $monthly_payment,
+            'created_by' => Auth::user()->id
+
         ])){
             Session::flash('success', 'Тариф успешно добавлен');
             return redirect()->back();

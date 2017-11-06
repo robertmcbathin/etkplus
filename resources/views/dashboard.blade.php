@@ -33,8 +33,8 @@
                                         </div>
                                         <div class="col-xs-7">
                                             <div class="numbers">
-                                                <p>Capacity</p>
-                                                105GB
+                                                <p>Кэшбэк к начислению</p>
+                                                {{ $cashback_to_pay }} <i class="fa fa-ruble"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -42,7 +42,7 @@
                                 <div class="card-footer">
                                     <hr />
                                     <div class="stats">
-                                        <i class="ti-reload"></i> Updated now
+                                         Начислено: {{ $cashback_payed }}
                                     </div>
                                 </div>
                             </div>

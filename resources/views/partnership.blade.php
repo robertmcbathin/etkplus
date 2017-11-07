@@ -167,8 +167,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 ml-auto mr-auto text-center">
-                        <h2 class="title">Pick the best plan for you</h2>
-                        <h5 class="description">You have Free Unlimited Updates and Premium Support on each package.</h5>
+                        <h2 class="title">Выберите тарифный план для себя</h2>
+                        <h5 class="description">Стоимость подключения зависит от размера Вашего предприятия</h5>
                         <br>
 
                     </div>
@@ -179,53 +179,51 @@
                     <div class="col-md-4">
                         <div class="card card-pricing" data-background="image" style="background-image: url('assets/img/pages/partnership/price1.jpg')">
                             <div class="card-body">
-                                <h6 class="card-category white-text">Малый бизнес</h6>
-                                <h1 class="card-title">Старт</h1>
+                                <h6 class="card-category white-text">Точка</h6>
+                                <h1 class="card-title">5000</h1>
                                 <ul>
-                                    <li class="white-text"><b>5</b> Sharing Tools</li>
-                                    <li class="white-text"><b>10</b> Design Tools</li>
-                                    <li class="white-text"><b>100</b> Private Messages</li>
-                                    <li class="white-text"><b>2</b> Personal Brand</li>
+                                    <li class="white-text"><b>1</b> торгово-сервисная точка</li>
+                                    <li class="white-text">до <b>2</b> аккаунтов оператора</li>
+                                    <li class="white-text"><b>10%</b> комиссия за операцию</li>
+                                    <li class="white-text"><b>без</b> абонентской платы</li>
                                 </ul>
-                                <a href="#pablo" class="btn btn-warning btn-round ">
-                                    Get Started
-                                </a>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
-                        <div class="card card-pricing" data-background="image" style="background-image: url('assets/img/sections/forest-bg.jpg')">
+                        <div class="card card-pricing" data-background="image" style="background-image: url('assets/img/pages/partnership/price2.jpg')">
                             <div class="card-body">
-                                <h6 class="card-category">Premium</h6>
-                                <h1 class="card-title"><small>$</small>89<small>/mo</small></h1>
+                                <h6 class="card-category">Союз</h6>
+                                <h1 class="card-title">10000</h1>
                                 <ul>
-                                    <li><b>100</b> Projects</li>
-                                    <li><b>5</b> Team Members</li>
-                                    <li><b>55</b> Personal Contacts</li>
-                                    <li><b>5.000</b> Messages</li>
+                                    <li class="white-text">до <b>3</b> торгово-сервисных точек</li>
+                                    <li class="white-text">до <b>7</b> аккаунтов оператора</li>
+                                    <li class="white-text"><b>10%</b> комиссия за операцию</li>
+                                    <li class="white-text"><b>без</b> абонентской платы</li>
                                 </ul>
-                                <a href="#pablo" class="btn btn-success btn-round">
-                                    Get Started
-                                </a>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
-                        <div class="card card-pricing" data-background="image" style="background-image: url('assets/img/sections/anders-jilden.jpg')">
+                        <div class="card card-pricing" data-background="image" style="background-image: url('assets/img/pages/partnership/price3.jpg')">
                             <div class="card-body">
-                                <h6 class="card-category">Platinum</h6>
-                                <h1 class="card-title"><small>$</small>199<small>/mo</small></h1>
+                                <h6 class="card-category">Альянс</h6>
+                                <h1 class="card-title">20000</h1>
                                 <ul>
-                                    <li><b>1</b> Project</li>
-                                    <li><b>5</b> Team Members</li>
-                                    <li><b>55</b> Personal Contacts</li>
-                                    <li><b>5.000</b> Messages</li>
+                                    <li class="white-text">до <b>7</b> торгово-сервисных точек</li>
+                                    <li class="white-text">до <b>20</b> аккаунтов оператора</li>
+                                    <li class="white-text"><b>10%</b> комиссия за операцию</li>
+                                    <li class="white-text"><b>без</b> абонентской платы</li>
                                 </ul>
-                                <a href="#pablo" class="btn btn-danger btn-round ">Get Started</a>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 ml-auto mr-auto text-center">
+                        <h5 class="description">Цены указаны в российских рублях</h5>
                     </div>
                 </div>
             </div>

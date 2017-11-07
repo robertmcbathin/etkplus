@@ -216,3 +216,15 @@ h1,h2,h3,h4,h5,h6,p,a,small{
 .sixth-card {
     top: 932px !important;
 }
+.card[data-background="image"]:after {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: block;
+    left: 0;
+    top: 0;
+    content: "";
+     background-color: rgba(0, 0, 0, 0); 
+    border-radius: 12px;
+}

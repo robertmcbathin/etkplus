@@ -53,7 +53,12 @@
                                     <td>{{ $tariff->comission }}</td>
                                     <td>{{ $tariff->monthly_payment }}</td>
                                     <td>{{ $tariff->created_by }}</td>
-                                    <td></td>
+                                    <td>
+                                        <a href="#" rel="tooltip" title="" class="btn btn-success btn-simple btn-xs" data-original-title="Редактировать" data-toggle="modal" data-target="#edit-tariff-{{ $tariff->id }}">
+                                        <i class="fa fa-edit"></i>
+                                        </a>
+                                        
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -134,6 +139,39 @@
     </div>
 </div>
 
+@foreach ($tariffs as $tariff)
+<div class="modal fade" id="edit-tariff-{{ $tariff->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Выплатить</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form action="{{ route('dashboard.pay-salary.post') }}" method="POST">
+                <div class="modal-body"> 
+                  <div class="form-group">
+                      <label class="control-label">
+                          Сумма, которая будет выплачена
+                      </label>
+                      {{ csrf_field() }}
+                      <input type="hidden" value="{{ $tariff->id }}" name="tariff_id">
+                      <input class="form-control" type="text" name="to_pay" placeholder="1000" required>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <div class="left-side">
+                    <div class="right-side">
+                        <button type="submit" class="btn btn-danger btn-link">Оплачено</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+@endforeach
 <script>
 
 </script>

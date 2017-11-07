@@ -91,6 +91,10 @@
                         <h3 class="title white-text">Удобство использования</h3>
                         <h6 class="category white-text">Все, что нужно - обычный смартфон</h6>
                         <h5 class="description white-text">Больше никакого ведения базы клиентов в тетради! Если у Вас есть Android-смартфон с функцией NFC, то управление лояльностью осуществляется быстро и легко! Но даже если такого под рукой нет, то и обычный смартфон подойдет!</h5>
+                        <br>
+                        <a href="https://play.google.com/store/apps/details?id=com.etk.operatorplus" target="_blank">
+                            <img src="assets/img/pages/partnership/badge-google-play-ru.png" alt="">
+                        </a>
                     </div>
                 </div>
             </div>

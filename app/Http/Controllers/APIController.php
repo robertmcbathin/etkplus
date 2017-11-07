@@ -354,6 +354,11 @@ class APIController extends Controller
        */
       $partner = \App\Partner::find($partner_id);
       /**
+       * LIFETIME КЭШБЭКА
+       */
+      $cashback_lifetime = Carbon::now();
+      $cashback_lifetime->addYear();
+      /**
        * ЗНАЧЕНИЕ КЭШБЭКА ДЛЯ ЗАЧИСЛЕНИЯ НА КАРТУ
        */
       $cashback = ceil(($bill*($partner->default_cashback/100))); //ОКРУГЛЯЕМ КЭШБЭК В БОЛЬШУЮ СТОРОНУ
@@ -384,11 +389,12 @@ class APIController extends Controller
         $comission = ($bill*$tariff->comission/100);
         $new_balance = ($balance - $comission);
       }
+
       /**
        * ПРОВЕДЕНИЕ ОПЕРАЦИИ
        */
       try {
-        DB::transaction(function() use ($partner_id,$operator_id,$card_number,$card_chip,$bill,$bill_with_discount,$bonus,$sub_bonus,$discount,$discount_value,$comission,$cashback,$new_user_bonus_value,$new_balance,$b_card_number) {
+        DB::transaction(function() use ($partner_id,$operator_id,$card_number,$card_chip,$bill,$bill_with_discount,$bonus,$sub_bonus,$discount,$discount_value,$comission,$cashback,$new_user_bonus_value,$new_balance,$b_card_number,$cashback_lifetime) {
           DB::table('ETKPLUS_VISITS')
             ->insert([
               'partner_id' => $partner_id,
@@ -421,6 +427,13 @@ class APIController extends Controller
           DB::table('ETK_CARDS')
             ->where('num',$b_card_number)
             ->update(['cashback_to_pay' => $cashback]);
+          DB::table('ETKPLUS_CASHBACKS')
+              ->insert([
+                'card_number' => $card_number,
+                'value' => $cashback,
+                'status' => 1,
+                'lifetime' => $cashback_lifetime
+              ]);
         }); 
       } catch (Exception $e) {
         return response()->json([

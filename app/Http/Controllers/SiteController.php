@@ -83,6 +83,10 @@ protected function morph($n, $f1, $f2, $f5) {
       return view('about');
     }
 
+    public function showPartnership(){
+      return view('partnership');
+    }
+
     public function showCategory($id){
       $partners = DB::table('ETKPLUS_PARTNERS')
               ->select('ETKPLUS_PARTNERS.id','ETKPLUS_PARTNERS.name','ETKPLUS_PARTNERS.fullname','ETKPLUS_PARTNERS.created_at', 'ETKPLUS_PARTNERS.updated_at',

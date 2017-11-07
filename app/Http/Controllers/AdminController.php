@@ -920,6 +920,13 @@ public function postLoadGallery(Request $request){
             return redirect()->back();            
         }
     }
+
+    /**
+     * EMAILS
+     */
+    public function showEmailsPage(){
+        return view('dashboard.emails');
+    }
     /**
      * AJAX
      */

@@ -292,8 +292,15 @@ protected function morph($n, $f1, $f2, $f5) {
        */
       $discount_value = ($bill*($discount/100));
       $bill_with_discount = (($bill - $discount_value) - $bonus);
-
+      /*
+      *  РАСЧЕТ КЭШБЭКА
+       */
       $partner = \App\Partner::find($partner_id);
+      /**
+       * LIFETIME КЭШБЭКА
+       */
+      $cashback_lifetime = Carbon::now();
+      $cashback_lifetime->addYear();
       /**
        * ЗНАЧЕНИЕ КЭШБЭКА ДЛЯ ЗАЧИСЛЕНИЯ НА КАРТУ
        */
@@ -328,7 +335,7 @@ protected function morph($n, $f1, $f2, $f5) {
       }
       
       try {
-        DB::transaction(function() use ($partner_id,$operator_id,$card_number,$card_chip,$bill,$bill_with_discount,$bonus,$sub_bonus,$discount,$discount_value,$comission,$cashback,$new_user_bonus_value,$new_balance,$b_card_number) {
+        DB::transaction(function() use ($partner_id,$operator_id,$card_number,$card_chip,$bill,$bill_with_discount,$bonus,$sub_bonus,$discount,$discount_value,$comission,$cashback,$new_user_bonus_value,$new_balance,$b_card_number,$cashback_lifetime) {
           DB::table('ETKPLUS_VISITS')
           ->insert([
             'partner_id' => $partner_id,
@@ -356,10 +363,17 @@ protected function morph($n, $f1, $f2, $f5) {
             /**
              * КЭШБЭК
              */
-            DB::table('ETK_CARDS')
+          DB::table('ETK_CARDS')
             ->where('num',$b_card_number)
             ->update(['cashback_to_pay' => $cashback]);
           }); 
+          DB::table('ETKPLUS_CASHBACKS')
+              ->insert([
+                'card_number' => $card_number,
+                'value' => $cashback,
+                'status' => 1,
+                'lifetime' => $cashback_lifetime
+              ]);
       } catch (Exception $e) {
         Session::flash('error',$e);
         return redirect()->back();

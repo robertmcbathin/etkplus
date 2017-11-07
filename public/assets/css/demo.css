@@ -2139,8 +2139,6 @@ pre.prettyprint {
 .grid__item .grid__link .grid__img {
   border-radius: 14px; }
 
-.first-card {
-  top: -75px !important; }
 
 .second-card {
   top: 55px !important;
@@ -2165,8 +2163,8 @@ pre.prettyprint {
   .fifth-card .grid__img {
     width: 400px !important; }
 
-.sixth-card {
-  top: 1070px !important; }
+/*.sixth-card {
+  top: 1070px !important; }*/
 
 .seventh-card {
   top: 875px !important; }
@@ -2174,11 +2172,11 @@ pre.prettyprint {
     width: 400px !important;
     border-radius: 12px; }
 
-.eight-card {
+/*.eight-card {
   top: -160px !important;
   left: 400px !important; }
   .eight-card .grid__img {
-    width: 400px !important; }
+    width: 400px !important; }*/
 
 .ninth-card {
   top: 350px !important;

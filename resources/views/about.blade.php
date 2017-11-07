@@ -35,7 +35,10 @@
                 </div>
                 <br><br>
                 <div class="row">
-                    <h2 class="title">Какие преимущества Вам дает участие в программе?</h2>
+                        <div class="col-md-8 ml-auto mr-auto">
+                        <h2 class="title">Какие преимущества Вам дает участие в программе?</h2>
+                    </div>
+                    <div class="row">
                     <div class="col-md-4">
                         <div class="info">
                             <div class="icon icon-danger">
@@ -68,6 +71,7 @@
                                 <p class="description">Каждая операция по Вашей карте будет приносить Вам часть потраченной суммы на Вашу транспортную карту!</p>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div>
 

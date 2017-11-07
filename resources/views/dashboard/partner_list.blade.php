@@ -75,9 +75,6 @@
                                             <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-partner-{{ $partner->id }}">
                                                 <i class="fa fa-pencil"></i>
                                             Общие данные </a></li>
-                                            <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-logos-partner-{{ $partner->id }}">
-                                                <i class="fa fa-file-image-o"></i>
-                                            Заменить логотип и фон</a></li>
                                             <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-gallery-partner-{{ $partner->id }}">
                                                 <i class="fa fa-picture-o"></i> Галерея
                                             </a></li>
@@ -278,64 +275,6 @@
 </div>
 @endforeach
 
-@foreach ($partners as $partner)
-<div class="modal fade" id="edit-logos-partner-{{ $partner->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-center" id="exampleModalLabel">Изменить изображения</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body"> 
-                <form action="{{ route('dashboard.edit_partner_logos.post') }}" method="POST" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    <input type="hidden" name="partner_id" value="{{ $partner->id }}">
-                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                    <div class="col-md-10 col-md-offset-1">
-                        <div class="fileinput text-center fileinput-new" data-provides="fileinput">
-                          <div class="fileinput-new thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;">
-                            <img src="{{ $partner->thumbnail }}" alt="...">
-                        </div>
-                        <div class="fileinput-preview fileinput-exists thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;"></div>
-                        <div>
-                            <span class="btn btn-outline-default btn-round btn-file"><span class="fileinput-new">Выбрать фон (1307 на 392)</span><span class="fileinput-exists">Изменить</span>
-                            <input type="file" name="background_image" value="{{ $partner->thumbnail }}">
-                        </span>
-                        <a href="" class="btn btn-link btn-danger fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-10 col-md-offset-1">
-                <div class="fileinput text-center fileinput-new" data-provides="fileinput">
-                  <div class="fileinput-new thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;">
-                    <img src="{{ $partner->logo }}" alt="">
-                </div>
-                <div class="fileinput-preview fileinput-exists thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;"></div>
-                <div>
-                    <span class="btn btn-outline-default btn-round btn-file"><span class="fileinput-new">Выбрать логотип (150 на 150)</span><span class="fileinput-exists">Изменить</span>
-                    <input type="file" name="logo_image" value="{{ $partner->logo }}">
-                </span>
-                <a href="" class="btn btn-link btn-danger fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal-footer">
-    <div class="left-side">
-        <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
-    </div>
-    <div class="divider"></div>
-    <div class="right-side">
-        <button type="submit" class="btn btn-success btn-link">Сохранить</button>
-    </div>
-</form>
-</div>
-</div>
-</div>
-</div>
-@endforeach
 
 @foreach ($partners as $partner)
 <div class="modal fade" id="edit-gallery-partner-{{ $partner->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">

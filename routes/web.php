@@ -20,6 +20,10 @@ Route::group(['middleware' => 'web'], function () {
 		'uses' => 'SiteController@showAbout',
 		'as' => 'site.show-about.get'
 		]);	
+	Route::get('/partnership',[
+		'uses' => 'SiteController@showPartnership',
+		'as' => 'site.show-partnership.get'
+		]);	
 	Route::get('category/{id}',[
 		'uses' => 'SiteController@showCategory',
 		'as' => 'site.show-category.get'
@@ -113,6 +117,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/dashboard/salary',[
 		'uses' => 'AdminController@showSalaryPage',
 		'as' => 'dashboard.show-salary-page.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::get('/dashboard/emails',[
+		'uses' => 'AdminController@showEmailsPage',
+		'as' => 'dashboard.show-emails-distribution.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
 

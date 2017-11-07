@@ -93,6 +93,13 @@
                         </a>
                     </li>
 
+                    <li @if (Request::path() == 'dashboard/emails') class="active" @endif>
+                        <a href="{{ route('dashboard.show-emails-distribution.get') }}">
+                            <i class="fa fa-envelope"></i>
+                            <p>Рассылки</p>
+                        </a>
+                    </li>
+
                 @endcan
 
                 @can('show-dashboard-agent')

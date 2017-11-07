@@ -39,6 +39,7 @@
                                     <th>Комиссия</th>
                                     <th>Абонентская плата</th>
                                     <th>Кем создано</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,6 +53,7 @@
                                     <td>{{ $tariff->comission }}</td>
                                     <td>{{ $tariff->monthly_payment }}</td>
                                     <td>{{ $tariff->created_by }}</td>
+                                    <td></td>
                                 </tr>
                                 @endforeach
                             </tbody>

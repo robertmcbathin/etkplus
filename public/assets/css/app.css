@@ -69,46 +69,49 @@ h1,h2,h3,h4,h5,h6,p,a,small{
 /* FLOATING CARD */
 @keyframes float {
     0% {
-        box-shadow: 0 4px 4px rgba(0,0,0,0.6);
         transform: translatey(75px);
     }
     50% {
-        box-shadow: none;
         transform: translatey(20px);
     }
     100% {
-        box-shadow: 0 4px 4px rgba(0,0,0,0.6);
         transform: translatey(75px);
     }
 }
 
 @keyframes float-ruble {
     0% {
-        box-shadow: 0 4px 4px rgba(0,0,0,0.6);
         transform: translatey(85px);
     }
     50% {
-        box-shadow: none;
         transform: translatey(0px);
     }
     100% {
-        box-shadow: 0 4px 4px rgba(0,0,0,0.6);
         transform: translatey(85px);
     }
 }
 
 @keyframes float-gift {
     0% {
-        box-shadow: 0 4px 4px rgba(0,0,0,0.6);
         transform: translatey(60px);
     }
     50% {
-        box-shadow: none;
         transform: translatey(-20px);
     }
     100% {
-        box-shadow: 0 4px 4px rgba(0,0,0,0.6);
         transform: translatey(60px);
+    }
+}
+
+@keyframes float-lying-card {
+    0% {
+        transform: translatey(10px);
+    }
+    50% {
+        transform: translatey(0px);
+    }
+    100% {
+        transform: translatey(10px);
     }
 }
 
@@ -136,8 +139,7 @@ h1,h2,h3,h4,h5,h6,p,a,small{
     border-radius: 50%;
     overflow: hidden;
     transform: translatey(0px);
-    box-shadow: 0 4px 4px rgba(0,0,0,0.6);
-    animation: float 6s ease-in-out infinite;
+    animation: float 6s cubic-bezier(0.25, 0.1, 0.25, 1.0) infinite;
     img { width: 100%; height: auto; }
 }
 .float-card>i{
@@ -158,8 +160,7 @@ h1,h2,h3,h4,h5,h6,p,a,small{
     border-radius: 50%;
     overflow: hidden;
     transform: translatey(0px);
-    box-shadow:  0 4px 4px rgba(0,0,0,0.6);
-    animation: float-ruble 4.5s ease-in-out infinite;
+    animation: float-ruble 4.5s cubic-bezier(0.25, 0.1, 0.25, 1.0) infinite;
     img { width: 100%; height: auto; }
 }
 .float-card-ruble>i{
@@ -180,8 +181,7 @@ h1,h2,h3,h4,h5,h6,p,a,small{
     border-radius: 50%;
     overflow: hidden;
     transform: translatey(0px);
-    box-shadow:  0 4px 4px rgba(0,0,0,0.6);
-    animation: float-gift 5s ease-in-out infinite;
+    animation: float-gift 5s cubic-bezier(0.25, 0.1, 0.25, 1.0) infinite;
     img { width: 100%; height: auto; }
 }
 .float-card-gift>i{
@@ -195,4 +195,24 @@ h1,h2,h3,h4,h5,h6,p,a,small{
     padding: 20px 40px;
     box-sizing: border-box;
     text-align: center;
+}
+.lying-card{
+    animation: float-lying-card 10s cubic-bezier(0.25, 0.1, 0.25, 1.0) infinite;
+}
+.section-orange {
+    background-color: #f5593d;
+    color: #FFFFFF !important;
+}
+.white-text {
+    color:#f3eaea;
+}
+.first-card {
+    top: 104px !important;
+}
+.eight-card {
+    top: 126px !important;
+    left: 400px !important;
+}
+.sixth-card {
+    top: 932px !important;
 }

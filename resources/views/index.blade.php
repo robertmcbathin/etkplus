@@ -28,7 +28,7 @@
                                 <i class="fa fa-ruble fa-3x"></i>
                             </div>
                         </div>
-                        <img src="/images/lying-card-white.png" alt="">
+                        <img src="/images/lying-card-white.png" class="lying-card" alt="">
                     </div>
                 <!--    <div class="col-md-6 text-left">
                         <h2 class="presentation-title">ЕТКплюс</h1>

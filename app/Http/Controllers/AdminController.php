@@ -921,6 +921,16 @@ public function postLoadGallery(Request $request){
         }
     }
 
+    public function postEditTariff(Request $request){
+        $name               = $request->name;
+        $description        = $request->description;
+        $max_operator_count = $request->max_operator_count;
+        $max_service_points = $request->max_service_points;
+        $comission          = $request->comission;
+        $monthly_payment    = $request->monthly_payment;
+
+        
+    }
     /**
      * EMAILS
      */

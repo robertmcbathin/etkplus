@@ -144,26 +144,56 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-center" id="exampleModalLabel">Выплатить</h5>
+                <h5 class="modal-title text-center" id="exampleModalLabel">Изменить тариф</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <form action="{{ route('dashboard.pay-salary.post') }}" method="POST">
+            <form action="{{ route('dashboard.edit-tariff.post') }}" method="POST">
                 <div class="modal-body"> 
+                  {{ csrf_field() }}
+                  <input type="hidden" value="{{ $tariff->id }}" name="tariff_id">
                   <div class="form-group">
                       <label class="control-label">
-                          Сумма, которая будет выплачена
+                          Название
                       </label>
-                      {{ csrf_field() }}
-                      <input type="hidden" value="{{ $tariff->id }}" name="tariff_id">
-                      <input class="form-control" type="text" name="to_pay" placeholder="1000" required>
+                      <input class="form-control" type="text" name="name" value="{{ $tariff->name }}" required>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label">
+                          Описание
+                      </label>
+                      <input class="form-control" type="text" name="description" value="{{ $tariff->description }}" required>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label">
+                          Макс. число операторов
+                      </label>
+                      <input class="form-control" type="text" name="max_operator_count" value="{{ $tariff->max_operator_count }}" required>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label">
+                          Макс. количество точек
+                      </label>
+                      <input class="form-control" type="text" name="max_service_points" value="{{ $tariff->max_service_points }}" required>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label">
+                          Комиссия
+                      </label>
+                      <input class="form-control" type="text" name="comission" value="{{ $tariff->comission }}" required>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label">
+                          Абонентская плата
+                      </label>
+                      <input class="form-control" type="text" name="monthly_payment" value="{{ $tariff->monthly_payment }}" required>
                   </div>
               </div>
               <div class="modal-footer">
                 <div class="left-side">
                     <div class="right-side">
-                        <button type="submit" class="btn btn-danger btn-link">Оплачено</button>
+                        <button type="submit" class="btn btn-danger btn-link">Сохранить изменения</button>
                     </div>
                 </div>
             </div>

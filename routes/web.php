@@ -242,6 +242,11 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'AdminController@postPaySalary',
 		'as' => 'dashboard.pay-salary.post'
 		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/tariff/edit',[
+		'uses' => 'AdminController@postEditTariff',
+		'as' => 'dashboard.edit-tariff.post'
+		])->middleware('can:show-dashboard-admin,App\User');
 	/**
 	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ АГЕНТА
 	 */	

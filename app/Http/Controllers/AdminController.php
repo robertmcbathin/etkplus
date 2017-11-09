@@ -922,6 +922,7 @@ public function postLoadGallery(Request $request){
     }
 
     public function postEditTariff(Request $request){
+        $tariff_id          = $request->tariff_id;
         $name               = $request->name;
         $description        = $request->description;
         $max_operator_count = $request->max_operator_count;
@@ -929,7 +930,23 @@ public function postLoadGallery(Request $request){
         $comission          = $request->comission;
         $monthly_payment    = $request->monthly_payment;
 
-        
+        try {
+            DB::table('ETKPLUS_TARIFFS')
+              ->where('id',$tariff_id)
+              ->update([
+                'name' => $name,
+                'description' => $description,
+                'max_operator_count' => $max_operator_count,
+                'max_service_points' => $max_service_points,
+                'comission' => $comission,
+                'monthly_payment' => $monthly_payment
+              ]);
+        } catch (Exception $e) {
+            Session::flash('error','Сохранить изменения не удалось');
+            return redirect()->back();
+        }
+        Session::flash('success','Изменения сохранены');
+        return redirect()->back();
     }
     /**
      * EMAILS

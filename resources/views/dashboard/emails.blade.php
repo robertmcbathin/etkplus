@@ -26,7 +26,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Созданные рассылки</h4>
-                        <p class="category">Доступно адресов для рассылки: 218</p>
+                        <p class="category">Доступно адресов для рассылки: {{ $recipients_count }}</p>
                     </div>
                     <div class="card-content">
                      <div id="acordeon">

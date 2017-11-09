@@ -124,6 +124,16 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.show-emails-distribution.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
+	Route::get('/dashboard/log',[
+		'uses' => 'AdminController@showLogPage',
+		'as' => 'dashboard.show-log.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::get('/dashboard/log/{type?}',[
+		'uses' => 'AdminController@showLogPage',
+		'as' => 'dashboard.show-log.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
+
 
 
 

@@ -952,8 +952,46 @@ public function postLoadGallery(Request $request){
      * EMAILS
      */
     public function showEmailsPage(){
-        return view('dashboard.emails');
+        $recipients = DB::table('users')
+                        ->whereNotNull('email')
+                        ->where('is_email_receiver',1)
+                        ->get();
+        $recipients_count = DB::table('users')
+                                ->whereNotNull('email')
+                                ->where('is_email_receiver',1)
+                                ->count();
+        $test_recipients = DB::table('users')
+                                ->whereNotNull('email')
+                                ->where('is_email_receiver',1)
+                                ->where('role_id','<',3)
+                                ->get();        
+        return view('dashboard.emails',[
+            'recipients_count' => $recipients_count
+        ]);
     }
+    /**
+     * LOGS
+     */
+    public function showLogPage($type = NULL){
+        $log_types = DB::table('SYS_LOG_ACTION_TYPES')
+                        ->get();
+        if (isset($type)){
+           $logs = DB::table('SYS_LOG')
+                    ->where('action_type',$type)
+                    ->orderBy('created_at','DESC')
+                    ->paginate(50); 
+                } else $logs = NULL;
+        $current_type = DB::table('SYS_LOG_ACTION_TYPES')
+                            ->where('id',$type)
+                            ->first();
+
+        return view('dashboard.log',[
+            'log_types' => $log_types,
+            'logs' => $logs,
+            'current_type' => $current_type
+        ]);
+    }
+
     /**
      * AJAX
      */

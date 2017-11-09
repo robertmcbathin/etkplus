@@ -100,6 +100,13 @@
                         </a>
                     </li>
 
+                    <li @if (Request::path() == 'dashboard/log') class="active" @endif>
+                        <a href="{{ route('dashboard.show-log.get') }}">
+                            <i class="fa fa-align-justify"></i>
+                            <p>Лог</p>
+                        </a>
+                    </li>
+
                 @endcan
 
                 @can('show-dashboard-agent')

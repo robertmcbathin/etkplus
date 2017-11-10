@@ -290,7 +290,9 @@ protected function morph($n, $f1, $f2, $f5) {
             ]);
     }
 
-
+public function showRules(){
+  return view('rules');
+}
 public function postCreateInvoice(Request $request){
   /**
    * INIT VARIABLES

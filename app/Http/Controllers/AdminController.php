@@ -974,6 +974,7 @@ public function postLoadGallery(Request $request){
      */
     public function showLogPage($type = NULL){
         $log_types = DB::table('SYS_LOG_ACTION_TYPES')
+                        /*->where('ecosystem_id',2)*/
                         ->get();
         if (isset($type)){
            $logs = DB::table('SYS_LOG')

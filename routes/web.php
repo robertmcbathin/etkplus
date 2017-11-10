@@ -32,6 +32,10 @@ Route::group(['middleware' => 'web'], function () {
 		'uses' => 'SiteController@showCategories',
 		'as' => 'site.show-categories.get'
 		]);
+	Route::get('rules',[
+		'uses' => 'SiteController@showRules',
+		'as' => 'site.show-rules.get'
+		]);
 	Route::get('partner/{id}',[
 		'uses' => 'SiteController@showPartner',
 		'as' => 'site.show-partner.get'

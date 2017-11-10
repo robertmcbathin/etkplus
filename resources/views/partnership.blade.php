@@ -168,7 +168,7 @@
                 <div class="row">
                     <div class="col-md-6 ml-auto mr-auto text-center">
                         <h2 class="title">Выберите тарифный план для себя</h2>
-                        <h5 class="description">Стоимость подключения зависит от размера Вашего предприятия</h5>
+                        <h5 class="description">Стоимость подключения зависит от размера Вашего предприятия. Все приведенные ниже тарифы <b>без абонентской платы</b>.</h5>
                         <br>
 
                     </div>
@@ -185,7 +185,7 @@
                                     <li class="white-text"><b>1</b> торгово-сервисная точка</li>
                                     <li class="white-text">до <b>2</b> аккаунтов оператора</li>
                                     <li class="white-text"><b>10%</b> комиссия за операцию</li>
-                                    <li class="white-text"><b>без</b> абонентской платы</li>
+                                    <li class="white-text"><b>2000</b> на счет</li>
                                 </ul>
                             </div>
                         </div>
@@ -200,7 +200,7 @@
                                     <li class="white-text">до <b>3</b> торгово-сервисных точек</li>
                                     <li class="white-text">до <b>7</b> аккаунтов оператора</li>
                                     <li class="white-text"><b>10%</b> комиссия за операцию</li>
-                                    <li class="white-text"><b>без</b> абонентской платы</li>
+                                    <li class="white-text"><b>5000</b> на счет</li>
                                 </ul>
                             </div>
                         </div>
@@ -215,7 +215,7 @@
                                     <li class="white-text">до <b>7</b> торгово-сервисных точек</li>
                                     <li class="white-text">до <b>20</b> аккаунтов оператора</li>
                                     <li class="white-text"><b>10%</b> комиссия за операцию</li>
-                                    <li class="white-text"><b>без</b> абонентской платы</li>
+                                    <li class="white-text"><b>12000</b> на счет</li>
                                 </ul>
                             </div>
                         </div>

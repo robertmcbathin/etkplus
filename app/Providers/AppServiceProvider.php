@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use DB;
 use Auth;
 use View;
+use URL;
 
 class AppServiceProvider extends ServiceProvider
 {

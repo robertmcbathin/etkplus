@@ -261,6 +261,11 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'AdminController@postEditTariff',
 		'as' => 'dashboard.edit-tariff.post'
 		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/account/increase',[
+		'uses' => 'AdminController@postIncreaseAccount',
+		'as' => 'dashboard.increase-account.post'
+		])->middleware('can:show-dashboard-admin,App\User');
 	/**
 	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ АГЕНТА
 	 */	

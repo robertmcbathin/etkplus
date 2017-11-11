@@ -5,6 +5,22 @@
             <div class="col-md-4 col-sm-4">
                 <div class="logo text-center">
                     <h3>ЕТКплюс</h3>
+                    <h6 class="text-muted">Система лояльности для держателей карт ЕТК</h6>
+                    <hr><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="/images/logo-mastercard.png" alt="MasterCard" class="img">
+                    </div>
+                    <div class="col-md-3">
+                        <img src="/images/logo-visa.png" alt="Visa" class="img">
+                    </div>
+                    <div class="col-md-3">
+                        <img src="/images/mir-logo.png" alt="Мир" class="img">
+                    </div>
+                    <div class="col-md-3">
+                        <img src="/images/uniteller-logo.jpg" alt="Uniteller" class="img">
+                    </div>
                 </div>
             </div>
             <div class="col-md-8 col-sm-8">
@@ -38,8 +54,8 @@
                </a>
            </li>
            <li>
-            <a href="{{ route('login') }}">
-                Вход для партнеров
+            <a href="">
+                Контакты
             </a>
         </li>
     </ul>
@@ -86,7 +102,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="picture">
-                                <img src="assets/img/sections/angelo-pantazis.jpg" alt="Thumbnail Image" class="img-rounded img-responsive">
+                                <img src="/images/uniteller-logo.jpg" alt="Uniteller" class="img-rounded img-responsive">
                             </div>
                         </div>
                     </div>
@@ -98,7 +114,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="picture">
-                                <img src="assets/img/sections/rawpixel-coms.jpg" alt="Thumbnail Image" class="img-rounded img-responsive">
+                                <img src="/images/bill-example.jpg" alt="Счет" class="img-rounded img-responsive">
                             </div>
                         </div>
                     </div>

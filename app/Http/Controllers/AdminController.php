@@ -823,10 +823,58 @@ public function postLoadGallery(Request $request){
      * BILLING
      */
     public function showBillingPage(){
-
+        $accounts_sum = DB::table('ETKPLUS_PARTNER_ACCOUNTS')
+                            ->sum('value');
+        $accounts_sum = number_format($accounts_sum,2);
+        /**
+         * СЧЕТА
+         * @var [type]
+         */
+        $bills_sum = DB::table('ETKPLUS_PARTNER_BILLING')
+                            ->where('status',0)
+                            ->sum('value');
+        $bills_count = DB::table('ETKPLUS_PARTNER_BILLING')
+                            ->where('status',0)
+                            ->count('id');
+        $payments = DB::table('ETKPLUS_PARTNER_BILLING')
+                    ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_PARTNERS.id','=','ETKPLUS_PARTNER_BILLING.partner_id')
+                    ->where('type',1)
+                    ->where('status',0)
+                    ->select('ETKPLUS_PARTNER_BILLING.*','ETKPLUS_PARTNERS.fullname as name')
+                    ->orderBy('created_at','DESC')
+                    ->paginate(50);
         return view('dashboard.billing',[
-            
+            'payments' => $payments,
+            'accounts_sum' => $accounts_sum,
+            'bills_sum' => $bills_sum,
+            'bills_count' => $bills_count
         ]);
+    }
+
+    public function postIncreaseAccount(Request $request){
+        $bill_id = $request->bill_id;
+        $partner_id = $request->partner_id;
+        $to_increase = $request->to_increase;
+
+        $account = DB::table('ETKPLUS_PARTNER_ACCOUNTS')
+                    ->where('partner_id',$partner_id)
+                    ->first();
+
+        $new_account_value = $account->value + $to_increase;
+        try {
+            DB::table('ETKPLUS_PARTNER_ACCOUNTS')
+              ->where('partner_id',$partner_id)
+              ->update(['value' => $new_account_value]);
+            DB::table('ETKPLUS_PARTNER_BILLING')
+                ->where('id',$bill_id)
+                ->update(['status' => 1]);
+
+        } catch (Exception $e) {
+            Session::flash('error', $e);
+            return redirect()->back();
+        }
+        Session::flash('success','Баланс обновлен');
+        return redirect()->back();
     }
 
     /**

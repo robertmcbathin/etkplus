@@ -229,6 +229,5 @@ h1,h2,h3,h4,h5,h6,p,a,small{
     border-radius: 12px;
 }
 .left-floated-text>h4,h5,p{
-    float: left;
     text-align: left;
 }

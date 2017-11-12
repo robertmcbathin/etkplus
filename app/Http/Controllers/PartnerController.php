@@ -550,7 +550,7 @@ public function postAddInvoice(Request $request){
   $html .= '<tr><td>ООО "Единая транспортная карта"</td><td></td><td></td></tr>';
   $html .= '<tr><td>Получатель</td><td></td><td></td></tr>';
   $html .= '</table>';
-  $html .= '<h3>Счет на оплату № ' . $bill_number .  ' от ' . $date_by->format('d.m.Y') . '</h3>';
+  $html .= '<h3>Счет на оплату №' . $bill_number . ' по договору №' . $partner->contract_id . ' от ' . $date_by->format('d.m.Y') . '</h3>';
   $html .= '<hr>';
   $html .= '<p>Поставщик: <b>ООО "ЕТК", ИНН 2130080498, 428000, Чувашская - Чувашия Респ, Чебоксары г, Тракторостроителей пр-кт, дом №6б, тел.: (8352) 49-25-85, 36-03-30, 36-33-30</b></p>';
   $html .= '<p>Покупатель: <b>' . $partner->fullname . ', ИНН ' . $partner->inn . ', КПП ' . $partner->kpp . ', ' . $partner->legal_address . ', тел.: ' . $partner->phone . '</b></p>';

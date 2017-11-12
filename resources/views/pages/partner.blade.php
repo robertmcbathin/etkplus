@@ -287,6 +287,7 @@
   </div>
 </div>
 </div>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsfO8qFpSStho6O8-HQwpZEkaOv1ynK5A&callback=initMap"></script>
 <script type="text/javascript">
   function initMap() {
     var styleArray = [
@@ -325,7 +326,6 @@
   }
 
 </script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsfO8qFpSStho6O8-HQwpZEkaOv1ynK5A&callback=initMap"></script>
 </div>
 </div>
 </div>

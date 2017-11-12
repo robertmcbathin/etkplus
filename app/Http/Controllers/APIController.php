@@ -111,7 +111,7 @@ class APIController extends Controller
                        ->orderBy('created_at','desc')
                        ->get();
         foreach ($operations as $operation) {
-          $operation->created_at = date_create_from_format($operation->created_at,'d.m.Y H:i');
+          $operation->created_at = date_create_from_format('d.m.Y H:i',$operation->created_at);
         }
         /**
          * ЗАГРУЗКА СКИДОК

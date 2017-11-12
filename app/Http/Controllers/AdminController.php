@@ -53,6 +53,7 @@ class AdminController extends Controller
                                 ->sum('cashback_to_pay');
         $cashback_payed = DB::table('ETK_CARDS')
                                 ->sum('cashback_payed');
+
     	return view('dashboard',[
             'cashback_to_pay' => $cashback_to_pay,
             'cashback_payed' => $cashback_payed
@@ -91,8 +92,6 @@ class AdminController extends Controller
         $tariff            = $request->tariff;
         $contract_id       = $request->contract_id;
         $admin_name        = $request->admin_name;
-        $account_value     = $request->account_value;
-        $account_min_value = $request->account_min_value;
         $legal_address     = $request->legal_address;
         $physical_address  = $request->physical_address;
         $inn               = $request->inn;
@@ -101,11 +100,24 @@ class AdminController extends Controller
         $category          = $request->category;
         $is_active         = $request->is_active;
 
-        $account_value             = $request->account_value;
-        $account_min_value         = $request->account_min_value;
         if ($is_active == 'on'){
           $is_active = 1;
       } else $is_active = 0;
+      /**
+       * ПРОВЕРКА EMAIL
+       */
+      if($user = DB::table('users')->where('email',$email)->first()){
+        Session::flash('error','Пользователь с таким email уже зарегистрирован, используйте другой адрес');
+        return redirect()->back();
+      }
+        /**
+         * Сумма тарифа
+         */
+        $tariff = DB::table('ETKPLUS_TARIFFS')
+                    ->where('id',$tariff)
+                    ->first();
+        $connection_price = $tariff->connection_price;
+        $account_value = $tariff->start_account_value;
     	/**
     	 * INSERT ROW
     	 */
@@ -134,12 +146,12 @@ class AdminController extends Controller
             ->insert([
                 'partner_id' => $partnerId,
                 'value' => $account_value,
-                'min_value' => $account_min_value
+                'min_value' => 0
             ]);
             DB::table('ETKPLUS_PARTNER_BILLING')
                 ->insert([
                     'partner_id' => $partnerId,
-                    'value' => $account_value,
+                    'value' => $connection_price,
                     'status' => 0,
                     'type' => 0
                 ]);
@@ -147,6 +159,7 @@ class AdminController extends Controller
             Session::flash('error', $e);
             return redirect()->back();
         }
+
     	/**
     	 * CHECK FILES
     	 */
@@ -710,7 +723,7 @@ public function postLoadGallery(Request $request){
 
     public function showUserListPage(){
          $users = DB::table('users')
-         ->whereIn('role_id',[13,14,15])
+         ->whereIn('role_id',[1,13,14,15,21])
          ->get();
         return view('dashboard.users',[
             'users' => $users
@@ -843,11 +856,18 @@ public function postLoadGallery(Request $request){
                     ->select('ETKPLUS_PARTNER_BILLING.*','ETKPLUS_PARTNERS.fullname as name')
                     ->orderBy('created_at','DESC')
                     ->paginate(50);
+        $archive_payments = DB::table('ETKPLUS_PARTNER_BILLING')
+                    ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_PARTNERS.id','=','ETKPLUS_PARTNER_BILLING.partner_id')
+                    ->where('status',2)
+                    ->select('ETKPLUS_PARTNER_BILLING.*','ETKPLUS_PARTNERS.fullname as name')
+                    ->orderBy('created_at','DESC')
+                    ->paginate(50);
         return view('dashboard.billing',[
             'payments' => $payments,
             'accounts_sum' => $accounts_sum,
             'bills_sum' => $bills_sum,
-            'bills_count' => $bills_count
+            'bills_count' => $bills_count,
+            'archive_payments' => $archive_payments
         ]);
     }
 
@@ -856,18 +876,41 @@ public function postLoadGallery(Request $request){
         $partner_id = $request->partner_id;
         $to_increase = $request->to_increase;
 
+        /**
+         * ЗАГРУЗКА ДАННЫХ О ПАРТНЕРЕ
+         */
+        $partner = DB::table('ETKPLUS_PARTNERS')
+                    ->where('id',$partner_id)
+                    ->first();
+        /**
+         * ЗАГРУЗКА ДАННЫХ О СЧЕТЕ ПАРТНЕРА
+         */
         $account = DB::table('ETKPLUS_PARTNER_ACCOUNTS')
                     ->where('partner_id',$partner_id)
                     ->first();
 
         $new_account_value = $account->value + $to_increase;
+        /**
+         * НАЧИСЛИТЬ ПРОЦЕНТЫ АГЕНТУ
+         */
+        $agent_id = $partner->created_by;
+        $agent_to_increase = $to_increase/10;
+        $agent_account = DB::table('ETKPLUS_AGENT_ACCOUNTS')
+                            ->where('user_id',$agent_id)
+                            ->first();
+        $new_agent_account_value = $agent_account->value + $agent_to_increase;
         try {
             DB::table('ETKPLUS_PARTNER_ACCOUNTS')
               ->where('partner_id',$partner_id)
               ->update(['value' => $new_account_value]);
             DB::table('ETKPLUS_PARTNER_BILLING')
                 ->where('id',$bill_id)
-                ->update(['status' => 1]);
+                ->update(['status' => 2]);
+            DB::table('ETKPLUS_AGENT_ACCOUNTS')
+                ->where('user_id',$agent_id)
+                ->update([
+                    'value' => $new_agent_account_value
+                ]);
 
         } catch (Exception $e) {
             Session::flash('error', $e);
@@ -881,13 +924,15 @@ public function postLoadGallery(Request $request){
      * SALARY
      */
     public function showSalaryPage(){
+        $salary_sum = DB::table('ETKPLUS_AGENT_ACCOUNTS')
+                            ->sum('value');
         $accounts = DB::table('ETKPLUS_AGENT_ACCOUNTS')
                         ->leftJoin('users','ETKPLUS_AGENT_ACCOUNTS.user_id','=','users.id')
                         ->select('ETKPLUS_AGENT_ACCOUNTS.id','ETKPLUS_AGENT_ACCOUNTS.user_id','users.name','users.post','ETKPLUS_AGENT_ACCOUNTS.value')
                         ->get();
         return view('dashboard.salary',[
             'accounts' => $accounts,
-
+            'salary_sum' => $salary_sum
         ]);
     }
 
@@ -995,6 +1040,15 @@ public function postLoadGallery(Request $request){
         }
         Session::flash('success','Изменения сохранены');
         return redirect()->back();
+    }
+
+    /**
+     * CHAT
+     */
+    
+    public function showChatPage($partner_id = NULL){
+        return view('dashboard.chat',[
+        ]);
     }
     /**
      * EMAILS

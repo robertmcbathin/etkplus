@@ -85,7 +85,7 @@
                                        </li>
                                        <li class="">
                                         <a href="#history" role="tab" data-toggle="tab" aria-expanded="true">
-                                           История выплат
+                                           Архив
                                        </a>
                                    </li>
                                </ul>
@@ -96,7 +96,7 @@
                                 <div class="tab-pane active" id="to-pay">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h4 class="card-title">Сумма, накопленная к выплате</h4>
+                                            <h4 class="card-title">Новые счета</h4>
                                         </div>
                                         <div class="card-content table-responsive table-full-width">
                                             <table class="table table-striped">
@@ -134,8 +134,42 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="history">
-                                        <p>The first thing you notice when you hold the phone is how great it feels in your hand. The cover glass curves down around the sides to meet the anodized aluminum enclosure in a remarkable, simplified design. </p>
-                                        <p>There are no distinct edges. No gaps. Just a smooth, seamless bond of metal and glass that feels like one continuous surface.</p>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Архивные счета</h4>
+                                        </div>
+                                        <div class="card-content table-responsive table-full-width">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr><th>ID</th>
+                                                        <th>Наименование партнера</th>
+                                                        <th>№ счета</th>
+                                                        <th>Сумма</th>
+                                                        <th>Статус</th>
+                                                        <th>Дата создания</th>
+                                                    </tr></thead>
+                                                    <tbody>
+                                                        @foreach ($archive_payments as $archive_payment)
+                                                        <tr>
+                                                            <td>{{ $archive_payment->id }}</td>
+                                                            <td>{{ $archive_payment->name }}</td>
+                                                            <td>{{ $archive_payment->bill_number }}</td>
+                                                            <td>{{ $archive_payment->value }}</td>
+                                                            @if ($archive_payment->status == 0)
+                                                            <td>Счет выписан</td>
+                                                            @elseif ($archive_payment->status == 2)
+                                                            <td>Зачислено</td>
+                                                            @endif
+                                                            <td>{{ $archive_payment->created_at }}</td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                                <div class="text-center">
+                                                    <?php echo $payments->render(); ?>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

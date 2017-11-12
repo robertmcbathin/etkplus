@@ -370,6 +370,8 @@ public function postCreateInvoice(Request $request){
   
   $invoice_name = '/tmp/invoice-' . $partner->contract_id . '-' . date('dmY-His');
   $invoice->generateFromHtml($html,$invoice_name);
+  $invoice_output = 'invoice-' . $partner->contract_id . '-' . date('dmY-His');
+  $content_disposition = 'attachment; filename="' . $invoice_output . '.pdf"';
       return new Response(
         $invoice->getOutputFromHtml($html,array(
           'encoding' => 'utf-8'
@@ -377,7 +379,7 @@ public function postCreateInvoice(Request $request){
         200,
         array(
           'Content-Type'          => 'application/pdf',
-          'Content-Disposition'   => 'attachment; filename="file.pdf"'
+          'Content-Disposition'   => $content_disposition
         )
       );
 }

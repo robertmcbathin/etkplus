@@ -16,6 +16,33 @@
             <div class="container-fluid">
                 @include('includes/notifications')
                 <div class="col-md-12">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div class="icon-big icon-success text-center">
+                                            <i class="fa fa-money"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="numbers">
+                                            <p>Всего к выплате</p>
+                                            {{ $salary_sum }} <i class="fa fa-ruble"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <hr>
+                                <div class="stats">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Выплата агентам</h4>

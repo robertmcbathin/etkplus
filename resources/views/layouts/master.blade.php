@@ -25,6 +25,7 @@
     <link href="/assets/css/star-rating.css" rel="stylesheet" />
     <link href="/assets/css/photoswipe.css" rel="stylesheet" />
     <link href="/assets/css/default-skin.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/parallax-background.css">
 
     <!--     Fonts and icons     -->
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,300,700|Material+Icons' rel='stylesheet' type='text/css'>
@@ -321,6 +322,8 @@ initPhotoSwipeFromDOM('.my-gallery');
                         $('#index-bill-control-feedback').addClass('form-control-success');
                         $('#index-bill-notice').replaceWith("<small id='index-bill-notice'>Договор найден</small>");
                         $('#index-bill-submit').removeAttr('disabled');
+                        $('#index-bill-submit').removeClass('btn-danger');
+                        $('#index-bill-submit').addClass('btn-success');
                     } else {
                         $('#index-bill-form-group').removeClass('has-success');
                         $('#index-bill-form-group').addClass('has-danger');
@@ -328,9 +331,67 @@ initPhotoSwipeFromDOM('.my-gallery');
                         $('#index-bill-control-feedback').addClass('form-control-danger');
                         $('#index-bill-notice').replaceWith("<small id='index-bill-notice'>Договор не найден. Проверьте правильность введенных данных</small>");
                         $('#index-bill-submit').attr('disabled','disabled');
+                        $('#index-bill-submit').removeClass('btn-success');
+                        $('#index-bill-submit').addClass('btn-danger');  
                     }
                 });
             }
+        }
+    });
+</script>
+<script>
+    $('#index-card-contract-id').on('keyup', function(){
+        if ($('#index-card-contract-id').val() !== ''){
+            if ($('#index-card-contract-id').val().length >= 5){
+                $.ajax({
+                    method: 'POST',
+                    url: checkContractIdUrl,
+                    data: {
+                        contractId : $('#index-card-contract-id').val(),
+                        _token : token
+                    }
+                })
+                .done(function(msg){
+                    console.log(JSON.stringify(msg));
+                    if (msg['message'] == 'success'){
+                        $('#index-card-form-group').removeClass('has-danger');
+                        $('#index-card-form-group').addClass('has-success');
+                        $('#index-card-control-feedback').removeClass('form-control-danger');
+                        $('#index-card-control-feedback').addClass('form-control-success');
+                        $('#index-card-notice').replaceWith("<small id='index-bill-notice'>Договор найден</small>");
+                        $('#index-card-submit').removeAttr('disabled');
+                    } else {
+                        $('#index-card-form-group').removeClass('has-success');
+                        $('#index-card-form-group').addClass('has-danger');
+                        $('#index-card-control-feedback').removeClass('form-control-success');
+                        $('#index-card-control-feedback').addClass('form-control-danger');
+                        $('#index-card-notice').replaceWith("<small id='index-bill-notice'>Договор не найден. Проверьте правильность введенных данных</small>");
+                        $('#index-card-submit').attr('disabled','disabled');
+                    }
+                });
+            } else {
+                $('#index-card-submit').attr('disabled','disabled');
+                $('#index-card-submit').removeClass('btn-success');
+                $('#index-card-submit').addClass('btn-danger');         
+            }
+        } else {
+                $('#index-card-submit').attr('disabled','disabled');
+                $('#index-card-submit').removeClass('btn-success');
+                $('#index-card-submit').addClass('btn-danger');
+        }
+    });
+
+    $('#index-card-payment').on('keyup', function(){
+        if ($('#index-card-payment').val() !== ''){
+            if ($('#index-card-payment').val().length >= 1){
+                $('#index-card-submit').removeAttr('disabled');
+                $('#index-card-submit').removeClass('btn-danger');
+                $('#index-card-submit').addClass('btn-success');
+            }
+        } else {
+                $('#index-card-submit').attr('disabled','disabled');
+                $('#index-card-submit').removeClass('btn-success');
+                $('#index-card-submit').addClass('btn-danger');
         }
     });
 </script>

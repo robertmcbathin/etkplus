@@ -9,7 +9,7 @@
 @section('content')
 <div class="header-wrapper">
 
-    <div class="page-header page-header-small filter pattern-image" style="background-image: url('../assets/img/etkplus-bg.jpg');">
+    <div class="page-header page-header-xs filter pattern-image" style="background-image: url('../assets/img/etkplus-bg.jpg');">
         <div class="filter filter-success"></div>
         <div class="content-center">
             <div class="container">
@@ -24,59 +24,67 @@
     </div>
 </div>
 <div class="wrapper">
-<div class="section text-center landing-section">
-            <div class="container">
+    <div class="section">
+<div class="container">
+                <h3 class="title-uppercase">Необычное решение для обычной задачи</h3>
+                <p>Современный мир диктует свои правила. Сегодня мы почти все делаем онлайн. И пополнение транспортной карты, которой мы пользуемся каждый день, - не исключение.</p>
+
+                <p>Так давайте сделаем этот занятие более простым! </p>
+
+                <p>Участвуйте в системе, посещая наших партнеров, предъявляйте карту и получайте скидки, бонусы, ну и, как приятное дополнение, - кэшбэк на транспортную карту!</p>
+
+                <h3 class="title-uppercase">Все очень просто</h3>
+                <p>Участвовать в программе лояльности может каждый держатель карты ЕТК. Электронный кошелек, проездной, карта студента - все карты уже в системе!</p>
+                <h2 class="text-center title-uppercase">Как получить кэшбэк</h2>
                 <div class="row">
-                    <div class="col-md-8 ml-auto mr-auto">
-                        <h2 class="title">Не просто транспортная карта</h2>
-                        <h5>Итак, Вы являетесь держателем транспортной карты ЕТК? Электронного кошелька, проездного, карты учащегося или студента?</h5>
-                        <h5>Отлично! Тогда Вы уже можете воспользоваться всеми преимуществами программы лояльности <b>ЕТКплюс</b>!</h5>
-                    </div>
-                </div>
-                <br><br>
-                <div class="row">
-                        <div class="col-md-8 ml-auto mr-auto">
-                        <h2 class="title">Какие преимущества Вам дает участие в программе?</h2>
-                    </div>
-                    <div class="row">
-                    <div class="col-md-4">
-                        <div class="info">
-                            <div class="icon icon-danger">
-                                <i class="fa fa-percent"></i>
+                    <div class="col-md-6">
+                        <div class="card card-profile card-plain">
+                            <div class="card-body">
+                                <div class="card-avatar">
+                                    <a href="https://etk21.ru/login" target="_blank">
+                                        <img src="/assets/img/pages/about/earth.jpg" alt="...">
+                                    </a>
+                                </div>
+                                <h3 class="title-uppercase">ОНЛАЙН</h3>
+                                <p class="card-description text-center">
+                                    Если Вы хотите, чтобы кэшбэк зачислялся автоматически каждый день, зарегистрируйтесь в личном кабинете ЕТК, добавьте свою карту и активируйте на главной странице профиля автоматическое зачисление
+                                </p>
                             </div>
-                            <div class="description">
-                                <h4 class="info-title">Скидки</h4>
-                                <p class="description">Выбирая наших партнеров, Вы автоматически будете получать скидки</p>
+                            <div class="card-footer text-center">
+                                <a href="https://etk21.ru/login" target="_blank" class="btn btn-danger"><i class="fa fa-globe"></i> Перейти на сайт</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="info">
-                            <div class="icon icon-danger">
-                                <i class="fa fa-gift"></i>
+
+                    <div class="col-md-6">
+                        <div class="card card-profile card-plain">
+                            <div class="card-body">
+                                <div class="card-avatar">
+                                    <a href="https://etk21.ru/contacts" target="_blank">
+                                        <img src="/assets/img/pages/about/office.jpg" alt="...">
+                                    </a>
+                                </div>
+                                <h3 class="title-uppercase">В ОФИСЕ</h3>
+                                <p class="card-description text-center">
+                                    В случае, если Вам хочется получить кэшбэк сразу, Вы можете обратиться в один из мини-офисов, где Вам зачислят накопившуюся сумму
+                                </p>
                             </div>
-                            <div class="description">
-                                <h4 class="info-title">Бонусы</h4>
-                                <p class="description">Партнеры программы могут начислять Вам бонусные баллы, которые Вы сможете использовать в дальнейшем</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="info">
-                            <div class="icon icon-danger">
-                                <i class="fa fa-ruble"></i>
-                            </div>
-                            <div class="description">
-                                <h4 class="info-title">Кэшбэк</h4>
-                                <p class="description">Каждая операция по Вашей карте будет приносить Вам часть потраченной суммы на Вашу транспортную карту!</p>
+                            <div class="card-footer text-center">
+                                <a href="https://etk21.ru/contacts" target="_blank" class="btn btn-danger"><i class="fa fa-globe"></i> Список пунктов</a>
                             </div>
                         </div>
                     </div>
-                    </div>
+
                 </div>
 
+                <h3 class="title-uppercase">Но это еще не все</h3>
+                <p>Подтвердив карту в личном кабинете, Вы сможете перевести кэшбэк со своей карты на другую!</p>
+
+                <br><br><br><br>
+                <p class="text-right">Итак, мы скоро запускаемся! Следите за новостями!</p>
             </div>
-        </div>
+    </div>
+
 </div>
 </div>
 @endsection

@@ -138,6 +138,10 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.show-log.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
+	Route::get('/dashboard/chat/{partner_id?}',[
+		'uses' => 'AdminController@showChatPage',
+		'as' => 'dashboard.show-chat.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
 
 
 

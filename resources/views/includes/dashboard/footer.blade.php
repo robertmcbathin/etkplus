@@ -7,11 +7,6 @@
                                     Портал
                                 </a>
                             </li>
-                            <li>
-                                <a href="http://blog.creative-tim.com">
-                                   Техподдержка
-                                </a>
-                            </li>
 
                         </ul>
                     </nav>

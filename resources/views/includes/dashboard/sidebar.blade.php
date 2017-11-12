@@ -100,6 +100,13 @@
                         </a>
                     </li>
 
+                 <!--   <li @if (Request::path() == 'dashboard/chat') class="active" @endif>
+                        <a href="{{ route('dashboard.show-chat.get') }}">
+                            <i class="fa fa-envelope"></i>
+                            <p>Чат</p>
+                        </a>
+                    </li> -->
+
                     <li @if (Request::path() == 'dashboard/log') class="active" @endif>
                         <a href="{{ route('dashboard.show-log.get') }}">
                             <i class="fa fa-align-justify"></i>

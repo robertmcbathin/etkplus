@@ -140,25 +140,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <h5 class="text-center">Данные по счету</h5>
-                                        <div class="row">
-                                            <div class="col-md-5 col-md-offset-1">
-                                                <div class="form-group">
-                                                    <label class="control-label">
-                                                        Начальный баланс
-                                                    </label>
-                                                    <input class="form-control" type="text" name="account_value" placeholder="" value ="2500" maxlength="5" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <div class="form-group">
-                                                    <label class="control-label">
-                                                        Минимальный баланс
-                                                    </label>
-                                                    <input class="form-control" type="text" name="account_min_value" placeholder="0" value ="0" required>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <h5 class="text-center">Юридические данные</h5>
                                         <div class="row">
                                             <div class="col-md-5 col-md-offset-1">

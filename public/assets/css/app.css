@@ -231,3 +231,19 @@ h1,h2,h3,h4,h5,h6,p,a,small{
 .left-floated-text>h4,h5,p{
     text-align: left;
 }
+.modal-dialog-big{
+    min-width: 80% !important;
+    margin: 30px 10%;
+}
+.m55-header-xs{
+    height: 40vh !important;
+    max-height: 400px;
+}
+#index-page-header{
+        height: 30vh !important;
+    max-height: 300px;
+}
+#index-page-text{
+    z-index: 1020;
+    top:25vh;
+}

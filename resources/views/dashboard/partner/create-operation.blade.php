@@ -15,7 +15,7 @@
         <div class="content">
             <div class="container-fluid">
                 @include('includes/notifications')
-                <div class="row">
+                <div class="row" id="co-card-search">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
@@ -27,69 +27,26 @@
                                 <div class="form-group" id="co-search-status">
                                     <input id="co-card-input-number" type="text" value="023333092" placeholder="023000000" class="form-control" maxlength="9" minlength="9">
                                 </div>
-                                <button class="btn btn-fill btn-info" id="co-find-card">Найти</button>
+                                <button class="btn btn-fill btn-danger btn-square btn-fw away-link" id="co-find-card">Найти</button>
                             </div>
                         </div> <!-- end card -->
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" id="co-card-search-result">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">
-                                    Данные по операции <i id="co-card-info-loader"></i>
+                                    Данные по операции
                                 </h4>
                             </div>
                             <div class="card-content">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="card">
-                                            <div class="card-content">
-                                                <div class="row">
-                                                    <div class="col-xs-5">
-                                                        <div class="icon-big icon-danger text-center">
-                                                            <i class="fa fa-percent fa-1x"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-7">
-                                                        <div class="numbers">
-                                                            <p>Активные скидки</p>
-                                                            @foreach ($discounts as $discount)
-                                                            <h6 class="card-category"><span class="upper-text">{{ $discount->value }}%</span>   {{ $discount->description }}</h6>
-                                                            @endforeach
-                                                            <p class="form-control-static"></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xs-5">
-                                                        <div class="icon-big icon-danger text-center">
-                                                            <i class="fa fa-gift"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-7">
-                                                        <div class="numbers">
-                                                            <p>Активные бонусы</p>
-                                                            @foreach ($bonuses as $bonus)
-                                                            <h6 class="card-category"><span class="upper-text">{{ $bonus->value }}@if ($bonus->type == 1) руб. @elseif ($bonus->type == 2) % @endif </span>   {{ $bonus->description }}</h6>
-                                                            @endforeach
-                                                            <p class="form-control-static"></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </div>
-                                    <div class="col-md-6">
                                       <div class="card">
                                         <div class="card-content">
                                             <div class="row">
-                                                <div class="col-xs-5">
-                                                    <div class="icon-big icon-danger text-center">
-                                                        <i class="fa fa-credit-card"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-7">
+                                                <div class="col-xs-12">
                                                     <div class="numbers">
                                                         <p>Информация по карте</p>
                                                         <h6 class="card-category" id="co-card-number"></h6>
@@ -102,6 +59,34 @@
                                         </div>
                                     </div>  
                                 </div>
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <div class="numbers">
+                                                            <p>Активные скидки</p>
+                                                            @foreach ($discounts as $discount)
+                                                            <h6 class="card-category"><span class="upper-text">{{ $discount->value }}%</span>   {{ $discount->description }}</h6>
+                                                            @endforeach
+                                                            <p class="form-control-static"></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <div class="numbers">
+                                                            <p>Активные бонусы</p>
+                                                            @foreach ($bonuses as $bonus)
+                                                            <h6 class="card-category"><span class="upper-text">{{ $bonus->value }}@if ($bonus->type == 1) руб. @elseif ($bonus->type == 2) % @endif </span>   {{ $bonus->description }}</h6>
+                                                            @endforeach
+                                                            <p class="form-control-static"></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div>
                             </div>
 
                             <div class="row">
@@ -170,7 +155,7 @@
                                                      </div>
                                                  </div>
                                              </fieldset>
-                                             <button type="submit" class="btn btn-fill btn-success">Подтвердить</button>
+                                             <button type="submit" class="btn btn-fill btn-danger btn-square btn-fw away-link">Подтвердить</button>
                                          </form>  
                                      </div>
                                  </div>    

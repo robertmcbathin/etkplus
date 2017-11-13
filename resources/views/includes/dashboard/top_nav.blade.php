@@ -1,3 +1,4 @@
+<div class="progress" id="top-progress"></div>
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <div class="navbar-minimize">

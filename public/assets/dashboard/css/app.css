@@ -21,3 +21,16 @@
 .sidebar .user .info a, .sidebar[data-background-color="white"] .user .info a, .off-canvas-sidebar .user .info a, .off-canvas-sidebar[data-background-color="white"] .user .info a {
     color: #ffffff;
 }
+.btn-square{
+    border-radius: 5px;
+}
+.btn-fw{
+	width:100%;
+}
+#top-progress{
+  margin:0;
+  background-color:  #C1C1C1;
+}
+.progress .indeterminate {
+    background-color: #c84513;
+}

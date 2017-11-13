@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/assets/dashboard/css/app.css">
     <link href="/assets/css/photoswipe.css" rel="stylesheet" />
     <link href="/assets/css/default-skin.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/dashboard/css/materialize.css">
 
 
     <!--  Fonts and icons     -->
@@ -319,11 +320,21 @@ initPhotoSwipeFromDOM('.my-gallery');
         });
     </script>
     <script>
+        $(document).ready(function(){
+            $('#co-card-search-result').hide();
+        });
+    </script>
+    <script>
         $('#co-find-card').on('click',function(){
             if ($('#co-card-input-number').val().length > 8){
 
-                $('#co-card-info-loader').replaceWith('<i class="fa fa-circle-o-notch fa-spin fa-1x fa-fw" id="co-card-info-loader"></i>');
-                $('#co-create-operation-loader').replaceWith('<i class="fa fa-spinner fa-pulse fa-3x fa-fw" id="co-create-operation-loader"></i>');
+                /**
+                 * LOADER
+                 */
+                
+                /**
+                 * REQUEST
+                 */
                 $.ajax({
                     method: 'POST',
                     url: checkCardUrl,
@@ -336,6 +347,9 @@ initPhotoSwipeFromDOM('.my-gallery');
                 .done(function(msg){
                     console.log(JSON.stringify(msg));
                     if (msg['message'] == 'success'){
+                        $('#co-card-search').hide(500);
+                        $('#co-card-search-result').show(500);
+                        $('#top-progress').replaceWith('<div class=\"progress\" id=\"top-progress\"></div>');
                         $('#co-search-status').addClass('has-success');
                         $('#co-search-status').removeClass('has-error');
 
@@ -426,6 +440,11 @@ initPhotoSwipeFromDOM('.my-gallery');
         } else { f(); }
     })(document, window, "yandex_metrika_callbacks");
 </script>
+  <script>
+      $('.away-link').on('click',function(){
+        $('#top-progress').replaceWith('<div class=\"progress\" id=\"top-progress\"><div class=\"indeterminate\"></div></div>');
+      });
+  </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/45472806" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 </html>

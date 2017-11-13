@@ -17,7 +17,7 @@
                 @include('includes/notifications')
                 <div class="row">
                  <div class="col-md-12">
-                    <a class="btn btn-danger btn-fill btn-wd" href="{{ route('dashboard.partner.create-operation.get') }}">Добавить операцию</a>
+                    <a class="btn btn-danger btn-fill btn-wd btn-square" href="{{ route('dashboard.partner.create-operation.get') }}">Добавить операцию</a>
                 </div>
 
             </div>

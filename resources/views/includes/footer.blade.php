@@ -49,7 +49,7 @@
              </a>
          </li>
          <li>
-            <a href="">
+            <a href="/partnership">
              Сотрудничество
          </a>
      </li>

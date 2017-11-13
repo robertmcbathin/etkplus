@@ -101,6 +101,7 @@ protected function morph($n, $f1, $f2, $f5) {
   
   public function showDashboard(){
     $partner = \App\Partner::find(Auth::user()->partner_id);
+    $user = \App\User::find(Auth::user()->id);
     $discounts = DB::table('ETKPLUS_PARTNER_DISCOUNTS')
     ->where('partner_id',$partner->id)
     ->get();
@@ -115,6 +116,7 @@ protected function morph($n, $f1, $f2, $f5) {
     ->first();
     return view('dashboard.partner.index',[
       'partner' => $partner,
+      'user' => $user,
       'earnings' => $earnings,
       'balance' => $balance,
       'bonuses' => $bonuses,

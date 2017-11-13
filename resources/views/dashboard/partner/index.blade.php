@@ -20,6 +20,14 @@
 
         <div class="content">
             <div class="container-fluid">
+                 @include('includes/notifications')
+                <div class="row hidden-lg hidden-md">
+                    <div class="col-sm-12 text-center">
+                        <a href="{{ route('dashboard.partner.create-operation.get') }}" class="btn btn-danger btn-fill btn-square"><i class="fa fa-credit-card"></i> Добавить операцию</a>
+                    </div>
+                    <br>
+                </div>
+                @if ($user->role_id == 22)
                 <div class="row">
                     <div class="col-lg-4 col-sm-6">
                         <div class="card info-block">
@@ -41,7 +49,7 @@
                             <div class="card-footer">
                                 <hr>
                                 <div class="stats">
-                                    <i class="fa fa-ruble"></i> минимальный остаток: {{ $balance->min_value }} <a class="btn btn-danger btn-xs btn-fill pull-right">Пополнить</a>
+                                    <i class="fa fa-ruble"></i> минимальный остаток: {{ $balance->min_value }} <a class="btn btn-danger btn-xs btn-fill btn-square pull-right">Пополнить</a>
                                 </div>
                             </div>
                         </div>
@@ -91,12 +99,16 @@
                             <div class="card-footer">
                                 <hr>
                                 <div class="stats">
-                                    <a href="{{ route('dashboard.partner.show-reviews.get') }}" class="btn btn-danger btn-xs btn-fill pull-right">Смотреть отзывы</a>
+                                    <a href="{{ route('dashboard.partner.show-reviews.get') }}" class="btn btn-danger btn-xs btn-fill btn-square pull-right">Смотреть отзывы</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                @elseif ($user->role_id == 21)
+                sdcds
+                @endif
             </div>
         </div>
         @include('includes.dashboard.footer')

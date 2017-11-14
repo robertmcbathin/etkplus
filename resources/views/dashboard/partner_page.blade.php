@@ -251,6 +251,9 @@
         @endif
     </div>
 </div>
+                                <div id="add-address-map">
+                                    
+                                </div>
 
 <div class="card">
     <div class="card-header">
@@ -1022,9 +1025,7 @@
                                     <input type="text" name="longitude" placeholder="47.234006" value="47.234006" class="form-control" maxlength="20" id='new-address-longitude'>
                                 </div>
 
-                                <div id="add-address-map">
-                                    
-                                </div>
+
 
 
                                 <div class="form-group">

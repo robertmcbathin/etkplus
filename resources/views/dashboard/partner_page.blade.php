@@ -507,13 +507,16 @@
 </div>   
 </div>
 </div>
+
+
+
 </div>
 </div>
 </div>
 @include('includes.dashboard.footer')
 </div>
 </div>
-
+@endsection
 
 <div class="modal fade" id="delete-partner" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-sm ">

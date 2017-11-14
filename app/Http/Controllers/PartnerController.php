@@ -26,21 +26,21 @@ class PartnerController extends Controller
    * @param  [type] $number [description]
    * @return [type]         [description]
    */
-  
+
   /**
  * Возвращает сумму прописью
  * @author runcore
  * @uses morph(...)
  */
-protected function num2str($num) {
-  $nul='ноль';
-  $ten=array(
-    array('','один','два','три','четыре','пять','шесть','семь', 'восемь','девять'),
-    array('','одна','две','три','четыре','пять','шесть','семь', 'восемь','девять'),
-  );
-  $a20=array('десять','одиннадцать','двенадцать','тринадцать','четырнадцать' ,'пятнадцать','шестнадцать','семнадцать','восемнадцать','девятнадцать');
-  $tens=array(2=>'двадцать','тридцать','сорок','пятьдесят','шестьдесят','семьдесят' ,'восемьдесят','девяносто');
-  $hundred=array('','сто','двести','триста','четыреста','пятьсот','шестьсот', 'семьсот','восемьсот','девятьсот');
+  protected function num2str($num) {
+    $nul='ноль';
+    $ten=array(
+      array('','один','два','три','четыре','пять','шесть','семь', 'восемь','девять'),
+      array('','одна','две','три','четыре','пять','шесть','семь', 'восемь','девять'),
+    );
+    $a20=array('десять','одиннадцать','двенадцать','тринадцать','четырнадцать' ,'пятнадцать','шестнадцать','семнадцать','восемнадцать','девятнадцать');
+    $tens=array(2=>'двадцать','тридцать','сорок','пятьдесят','шестьдесят','семьдесят' ,'восемьдесят','девяносто');
+    $hundred=array('','сто','двести','триста','четыреста','пятьсот','шестьсот', 'семьсот','восемьсот','девятьсот');
   $unit=array( // Units
     array('копейка' ,'копейки' ,'копеек',  1),
     array('рубль'   ,'рубля'   ,'рублей'    ,0),
@@ -83,17 +83,17 @@ protected function morph($n, $f1, $f2, $f5) {
   if ($n==1) return $f1;
   return $f5;
 }
-  protected function modifyToShortNumber($num){
-    return substr_replace($num, '', 1,1);
-  }
+protected function modifyToShortNumber($num){
+  return substr_replace($num, '', 1,1);
+}
 
-  protected function modifyToFullNumber($number){
-    $card_num_part2 = substr($number,1,2);
-    $card_num_part3  = substr($number,3,6);
-    if ($card_num_part2 !== 99){ $prefix = '01'; } else {$prefix = '02';}
-    $full_card_number = $prefix . $card_num_part2 . $card_num_part3;
-    return $full_card_number;
-  }
+protected function modifyToFullNumber($number){
+  $card_num_part2 = substr($number,1,2);
+  $card_num_part3  = substr($number,3,6);
+  if ($card_num_part2 !== 99){ $prefix = '01'; } else {$prefix = '02';}
+  $full_card_number = $prefix . $card_num_part2 . $card_num_part3;
+  return $full_card_number;
+}
   /**
    * END SYSTEM FUNCTIONS
    * @return [type] [description]
@@ -102,6 +102,13 @@ protected function morph($n, $f1, $f2, $f5) {
   public function showDashboard(){
     $partner = \App\Partner::find(Auth::user()->partner_id);
     $user = \App\User::find(Auth::user()->id);
+    $visits = DB::table('ETKPLUS_VISITS')
+    ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_VISITS.partner_id', '=', 'ETKPLUS_PARTNERS.id')
+    ->leftJoin('users','ETKPLUS_VISITS.operator_id', '=', 'users.id')
+    ->select('ETKPLUS_VISITS.*','ETKPLUS_PARTNERS.name as partner_name','users.name as operator')
+    ->where('ETKPLUS_VISITS.partner_id', $partner->id)
+    ->orderBy('ETKPLUS_VISITS.created_at', 'DESC')
+    ->paginate(50);
     $discounts = DB::table('ETKPLUS_PARTNER_DISCOUNTS')
     ->where('partner_id',$partner->id)
     ->get();
@@ -114,13 +121,37 @@ protected function morph($n, $f1, $f2, $f5) {
     $balance = DB::table('ETKPLUS_PARTNER_ACCOUNTS')
     ->where('partner_id',$partner->id)
     ->first();
+    $addresses = DB::table('ETKPLUS_ADDRESSES')
+    ->where('partner_id', $partner->id)
+    ->get();
+    $gallery_items = DB::table('ETKPLUS_PARTNER_PHOTOS')
+    ->where('partner_id', $partner->id)
+    ->get();
+    $accounts = DB::table('users')
+    ->where('partner_id',$partner->id)
+    ->get();
+    $billings = DB::table('ETKPLUS_PARTNER_BILLING')
+    ->where('partner_id',$partner->id)
+    ->paginate(10);
+    $tariffs = DB::table('ETKPLUS_TARIFFS')
+    ->get();
+    $tariff = DB::table('ETKPLUS_TARIFFS')
+    ->where('id',$partner->tariff_id)
+    ->first();
     return view('dashboard.partner.index',[
       'partner' => $partner,
       'user' => $user,
       'earnings' => $earnings,
       'balance' => $balance,
+      'addresses' => $addresses,
       'bonuses' => $bonuses,
-      'discounts' => $discounts
+      'discounts' => $discounts,
+      'visits' => $visits,
+      'accounts' => $accounts,
+      'billings' => $billings,
+      'tariffs' => $tariffs,
+      'tariff' => $tariff,
+      'gallery_items' => $gallery_items,
     ]);
   }
 
@@ -326,8 +357,8 @@ protected function morph($n, $f1, $f2, $f5) {
        * ДОСТАТОЧНО ЛИ СРЕДСТВ НА АККАУНТЕ
        */
       $tariff = DB::table('ETKPLUS_TARIFFS')
-                  ->where('id',$partner->tariff_id)
-                  ->first();
+      ->where('id',$partner->tariff_id)
+      ->first();
       if (($current_balance->value - ($bill*$tariff->comission/100)) < $current_balance->min_value ){
         Session::flash('error','Недостаточно средств для проведения транзакции');
         return redirect()->back();
@@ -365,17 +396,17 @@ protected function morph($n, $f1, $f2, $f5) {
             /**
              * КЭШБЭК
              */
-          DB::table('ETK_CARDS')
+            DB::table('ETK_CARDS')
             ->where('num',$b_card_number)
             ->update(['cashback_to_pay' => $cashback]);
           }); 
-          DB::table('ETKPLUS_CASHBACKS')
-              ->insert([
-                'card_number' => $card_number,
-                'value' => $cashback,
-                'status' => 1,
-                'lifetime' => $cashback_lifetime
-              ]);
+        DB::table('ETKPLUS_CASHBACKS')
+        ->insert([
+          'card_number' => $card_number,
+          'value' => $cashback,
+          'status' => 1,
+          'lifetime' => $cashback_lifetime
+        ]);
       } catch (Exception $e) {
         Session::flash('error',$e);
         return redirect()->back();
@@ -517,7 +548,7 @@ protected function morph($n, $f1, $f2, $f5) {
       ]);
     }
 
-public function postAddInvoice(Request $request){
+    public function postAddInvoice(Request $request){
   /**
    * ДАННЫЕ ПО ОРГАНИЗАЦИИ
    */
@@ -527,16 +558,16 @@ public function postAddInvoice(Request $request){
    */
   
   $bill_id = DB::table('ETKPLUS_PARTNER_BILLING')
-                      ->insertGetId([
-                        'partner_id' => $request->partner_id,
-                        'type' => 1,
-                        'status' => 0,
-                        'value' => $request->value
-                      ]);
+  ->insertGetId([
+    'partner_id' => $request->partner_id,
+    'type' => 1,
+    'status' => 0,
+    'value' => $request->value
+  ]);
   $bill_number = 's' .$bill_id;
   $bill = DB::table('ETKPLUS_PARTNER_BILLING')
-            ->where('id',$bill_id)
-            ->update(['bill_number' => $bill_number]);
+  ->where('id',$bill_id)
+  ->update(['bill_number' => $bill_number]);
   setlocale(LC_ALL, 'ru_RU.UTF-8');
   $date_by = Carbon::now();
 
@@ -581,31 +612,197 @@ public function postAddInvoice(Request $request){
   $invoice->generateFromHtml($html,$invoice_name);
   $invoice_output = 'invoice-' . $partner->contract_id . '-' . date('dmY-His');
   $content_disposition = 'attachment; filename="' . $invoice_output . '.pdf"';
-      return new Response(
-        $invoice->getOutputFromHtml($html,array(
-          'encoding' => 'utf-8'
-        )),
-        200,
-        array(
-          'Content-Type'          => 'application/pdf',
-          'Content-Disposition'   => $content_disposition
-        )
-      );
+  return new Response(
+    $invoice->getOutputFromHtml($html,array(
+      'encoding' => 'utf-8'
+    )),
+    200,
+    array(
+      'Content-Type'          => 'application/pdf',
+      'Content-Disposition'   => $content_disposition
+    )
+  );
 }
 
-    public function createTestPDF(){
-      $snappy = \App::make('snappy.pdf');
-      $html = '<h1>Bill</h1><p>You owe me money, dude.</p>';
+public function createTestPDF(){
+  $snappy = \App::make('snappy.pdf');
+  $html = '<h1>Bill</h1><p>You owe me money, dude.</p>';
      // $snappy->generateFromHtml($html, '/tmp/bill-125.pdf');
      // $snappy->generate('http://www.github.com', '/tmp/github.pdf');
 //Or output:
-      return new Response(
-        $snappy->getOutputFromHtml($invoice),
-        200,
-        array(
-          'Content-Type'          => 'application/pdf',
-          'Content-Disposition'   => 'attachment; filename="file.pdf"'
-        )
-      );
+  return new Response(
+    $snappy->getOutputFromHtml($invoice),
+    200,
+    array(
+      'Content-Type'          => 'application/pdf',
+      'Content-Disposition'   => 'attachment; filename="file.pdf"'
+    )
+  );
+}
+
+
+
+public function postEditPartner(Request $request){
+        /**
+         * GET VARIABLES
+         */
+        $partner_id       = $request->partner_id;
+        $user_id          = $request->user_id;
+        $name             = $request->name;
+        $fullname         = $request->fullname;
+        $description      = $request->description;
+        $phone            = $request->phone;
+        $address          = $request->phone;
+        $email            = $request->email;
+        $site             = $request->site;
+        $comission        = $request->comission;
+        $contract_id      = $request->contract_id;
+        $legal_address    = $request->legal_address;
+        $physical_address = $request->physical_address;
+        $inn              = $request->inn;
+        $kpp              = $request->kpp;
+        $ogrn             = $request->ogrn;  
+        $discount         = $request->discount;
+        /**
+         * SAVE CHANGES
+         */
+        try {
+            DB::table('ETKPLUS_PARTNERS')
+            ->where('id',$partner_id)
+            ->update([
+                'name' => $name,
+                'fullname' => $fullname,
+                'description' => $description,
+                'phone' => $phone,
+                'address' => $address,
+                'email' => $email,
+                'site' => $site,
+                'default_comission' => $comission,
+                'default_discount' => $discount,
+                'contract_id' => $contract_id,
+                'legal_address' => $legal_address,
+                'physical_address' => $physical_address,
+                'inn' => $inn,
+                'kpp' => $kpp,
+                'ogrn' => $ogrn,
+                'updated_by' => $user_id
+            ]);   
+        } catch (Exception $e) {
+            Session::flash('error',$e);
+            return redirect()->back();  
+        }
+        Session::flash('success','Данные организации успешно изменены');
+        return redirect()->back();   
     }
+
+    /**
+     * [postEditPartnerLogos description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function postEditPartnerLogo(Request $request){
+        $partner_id  = $request->partner_id;
+        $user_id     = $request->user_id;
+
+        $partner = \App\Partner::find($partner_id);
+
+      $logo_image = $request->file('logo_image');
+      if ($logo_image){
+          $logo_image_extension = $request->file('logo_image')->getClientOriginalExtension();   
+          $logo_imagename = '/assets/img/partners/' . $partner->id . '/logo.' . $logo_image_extension;            
+          Storage::disk('public')->put($logo_imagename, File::get($logo_image));
+          $partner->logo = $logo_imagename;
+          $partner->save();
+      }
+      Session::flash('success', 'Изменения сохранены');
+      return redirect()->back();
   }
+
+    public function postEditPartnerBackground(Request $request){
+        $partner_id  = $request->partner_id;
+        $user_id     = $request->user_id;
+
+        $partner = \App\Partner::find($partner_id);
+        $background_image = $request->file('background_image');
+        if ($background_image){
+          $background_image_extension = $request->file('background_image')->getClientOriginalExtension();
+          $background_imagename = '/assets/img/partners/' . $partner->id . '/background.' . $background_image_extension;          
+          Storage::disk('public')->put($background_imagename, File::get($background_image));
+          $partner->thumbnail = $background_imagename;
+          $partner->save();
+      } 
+
+      Session::flash('success', 'Изменения сохранены');
+      return redirect()->back();
+  }
+
+
+  /**
+ * GALLERY ITEMS
+ *
+ *
+ * 
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
+public function postEditGalleryItem(Request $request){
+    $gallery_item_id = $request->gallery_item_id;
+    $image_caption = $request->image_caption;
+    DB::table('ETKPLUS_PARTNER_PHOTOS')
+    ->where('id', $gallery_item_id)
+    ->update(['image_caption' => $image_caption]);
+    Session::flash('success','Название элемента галереи успешно изменено');
+    return redirect()->back();
+}
+public function postLoadGallery(Request $request){
+    $partner_id = $request->partner_id;
+    $partner = \App\Partner::find($partner_id);
+    foreach ($request->gallery as $gallery_item) {
+        if ($gallery_item){
+            $picture_extension = $gallery_item->getClientOriginalExtension();
+            $image_size = getimagesize($gallery_item);
+            $image_width = $image_size[0];
+            $image_height = $image_size[1];
+            $picture_name = '/assets/img/partners/' . $partner->id .'/gallery' . '/' . $this->generateRandomString() . '.' . $picture_extension;
+            Storage::disk('public')->put($picture_name, File::get($gallery_item));
+            DB::table('ETKPLUS_PARTNER_PHOTOS')
+            ->insert([
+                'partner_id' => $partner_id,
+                'image_path' => $picture_name,
+                'image_width' => $image_width,
+                'image_height' => $image_height
+            ]);
+
+        } else {
+            Session::flash('error', 'Произошла ошибка, файлы загрузить не удалось');
+            return redirect()->back();
+        }
+    }
+    Session::flash('success','Изображения загружены. Необходимо дать им названия');
+    return redirect()->back();
+}
+    /**
+     * [postDeleteGalleryItem description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    
+  public function postDeleteGalleryItem(Request $request){
+        $gallery_item_id = $request->gallery_item_id;
+        $gallery_item_path = $request->image_path;
+        DB::table('ETKPLUS_PARTNER_PHOTOS')
+        ->where('id', $gallery_item_id)
+        ->delete();
+        try {
+            Storage::disk('public')->delete($gallery_item_path);   
+        } catch (Exception $e) {
+            Session::flash('error',$e);
+            return redirect()->back();      
+        }
+        Session::flash('success','Изображение удалено');
+        return redirect()->back();
+    }
+
+
+
+}

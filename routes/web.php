@@ -352,6 +352,37 @@ Route::group(['middleware' => 'auth'], function () {
 	])->middleware('can:show-dashboard-partner-admin,App\User');
 
 	Route::get('/pdf', 'PartnerController@createTestPDF');
+
+	Route::post('/control-panel/partner/edit',[
+		'uses' => 'PartnerController@postEditPartner',
+		'as' => 'dashboard.partner.edit_partner.post'
+		])->middleware('can:show-dashboard-partner-admin,App\User');
+
+	Route::post('/control-panel/partner/edit-logo',[
+		'uses' => 'PartnerController@postEditPartnerLogo',
+		'as' => 'dashboard.partner.edit_partner_logo.post'
+		])->middleware('can:show-dashboard-partner-admin,App\User');
+
+	Route::post('/control-panel/partner/edit-background',[
+		'uses' => 'PartnerController@postEditPartnerBackground',
+		'as' => 'dashboard.partner.edit_partner_background.post'
+		])->middleware('can:show-dashboard-partner-admin,App\User');
+
+	Route::post('/control-panel/partner/load-gallery',[
+		'uses' => 'PartnerController@postLoadGallery',
+		'as' => 'dashboard.partner.load-gallery.post'
+		])->middleware('can:show-dashboard-partner-admin,App\User');
+
+	Route::post('/control-panel/partner/edit-gallery-item',[
+		'uses' => 'PartnerController@postEditGalleryItem',
+		'as' => 'dashboard.partner.edit-gallery-item.post'
+		])->middleware('can:show-dashboard-partner-admin,App\User');
+
+	Route::post('/control-panel/partner/delete-gallery-item',[
+		'uses' => 'PartnerController@postDeleteGalleryItem',
+		'as' => 'dashboard.partner.delete-gallery-item.post'
+		])->middleware('can:show-dashboard-partner-admin,App\User');
+
 	/**
 	 *
 	 *

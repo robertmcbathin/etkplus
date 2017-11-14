@@ -311,12 +311,12 @@ public function getVisitsListByParam($sort_param){
     public function getPartnerPage($partner_id){
         $partner = Partner::find($partner_id);
         $visits = DB::table('ETKPLUS_VISITS')
-    ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_VISITS.partner_id', '=', 'ETKPLUS_PARTNERS.id')
-    ->leftJoin('users','ETKPLUS_VISITS.operator_id', '=', 'users.id')
-    ->select('ETKPLUS_VISITS.*','ETKPLUS_PARTNERS.name as partner_name','users.name as operator')
-    ->where('ETKPLUS_VISITS.partner_id', $partner_id)
-    ->orderBy('ETKPLUS_VISITS.created_at', 'DESC')
-    ->paginate(50);
+          ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_VISITS.partner_id', '=', 'ETKPLUS_PARTNERS.id')
+          ->leftJoin('users','ETKPLUS_VISITS.operator_id', '=', 'users.id')
+          ->select('ETKPLUS_VISITS.*','ETKPLUS_PARTNERS.name as partner_name','users.name as operator')
+          ->where('ETKPLUS_VISITS.partner_id', $partner_id)
+          ->orderBy('ETKPLUS_VISITS.created_at', 'DESC')
+          ->paginate(50);
 
         $discounts = DB::table('ETKPLUS_PARTNER_DISCOUNTS')
         ->where('partner_id',$partner_id)

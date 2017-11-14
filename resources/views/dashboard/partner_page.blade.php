@@ -141,7 +141,7 @@
             <li><a href="#" rel="tooltip" title=""  data-toggle="modal" data-target="#edit-gallery-partner">
                 <i class="fa fa-picture-o"></i> Галерея
             </a></li>
-            <li><a href="#" rel="tooltip" title="" data-toggle="modal" data-target="#edit-addresses-partner">
+            <li><a href="#" rel="tooltip" title="" id="add-address-item" data-toggle="modal" data-target="#edit-addresses-partner">
                 <i class="fa fa-map-marker"></i> Адреса
             </a></li>
             <li class="divider"></li>
@@ -251,9 +251,7 @@
         @endif
     </div>
 </div>
-                                <div id="add-address-map">
-                                    
-                                </div>
+
 
 <div class="card">
     <div class="card-header">
@@ -519,7 +517,7 @@
 @include('includes.dashboard.footer')
 </div>
 </div>
-@endsection
+
 
 <div class="modal fade" id="delete-partner" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-sm ">
@@ -1015,18 +1013,13 @@
                                     <label>Доп. поле</label>
                                     <input type="text" name="comment" placeholder="помещение, офис и т.п." class="form-control" maxlength="255">
                                 </div>
+                                    <input type="hidden" name="latitude" placeholder="56.138015" value="56.138015" class="form-control" maxlength="20" id='new-address-latitude'>
+                                    <input type="hidden" name="longitude" placeholder="47.234006" value="47.234006" class="form-control" maxlength="20" id='new-address-longitude'>
+                                    <div class="form-group">
+                                        <label for=""> Выберите координаты на карте</label>
+                                    </div> 
 
-                                <div class="form-group">
-                                    <label>Широта (координата)</label>
-                                    <input type="text" name="latitude" placeholder="56.138015" value="56.138015" class="form-control" maxlength="20" id='new-address-latitude'>
-                                </div>
-                                <div class="form-group">
-                                    <label>Долгота (координата)</label>
-                                    <input type="text" name="longitude" placeholder="47.234006" value="47.234006" class="form-control" maxlength="20" id='new-address-longitude'>
-                                </div>
-
-
-
+                                <div id="addAddressMap"></div>
 
                                 <div class="form-group">
                                     <label>Режим работы</label>
@@ -1258,48 +1251,4 @@
         </div>
     </div>
 </div>
-<script>
-function initMap() {
-  var styleArray = [
-    {
-      featureType: 'all',
-      stylers: [
-      { saturation: -80 }
-      ]
-    },{
-      featureType: 'road.arterial',
-      elementType: 'geometry',
-      stylers: [
-      { hue: '#00ffee' },
-      { saturation: 50 }
-      ]
-    },{
-      featureType: 'poi.business',
-      elementType: 'labels',
-      stylers: [
-      { visibility: 'off' }
-      ]
-    }
-    ];
-  var map = new google.maps.Map(document.getElementById('add-address-map'), {
-    zoom: 14,
-    mapTypeControl: false,
-    styles: styleArray,
-    center: {lat: 56.123237, lng: 47.253127 }
-  });
-
-  map.addListener('click', function(e) {
-    placeMarkerAndPanTo(e.latLng, map);
-  });
-}
-
-function placeMarkerAndPanTo(latLng, map) {
-  var marker = new google.maps.Marker({
-    position: latLng,
-    map: map,
-  });
-  map.panTo(latLng);
-  document.getElementById('new-address-latitude').value = marker.position.lat;
-}
-</script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBc-l0ALdzgKDwDs_qll1CKLUlEsRq5aUE&callback=initMap"></script>
+@endsection

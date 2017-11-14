@@ -583,6 +583,7 @@ public function postLoadGallery(Request $request){
             DB::table('ETKPLUS_ADDRESSES')
             ->insert([
                 'partner_id' => $partner_id,
+                'name' => $name,
                 'text' => $text,
                 'comment' => $comment,
                 'schedule' => $schedule,

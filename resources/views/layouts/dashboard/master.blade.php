@@ -445,6 +445,67 @@ initPhotoSwipeFromDOM('.my-gallery');
         $('#top-progress').replaceWith('<div class=\"progress\" id=\"top-progress\"><div class=\"indeterminate\"></div></div>');
       });
   </script>
+
+<script>
+    $('#add-address-item').on('shown.bs.modal',function(){
+        console.log('init');
+        initMap();
+    });
+</script>
+<script>
+var marker;
+
+function initMap() {
+  var styleArray = [
+    {
+      featureType: 'all',
+      stylers: [
+      { saturation: -80 }
+      ]
+    },{
+      featureType: 'road.arterial',
+      elementType: 'geometry',
+      stylers: [
+      { hue: '#00ffee' },
+      { saturation: 50 }
+      ]
+    },{
+      featureType: 'poi.business',
+      elementType: 'labels',
+      stylers: [
+      { visibility: 'off' }
+      ]
+    }
+    ];
+  var latlng = new google.maps.LatLng(56.123237, 47.253127);
+  var map = new google.maps.Map(document.getElementById('addAddressMap'), {
+    zoom: 10,
+    mapTypeControl: false,
+    styles: styleArray,
+    center: latlng
+  });
+
+  map.addListener('click', function(e) {
+    google.maps.event.trigger(map, "resize");
+    placeMarkerAndPanTo(e.latLng, map);
+  });
+}
+
+function placeMarkerAndPanTo(latLng, map) {
+    if (marker) {
+        marker.setPosition(latLng);
+    } else {
+     marker = new google.maps.Marker({
+        position: latLng,
+        map: map,
+      });
+    } 
+    document.getElementById('new-address-latitude').value = marker.getPosition().lat();
+    document.getElementById('new-address-longitude').value = marker.getPosition().lng();
+}
+
+</script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBc-l0ALdzgKDwDs_qll1CKLUlEsRq5aUE&callback=initMap"></script>
 <noscript><div><img src="https://mc.yandex.ru/watch/45472806" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 </html>

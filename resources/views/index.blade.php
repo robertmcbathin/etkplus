@@ -71,7 +71,7 @@
                         <h6 class="category">Для держателей ВСЕХ карт ЕТК</h6>
                         <h5 class="description text-center">Уже в ближайшее время карту ЕТК можно будет пополнить онлайн. Почему бы не сделать пополнение еще более удобным? Например, если карта будет пополняться автоматически...</h5>
                         <br>
-                            <a href="/about" class="btn btn-danger btn-fill btn-round">О проекте</a>
+                            <a href="/about" class="btn btn-danger btn-fill">О проекте</a>
                     </div>
                 </div>
                 <div class="row">

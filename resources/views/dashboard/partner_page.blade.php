@@ -1012,15 +1012,21 @@
                                     <label>Доп. поле</label>
                                     <input type="text" name="comment" placeholder="помещение, офис и т.п." class="form-control" maxlength="255">
                                 </div>
+
                                 <div class="form-group">
                                     <label>Широта (координата)</label>
-                                    <input type="text" name="latitude" placeholder="56.138015" class="form-control" maxlength="20">
-                                    <span class="help-block">Для корректного отображения на картах заполнение обязательно!</span>
+                                    <input type="text" name="latitude" placeholder="56.138015" value="56.138015" class="form-control" maxlength="20" id='new-address-latitude'>
                                 </div>
                                 <div class="form-group">
                                     <label>Долгота (координата)</label>
-                                    <input type="text" name="longitude" placeholder="47.234006" class="form-control" maxlength="20">
+                                    <input type="text" name="longitude" placeholder="47.234006" value="47.234006" class="form-control" maxlength="20" id='new-address-longitude'>
                                 </div>
+
+                                <div id="add-address-map">
+                                    
+                                </div>
+
+
                                 <div class="form-group">
                                     <label>Режим работы</label>
                                     <input type="text" name="schedule" placeholder="пн-пт: с 8 до 17" class="form-control" maxlength="255">
@@ -1251,3 +1257,49 @@
         </div>
     </div>
 </div>
+<script>
+function initMap() {
+  var styleArray = [
+    {
+      featureType: 'all',
+      stylers: [
+      { saturation: -80 }
+      ]
+    },{
+      featureType: 'road.arterial',
+      elementType: 'geometry',
+      stylers: [
+      { hue: '#00ffee' },
+      { saturation: 50 }
+      ]
+    },{
+      featureType: 'poi.business',
+      elementType: 'labels',
+      stylers: [
+      { visibility: 'off' }
+      ]
+    }
+    ];
+  var map = new google.maps.Map(document.getElementById('add-address-map'), {
+    zoom: 4,
+    center: {lat: 56.123237, lng: 47.253127 }
+  });
+
+  map.addListener('click', function(e) {
+    placeMarkerAndPanTo(e.latLng, map);
+  });
+}
+
+function placeMarkerAndPanTo(latLng, map) {
+  var marker = new google.maps.Marker({
+    position: latLng,
+    map: map,
+    zoom: 14,
+    mapTypeControl: false,
+    styles: styleArray,
+  });
+  map.panTo(latLng);
+  document.getElementById('new-address-latitude').value = marker.position.lat;
+}
+</script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBc-l0ALdzgKDwDs_qll1CKLUlEsRq5aUE&callback=initMap"></script>

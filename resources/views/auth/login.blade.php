@@ -25,7 +25,7 @@
 
                                     <label>Пароль</label>
                                     <input type="password" name="password" class="form-control no-border" placeholder="Пароль">
-                                    <button type="submit"    class="btn btn-danger btn-block btn-round">Войти</button>
+                                    <button type="submit"    class="btn btn-danger btn-block">Войти</button>
                                 </form>
                                 <div class="forgot">
                                     <a href="https://etk21.ru/password/reset" class="btn btn-link btn-danger">Напомнить пароль</a>

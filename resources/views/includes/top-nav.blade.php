@@ -25,7 +25,7 @@
                         </ul>
                     </li>-->
                     <li class="nav-item">
-                        <a class="btn btn-round btn-danger" href="{{ route('login') }}"><i class="fa fa-user-circle"></i>Личный кабинет</a>
+                        <a class="btn btn-danger" href="{{ route('login') }}"><i class="fa fa-user-circle"></i>Личный кабинет</a>
                     </li>
                     @if (Auth::user())
                     <li class="nav-item">

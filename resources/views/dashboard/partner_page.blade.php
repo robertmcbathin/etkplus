@@ -1281,7 +1281,9 @@ function initMap() {
     }
     ];
   var map = new google.maps.Map(document.getElementById('add-address-map'), {
-    zoom: 4,
+    zoom: 14,
+    mapTypeControl: false,
+    styles: styleArray,
     center: {lat: 56.123237, lng: 47.253127 }
   });
 
@@ -1294,9 +1296,6 @@ function placeMarkerAndPanTo(latLng, map) {
   var marker = new google.maps.Marker({
     position: latLng,
     map: map,
-    zoom: 14,
-    mapTypeControl: false,
-    styles: styleArray,
   });
   map.panTo(latLng);
   document.getElementById('new-address-latitude').value = marker.position.lat;

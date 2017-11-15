@@ -121,7 +121,7 @@
             </div>
         </div>
         <div class="dropup">
-          <button href="#" class="btn btn-block btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          <button href="#" class="btn btn-block btn-danger dropdown-toggle btn-fill btn-square" data-toggle="dropdown" aria-expanded="false">
               Редактировать
               <b class="caret"></b>
           </button>
@@ -164,7 +164,9 @@
 </div>
 <div class="card">
     <div class="card-header">
-        <h4 class="card-title">Тариф</h4>
+        <h4 class="card-title">Тариф <a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-tariff">
+            <i class="fa fa-cog"></i> </a>
+        </h4>
     </div>
     <div class="card-content">
         <ul class="list-unstyled team-members">
@@ -192,7 +194,8 @@
 </div>
 <div class="card">
     <div class="card-header">
-        <h4 class="card-title">Аккаунты</h4>
+        <h4 class="card-title">Аккаунты <!--<a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-tariff">
+            Сменить тариф </a>--> </h4>
     </div>
     <div class="card-content">
         <ul class="list-unstyled team-members">
@@ -221,7 +224,8 @@
 
 <div class="card">
     <div class="card-header">
-        <h4 class="card-title">Адреса</h4>
+        <h4 class="card-title">Адреса <a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-addresses-partner">
+            <i class="fa fa-cog"></i> </a></h4>
     </div>
     <div class="card-content">
         @if (count($addresses) > 0)
@@ -255,7 +259,8 @@
 
 <div class="card">
     <div class="card-header">
-        <h4 class="card-title">Скидки</h4>
+        <h4 class="card-title">Скидки <a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-discounts-partner">
+            <i class="fa fa-cog"></i> </a></h4>
     </div>
     <div class="card-content">
         @if (count($discounts) > 0)
@@ -287,7 +292,8 @@
 
 <div class="card">
     <div class="card-header">
-        <h4 class="card-title">Бонусы</h4>
+        <h4 class="card-title">Бонусы <a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-bonuses-partner">
+            <i class="fa fa-cog"></i> </a></h4>
     </div>
     <div class="card-content">
         @if (count($bonuses) > 0)
@@ -324,7 +330,10 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Операции</h4>
+                    <h4 class="card-title">Операции 
+                      <!--  <a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-addresses-partner">
+            <i class="fa fa-cog"></i> </a>-->
+        </h4>
                 </div>
                 <div class="card-content table-full-width">
                     <table class="table table-striped">
@@ -365,7 +374,10 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Оплата услуг</h4>
+                    <h4 class="card-title">Оплата услуг 
+                        <!--<a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-addresses-partner">
+            Перейти к оплате </a>-->
+            </h4>
                 </div>
                 <div class="card-content table-full-width">
                   @isset($billings)
@@ -531,7 +543,7 @@
             </div>
             <div class="modal-footer">
                 <div class="left-side">
-                    <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Нет</button>
+                    <button type="button" class="btn btn-default btn-link btn-simple" data-dismiss="modal">Нет</button>
                 </div>
                 <div class="divider"></div>
                 <div class="right-side">
@@ -539,7 +551,7 @@
                         {{ csrf_field() }}
                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                         <input type="hidden" name="partner_id" value="{{ $partner->id }}">
-                        <button type="submit" class="btn btn-danger btn-link">Да</button>
+                        <button type="submit" class="btn btn-danger btn-link  btn-square btn-fill">Да</button>
                     </form>
                 </div>
             </div>
@@ -666,11 +678,10 @@
                 </div>
                 <div class="modal-footer">
                     <div class="left-side">
-                        <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
                     </div>
                     <div class="divider"></div>
                     <div class="right-side">
-                        <button type="submit" class="btn btn-success btn-link">Сохранить</button>
+                        <button type="submit" class="btn btn-info btn-fill btn-square btn-fw">Сохранить</button>
                     </div>
                 </form>
             </div>

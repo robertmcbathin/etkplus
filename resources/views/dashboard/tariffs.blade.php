@@ -17,7 +17,7 @@
                 @include('includes/notifications')
                 <div class="row">
                  <div class="col-md-12">
-                    <a class="btn btn-danger btn-fill btn-wd" data-toggle="modal" data-target="#add-tariff" >Добавить тариф</a>
+                    <a class="btn btn-danger btn-fill btn-wd btn-square" data-toggle="modal" data-target="#add-tariff" >Добавить тариф</a>
                 </div>
 
             </div>
@@ -127,11 +127,11 @@
                 </div>
                 <div class="modal-footer">
                     <div class="left-side">
-                        <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+
                     </div>
                     <div class="divider"></div>
                     <div class="right-side">
-                        <button type="submit" class="btn btn-success btn-link">Добавить</button>
+                        <button type="submit" class="btn btn-success btn-link btn-fw btn-square btn-fill">Добавить</button>
                     </div>
                 </form>
             </div>
@@ -193,7 +193,7 @@
               <div class="modal-footer">
                 <div class="left-side">
                     <div class="right-side">
-                        <button type="submit" class="btn btn-danger btn-link">Сохранить изменения</button>
+                        <button type="submit" class="btn btn-info btn-link btn-fill btn-square btn-fw">Сохранить изменения</button>
                     </div>
                 </div>
             </div>

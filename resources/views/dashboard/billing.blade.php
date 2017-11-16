@@ -122,7 +122,7 @@
                                                             <td>Счет оплачен</td>
                                                             @endif
                                                             <td>{{ $payment->created_at }}</td>
-                                                            <td><button class="btn btn-danger" data-toggle="modal" data-target="#increase-account-{{ $payment->partner_id }}">Зачислить</button></td>
+                                                            <td><button class="btn btn-danger btn-square btn-fill" data-toggle="modal" data-target="#increase-account-{{ $payment->partner_id }}">Зачислить</button></td>
                                                         </tr>
                                                         @endforeach
                                                     </tbody>
@@ -210,7 +210,7 @@
               <div class="modal-footer">
                 <div class="left-side">
                     <div class="right-side">
-                        <button type="submit" class="btn btn-danger btn-link">Зачислить</button>
+                        <button type="submit" class="btn btn-danger btn-link btn-square btn-fill">Зачислить</button>
                     </div>
                 </div>
             </div>

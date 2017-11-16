@@ -800,7 +800,7 @@ public function postLoadGallery(Request $request){
         $review->published = 0;
         $review->approved_by = $approved_by;
         if ($review->save()){
-            Session::flash('success','Отзыв снять с публикации');
+            Session::flash('success','Отзыв снят с публикации');
             return redirect()->back();
         } else {
             Session::flash('error','Не удалось снять отзыв с публикации');

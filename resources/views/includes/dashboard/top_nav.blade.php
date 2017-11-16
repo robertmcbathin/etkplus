@@ -19,6 +19,13 @@
 
 
                         <ul class="nav navbar-nav navbar-right">
+                            @isset($balance)
+                            <li>
+                                <a href="{{ route('dashboard.partner.billing.get') }}" class="btn-magnify">
+                                    Баланс: {{ $balance->value }} <i class="fa fa-ruble"></i>
+                                </a>
+                            </li>
+                            @endisset
                             <li>
                                 <a href="{{ route('logout') }}" class=" btn-magnify">
                                     <i class="fa fa-sign-out"></i>

@@ -49,7 +49,7 @@
                                                 {{ csrf_field() }}
                                                 <input type="hidden" name="review_id" value="{{ $review->id }}">
                                                 <input type="hidden" name="approved_by" value="{{ Auth::user()->id }}">
-                                                <button class="btn btn-wd btn-success" type="submit"><span class="btn-label">
+                                                <button class="btn btn-wd btn-success btn-square" type="submit"><span class="btn-label">
                                                     <i class="fa fa-check"></i>
                                                 </span> Опубликовано</button>
                                             </form>
@@ -58,7 +58,7 @@
                                                 {{ csrf_field() }}
                                                 <input type="hidden" name="review_id" value="{{ $review->id }}">
                                                 <input type="hidden" name="approved_by" value="{{ Auth::user()->id }}">
-                                                <button class="btn btn-danger btn-fill btn-wd" type="submit">Опубликовать</button>
+                                                <button class="btn btn-danger btn-fill btn-wd btn-square" type="submit">Опубликовать</button>
                                             </form>
                                             @endif
                                         </td>

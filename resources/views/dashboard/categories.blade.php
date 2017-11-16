@@ -17,7 +17,7 @@
                 @include('includes/notifications')
                 <div class="row">
                    <div class="col-md-12">
-                    <a class="btn btn-danger btn-fill btn-wd" data-toggle="modal" data-target="#add-category" >Добавить категорию</a>
+                    <a class="btn btn-danger btn-fill btn-wd btn-square" data-toggle="modal" data-target="#add-category" >Добавить категорию</a>
                 </div>
             </div>
             <br>

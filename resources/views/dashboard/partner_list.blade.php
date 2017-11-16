@@ -17,7 +17,7 @@
                 @include('includes/notifications')
                 <div class="row">
                    <div class="col-md-12">
-                    <a class="btn btn-danger btn-fill btn-wd" href="{{ route('dashboard.create-partner.get') }}">Добавить предприятие</a>
+                    <a class="btn btn-danger btn-fill btn-wd btn-square" href="{{ route('dashboard.create-partner.get') }}">Добавить предприятие</a>
                 </div>
 
             </div>
@@ -67,7 +67,7 @@
                                     </td>
                                     <td class="text-right">
                                         <div class="dropdown">
-                                          <button href="#" class="btn btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                          <button href="#" class="btn btn-block dropdown-toggle btn-fill btn-square" data-toggle="dropdown" aria-expanded="false">
                                               Редактировать
                                               <b class="caret"></b>
                                           </button>
@@ -126,7 +126,7 @@
             </div>
             <div class="modal-footer">
                 <div class="left-side">
-                    <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Нет</button>
+                    <button type="button" class="btn btn-default btn-link btn-simple" data-dismiss="modal">Нет</button>
                 </div>
                 <div class="divider"></div>
                 <div class="right-side">
@@ -134,7 +134,7 @@
                         {{ csrf_field() }}
                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                         <input type="hidden" name="partner_id" value="{{ $partner->id }}">
-                        <button type="submit" class="btn btn-danger btn-link">Да</button>
+                        <button type="submit" class="btn btn-danger btn-link btn-fill btn-square">Да</button>
                     </form>
                 </div>
             </div>
@@ -262,11 +262,10 @@
                 </div>
                 <div class="modal-footer">
                     <div class="left-side">
-                        <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
                     </div>
                     <div class="divider"></div>
                     <div class="right-side">
-                        <button type="submit" class="btn btn-success btn-link">Сохранить</button>
+                        <button type="submit" class="btn btn-success btn-link btn-fill btn-square btn-fw">Сохранить</button>
                     </div>
                 </form>
             </div>
@@ -314,7 +313,7 @@
                                           <div class="form-group">
                                             <input type="text" class="form-control" value="{{ $gallery_item->image_caption }}" name="image_caption">
                                         </div>
-                                        <input type="submit" class="btn btn-info" value="Изменить описание">
+                                        <input type="submit" class="btn btn-info btn-simple" value="Изменить описание">
                                     </form>
                                     <form action="{{ route('dashboard.delete-gallery-item.post') }}" method="POST">
                                       {{ csrf_field() }}
@@ -322,7 +321,7 @@
                                       <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                       <input type="hidden" name="gallery_item_id" value="{{ $gallery_item->id }}">
                                       <input type="hidden" name="gallery_item_path" value="{{ $gallery_item->image_path }}">
-                                      <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i>Удалить</button>
+                                      <button class="btn btn-danger btn-fill btn-square" type="submit"><i class="fa fa-trash"></i>Удалить</button>
                                   </form>
                               </td>
                           </tr>
@@ -339,17 +338,16 @@
                 <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                 <input type="file" class="btn-file" name="gallery[]" multiple>
-                <button class="btn btn-info" type="submit"><i class="fa fa-download"></i>Загрузить</button>
+                <button class="btn btn-info btn-fill btn-square" type="submit"><i class="fa fa-download"></i>Загрузить</button>
             </form>
         </div>
     </div>
     <div class="modal-footer">
         <div class="left-side">
-            <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
         </div>
         <div class="divider"></div>
         <div class="right-side">
-            <button type="submit" class="btn btn-success btn-link">Сохранить</button>
+            <button type="submit" class="btn btn-success btn-link btn-fill btn-square">Сохранить</button>
         </div>
     </div>
 </div>
@@ -414,7 +412,7 @@
                             <form action="{{ route('dashboard.delete-partner-address.post') }}" method="POST">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="address_id"  value="{{ $address->id }}">
-                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Удалить</button>
+                                <button type="submit" class="btn btn-danger btn-fill btn-square"><i class="fa fa-trash"></i>Удалить</button>
                             </form>
                         </div>
                     </div>
@@ -454,7 +452,7 @@
                                     <label>Телефоны</label>
                                     <input type="text" name="phones" placeholder="+79003454545," class="form-control" maxlength="255">
                                 </div>
-                                <button type="submit" class="btn btn-fill btn-info">Добавить</button>
+                                <button type="submit" class="btn btn-fill btn-info btn-square btn-fw">Добавить</button>
                             </div>
                         </form>
                     </div>
@@ -462,7 +460,7 @@
             </div>
             <div class="modal-footer">
                 <div class="left-side">
-                    <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-default btn-link btn-simple" data-dismiss="modal">Отмена</button>
                 </div>
             </div>
         </div>
@@ -514,7 +512,7 @@
                             <form action="{{ route('dashboard.delete-partner-discount.post') }}" method="POST">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="discount_id"  value="{{ $discount->id }}">
-                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Удалить</button>
+                                <button type="submit" class="btn btn-danger btn-square btn-fill"><i class="fa fa-trash"></i>Удалить</button>
                             </form>
                         </div>
                     </div>
@@ -547,7 +545,7 @@
                                     <input type="text" name="lifetime" class="form-control datepicker" placeholder="Добавить" value="01/01/2030">
                                     <span class="help-block">по умолчанию до 1 января 2030 года</span>
                                 </div>
-                                <button type="submit" class="btn btn-fill btn-info">Добавить</button>
+                                <button type="submit" class="btn btn-fill btn-info btn-fw btn-square">Добавить</button>
                             </div>
                         </form>
                     </div>
@@ -555,7 +553,7 @@
             </div>
             <div class="modal-footer">
                 <div class="left-side">
-                    <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-default btn-link btn-simple" data-dismiss="modal">Отмена</button>
                 </div>
             </div>
         </div>
@@ -619,7 +617,7 @@
                             <form action="{{ route('dashboard.delete-partner-bonus.post') }}" method="POST">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="bonus_id"  value="{{ $bonus->id }}">
-                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Удалить</button>
+                                <button type="submit" class="btn btn-danger btn-square btn-fill"><i class="fa fa-trash"></i>Удалить</button>
                             </form>
                         </div>
                     </div>
@@ -666,7 +664,7 @@
                                     <input type="text" name="lifetime" class="form-control datepicker" placeholder="Добавить" value="01/01/2030">
                                     <span class="help-block">по умолчанию до 1 января 2030 года</span>
                                 </div>
-                                <button type="submit" class="btn btn-fill btn-info">Добавить</button>
+                                <button type="submit" class="btn btn-fill btn-info btn-square btn-fw">Добавить</button>
                             </div>
                         </form>
                     </div>
@@ -674,7 +672,7 @@
             </div>
             <div class="modal-footer">
                 <div class="left-side">
-                    <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-default btn-link btn-simple" data-dismiss="modal">Отмена</button>
                 </div>
             </div>
         </div>

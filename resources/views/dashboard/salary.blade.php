@@ -87,7 +87,7 @@
                                                             <td>{{ $account->name }}</td>
                                                             <td>{{ $account->post }}</td>
                                                             <td>{{ $account->value }}</td>
-                                                            <td><button class="btn btn-danger" data-toggle="modal" data-target="#pay-to-agent-{{ $account->user_id }}">Выплатить</button></td>
+                                                            <td><button class="btn btn-danger btn-fill btn-square" data-toggle="modal" data-target="#pay-to-agent-{{ $account->user_id }}">Выплатить</button></td>
                                                         </tr>
                                                         @endforeach
                                                     </tbody>
@@ -137,7 +137,7 @@
               <div class="modal-footer">
                 <div class="left-side">
                     <div class="right-side">
-                        <button type="submit" class="btn btn-danger btn-link">Оплачено</button>
+                        <button type="submit" class="btn btn-danger btn-link btn-square btn-fill">Оплачено</button>
                     </div>
                 </div>
             </div>

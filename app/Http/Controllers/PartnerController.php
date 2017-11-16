@@ -138,6 +138,11 @@ protected function modifyToFullNumber($number){
     $tariff = DB::table('ETKPLUS_TARIFFS')
     ->where('id',$partner->tariff_id)
     ->first();
+
+    $manager = DB::table('users')
+                ->where('id',$partner->created_by)
+                ->first();
+
     return view('dashboard.partner.index',[
       'partner' => $partner,
       'user' => $user,
@@ -152,6 +157,7 @@ protected function modifyToFullNumber($number){
       'tariffs' => $tariffs,
       'tariff' => $tariff,
       'gallery_items' => $gallery_items,
+      'manager' => $manager
     ]);
   }
 

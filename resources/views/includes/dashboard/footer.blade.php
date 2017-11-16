@@ -31,20 +31,16 @@
                 </button>
             </div>
             <div class="modal-body">
-            <div class="user text-center">
-                    <div class="photo">
-                        <img src="https://etk21.ru{{ $manager->profile_image }}" class="img img-rounded img-responsive" style="width: 40px;">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="https://etk21.ru{{ $manager->profile_image }}" class="img img-rounded img-responsive" ">
                     </div>
-                    <div class="info">
-                        <a>
-                           <span>
-                                {{ $manager->name }} {{ $manager->lastname }}
-                           </span>
-                        </a>
-                        <div class="clearfix"></div>
-
+                    <div class="col-md-10">
+                        <h6>{{ $manager->name }} {{ $manager->lastname }}</h6>
+                        <p>тел.: <b>{{ $manager->phone }}</b></p>
+                        <p>email: <b>{{ $manager->email }}</b></p>
                     </div>
-                </div>     
+                </div>    
 
             </div>
     </div>

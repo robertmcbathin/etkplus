@@ -747,11 +747,10 @@
                 </div>
                 <div class="modal-footer">
                     <div class="left-side">
-                        <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
                     </div>
                     <div class="divider"></div>
                     <div class="right-side">
-                        <button type="submit" class="btn btn-success btn-link">Сохранить</button>
+                        <button type="submit" class="btn btn-info btn-fill btn-square btn-fw">Сохранить</button>
                     </div>
                 </form>
             </div>

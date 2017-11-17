@@ -6,7 +6,7 @@
                 <div class="user">
                     <div class="info">
                         <div class="photo">
-                            <img src="https://etk21.ru/{{ Auth::user()->profile_image }}" />
+                            <img src="{{ Auth::user()->profile_image }}" />
                         </div>
 
                         <a data-toggle="collapse" href="#logout" class="collapsed">

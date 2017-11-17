@@ -169,8 +169,18 @@ protected function modifyToFullNumber($number){
     ->where('ETKPLUS_VISITS.partner_id', Auth::user()->partner_id)
     ->orderBy('ETKPLUS_VISITS.created_at', 'DESC')
     ->paginate(50);
+
+      $partner = \App\Partner::find(Auth::user()->partner_id);
+      $manager = DB::table('users')
+            ->where('id',$partner->created_by)
+            ->first();
+      $balance = DB::table('ETKPLUS_PARTNER_ACCOUNTS')
+        ->where('partner_id',$partner->id)
+        ->first();
     return view('dashboard.partner.operations_list',[
-      'operations' => $operations
+      'operations' => $operations,
+      'manager' => $manager,
+      'balance' => $balance,
     ]);
   }
     /**
@@ -441,6 +451,7 @@ protected function modifyToFullNumber($number){
 
       $partner_id = $request->partner_id;
       $name       = $request->name;
+      $lastname   = $request->lastname;
       $email      = $request->email;
       $password   = $request->password;
       $post       = $request->post;
@@ -457,6 +468,7 @@ protected function modifyToFullNumber($number){
         try {
           $operator = new \App\User;
           $operator->name = $name;
+          $operator->lastname = $lastname;
           $operator->partner_id = $partner_id;
           $operator->email = $email;
           $operator->username = $email;
@@ -859,6 +871,194 @@ public function postLoadGallery(Request $request){
     /**
      * END OF ADDRESSES
      */
+    
+        /**
+     * DISCOUNTS
+     */
+    public function postAddPartnerDiscount(Request $request){
+        $partner_id  = $request->partner_id;
+        $description = $request->description;
+        $value       = $request->value;
+        $lifetime = date_create_from_format('d/m/Y',$request->lifetime);
+        if (intval($value) == 0){
+            Session::flash('error', 'Значение должно быть целым числом');
+            return redirect()->back(); 
+        }
+        try {
+            DB::table('ETKPLUS_PARTNER_DISCOUNTS')
+            ->insert([
+                'partner_id' => $partner_id,
+                'value' => $value,
+                'description' => $description,
+                'lifetime' => $lifetime
+            ]);
+            Session::flash('success','Скидка успешно добавлена');
+            return redirect()->back();
+
+        } catch (Exception $e) {
+            Session::flash('error',$e);
+            return redirect()->back();              
+        }
+    }
+    public function postDeletePartnerDiscount(Request $request){
+        $discount_id = $request->discount_id;
+        try {
+            DB::table('ETKPLUS_PARTNER_DISCOUNTS')
+            ->where('id',$discount_id)
+            ->delete();
+            Session::flash('success','Скидка успешно удалена');
+            return redirect()->back();
+        } catch (Exception $e) {
+          Session::flash('error',$e);
+          return redirect()->back();           
+      }
+  }
+    /**
+     * END OF DUSCOUNTS
+     */
+    
+        /**
+     * DISCOUNTS
+     */
+    public function postAddPartnerBonus(Request $request){
+        $partner_id  = $request->partner_id;
+        $description = $request->description;
+        $type        = $request->type;
+        $value       = $request->value;
+        $lifetime = date_create_from_format('d/m/Y',$request->lifetime);
+        if (!(is_numeric($value))){
+            Session::flash('error', 'Значение должно быть числом');
+            return redirect()->back(); 
+        }
+        if (intval($value) == 0){
+            Session::flash('error', 'Значение должно быть целым числом');
+            return redirect()->back(); 
+        }
+        try {
+            DB::table('ETKPLUS_PARTNER_BONUSES')
+            ->insert([
+                'partner_id' => $partner_id,
+                'value' => $value,
+                'description' => $description,
+                'type' => $type,
+                'lifetime' => $lifetime
+            ]);
+            Session::flash('success','Бонус успешно добавлен');
+            return redirect()->back();
+
+        } catch (Exception $e) {
+            Session::flash('error',$e);
+            return redirect()->back();              
+        }
+    }
+    public function postDeletePartnerBonus(Request $request){
+        $bonus_id = $request->bonus_id;
+        try {
+            DB::table('ETKPLUS_PARTNER_BONUSES')
+            ->where('id',$bonus_id)
+            ->delete();
+            Session::flash('success','Бонус успешно удален');
+            return redirect()->back();
+        } catch (Exception $e) {
+          Session::flash('error',$e);
+          return redirect()->back();           
+      }
+  }
+    /**
+     * END OF DUSCOUNTS
+     */
+    
+    public function getCardNumberPage($card_number){
+
+
+
+      $card = DB::table('ETK_CARDS')
+              ->where('num',$this->modifyToFullNumber($card_number))
+              ->first();
+      $bonus_sum = DB::table('ETKPLUS_PARTNER_USER_BONUSES')
+                      ->where('card_number',$card_number)
+                      ->where('partner_id',Auth::user()->partner_id)
+                      ->first();
+      if (($visit_count = DB::table('ETKPLUS_VISITS')
+        ->where('card_number',$card_number)
+        ->where('partner_id', Auth::user()->partner_id)
+        ->count()) == NULL){
+        $visit_count = 0;
+      };
+
+      if (($visit_summary = DB::table('ETKPLUS_VISITS')
+        ->where('card_number',$card_number)
+        ->where('partner_id', Auth::user()->partner_id)
+        ->sum('ETKPLUS_VISITS.bill')) == NULL){
+        $visit_summary = 0;
+      };
+
+      $operations = DB::table('ETKPLUS_VISITS')
+                      ->where('partner_id',Auth::user()->partner_id)
+                      ->where('card_number',$card_number)
+                      ->orderBy('created_at','desc')
+                      ->paginate(25);
+
+      $partner = \App\Partner::find(Auth::user()->partner_id);
+      $manager = DB::table('users')
+            ->where('id',$partner->created_by)
+            ->first();
+      $balance = DB::table('ETKPLUS_PARTNER_ACCOUNTS')
+        ->where('partner_id',$partner->id)
+        ->first();
+      return view('dashboard.partner.card',[
+        'card' => $card,
+        'bonus_sum' => $bonus_sum,
+        'visit_count' => $visit_count,
+        'visit_summary' => $visit_summary,
+        'manager' => $manager,
+        'balance' => $balance,
+        'operations' => $operations
+      ]);
+    }
+
+    public function getOperatorPage($operator_id){
+      $operator = DB::table('users')
+                    ->where('id',$operator_id)
+                    ->first();
+
+      if (($visit_count = DB::table('ETKPLUS_VISITS')
+        ->where('operator_id',$operator_id)
+        ->where('partner_id', Auth::user()->partner_id)
+        ->count()) == NULL){
+        $visit_count = 0;
+      };
+
+      if (($visit_summary = DB::table('ETKPLUS_VISITS')
+        ->where('operator_id',$operator_id)
+        ->where('partner_id', Auth::user()->partner_id)
+        ->sum('ETKPLUS_VISITS.bill')) == NULL){
+        $visit_summary = 0;
+      };
+
+      $operations = DB::table('ETKPLUS_VISITS')
+                      ->where('partner_id',Auth::user()->partner_id)
+                      ->where('operator_id',$operator_id)
+                      ->orderBy('created_at','desc')
+                      ->paginate(25);
+
+      $partner = \App\Partner::find(Auth::user()->partner_id);
+      $manager = DB::table('users')
+            ->where('id',$partner->created_by)
+            ->first();
+      $balance = DB::table('ETKPLUS_PARTNER_ACCOUNTS')
+        ->where('partner_id',$partner->id)
+        ->first();
+
+      return view('dashboard.partner.operator',[
+        'operator' => $operator,
+        'manager' => $manager,
+        'balance' => $balance,
+        'visit_count' => $visit_count,
+        'visit_summary' => $visit_summary,
+        'operations' => $operations
+      ]);
+    }
     
 
 }

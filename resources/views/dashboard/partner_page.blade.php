@@ -25,29 +25,29 @@
                                 <div class="author">
                                   <img class="avatar border-white" src="{{ $partner->logo }}">
                                   <h4 class="card-title">{{ $partner->name }}<br>
-                                     <a><small>{{ $partner->fullname }}</small></a>
-                                 </h4>
-                             </div>
-                             <div class="row">
-                                <div class="left-vertical-tabs">
-                                    <ul class="nav nav-stacked" role="tablist">
-                                        <li class="active">
-                                            <a href="#info" role="tab" data-toggle="tab">
-                                             Описание
-                                         </a>
-                                     </li>
-                                     <li>
-                                        <a href="#contacts" role="tab" data-toggle="tab">
-                                         Контактные данные
-                                     </a>
-                                 </li>
-                                 <li>
-                                    <a href="#agreement" role="tab" data-toggle="tab">
-                                     Данные договора
-                                 </a>
-                             </li>
-                             <li>
-                               <a href="#discounts" role="tab" data-toggle="tab">
+                                   <a><small>{{ $partner->fullname }}</small></a>
+                               </h4>
+                           </div>
+                           <div class="row">
+                            <div class="left-vertical-tabs">
+                                <ul class="nav nav-stacked" role="tablist">
+                                    <li class="active">
+                                        <a href="#info" role="tab" data-toggle="tab">
+                                           Описание
+                                       </a>
+                                   </li>
+                                   <li>
+                                    <a href="#contacts" role="tab" data-toggle="tab">
+                                       Контактные данные
+                                   </a>
+                               </li>
+                               <li>
+                                <a href="#agreement" role="tab" data-toggle="tab">
+                                   Данные договора
+                               </a>
+                           </li>
+                           <li>
+                             <a href="#discounts" role="tab" data-toggle="tab">
                                 Скидки и бонусы
                             </a>
                         </li>
@@ -195,7 +195,7 @@
 <div class="card">
     <div class="card-header">
         <h4 class="card-title">Аккаунты <!--<a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-tariff">
-            Сменить тариф </a>--> </h4>
+        Сменить тариф </a>--> </h4>
     </div>
     <div class="card-content">
         <ul class="list-unstyled team-members">
@@ -226,114 +226,114 @@
     <div class="card-header">
         <h4 class="card-title">Адреса <a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-addresses-partner">
             <i class="fa fa-cog"></i> </a></h4>
-    </div>
-    <div class="card-content">
-        @if (count($addresses) > 0)
-        <ul class="list-unstyled team-members">
-            @foreach ($addresses as $address)
-            <li>
-                <div class="row">
-                    <div class="col-xs-3">
-                        <div class="avatar">
-                            
+        </div>
+        <div class="card-content">
+            @if (count($addresses) > 0)
+            <ul class="list-unstyled team-members">
+                @foreach ($addresses as $address)
+                <li>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <div class="avatar">
+                                
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            {{ $address->name }}
+                            <br>
+                            <span class="text-success"><small>{{ $address->text }}</small></span>
+                        </div>
+                        <div class="col-xs-3 text-right">
+
                         </div>
                     </div>
-                    <div class="col-xs-6">
-                        {{ $address->name }}
-                        <br>
-                        <span class="text-success"><small>{{ $address->text }}</small></span>
-                    </div>
-                    <div class="col-xs-3 text-right">
-
-                    </div>
-                </div>
-            </li>     
-            @endforeach
-        </ul>
-        @else
-        <p>Не указано ни одного адреса</p>
-        @endif
+                </li>     
+                @endforeach
+            </ul>
+            @else
+            <p>Не указано ни одного адреса</p>
+            @endif
+        </div>
     </div>
-</div>
 
 
-<div class="card">
-    <div class="card-header">
-        <h4 class="card-title">Скидки <a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-discounts-partner">
-            <i class="fa fa-cog"></i> </a></h4>
-    </div>
-    <div class="card-content">
-        @if (count($discounts) > 0)
-        <ul class="list-unstyled team-members">
-            @foreach ($discounts as $discount)
-            <li>
-                <div class="row">
-                    <div class="col-xs-3">
-                        <div class="avatar">
-                        {{ $discount->value }} <i class="fa fa-percent"></i>
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Скидки <a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-discounts-partner">
+                <i class="fa fa-cog"></i> </a></h4>
+            </div>
+            <div class="card-content">
+                @if (count($discounts) > 0)
+                <ul class="list-unstyled team-members">
+                    @foreach ($discounts as $discount)
+                    <li>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="avatar">
+                                    {{ $discount->value }} <i class="fa fa-percent"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                {{ $discount->description }}
+                                
+                            </div>
+                            <div class="col-xs-3 text-right">
+
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xs-6">
-                        {{ $discount->description }}
-                        
-                    </div>
-                    <div class="col-xs-3 text-right">
+                    </li>     
+                    @endforeach
+                </ul>
+                @else
+                <p>Действующих скидок нет</p>
+                @endif
+            </div>
+        </div>
 
-                    </div>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Бонусы <a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-bonuses-partner">
+                    <i class="fa fa-cog"></i> </a></h4>
                 </div>
-            </li>     
-            @endforeach
-        </ul>
-        @else
-        <p>Действующих скидок нет</p>
-        @endif
-    </div>
-</div>
+                <div class="card-content">
+                    @if (count($bonuses) > 0)
+                    <ul class="list-unstyled team-members">
+                        @foreach ($bonuses as $bonus)
+                        <li>
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <div class="avatar">
+                                        {{ $bonus->value }} <i class="fa fa-ruble"></i>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    {{ $bonus->description }}
+                                    
+                                </div>
+                                <div class="col-xs-3 text-right">
 
-<div class="card">
-    <div class="card-header">
-        <h4 class="card-title">Бонусы <a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-bonuses-partner">
-            <i class="fa fa-cog"></i> </a></h4>
-    </div>
-    <div class="card-content">
-        @if (count($bonuses) > 0)
-        <ul class="list-unstyled team-members">
-            @foreach ($bonuses as $bonus)
-            <li>
-                <div class="row">
-                    <div class="col-xs-3">
-                        <div class="avatar">
-                            {{ $bonus->value }} <i class="fa fa-ruble"></i>
-                        </div>
-                    </div>
-                    <div class="col-xs-6">
-                        {{ $bonus->description }}
-                        
-                    </div>
-                    <div class="col-xs-3 text-right">
-
-                    </div>
+                                </div>
+                            </div>
+                        </li>     
+                        @endforeach
+                    </ul>
+                    @else
+                    <p>Действующих скидок нет</p>
+                    @endif
                 </div>
-            </li>     
-            @endforeach
-        </ul>
-        @else
-        <p>Действующих скидок нет</p>
-        @endif
-    </div>
-</div>
+            </div>
 
-</div>
-<div class="col-lg-8 col-md-7">
-    @isset($visits)
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Операции 
+        </div>
+        <div class="col-lg-8 col-md-7">
+            @isset($visits)
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Операции 
                       <!--  <a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-addresses-partner">
-            <i class="fa fa-cog"></i> </a>-->
-        </h4>
+                        <i class="fa fa-cog"></i> </a>-->
+                    </h4>
                 </div>
                 <div class="card-content table-full-width">
                     <table class="table table-striped">
@@ -376,8 +376,8 @@
                 <div class="card-header">
                     <h4 class="card-title">Оплата услуг 
                         <!--<a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-addresses-partner">
-            Перейти к оплате </a>-->
-            </h4>
+                        Перейти к оплате </a>-->
+                    </h4>
                 </div>
                 <div class="card-content table-full-width">
                   @isset($billings)
@@ -443,16 +443,16 @@
             @if (count($gallery_items) > 0)
             @foreach ($gallery_items as $gallery_item)
             <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="col-md-3 col-sm-4 gallery-item">
-               <a href="{{ $gallery_item->image_path }}" itemprop="contentUrl" data-size="{{ $gallery_item->image_width }}x{{ $gallery_item->image_height }}">
-                 <img src="{{ $gallery_item->image_path }}" itemprop="thumbnail" alt="" class="horizontal-image img-rounded img-responsive">
-             </a>
-             <figcaption itemprop="caption description">{{ $gallery_item->image_caption }}</figcaption>
-         </figure>
-         @endforeach
-         @endif
-     </div>
-     <!-- Root element of PhotoSwipe. Must have class pswp. -->
-     <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+             <a href="{{ $gallery_item->image_path }}" itemprop="contentUrl" data-size="{{ $gallery_item->image_width }}x{{ $gallery_item->image_height }}">
+               <img src="{{ $gallery_item->image_path }}" itemprop="thumbnail" alt="" class="horizontal-image img-rounded img-responsive">
+           </a>
+           <figcaption itemprop="caption description">{{ $gallery_item->image_caption }}</figcaption>
+       </figure>
+       @endforeach
+       @endif
+   </div>
+   <!-- Root element of PhotoSwipe. Must have class pswp. -->
+   <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
     <!-- Background of PhotoSwipe. 
         It's a separate element, as animating opacity is faster than rgba(). -->
@@ -717,16 +717,16 @@
                     </div>
                 </div>
             </div>
-</div>
-<div class="modal-footer">
-    <div class="left-side">
+        </div>
+        <div class="modal-footer">
+            <div class="left-side">
+            </div>
+            <div class="divider"></div>
+            <div class="right-side">
+                <button type="submit" class="btn btn-success btn-link btn-square btn-fill">Сохранить</button>
+            </div>
+        </form>
     </div>
-    <div class="divider"></div>
-    <div class="right-side">
-        <button type="submit" class="btn btn-success btn-link btn-square btn-fill">Сохранить</button>
-    </div>
-</form>
-</div>
 </div>
 </div>
 </div>
@@ -746,30 +746,30 @@
                     <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 
-            <div class="col-md-10 col-md-offset-1">
-                <div class="fileinput text-center fileinput-new" data-provides="fileinput">
-                  <div class="fileinput-new thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;">
-                    <img src="{{ $partner->logo }}" alt="">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="fileinput text-center fileinput-new" data-provides="fileinput">
+                          <div class="fileinput-new thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;">
+                            <img src="{{ $partner->logo }}" alt="">
+                        </div>
+                        <div class="fileinput-preview fileinput-exists thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;"></div>
+                        <div>
+                            <span class="btn btn-simple btn-file"><span class="fileinput-new">Выбрать логотип (150 на 150)</span><span class="fileinput-exists">Изменить</span>
+                            <input type="file" name="logo_image" value="{{ $partner->logo }}">
+                        </span>
+                        <a href="" class="btn btn-link btn-danger fileinput-exists btn-square btn-fill" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
+                    </div>
                 </div>
-                <div class="fileinput-preview fileinput-exists thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;"></div>
-                <div>
-                    <span class="btn btn-simple btn-file"><span class="fileinput-new">Выбрать логотип (150 на 150)</span><span class="fileinput-exists">Изменить</span>
-                    <input type="file" name="logo_image" value="{{ $partner->logo }}">
-                </span>
-                <a href="" class="btn btn-link btn-danger fileinput-exists btn-square btn-fill" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
             </div>
         </div>
+        <div class="modal-footer">
+            <div class="left-side">
+            </div>
+            <div class="divider"></div>
+            <div class="right-side">
+                <button type="submit" class="btn btn-success btn-link btn-square btn-fill">Сохранить</button>
+            </div>
+        </form>
     </div>
-</div>
-<div class="modal-footer">
-    <div class="left-side">
-    </div>
-    <div class="divider"></div>
-    <div class="right-side">
-        <button type="submit" class="btn btn-success btn-link btn-square btn-fill">Сохранить</button>
-    </div>
-</form>
-</div>
 </div>
 </div>
 </div>
@@ -1019,11 +1019,11 @@
                                     <label>Доп. поле</label>
                                     <input type="text" name="comment" placeholder="помещение, офис и т.п." class="form-control" maxlength="255">
                                 </div>
-                                    <input type="hidden" name="latitude" placeholder="56.138015" value="56.138015" class="form-control" maxlength="20" id='new-address-latitude'>
-                                    <input type="hidden" name="longitude" placeholder="47.234006" value="47.234006" class="form-control" maxlength="20" id='new-address-longitude'>
-                                    <div class="form-group">
-                                        <label for=""> Выберите координаты на карте</label>
-                                    </div> 
+                                <input type="hidden" name="latitude" placeholder="56.138015" value="56.138015" class="form-control" maxlength="20" id='new-address-latitude'>
+                                <input type="hidden" name="longitude" placeholder="47.234006" value="47.234006" class="form-control" maxlength="20" id='new-address-longitude'>
+                                <div class="form-group">
+                                    <label for=""> Выберите координаты на карте</label>
+                                </div> 
 
                                 <div id="addAddressMap"></div>
 

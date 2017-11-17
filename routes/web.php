@@ -383,6 +383,25 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.partner.delete-gallery-item.post'
 		])->middleware('can:show-dashboard-partner-admin,App\User');
 
+	Route::post('/control-panel/partner/delete-partner-address',[
+		'uses' => 'PartnerController@postDeletePartnerAddress',
+		'as' => 'dashboard.partner.delete-partner-address.post'
+		])->middleware('can:show-dashboard-partner-admin,App\User');
+
+	Route::post('/control-panel/partner/add-partner-address',[
+		'uses' => 'PartnerController@postAddPartnerAddress',
+		'as' => 'dashboard.partner.add-partner-address.post'
+		])->middleware('can:show-dashboard-partner-admin,App\User');
+
+	Route::get('/control-panel/card/{card_number}/show',[
+		'uses' => 'PartnerController@getCardNumberPage',
+		'as' => 'dashboard.partner.show-card.get'	
+		])->middleware('can:show-dashboard-partner,App\User');
+
+	Route::get('/control-panel/operator/{operator_id}/show',[
+		'uses' => 'PartnerController@getOperatorPage',
+		'as' => 'dashboard.partner.show-operator.get'	
+		])->middleware('can:show-dashboard-partner-admin,App\User');
 	/**
 	 *
 	 *

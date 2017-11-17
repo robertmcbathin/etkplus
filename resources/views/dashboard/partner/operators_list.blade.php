@@ -17,7 +17,7 @@
                 @include('includes/notifications')
                 <div class="row">
                  <div class="col-md-12">
-                    <button class="btn btn-danger btn-fill btn-wd" data-toggle="modal" data-target="#create-operator">Добавить оператора</button>
+                    <button class="btn btn-danger btn-fill btn-wd btn-square" data-toggle="modal" data-target="#create-operator">Добавить оператора</button>
                 </div>
 
             </div>
@@ -43,7 +43,7 @@
                                 @foreach ($operators as $operator)
                                 <tr>
                                     <td class="text-center">{{ $operator->id }}</td>
-                                    <td>{{ $operator->name}}</td>
+                                    <td class="text-right"><a href="{{ route('dashboard.partner.show-operator.get', ['operator_id' => $operator->id]) }}">{{ $operator->name }} {{ $operator->lastname }}</a></td>
                                     <td>{{ $operator->post}}</td>
                                     <td>{{ $operator->email }}</td>
                                     <td class="td-actions text-right">
@@ -89,8 +89,12 @@
                             <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                             <div class="card-content">
                                 <div class="form-group">
-                                    <label>Имя и Фамилия</label>
-                                    <input type="text" placeholder="Василий Петров" class="form-control" maxlength="100" minlength="1" name="name" required>
+                                    <label>Имя</label>
+                                    <input type="text" placeholder="Василий" class="form-control" maxlength="100" minlength="1" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Фамилия</label>
+                                    <input type="text" placeholder="Петров" class="form-control" maxlength="100" minlength="1" name="lastname" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Должность</label>
@@ -106,7 +110,7 @@
                                     <input type="text" name="password" placeholder="" class="form-control" minlength="1" maxlength="100" required>
                                     <span class="help-block">Отнеситесь к созданию пароля серьезно, чтобы избежать несанкционированных операций</span>
                                 </div>
-                                <button type="submit" class="btn btn-fill btn-info">Добавить</button>
+                                <button type="submit" class="btn btn-fill btn-success btn-fw btn-square">Добавить</button>
                             </div>
                         </form>
                     </div>
@@ -114,7 +118,7 @@
             </div>
             <div class="modal-footer">
                 <div class="left-side">
-                    <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-default btn-link btn-simple" data-dismiss="modal">Отмена</button>
                 </div>
             </div>
         </div>
@@ -133,14 +137,14 @@
             </div>
             <div class="modal-footer">
                 <div class="left-side">
-                    <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Нет</button>
+                    <button type="button" class="btn btn-default btn-link btn-simple" data-dismiss="modal">Нет</button>
                 </div>
                 <div class="divider"></div>
                 <div class="right-side">
                     <form action="{{ route('dashboard.partner.delete-operator.post') }}" method="POST">
                         {{ csrf_field() }}
                         <input type="hidden" name="operator_id" value="{{ $operator->id }}">
-                        <button type="submit" class="btn btn-danger btn-link">Да</button>
+                        <button type="submit" class="btn btn-danger btn-link btn-fill btn-square">Да</button>
                     </form>
                 </div>
             </div>
@@ -179,7 +183,7 @@
                                     <input type="email" name="email" class="form-control" placeholder="example@mail.com" value="{{ $operator->email }}" required>
                                     <span class="help-block">E-mail будет использоваться для входа в систему</span>
                                 </div>
-                                <button type="submit" class="btn btn-fill btn-info">Изменить данные</button>
+                                <button type="submit" class="btn btn-fill btn-info btn-square btn-fw">Изменить данные</button>
                             </div>
                         </form>
                     </div>
@@ -187,7 +191,7 @@
             </div>
             <div class="modal-footer">
                 <div class="left-side">
-                    <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-default btn-link btn-simple" data-dismiss="modal">Отмена</button>
                 </div>
             </div>
         </div>
@@ -217,7 +221,7 @@
                                     <input type="text" placeholder="" class="form-control" maxlength="100" minlength="1" name="password" required>
                                     <span class="help-block">Новый пароль будет отправлен на электронную почту оператора</span>
                                 </div>
-                                <button type="submit" class="btn btn-fill btn-info">Изменить пароль</button>
+                                <button type="submit" class="btn btn-fill btn-info btn-square btn-fw">Изменить пароль</button>
                             </div>
                         </form>
                     </div>
@@ -225,7 +229,7 @@
             </div>
             <div class="modal-footer">
                 <div class="left-side">
-                    <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-default btn-link btn-simple" data-dismiss="modal">Отмена</button>
                 </div>
             </div>
         </div>

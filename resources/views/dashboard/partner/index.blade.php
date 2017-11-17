@@ -285,7 +285,8 @@
 </div>
 <div class="card">
     <div class="card-header">
-        <h4 class="card-title">Аккаунты</h4>
+        <h4 class="card-title">Аккаунты <a href="{{ route('dashboard.partner.show-operators-list.get') }}" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="">
+        <i class="fa fa-cog"></i> </a></h4>
     </div>
     <div class="card-content">
         <ul class="list-unstyled team-members">
@@ -347,7 +348,8 @@
 
 <div class="card">
     <div class="card-header">
-        <h4 class="card-title">Скидки</h4>
+        <h4 class="card-title">Скидки <a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-discounts-partner">
+                <i class="fa fa-cog"></i> </a></h4>
     </div>
     <div class="card-content">
         @if (count($discounts) > 0)
@@ -379,7 +381,8 @@
 
 <div class="card">
     <div class="card-header">
-        <h4 class="card-title">Бонусы</h4>
+        <h4 class="card-title">Бонусы <a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-bonuses-partner">
+                    <i class="fa fa-cog"></i> </a></h4>
     </div>
     <div class="card-content">
         @if (count($bonuses) > 0)
@@ -416,7 +419,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Операции</h4>
+                    <h4 class="card-title">Операции <a href="{{ route('dashboard.partner.create-operation.get') }}" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="">
+                    <i class="fa fa-plus"></i> </a></h4>
                 </div>
                 <div class="card-content table-full-width">
                     <table class="table table-striped">
@@ -435,7 +439,7 @@
                             @foreach ($visits as $visit)
                             <tr>
                                 <td class="text-center">{{ $visit->id }}</td>
-                                <td>{{ $visit->card_number }}</td>
+                                <td><a href="{{ route('dashboard.partner.show-card.get', ['card_number' => $visit->card_number]) }}">{{ $visit->card_number }}</a></td>
                                 <td class="text-right">{{ $visit->bill }}</td>
                                 <td class="text-right">{{ $visit->discount }}</td>
                                 <td class="text-right">{{ $visit->bonus }}</td>
@@ -779,21 +783,20 @@
                         </div>
                         <div class="fileinput-preview fileinput-exists thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;"></div>
                         <div>
-                            <span class="btn btn-outline-default btn-round btn-file"><span class="fileinput-new">Выбрать фон (1307 на 392)</span><span class="fileinput-exists">Изменить</span>
+                            <span class="btn btn-simple btn-file"><span class="fileinput-new">Выбрать фон (1307 на 392)</span><span class="fileinput-exists">Изменить</span>
                             <input type="file" name="background_image" value="{{ $partner->thumbnail }}">
                         </span>
-                        <a href="" class="btn btn-link btn-danger fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
+                        <a href="" class="btn btn-link btn-danger fileinput-exists btn-square btn-fill" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
             <div class="left-side">
-                <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
             </div>
             <div class="divider"></div>
             <div class="right-side">
-                <button type="submit" class="btn btn-success btn-link">Сохранить</button>
+                <button type="submit" class="btn btn-success btn-link btn-square btn-fill">Сохранить</button>
             </div>
         </form>
     </div>
@@ -823,30 +826,26 @@
                         </div>
                         <div class="fileinput-preview fileinput-exists thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;"></div>
                         <div>
-                            <span class="btn btn-outline-default btn-round btn-file"><span class="fileinput-new">Выбрать логотип (150 на 150)</span><span class="fileinput-exists">Изменить</span>
+                            <span class="btn btn-simple btn-file"><span class="fileinput-new">Выбрать логотип (150 на 150)</span><span class="fileinput-exists">Изменить</span>
                             <input type="file" name="logo_image" value="{{ $partner->logo }}">
                         </span>
-                        <a href="" class="btn btn-link btn-danger fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
+                        <a href="" class="btn btn-link btn-danger fileinput-exists btn-square btn-fill" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
             <div class="left-side">
-                <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
             </div>
             <div class="divider"></div>
             <div class="right-side">
-                <button type="submit" class="btn btn-success btn-link">Сохранить</button>
+                <button type="submit" class="btn btn-success btn-link btn-square btn-fill">Сохранить</button>
             </div>
         </form>
     </div>
 </div>
 </div>
 </div>
-
-
-
 
 
 <div class="modal fade" id="edit-gallery-partner" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
@@ -886,7 +885,7 @@
                                           <div class="form-group">
                                             <input type="text" class="form-control" value="{{ $gallery_item->image_caption }}" name="image_caption">
                                         </div>
-                                        <input type="submit" class="btn btn-info" value="Изменить описание">
+                                        <input type="submit" class="btn btn-info btn-simple" value="Изменить описание">
                                     </form>
                                     <form action="{{ route('dashboard.partner.delete-gallery-item.post') }}" method="POST">
                                       {{ csrf_field() }}
@@ -894,7 +893,7 @@
                                       <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                       <input type="hidden" name="gallery_item_id" value="{{ $gallery_item->id }}">
                                       <input type="hidden" name="gallery_item_path" value="{{ $gallery_item->image_path }}">
-                                      <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i>Удалить</button>
+                                      <button class="btn btn-danger btn-square btn-square btn-fill" type="submit"><i class="fa fa-trash"></i>Удалить</button>
                                   </form>
                               </td>
                           </tr>
@@ -911,17 +910,16 @@
                 <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                 <input type="file" class="btn-file" name="gallery[]" multiple>
-                <button class="btn btn-info" type="submit"><i class="fa fa-download"></i>Загрузить</button>
+                <button class="btn btn-info btn-square btn-fill" type="submit"><i class="fa fa-download"></i>Загрузить</button>
             </form>
         </div>
     </div>
     <div class="modal-footer">
         <div class="left-side">
-            <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
         </div>
         <div class="divider"></div>
         <div class="right-side">
-            <button type="submit" class="btn btn-success btn-link">Сохранить</button>
+            <button type="submit" class="btn btn-success btn-link btn-square btn-fill">Сохранить</button>
         </div>
     </div>
 </div>
@@ -981,10 +979,10 @@
                                     </div>
                                 </div>
                             </fieldset>
-                            <form action="{{ route('dashboard.delete-partner-address.post') }}" method="POST">
+                            <form action="{{ route('dashboard.partner.delete-partner-address.post') }}" method="POST">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="address_id"  value="{{ $address->id }}">
-                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Удалить</button>
+                                <button type="submit" class="btn btn-danger btn-square btn-fill"><i class="fa fa-trash"></i>Удалить</button>
                             </form>
                         </div>
                     </div>
@@ -994,7 +992,7 @@
                 @endisset
                 <div class="col-md-12">
                     <div class="card">
-                        <form method="POST" action="{{ route('dashboard.add-partner-address.post') }}">
+                        <form method="POST" action="{{ route('dashboard.partner.add-partner-address.post') }}">
                             {{ csrf_field() }}
                             <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                             <div class="card-header">
@@ -1016,15 +1014,14 @@
                                     <label>Доп. поле</label>
                                     <input type="text" name="comment" placeholder="помещение, офис и т.п." class="form-control" maxlength="255">
                                 </div>
+                                <input type="hidden" name="latitude" placeholder="56.138015" value="56.138015" class="form-control" maxlength="20" id='new-address-latitude'>
+                                <input type="hidden" name="longitude" placeholder="47.234006" value="47.234006" class="form-control" maxlength="20" id='new-address-longitude'>
                                 <div class="form-group">
-                                    <label>Широта (координата)</label>
-                                    <input type="text" name="latitude" placeholder="56.138015" class="form-control" maxlength="20">
-                                    <span class="help-block">Для корректного отображения на картах заполнение обязательно!</span>
-                                </div>
-                                <div class="form-group">
-                                    <label>Долгота (координата)</label>
-                                    <input type="text" name="longitude" placeholder="47.234006" class="form-control" maxlength="20">
-                                </div>
+                                    <label for=""> Выберите координаты на карте</label>
+                                </div> 
+
+                                <div id="addAddressMap"></div>
+
                                 <div class="form-group">
                                     <label>Режим работы</label>
                                     <input type="text" name="schedule" placeholder="пн-пт: с 8 до 17" class="form-control" maxlength="255">
@@ -1033,7 +1030,7 @@
                                     <label>Телефоны</label>
                                     <input type="text" name="phones" placeholder="+79003454545," class="form-control" maxlength="255">
                                 </div>
-                                <button type="submit" class="btn btn-fill btn-info">Добавить</button>
+                                <button type="submit" class="btn btn-fill btn-info btn-square btn-fill btn-fw">Добавить</button>
                             </div>
                         </form>
                     </div>
@@ -1041,7 +1038,7 @@
             </div>
             <div class="modal-footer">
                 <div class="left-side">
-                    <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-default btn-link btn-simple" data-dismiss="modal">Отмена</button>
                 </div>
             </div>
         </div>
@@ -1091,7 +1088,7 @@
                             <form action="{{ route('dashboard.delete-partner-discount.post') }}" method="POST">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="discount_id"  value="{{ $discount->id }}">
-                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Удалить</button>
+                                <button type="submit" class="btn btn-danger btn-fill btn-square"><i class="fa fa-trash"></i>Удалить</button>
                             </form>
                         </div>
                     </div>
@@ -1124,7 +1121,7 @@
                                     <input type="text" name="lifetime" class="form-control datepicker" placeholder="Добавить" value="01/01/2030">
                                     <span class="help-block">по умолчанию до 1 января 2030 года</span>
                                 </div>
-                                <button type="submit" class="btn btn-fill btn-info">Добавить</button>
+                                <button type="submit" class="btn btn-fill btn-success btn-square btn-fw">Добавить</button>
                             </div>
                         </form>
                     </div>
@@ -1132,7 +1129,7 @@
             </div>
             <div class="modal-footer">
                 <div class="left-side">
-                    <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-default btn-link btn-simple" data-dismiss="modal">Отмена</button>
                 </div>
             </div>
         </div>
@@ -1143,7 +1140,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-center" id="exampleModalLabel">Бонусы</h5>
+                <h5 class="modal-title text-center" id="exampleModalLabel">Бонусы </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -1194,7 +1191,7 @@
                             <form action="{{ route('dashboard.delete-partner-bonus.post') }}" method="POST">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="bonus_id"  value="{{ $bonus->id }}">
-                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Удалить</button>
+                                <button type="submit" class="btn btn-danger btn-fill btn-square"><i class="fa fa-trash"></i>Удалить</button>
                             </form>
                         </div>
                     </div>
@@ -1241,7 +1238,7 @@
                                     <input type="text" name="lifetime" class="form-control datepicker" placeholder="Добавить" value="01/01/2030">
                                     <span class="help-block">по умолчанию до 1 января 2030 года</span>
                                 </div>
-                                <button type="submit" class="btn btn-fill btn-info">Добавить</button>
+                                <button type="submit" class="btn btn-fill btn-success btn-square btn-fw">Добавить</button>
                             </div>
                         </form>
                     </div>
@@ -1249,7 +1246,7 @@
             </div>
             <div class="modal-footer">
                 <div class="left-side">
-                    <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-default btn-link btn-simple" data-dismiss="modal">Отмена</button>
                 </div>
             </div>
         </div>

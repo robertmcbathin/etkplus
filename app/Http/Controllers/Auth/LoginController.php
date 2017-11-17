@@ -115,9 +115,9 @@ class LoginController extends Controller
             if(Auth::user()->role_id >= 31)
             {
                 return redirect()->intended('profile.show-profile-page.get');
-            } if (($user_isset->role_id < 25) && ($user_isset->role_id > 20)){
+            } if ((Auth::user()->role_id < 25) && (Auth::user()->role_id > 20)){
                 return redirect()->intended('dashboard.partner.show-dashboard.get');
-            } else if ($user_isset->role_id <= 15){
+            } else if (Auth::user()->role_id <= 15){
                 return redirect()->intended('dashboard.show-dashboard.get');
             }
         }

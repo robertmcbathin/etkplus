@@ -46,12 +46,12 @@
                                 @foreach ($operations as $operation)
                                 <tr>
                                     <td class="text-center">{{ $operation->id }}</td>
-                                    <td>{{ $operation->card_number }}</td>
+                                    <td><a href="{{ route('dashboard.partner.show-card.get', ['card_number' => $operation->card_number]) }}">{{ $operation->card_number }}</a></td>
                                     <td class="text-right">{{ $operation->bill }}</td>
                                     <td class="text-right">{{ $operation->discount }}</td>
                                     <td class="text-right">{{ $operation->discount_value }}</td>
                                     <td class="text-right">{{ $operation->bonus }}</td>
-                                    <td class="text-right">{{ $operation->operator }}</td>
+                                    <td class="text-right"><a href="{{ route('dashboard.partner.show-operator.get', ['operator_id' => $operation->operator_id]) }}">{{ $operation->operator }}</a></td>
                                     <td class="text-right">{{ $operation->created_at }}</td>
                                 </tr>
                                 @endforeach

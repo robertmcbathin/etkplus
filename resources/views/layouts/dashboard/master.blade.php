@@ -506,6 +506,46 @@ function placeMarkerAndPanTo(latLng, map) {
 
 </script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBc-l0ALdzgKDwDs_qll1CKLUlEsRq5aUE&callback=initMap"></script>
+<script>
+    $('#tag-input').on('itemAdded',function(event){
+        console.log('add');
+        console.log($('#tag-input').tagsinput('items'));
+        /**
+         * AJAX ADDING
+         */
+        $.ajax({
+            method: 'POST',
+            url: addTagUrl,
+            data: {
+                partner_id: {{ $partner->id }},
+                text: event.item,
+                _token: token
+            }
+        })
+        .done(function(msg){
+            console.log(JSON.stringify(msg));
+        });
+    });
+    $('#tag-input').on('itemRemoved',function(event){
+        console.log('delete');
+        console.log($('#tag-input').tagsinput('items'));
+        /**
+         * AJAX ADDING
+         */
+        $.ajax({
+            method: 'POST',
+            url: deleteTagUrl,
+            data: {
+                partner_id: {{ $partner->id }},
+                text: event.item,
+                _token: token
+            }
+        })
+        .done(function(msg){
+            console.log(JSON.stringify(msg));
+        });
+    });
+</script>
 <noscript><div><img src="https://mc.yandex.ru/watch/45472806" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 </html>

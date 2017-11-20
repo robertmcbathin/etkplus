@@ -25,29 +25,29 @@
                                 <div class="author">
                                   <img class="avatar border-white" src="{{ $partner->logo }}">
                                   <h4 class="card-title">{{ $partner->name }}<br>
-                                   <a><small>{{ $partner->fullname }}</small></a>
-                               </h4>
-                           </div>
-                           <div class="row">
-                            <div class="left-vertical-tabs">
-                                <ul class="nav nav-stacked" role="tablist">
-                                    <li class="active">
-                                        <a href="#info" role="tab" data-toggle="tab">
-                                           Описание
-                                       </a>
-                                   </li>
-                                   <li>
-                                    <a href="#contacts" role="tab" data-toggle="tab">
-                                       Контактные данные
-                                   </a>
-                               </li>
-                               <li>
-                                <a href="#agreement" role="tab" data-toggle="tab">
-                                   Данные договора
-                               </a>
-                           </li>
-                           <li>
-                             <a href="#discounts" role="tab" data-toggle="tab">
+                                     <a><small>{{ $partner->fullname }}</small></a>
+                                 </h4>
+                             </div>
+                             <div class="row">
+                                <div class="left-vertical-tabs">
+                                    <ul class="nav nav-stacked" role="tablist">
+                                        <li class="active">
+                                            <a href="#info" role="tab" data-toggle="tab">
+                                             Описание
+                                         </a>
+                                     </li>
+                                     <li>
+                                        <a href="#contacts" role="tab" data-toggle="tab">
+                                         Контактные данные
+                                     </a>
+                                 </li>
+                                 <li>
+                                    <a href="#agreement" role="tab" data-toggle="tab">
+                                     Данные договора
+                                 </a>
+                             </li>
+                             <li>
+                               <a href="#discounts" role="tab" data-toggle="tab">
                                 Скидки и бонусы
                             </a>
                         </li>
@@ -235,7 +235,7 @@
                     <div class="row">
                         <div class="col-xs-3">
                             <div class="avatar">
-                                
+
                             </div>
                         </div>
                         <div class="col-xs-6">
@@ -322,6 +322,21 @@
                     @endif
                 </div>
             </div>
+
+
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Теги </h4>
+                    <small class="description text-muted">Введите слова, по которым Вас легче будет найти</small>
+                </div>
+                <div class="card-content">
+                    <div class="bootstrap-tagsinput">
+                        <input type="text" value="@foreach ($tags as $tag){{  $tag->text }}, @endforeach" class="tagsinput" data-role="tagsinput" data-color="success" id="tag-input" />
+                    </div>
+                </div>
+            </div>
+
+
 
         </div>
         <div class="col-lg-8 col-md-7">
@@ -443,16 +458,16 @@
             @if (count($gallery_items) > 0)
             @foreach ($gallery_items as $gallery_item)
             <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="col-md-3 col-sm-4 gallery-item">
-             <a href="{{ $gallery_item->image_path }}" itemprop="contentUrl" data-size="{{ $gallery_item->image_width }}x{{ $gallery_item->image_height }}">
-               <img src="{{ $gallery_item->image_path }}" itemprop="thumbnail" alt="" class="horizontal-image img-rounded img-responsive">
-           </a>
-           <figcaption itemprop="caption description">{{ $gallery_item->image_caption }}</figcaption>
-       </figure>
-       @endforeach
-       @endif
-   </div>
-   <!-- Root element of PhotoSwipe. Must have class pswp. -->
-   <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+               <a href="{{ $gallery_item->image_path }}" itemprop="contentUrl" data-size="{{ $gallery_item->image_width }}x{{ $gallery_item->image_height }}">
+                 <img src="{{ $gallery_item->image_path }}" itemprop="thumbnail" alt="" class="horizontal-image img-rounded img-responsive">
+             </a>
+             <figcaption itemprop="caption description">{{ $gallery_item->image_caption }}</figcaption>
+         </figure>
+         @endforeach
+         @endif
+     </div>
+     <!-- Root element of PhotoSwipe. Must have class pswp. -->
+     <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
     <!-- Background of PhotoSwipe. 
         It's a separate element, as animating opacity is faster than rgba(). -->
@@ -1257,4 +1272,10 @@
         </div>
     </div>
 </div>
+
+<script>
+  var token = '{{ Session::token() }}';
+  var addTagUrl = '{{ route('ajax.add-tag.post') }}';
+  var deleteTagUrl = '{{ route('ajax.delete-tag.post') }}';
+</script>
 @endsection

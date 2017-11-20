@@ -250,3 +250,14 @@ h1,h2,h3,h4,h5,h6,p,a,small{
 .btn-square{
     border-radius: 0px;
 }
+#categories-page-header{
+        height: 30vh !important;
+    max-height: 300px;
+}
+#categories-page-text{
+    z-index: 1050;
+    top:25vh;
+}
+.ten-thousand-layer{
+z-index: 1050;
+}

@@ -347,6 +347,9 @@ public function getVisitsListByParam($sort_param){
         $tariff = DB::table('ETKPLUS_TARIFFS')
                     ->where('id',$partner->tariff_id)
                     ->first();
+        $tags = DB::table('ETKPLUS_PARTNER_TAGS')
+                  ->where('partner_id',$partner->id)
+                  ->get();
         return view('dashboard.partner_page',[
             'partner' => $partner,
             'visits' => $visits,
@@ -359,7 +362,8 @@ public function getVisitsListByParam($sort_param){
             'accounts' => $accounts,
             'billings' => $billings,
             'tariffs' => $tariffs,
-            'tariff' => $tariff
+            'tariff' => $tariff,
+            'tags' => $tags
         ]);
     }
 
@@ -1122,6 +1126,41 @@ public function postLoadGallery(Request $request){
             return response()->json(['message' => 'error'],200);
         if ($results !== NULL)
             return response()->json(['message' => 'success',  'results' => $results],200);
+    }
+
+    public function ajaxAddTag(Request $request){
+      $partner_id = $request->partner_id;
+      $text = $request->text;
+      try {
+        $query = DB::table('ETKPLUS_PARTNER_TAGS')
+          ->insert([
+            'partner_id' => $partner_id,
+            'text' => $text
+          ]);
+      } catch (Exception $e) {
+        
+      }
+      if ($query == NULL)
+          return response()->json(['message' => 'error'],200);
+      if ($query !== NULL)
+          return response()->json(['message' => 'success'],200);
+    }
+
+    public function ajaxDeleteTag(Request $request){
+      $partner_id = $request->partner_id;
+      $text = $request->text;
+      try {
+        $query = DB::table('ETKPLUS_PARTNER_TAGS')
+          ->where('text',$text)
+          ->where('partner_id',$partner_id)
+          ->delete();
+      } catch (Exception $e) {
+        
+      }
+      if ($query == NULL)
+          return response()->json(['message' => 'error'],200);
+      if ($query !== NULL)
+          return response()->json(['message' => 'success'],200);
     }
     /**
      * END AJAX

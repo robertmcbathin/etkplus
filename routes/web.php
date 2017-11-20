@@ -453,6 +453,14 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'AdminController@ajaxSearchPartnerList',
    		'as' => 'ajax.search-partner-list.post'
     ])->middleware('can:show-dashboard-admin,App\User');
+    Route::post('/ajax/add-tag',[
+    	'uses' => 'AdminController@ajaxAddTag',
+    	'as' => 'ajax.add-tag.post'
+    ]);
+    Route::post('/ajax/delete-tag',[
+    	'uses' => 'AdminController@ajaxDeleteTag',
+    	'as' => 'ajax.delete-tag.post'
+    ]);
 });
 Route::get('/logout', 'Auth\LoginController@logout');
 

@@ -341,19 +341,6 @@ protected function modifyToFullNumber($number){
        */
       $discount_value = ($bill*($discount/100));
       $bill_with_discount = (($bill - $discount_value) - $bonus);
-      /*
-      *  РАСЧЕТ КЭШБЭКА
-       */
-      $partner = \App\Partner::find($partner_id);
-      /**
-       * LIFETIME КЭШБЭКА
-       */
-      $cashback_lifetime = Carbon::now();
-      $cashback_lifetime->addYear();
-      /**
-       * ЗНАЧЕНИЕ КЭШБЭКА ДЛЯ ЗАЧИСЛЕНИЯ НА КАРТУ
-       */
-      $cashback = ceil(($bill*($partner->default_cashback/100))); //ОКРУГЛЯЕМ КЭШБЭК В БОЛЬШУЮ СТОРОНУ
       try {
         $user_bonuses = DB::table('ETKPLUS_PARTNER_USER_BONUSES')
         ->where('partner_id', $partner_id)
@@ -375,6 +362,19 @@ protected function modifyToFullNumber($number){
       $tariff = DB::table('ETKPLUS_TARIFFS')
       ->where('id',$partner->tariff_id)
       ->first();
+      /*
+      *  РАСЧЕТ КЭШБЭКА
+       */
+      $partner = \App\Partner::find($partner_id);
+      /**
+       * LIFETIME КЭШБЭКА
+       */
+      $cashback_lifetime = Carbon::now();
+      $cashback_lifetime->addYear();
+      /**
+       * ЗНАЧЕНИЕ КЭШБЭКА ДЛЯ ЗАЧИСЛЕНИЯ НА КАРТУ
+       */
+      $cashback = ceil(($bill*($tariff->cashback/100))); //ОКРУГЛЯЕМ КЭШБЭК В БОЛЬШУЮ СТОРОНУ
       if (($current_balance->value - ($bill*$tariff->comission/100)) < $current_balance->min_value ){
         Session::flash('error','Недостаточно средств для проведения транзакции');
         return redirect()->back();
@@ -549,20 +549,56 @@ protected function modifyToFullNumber($number){
       $partner_id = Auth::user()->partner_id;
       $reviews = DB::table('ETKPLUS_REVIEWS')
       ->where('partner_id',$partner_id)
-      ->get();
+      ->paginate(10);
 
       return view('dashboard.partner.reviews',[
         'reviews' => $reviews
       ]);
     }
+
+    public function postApproveReview(Request $request){
+        $review_id = $request->review_id;
+        $approved_by = $request->approved_by;
+
+        $review = \App\Review::find($review_id);
+        $review->published = 1;
+        $review->approved_by = $approved_by;
+        if ($review->save()){
+            Session::flash('success','Отзыв одобрен');
+            return redirect()->back();
+        } else {
+            Session::flash('error','Не удалось одобрить отзыв');
+            return redirect()->back();            
+        }
+        
+    }
+
+    public function postDisapproveReview(Request $request){
+        $review_id = $request->review_id;
+        $approved_by = $request->approved_by;
+
+        $review = \App\Review::find($review_id);
+        $review->published = 0;
+        $review->approved_by = $approved_by;
+        if ($review->save()){
+            Session::flash('success','Отзыв снят с публикации');
+            return redirect()->back();
+        } else {
+            Session::flash('error','Не удалось снять отзыв с публикации');
+            return redirect()->back();            
+        }
+      }
     /**
      * ОПЛАТА УСЛУГ
      */
     public function getBillingPage(){
       $partner = \App\Partner::find(Auth::user()->partner_id);
-
+      $billings = DB::table('ETKPLUS_PARTNER_BILLING')
+      ->where('partner_id',$partner->id)
+      ->paginate(10);
       return view('dashboard.partner.billing',[
-        'partner' => $partner
+        'partner' => $partner,
+        'billings' => $billings 
       ]);
     }
 

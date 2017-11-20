@@ -981,14 +981,20 @@ public function postLoadGallery(Request $request){
         $max_operator_count = $request->max_operator_count;
         $max_service_points = $request->max_service_points;
         $comission          = $request->comission;
+        $cashback           = $request->cashback;
         $monthly_payment    = $request->monthly_payment;
 
+        if ($cashback > $comission) {
+          Session::flash('error','Значение кэшбэка не может быть меньше размера комиссии');
+          return redirect()->back();
+        }
         if (DB::table('ETKPLUS_TARIFFS')->insert([
             'name' => $name,
             'description' => $description,
             'max_operator_count' => $max_operator_count,
             'max_service_points' => $max_service_points,
             'comission' => $comission,
+            'cashback' => $cashback,
             'monthly_payment' => $monthly_payment,
             'created_by' => Auth::user()->id
 
@@ -1022,8 +1028,13 @@ public function postLoadGallery(Request $request){
         $max_operator_count = $request->max_operator_count;
         $max_service_points = $request->max_service_points;
         $comission          = $request->comission;
+        $cashback           = $request->cashback;
         $monthly_payment    = $request->monthly_payment;
 
+        if ($cashback > $comission) {
+          Session::flash('error','Значение кэшбэка не может быть меньше размера комиссии');
+          return redirect()->back();
+        }
         try {
             DB::table('ETKPLUS_TARIFFS')
               ->where('id',$tariff_id)
@@ -1033,6 +1044,7 @@ public function postLoadGallery(Request $request){
                 'max_operator_count' => $max_operator_count,
                 'max_service_points' => $max_service_points,
                 'comission' => $comission,
+                'cashback' => $cashback,
                 'monthly_payment' => $monthly_payment
               ]);
         } catch (Exception $e) {

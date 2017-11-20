@@ -18,7 +18,7 @@
                 <div class="col-lg-12 hidden-xs hidden-md hidden-sm">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Операции</h4>
+                            <h4 class="card-title">Отзывы</h4>
                         </div>
                         <div class="card-content table-full-width">
                             <table class="table table-striped">

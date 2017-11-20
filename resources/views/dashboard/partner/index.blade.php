@@ -211,7 +211,7 @@
             <h5>{{ $partner->rating }}<br><small><i class="fa fa-star"></i> Рейтинг</small></h5>
         </div>
         <div class="col-md-4">
-            <h5>{{ $partner->default_cashback }} <i class="fa fa-percent"></i><br><small><i class="fa fa-gift"></i> Кэшбэк</small></h5>
+            <h5>{{ $tariff->cashback }} <i class="fa fa-percent"></i><br><small><i class="fa fa-gift"></i> Кэшбэк</small></h5>
         </div>
         <div class="col-md-3">
             <h5>{{ $tariff->comission }} <i class="fa fa-percent"></i><br><small> Комиссия</small></h5>
@@ -269,7 +269,7 @@
                         <span class="text-success"><small>{{ $tariff->description }}</small></span>
                     </div>
                     <div class="col-xs-4">
-                        {{ $tariff->comission }} %
+                        {{ $tariff->comission }} % (включая кэшбэк {{ $tariff->cashback }}%)
                         <br>
                         <span class="text-success"><small>За операцию</small></span>      
                     </div>

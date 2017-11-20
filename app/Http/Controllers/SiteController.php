@@ -122,7 +122,7 @@ protected function morph($n, $f1, $f2, $f5) {
 
         $partner = DB::table('ETKPLUS_PARTNERS')
                       ->select('ETKPLUS_PARTNERS.id','ETKPLUS_PARTNERS.name','ETKPLUS_PARTNERS.fullname','ETKPLUS_PARTNERS.created_at', 'ETKPLUS_PARTNERS.updated_at',
-                        'ETKPLUS_PARTNERS.rating','ETKPLUS_PARTNERS.default_discount','ETKPLUS_PARTNERS.default_cashback','ETKPLUS_PARTNERS.logo', 'ETKPLUS_PARTNERS.thumbnail', 'ETKPLUS_PARTNERS.address', 'ETKPLUS_PARTNERS.site', 'ETKPLUS_PARTNERS.description')
+                        'ETKPLUS_PARTNERS.rating','ETKPLUS_PARTNERS.default_discount','ETKPLUS_PARTNERS.default_cashback','ETKPLUS_PARTNERS.logo', 'ETKPLUS_PARTNERS.thumbnail', 'ETKPLUS_PARTNERS.address', 'ETKPLUS_PARTNERS.site', 'ETKPLUS_PARTNERS.description', 'ETKPLUS_PARTNERS.tariff_id')
                       ->where('ETKPLUS_PARTNERS.id', $id)
                       ->where('ETKPLUS_PARTNERS.is_active',1)
                       ->first();
@@ -145,6 +145,13 @@ protected function morph($n, $f1, $f2, $f5) {
         $bonuses = DB::table('ETKPLUS_PARTNER_BONUSES')
                       ->where('partner_id',$partner->id)
                       ->get();
+        /**
+         * КЭШБЭК
+         */
+        $tariff = DB::table('ETKPLUS_TARIFFS')
+        ->where('id',$partner->tariff_id)
+        ->first(); 
+        $cashback = $tariff->cashback; 
         /**
          * СЧИТАЕМ РЕЙТИНГ
          * 
@@ -198,7 +205,8 @@ protected function morph($n, $f1, $f2, $f5) {
             'partner_images' => $partner_images,
             'reviews' => $reviews,
             'discounts' => $discounts,
-            'bonuses' => $bonuses
+            'bonuses' => $bonuses,
+            'cashback' => $cashback
             ]);
     }
     /**

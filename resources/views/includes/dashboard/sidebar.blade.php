@@ -190,10 +190,10 @@
                             <p>Операторы</p>
                         </a>
                     </li>
-                    <li @if (Request::path() == 'control-panel/show-operators') class="active" @endif>
+                    <li @if (Request::path() == 'control-panel/distribution') class="active" @endif>
                         <a href="{{ route('dashboard.partner.show-operators-list.get') }}">
-                            <i class="fa fa-wrench"></i>
-                            <p>Настройки</p>
+                            <i class="fa fa-envelope"></i>
+                            <p>Рассылки</p>
                         </a>
                     </li>
                 @endcan

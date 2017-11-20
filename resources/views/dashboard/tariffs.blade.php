@@ -37,6 +37,7 @@
                                     <th>Число операторов</th>
                                     <th>Количество точек</th>
                                     <th>Комиссия</th>
+                                    <th>Кэшбэк</th>
                                     <th>Абонентская плата</th>
                                     <th>Кем создано</th>
                                     <th></th>
@@ -51,6 +52,7 @@
                                     <td>{{ $tariff->max_operator_count }}</td>
                                     <td>{{ $tariff->max_service_points }}</td>
                                     <td>{{ $tariff->comission }}</td>
+                                    <td>{{ $tariff->cashback }}</td>
                                     <td>{{ $tariff->monthly_payment }}</td>
                                     <td>{{ $tariff->created_by }}</td>
                                     <td>
@@ -114,9 +116,15 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">
-                            Комиссия (в %, не менее 2)
+                            Комиссия (в %)
                         </label>
-                        <input class="form-control" type="text" name="comission" placeholder="8" required>
+                        <input class="form-control" type="text" name="comission" placeholder="10" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">
+                            Кэшбэк (в %)
+                        </label>
+                        <input class="form-control" type="text" name="cashback" placeholder="2" required>
                     </div>
                     <div class="form-group">
                         <label class="control-label">
@@ -182,6 +190,12 @@
                           Комиссия
                       </label>
                       <input class="form-control" type="text" name="comission" value="{{ $tariff->comission }}" required>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label">
+                          Кэшбэк
+                      </label>
+                      <input class="form-control" type="text" name="cashback" value="{{ $tariff->cashback }}" required>
                   </div>
                   <div class="form-group">
                       <label class="control-label">

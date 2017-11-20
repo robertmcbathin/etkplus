@@ -16,8 +16,8 @@
             <div class="container-fluid">
                 @include('includes/notifications')
                 <div class="row">
-                   <div class="col-md-12">
-                    <a class="btn btn-danger btn-fill btn-wd" data-toggle="modal" data-target="#add-tariff" >Добавить рассылку</a>
+                 <div class="col-md-12">
+                    <a class="btn btn-danger btn-fill btn-wd btn-square" data-toggle="modal" data-target="#add-distribution" >Добавить рассылку</a>
                 </div>
 
             </div>
@@ -29,7 +29,7 @@
                         <p class="category">Доступно адресов для рассылки: {{ $recipients_count }}</p>
                     </div>
                     <div class="card-content">
-                     <div id="acordeon">
+                       <div id="acordeon">
                         <div class="panel-group" id="accordion">
                             <div class="panel panel-border panel-default">
                                 <a data-toggle="collapse" href="#collapseOne">
@@ -110,6 +110,46 @@
 
 @endsection
 
-<script>
+<div class="modal fade" id="add-distribution" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center" id="exampleModalLabel">Создание рассылки</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body"> 
+                <p>Рассылка будет отправлена на {{ $recipients_count }} адресов.</p>
+                <form action="{{ route('dashboard.partner.add-invoice.post') }}" method="POST">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                    <fieldset>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Название</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" type="text" name="name" placeholder="" minlength="1" maxlength="100" required>
+                                                </div>
+                                            </div>
+                                        </fieldset><br>
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Текст</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" placeholder="" name="text" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
 
-</script>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="divider"></div>
+                    <div class="right-side">
+                        <button type="submit" class="btn btn-success btn-link btn-fill btn-square btn-fw">Создать</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

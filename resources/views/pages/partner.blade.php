@@ -262,7 +262,7 @@
         </div>
         <div class="description">
           <h4 class="info-title">Кэшбэк</h4>
-          <h6 class="card-category"><span class="upper-text">{{ $partner->default_cashback }}% </span> на транспортную карту</h6>
+          <h6 class="card-category"><span class="upper-text">{{ $cashback }}% </span> на транспортную карту</h6>
         </div>
       </div> 
     </div>

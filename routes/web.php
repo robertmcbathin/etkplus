@@ -336,11 +336,27 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.partner.edit-operator-password.post'
 	])->middleware('can:show-dashboard-partner-admin,App\User');
 
+    /**
+     * REVIEWS
+     */
 	Route::get('/control-panel/show-reviews',[
 		'uses' => 'PartnerController@getShowReviews',
 		'as' => 'dashboard.partner.show-reviews.get'	
 		])->middleware('can:show-dashboard-partner,App\User');
 
+	Route::post('/control-panel/approve-review',[
+		'uses' => 'PartnerController@postApproveReview',
+		'as' => 'dashboard.partner.approve-review.post'	
+		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/control-panel/disapprove-review',[
+		'uses' => 'PartnerController@postDisapproveReview',
+		'as' => 'dashboard.partner.disapprove-review.post'	
+		])->middleware('can:show-dashboard-admin,App\User');
+
+	/**
+	 * BILLING
+	 */
 	Route::get('/control-panel/billing',[
 		'uses' => 'PartnerController@getBillingPage',
 		'as' => 'dashboard.partner.billing.get'	
@@ -402,6 +418,8 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'PartnerController@getOperatorPage',
 		'as' => 'dashboard.partner.show-operator.get'	
 		])->middleware('can:show-dashboard-partner-admin,App\User');
+
+
 	/**
 	 *
 	 *

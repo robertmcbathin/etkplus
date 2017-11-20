@@ -349,19 +349,6 @@ class APIController extends Controller
       $discount_value = ($bill*($discount/100));
       $bill_with_discount = (($bill - $discount_value) - $bonus);
       /**
-       * РАСЧЕТ КЭШБЭКА
-       */
-      $partner = \App\Partner::find($partner_id);
-      /**
-       * LIFETIME КЭШБЭКА
-       */
-      $cashback_lifetime = Carbon::now();
-      $cashback_lifetime->addYear();
-      /**
-       * ЗНАЧЕНИЕ КЭШБЭКА ДЛЯ ЗАЧИСЛЕНИЯ НА КАРТУ
-       */
-      $cashback = ceil(($bill*($partner->default_cashback/100))); //ОКРУГЛЯЕМ КЭШБЭК В БОЛЬШУЮ СТОРОНУ
-      /**
        * РАСЧЕТ НОВОГО ЗНАЧЕНИЯ БОНУСА
        */
       $user_bonuses = DB::table('ETKPLUS_PARTNER_USER_BONUSES')
@@ -379,6 +366,19 @@ class APIController extends Controller
       $tariff = DB::table('ETKPLUS_TARIFFS')
                   ->where('id',$partner->tariff_id)
                   ->first();
+      /**
+       * РАСЧЕТ КЭШБЭКА
+       */
+      $partner = \App\Partner::find($partner_id);
+      /**
+       * LIFETIME КЭШБЭКА
+       */
+      $cashback_lifetime = Carbon::now();
+      $cashback_lifetime->addYear();
+      /**
+       * ЗНАЧЕНИЕ КЭШБЭКА ДЛЯ ЗАЧИСЛЕНИЯ НА КАРТУ
+       */
+      $cashback = ceil(($bill*($tariff->cashback/100))); //ОКРУГЛЯЕМ КЭШБЭК В БОЛЬШУЮ СТОРОНУ
       if (($balance - ($bill*$tariff->comission/100)) < $balance_min ){
         return response()->json([
             'status' => 'error',

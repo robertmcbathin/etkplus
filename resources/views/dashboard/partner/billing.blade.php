@@ -16,74 +16,137 @@
             <div class="container-fluid">
                 @include('includes/notifications')
                 <div class="row">
-                   <div class="col-md-12">
+                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Оплата услуг</h4>
-                            <p class="muted">Вам доступны следующие способы оплаты услуг</p>
                         </div>
                         <div class="card-content">
-                        <div class="row">
-                        <div class="col-lg-5 col-lg-offset-1">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="row">
-                                        <div class="col-xs-5">
-                                            <div class="icon-big icon-success text-center">
-                                                <i class="fa fa-file-text"></i>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <div class="row">
+                                                <div class="col-xs-5">
+                                                    <div class="icon-big icon-success text-center">
+                                                        <i class="fa fa-file-text"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-7">
+                                                    <div class="numbers">
+                                                        <p>Cчет для оплаты в банке</p>
+
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-xs-7">
-                                            <div class="numbers">
-                                                <p>Cчет для оплаты в банке</p>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <hr>
-                                    <div class="stats">
-                                        Период зачисления на виртуальный счет - <b>до 3-х рабочих дней</b>
-                                        <button class="btn btn-danger btn-xs btn-fill pull-right" data-toggle="modal" data-target="#add-invoice">Выписать счет</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-5">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="row">
-                                        <div class="col-xs-5">
-                                            <div class="icon-big icon-success text-center">
-                                                <i class="fa fa-credit-card"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7">
-                                            <div class="numbers">
-                                                <p>Оплата банковской картой</p>
+                                        <div class="card-footer">
+                                            <hr>
+                                            <div class="stats">
+                                                Период зачисления на виртуальный счет - <b>до 3-х рабочих дней</b>
+                                                <button class="btn btn-danger btn-xs btn-fill pull-right btn-square" data-toggle="modal" data-target="#add-invoice">Выписать счет</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-footer">
-                                    <hr>
-                                    <div class="stats">
-                                        Период зачисления на виртуальный счет - <b>моментально</b> 
-                                        <a class="btn btn-danger btn-xs btn-fill pull-right">Перейти к оплате</a>
+                                <div class="col-lg-3">
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <div class="row">
+                                                <div class="col-xs-5">
+                                                    <div class="icon-big icon-success text-center">
+                                                        <i class="fa fa-credit-card"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-7">
+                                                    <div class="numbers">
+                                                        <p>Оплата банковской картой</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <hr>
+                                            <div class="stats">
+                                                Период зачисления на виртуальный счет - <b>моментально</b> 
+                                                <a class="btn btn-danger btn-xs btn-fill pull-right btn-square">Перейти к оплате</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Оплата услуг</h4>
+                        </div>
+                        <div class="card-content table-full-width">
+                          @isset($billings)
+                          @if (count($billings) > 0)
+                          <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th>Сумма</th>
+                                    <th class="text-right">Тип</th>
+                                    <th class="text-right">Статус</th>
+                                    <th class="text-right">Дата</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($billings as $billing)
+                                <tr>
+                                    <td class="text-center">{{ $billing->id }}</td>
+                                    <td>{{ $billing->value }}</td>
+                                    @if($billing->type == 0)
+                                    <td class="text-right">При создании</td>
+                                    @endif
+                                    @if($billing->type == 1)
+                                    <td class="text-right">Банковский перевод</td>
+                                    @endif
+                                    @if($billing->type == 2)
+                                    <td class="text-right">Интернет-эквайринг</td>
+                                    @endif
+                                    @if($billing->type == 3)
+                                    <td class="text-right">Другой способ</td>
+                                    @endif
+                                    @if($billing->status == 0)
+                                    <td class="text-right">Создан</td>
+                                    @endif
+                                    @if($billing->status == 1)
+                                    <td class="text-right">Подтвержден</td>
+                                    @endif
+                                    @if($billing->status == 3)
+                                    <td class="text-right">Проведен</td>
+                                    @endif
+                                    <td class="text-right">{{ $billing->created_at }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <?php echo $billings->render(); ?>
+                        </div>
+                        @else 
+                        <h6>Операций по счету нет</h6>
+                        @endif
+                        @endisset
+                    </div>
+                </div>
+            </div>
         </div>
-        @include('includes.dashboard.footer')
+
+
     </div>
+</div>
+@include('includes.dashboard.footer')
+</div>
 <div class="modal fade" id="add-invoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -118,7 +181,7 @@
                 <div class="modal-footer">
                     <div class="divider"></div>
                     <div class="right-side">
-                        <button type="submit" class="btn btn-success btn-link">Выписать счет</button>
+                        <button type="submit" class="btn btn-success btn-link btn-fill btn-square btn-fw">Выписать счет</button>
                     </div>
                 </form>
             </div>

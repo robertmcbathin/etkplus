@@ -9,7 +9,7 @@
 @section('content')
 <div class="wrapper">
 
-    <div class="page-header page-header-small filter pattern-image" style="background-image: url('/assets/img/etkplus-bg.jpg');">
+    <div class="page-header page-header-xs filter pattern-image" style="background-image: url('/assets/img/etkplus-bg.jpg');">
         <div class="filter filter-category"></div>
         <div class="content-center">
             <div class="container">
@@ -23,7 +23,7 @@
             <div class="container">
                 <br>
                 <div class="row items-row">
-                                        @foreach ($partners as $partner)
+                    @foreach ($partners as $partner)
                     <div class="col-md-4  col-sm-4">
                         <div class="card card-plain">
 

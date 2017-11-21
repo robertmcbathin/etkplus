@@ -47,7 +47,7 @@
           </div>
       </div>
   </div>
-
+<br>
 
 <div class="container" id="categories-partners-search">
     <div class="info-areas">
@@ -85,4 +85,7 @@
 
 
 </div>
+<script type="text/javascript">
+  var searchInCategoriesUrl = '{{ route('ajax.search-in-categories') }}';
+</script>
 @endsection

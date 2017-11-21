@@ -461,6 +461,7 @@ Route::group(['middleware' => 'auth'], function () {
     	'uses' => 'AdminController@ajaxDeleteTag',
     	'as' => 'ajax.delete-tag.post'
     ]);
+
 });
 Route::get('/logout', 'Auth\LoginController@logout');
 
@@ -470,5 +471,9 @@ Route::get('/logout', 'Auth\LoginController@logout');
 Route::post('/ajax/check-contract-id',[
 	'uses' => 'SiteController@ajaxCheckContractId',
 	'as' => 'ajax.check-contract-id'
+]);
+Route::post('/ajax/search-in-categories',[
+	'uses' => 'SiteController@ajaxSearchInCategories',
+	'as' => 'ajax.search-in-categories'
 ]);
 Route::get('/home', 'HomeController@index')->name('home');

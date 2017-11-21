@@ -405,10 +405,40 @@ initPhotoSwipeFromDOM('.my-gallery');
     $('#categories-search-input').on('keyup', function(){
         if ($('#categories-search-input').val().length > 0) {
             $('#categories-partners-search').show();
-            $('#categories-list').hide(100);
+            $('#categories-list').hide();
+
+            var text = $('#categories-search-input').val();
+            $.ajax({
+                method: 'POST',
+                url: searchInCategoriesUrl,
+                data: {
+                    text: text,
+                    _token: token
+                }
+            })
+            .done(function(msg){
+                console.log(JSON.stringify(msg));
+                if (msg['message'] == 'success') {
+                    html = '<div class="container" id=\"categories-partners-search\"><div class=\"info-areas\"><div class=\"row\">';
+                    for (var i = 0; i <= msg['results'].length -1; i++ ){
+                        html += '<div class=\"col-md-4  col-sm-4\"><div class=\"card card-plain\"><div class=\"card-image\">';
+                        html += '<a href=\"/partner/' + msg.results[i].id + '\" >';
+                        html += '<img src=\"' + msg.results[i].thumbnail + '\" class=\"img-rounded img-responsive\">';
+                        html += '</a>';
+                        html += ' <div class=\"card-block\">';
+                        html += '<a href=\"/partner/' + msg.results[i].id + '\" >';
+                        html += '<div class=\"author\"><img src=\"' + msg.results[i].logo + '\" class=\"img-circle img-no-padding img-responsive img-raised\"></div>';
+                        html += '<span class=\"name\">' + msg.results[i].name + '</span>';
+                        html += '</a>';
+                        html += '<div class=\"meta\"></div></div>';
+                    }
+                    html += '</div></div></div>';
+                }
+                $('#categories-partners-search').replaceWith(html);
+            });
         } else {
             $('#categories-partners-search').hide();
-            $('#categories-list').show(100);
+            $('#categories-list').show();
         }
     });
 </script>

@@ -404,4 +404,29 @@ public function postCreateInvoice(Request $request){
       $contract_id = $request->contractId;
       if (($partner = DB::table('ETKPLUS_PARTNERS')->where('contract_id',$contract_id)->first()) !== NULL){ return response()->json(['message' => 'success'],200); } else return response()->json(['message' => 'error'],200);
     }
+
+    public function ajaxSearchInCategories(Request $request){
+      $text = $request->text;
+
+      $info_results = DB::table('ETKPLUS_PARTNERS')
+                        ->where('name','like','%' . $text . '%')
+                        ->orWhere('fullname','like','%' . $text . '%')
+                        ->orWhere('description','like','%' . $text . '%')
+                        ->select('ETKPLUS_PARTNERS.id');
+      $tags_results = DB::table('ETKPLUS_PARTNER_TAGS')
+                        ->where('text','like','%' . $text . '%')
+                        ->select('ETKPLUS_PARTNER_TAGS.partner_id as id')
+                        ->union($info_results)
+                        ->get();
+
+      $partner_ids = [];
+      foreach ($tags_results as $tags_result) {
+        $partner_ids[] = $tags_result->id;
+      }
+      $results = DB::table('ETKPLUS_PARTNERS')
+                    ->whereIn('id',$partner_ids)
+                    ->select('id','thumbnail','logo','name')
+                    ->get();
+      if ($results !== NULL){ return response()->json(['message' => 'success', 'results' => $results],200); } else return response()->json(['message' => 'error'],200);                  
+    }
 }

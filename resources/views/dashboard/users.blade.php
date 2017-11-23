@@ -43,7 +43,7 @@
                                 @foreach ($users as $user)
                                 <tr>
                                     <td class="text-center">{{ $user->id }}</td>
-                                    <td><a href="{{ route('dashboard.partner-page.get', ['partner_id' => $user->id]) }}">{{ $user->name }}</a></td>
+                                    <td><a href="{{ route('dashboard.partner-page.get', ['partner_id' => $user->id]) }}">{{ $user->name }} {{ $user->lastname }}</a></td>
                                     <td>{{ $user->post }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->phone }}</td>

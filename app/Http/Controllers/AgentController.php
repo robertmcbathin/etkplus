@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Storage;
 class AgentController extends Controller
 {
     public function showDashboard(){
-    	return view('dashboard.agent.index');
+    	$to_pay = DB::table('ETKPLUS_AGENT_ACCOUNTS')
+    				->where('user_id',Auth::user()->id)
+    				->first();
+    	return view('dashboard.agent.index',[
+    		'to_pay' => $to_pay
+    	]);
     }
 }

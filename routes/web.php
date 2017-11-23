@@ -277,10 +277,26 @@ Route::group(['middleware' => 'auth'], function () {
 	/**
 	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ АГЕНТА
 	 */	
-		Route::get('/dashboard/agent',[
+	Route::get('/agent/dashboard',[
 		'uses' => 'AgentController@showDashboard',
 		'as' => 'dashboard.agent.show-dashboard.get'
 		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::get('/agent/dashboard/operations',[
+		'uses' => 'AgentController@showOperations',
+		'as' => 'dashboard.agent.show-operations.get'
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::get('/agent/dashboard/partners/list',[
+		'uses' => 'AgentController@getPartnerList',
+		'as' => 'dashboard.agent.show-partner-list.get'
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::get('/agent/dashboard/billing',[
+		'uses' => 'AgentController@getBillingPage',
+		'as' => 'dashboard.agent.billing.get'
+		])->middleware('can:show-dashboard-agent,App\User');
+
 	/**
 	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ БУХГАЛТЕРА
 	 */	

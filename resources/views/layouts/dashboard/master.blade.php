@@ -506,6 +506,7 @@ function placeMarkerAndPanTo(latLng, map) {
 
 </script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBc-l0ALdzgKDwDs_qll1CKLUlEsRq5aUE&callback=initMap"></script>
+@isset($partner)
 <script>
     $('#tag-input').on('itemAdded',function(event){
         console.log('add');
@@ -546,6 +547,7 @@ function placeMarkerAndPanTo(latLng, map) {
         });
     });
 </script>
+@endisset
 <noscript><div><img src="https://mc.yandex.ru/watch/45472806" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 </html>

@@ -11,7 +11,7 @@
 
                         <a data-toggle="collapse" href="#logout" class="collapsed">
                             <span>
-                                {{ Auth::user()->name }}
+                                {{ Auth::user()->name }} {{ Auth::user()->lastname }}
                                 <b class="caret"></b>
                             </span>
                         </a>
@@ -117,37 +117,29 @@
                 @endcan
 
                 @can('show-dashboard-agent')
-                    <li @if (Request::path() == 'dashboard') class="active" @endif>
-                        <a href="{{ route('dashboard.show-dashboard.get') }}">
+                    <li @if (Request::path() == 'agent/dashboard') class="active" @endif>
+                        <a href="{{ route('dashboard.agent.show-dashboard.get') }}">
                             <i class="fa fa-area-chart"></i>
                             <p>Панель управления</p>
                         </a>
                     </li>
 
-                    <li @if (Request::path() == 'dashboard/operations') class="active" @endif>
-                        <a href="{{ route('dashboard.show-operations.get') }}">
+                    <li @if (Request::path() == 'agent/dashboard/operations') class="active" @endif>
+                        <a href="{{ route('dashboard.agent.show-operations.get') }}">
                             <i class="fa fa-handshake-o"></i>
                             <p>Операции</p>
                         </a>
                     </li>
 
-                    <li @if (Request::path() == 'dashboard/partners/list') class="active" @endif>
-                        <a href="{{ route('dashboard.show-partner-list.get') }}">
+                    <li @if (Request::path() == 'agent/dashboard/partners/list') class="active" @endif>
+                        <a href="{{ route('dashboard.agent.show-partner-list.get') }}">
                             <i class="fa fa-building"></i>
                             <p>Предприятия</p>
                         </a>
                     </li>
 
-                    <li @if (Request::path() == 'dashboard/cards/list') class="active" @endif>
-                        <a href="{{ route('dashboard.show-card-list.get') }}">
-                            <i class="fa fa-credit-card"></i>
-                            <p>Карты</p>
-                        </a>
-                    </li>
-
-
-                     <li @if (Request::path() == 'dashboard/cards/list') class="active" @endif>
-                        <a href="{{ route('dashboard.show-card-list.get') }}">
+                     <li @if (Request::path() == 'agent/dashboard/billing') class="active" @endif>
+                        <a href="{{ route('dashboard.agent.billing.get') }}">
                             <i class="fa fa-money"></i>
                             <p>Оплата услуг</p>
                         </a>

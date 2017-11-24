@@ -110,6 +110,19 @@ class AdminController extends Controller
         Session::flash('error','Пользователь с таким email уже зарегистрирован, используйте другой адрес');
         return redirect()->back();
       }
+      /**
+       * ПРОВЕРКА РАСШИРЕНИЙ
+       */
+      $logo_image_extension = $request->file('logo_image')->getClientOriginalExtension();
+      if ($logo_image_extension !== 'png'){
+        Session::flash('error','Логотип должен быть в формате png');
+        return redirect()->back();
+      }
+      $background_image_extension = $request->file('background_image')->getClientOriginalExtension();
+      if ($background_image_extension !== 'jpg'){
+        Session::flash('error','Фон должен быть в формате jpg');
+        return redirect()->back();        
+      }
         /**
          * Сумма тарифа
          */

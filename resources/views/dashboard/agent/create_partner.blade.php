@@ -19,7 +19,7 @@
             @include('includes/notifications')
                 <div class="col-md-10 col-md-offset-1">
                     <div class="card card-wizard" id="wizardCard">
-                        <form id="wizardForm" method="POST" action="{{ route('dashboard.create-partner.post') }}" novalidate="novalidate" enctype="multipart/form-data">
+                        <form id="wizardForm" method="POST" action="{{ route('dashboard.agent.create-partner.post') }}" novalidate="novalidate" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                             <div class="card-header text-center">

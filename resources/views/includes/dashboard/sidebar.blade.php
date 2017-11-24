@@ -145,6 +145,12 @@
                         </a>
                     </li>
 
+                     <li @if (Request::path() == 'agent/dashboard/salary') class="active" @endif>
+                        <a href="{{ route('dashboard.agent.billing.get') }}">
+                            <i class="fa fa-suitcase"></i>
+                            <p>Мои начисления</p>
+                        </a>
+                    </li>
                 @endcan
 
                 @can('show-dashboard-partner')

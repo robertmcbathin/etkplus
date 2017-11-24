@@ -297,6 +297,25 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.agent.billing.get'
 		])->middleware('can:show-dashboard-agent,App\User');
 
+	Route::get('/agent/dashboard/create-partner',[
+		'uses' => 'AgentController@showCreatePartnerPage',
+		'as' => 'dashboard.agent.create-partner.get'	
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::post('/agent/dashboard/create-partner',[
+		'uses' => 'AgentController@postCreatePartner',
+		'as' => 'dashboard.agent.create-partner.post'	
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::get('/agent/dashboard/partner/{partner_id}/show',[
+		'uses' => 'AgentController@getPartnerPage',
+		'as' => 'dashboard.agent.partner-page.get'	
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::post('/agent/dashboard/partner/delete',[
+		'uses' => 'AgentController@postDeletePartner',
+		'as' => 'dashboard.agent.delete_partner.post'
+		])->middleware('can:show-dashboard-agent,App\User');
 	/**
 	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ БУХГАЛТЕРА
 	 */	
@@ -465,10 +484,19 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'PartnerController@ajaxCheckCardAndOperations',
    		'as' => 'ajax.check_card_and_operations.post'
     ])->middleware('can:show-dashboard-partner,App\User');
+
+
 	Route::post('/ajax/search-partner-list', [ 
 		'uses' => 'AdminController@ajaxSearchPartnerList',
    		'as' => 'ajax.search-partner-list.post'
     ])->middleware('can:show-dashboard-admin,App\User');
+
+    Route::post('/ajax/agent/search-partner-list', [ 
+		'uses' => 'AgentController@ajaxSearchPartnerList',
+   		'as' => 'ajax.agent.search-partner-list.post'
+    ])->middleware('can:show-dashboard-agent,App\User');
+
+
     Route::post('/ajax/add-tag',[
     	'uses' => 'AdminController@ajaxAddTag',
     	'as' => 'ajax.add-tag.post'

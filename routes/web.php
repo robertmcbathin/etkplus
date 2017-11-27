@@ -316,6 +316,77 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'AgentController@postDeletePartner',
 		'as' => 'dashboard.agent.delete_partner.post'
 		])->middleware('can:show-dashboard-agent,App\User');
+
+Route::post('/agent/dashboard/partner/edit',[
+		'uses' => 'AgentController@postEditPartner',
+		'as' => 'dashboard.agent.edit_partner.post'
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::post('/agent/dashboard/partner/edit-logo',[
+		'uses' => 'AgentController@postEditPartnerLogo',
+		'as' => 'dashboard.agent.edit_partner_logo.post'
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::post('/agent/dashboard/partner/edit-limit',[
+		'uses' => 'AgentController@postEditPartnerLimit',
+		'as' => 'dashboard.agent.edit_partner_limit.post'
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::post('/agent/dashboard/partner/edit-background',[
+		'uses' => 'AgentController@postEditPartnerBackground',
+		'as' => 'dashboard.agent.edit_partner_background.post'
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::post('/agent/dashboard/partner/load-gallery',[
+		'uses' => 'AgentController@postLoadGallery',
+		'as' => 'dashboard.agent.load-gallery.post'
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::post('/agent/dashboard/partner/edit-gallery-item',[
+		'uses' => 'AgentController@postEditGalleryItem',
+		'as' => 'dashboard.agent.edit-gallery-item.post'
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::post('/agent/dashboard/partner/delete-gallery-item',[
+		'uses' => 'AgentController@postDeleteGalleryItem',
+		'as' => 'dashboard.agent.delete-gallery-item.post'
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::post('/agent/dashboard/partner/delete-partner-address',[
+		'uses' => 'AgentController@postDeletePartnerAddress',
+		'as' => 'dashboard.agent.delete-partner-address.post'
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::post('/agent/dashboard/partner/add-partner-address',[
+		'uses' => 'AgentController@postAddPartnerAddress',
+		'as' => 'dashboard.agent.add-partner-address.post'
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::post('/agent/dashboard/partner/delete-partner-discount',[
+		'uses' => 'AgentController@postDeletePartnerDiscount',
+		'as' => 'dashboard.agent.delete-partner-discount.post'
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::post('/agent/dashboard/partner/add-partner-discount',[
+		'uses' => 'AgentController@postAddPartnerDiscount',
+		'as' => 'dashboard.agent.add-partner-discount.post'
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::post('/agent/dashboard/partner/delete-partner-bonus',[
+		'uses' => 'AgentController@postDeletePartnerBonus',
+		'as' => 'dashboard.agent.delete-partner-bonus.post'
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::post('/agent/dashboard/partner/add-partner-bonus',[
+		'uses' => 'AgentController@postAddPartnerBonus',
+		'as' => 'dashboard.agent.add-partner-bonus.post'
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::post('/agent/dashboard/tariff/change',[
+		'uses' => 'AgentController@postChangeTariff',
+		'as' => 'dashboard.agent.change-partner-tariff.post'
+		])->middleware('can:show-dashboard-agent,App\User');
+
 	/**
 	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ БУХГАЛТЕРА
 	 */	

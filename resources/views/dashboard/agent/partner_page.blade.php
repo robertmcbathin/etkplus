@@ -562,7 +562,7 @@
                 </div>
                 <div class="divider"></div>
                 <div class="right-side">
-                    <form action="{{ route('dashboard.delete_partner.post') }}" method="POST">
+                    <form action="{{ route('dashboard.agent.delete_partner.post') }}" method="POST">
                         {{ csrf_field() }}
                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                         <input type="hidden" name="partner_id" value="{{ $partner->id }}">
@@ -584,7 +584,7 @@
                 </button>
             </div>
             <div class="modal-body"> 
-                <form action="{{ route('dashboard.edit_partner.post') }}" method="POST">
+                <form action="{{ route('dashboard.agent.edit_partner.post') }}" method="POST">
                     {{ csrf_field() }}
                     <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -714,7 +714,7 @@
                 </button>
             </div>
             <div class="modal-body"> 
-                <form action="{{ route('dashboard.edit_partner_background.post') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('dashboard.agent.edit_partner_background.post') }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -756,7 +756,7 @@
                 </button>
             </div>
             <div class="modal-body"> 
-                <form action="{{ route('dashboard.edit_partner_logo.post') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('dashboard.agent.edit_partner_logo.post') }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -800,7 +800,7 @@
                 </button>
             </div>
             <div class="modal-body"> 
-                <form action="{{ route('dashboard.edit_partner_limit.post') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('dashboard.agent.edit_partner_limit.post') }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -831,7 +831,7 @@
                 </button>
             </div>
             <div class="modal-body"> 
-                <form action="{{ route('dashboard.change-partner-tariff.post') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('dashboard.agent.change-partner-tariff.post') }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -897,7 +897,7 @@
                                         </div>
                                     </td>
                                     <td class="td-product">
-                                        <form action="{{ route('dashboard.edit-gallery-item.post') }}" method="POST">
+                                        <form action="{{ route('dashboard.agent.edit-gallery-item.post') }}" method="POST">
                                           {{ csrf_field() }}
                                           <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                                           <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -907,7 +907,7 @@
                                         </div>
                                         <input type="submit" class="btn btn-info btn-simple" value="Изменить описание">
                                     </form>
-                                    <form action="{{ route('dashboard.delete-gallery-item.post') }}" method="POST">
+                                    <form action="{{ route('dashboard.agent.delete-gallery-item.post') }}" method="POST">
                                       {{ csrf_field() }}
                                       <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                                       <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -925,7 +925,7 @@
           </div>
           <div class="col-md-10 col-md-offset-1">
             <h5 class="text-center">Добавить фотографии</h5>
-            <form action="{{ route('dashboard.load-gallery.post') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('dashboard.agent.load-gallery.post') }}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -999,7 +999,7 @@
                                     </div>
                                 </div>
                             </fieldset>
-                            <form action="{{ route('dashboard.delete-partner-address.post') }}" method="POST">
+                            <form action="{{ route('dashboard.agent.delete-partner-address.post') }}" method="POST">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="address_id"  value="{{ $address->id }}">
                                 <button type="submit" class="btn btn-danger btn-square btn-fill"><i class="fa fa-trash"></i>Удалить</button>
@@ -1012,7 +1012,7 @@
                 @endisset
                 <div class="col-md-12">
                     <div class="card">
-                        <form method="POST" action="{{ route('dashboard.add-partner-address.post') }}">
+                        <form method="POST" action="{{ route('dashboard.agent.add-partner-address.post') }}">
                             {{ csrf_field() }}
                             <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                             <div class="card-header">
@@ -1105,7 +1105,7 @@
                                     </div>
                                 </div>
                             </fieldset>
-                            <form action="{{ route('dashboard.delete-partner-discount.post') }}" method="POST">
+                            <form action="{{ route('dashboard.agent.delete-partner-discount.post') }}" method="POST">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="discount_id"  value="{{ $discount->id }}">
                                 <button type="submit" class="btn btn-danger btn-square btn-fill"><i class="fa fa-trash"></i>Удалить</button>
@@ -1118,7 +1118,7 @@
                 @endisset
                 <div class="col-md-12">
                     <div class="card">
-                        <form method="POST" action="{{ route('dashboard.add-partner-discount.post') }}">
+                        <form method="POST" action="{{ route('dashboard.agent.add-partner-discount.post') }}">
                             {{ csrf_field() }}
                             <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                             <div class="card-header">
@@ -1221,7 +1221,7 @@
                 @endisset
                 <div class="col-md-12">
                     <div class="card">
-                        <form method="POST" action="{{ route('dashboard.add-partner-bonus.post') }}">
+                        <form method="POST" action="{{ route('dashboard.agent.add-partner-bonus.post') }}">
                             {{ csrf_field() }}
                             <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                             <div class="card-header">

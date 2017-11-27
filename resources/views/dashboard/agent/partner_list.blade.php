@@ -25,7 +25,7 @@
             <div class="col-md-12">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                    <input type="text" id='search-partner-list' value="" class="form-control" placeholder="Название или номер договора">
+                    <input type="text" id='search-partner-list' value="" class="form-control" placeholder="Название предприятия">
                 </div>
                 <div class="card" id="partner-list-results">
                     <div class="card-header">

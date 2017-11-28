@@ -396,6 +396,16 @@ Route::post('/agent/dashboard/partner/edit',[
 		'uses' => 'AgentController@postCreateServiceInvoice',
 		'as' => 'dashboard.agent.create-service-invoice.post'
 		]);
+
+	Route::get('/agent/dashboard/billing',[
+		'uses' => 'AgentController@showBillingPage',
+		'as' => 'dashboard.agent.billing.get'	
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::get('/agent/dashboard/salary',[
+		'uses' => 'AgentController@showSalaryPage',
+		'as' => 'dashboard.agent.salary.get'	
+		])->middleware('can:show-dashboard-agent,App\User');
 	/**
 	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ БУХГАЛТЕРА
 	 */	

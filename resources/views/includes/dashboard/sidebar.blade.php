@@ -146,7 +146,7 @@
                     </li>
 
                      <li @if (Request::path() == 'agent/dashboard/salary') class="active" @endif>
-                        <a href="{{ route('dashboard.agent.billing.get') }}">
+                        <a href="{{ route('dashboard.agent.salary.get') }}">
                             <i class="fa fa-suitcase"></i>
                             <p>Мои начисления</p>
                         </a>

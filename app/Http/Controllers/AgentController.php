@@ -911,4 +911,49 @@ public function postCreateServiceInvoice(Request $request){
       );
 }
 
+
+    /**
+     * BILLING
+     */
+    public function showBillingPage(){
+        $accounts_sum = DB::table('ETKPLUS_PARTNER_ACCOUNTS')
+        					->join('ETKPLUS_PARTNERS', 'ETKPLUS_PARTNER_ACCOUNTS.partner_id','=','ETKPLUS_PARTNERS.id')
+        					->where('ETKPLUS_PARTNERS.created_by',Auth::user()->id)
+                            ->sum('value');
+
+        $accounts_sum = number_format($accounts_sum,2);
+
+
+        /**
+         * СЧЕТА
+         * @var [type]
+         */
+        $accounts = DB::table('ETKPLUS_PARTNER_ACCOUNTS')
+                	  ->join('ETKPLUS_PARTNERS', 'ETKPLUS_PARTNER_ACCOUNTS.partner_id','=','ETKPLUS_PARTNERS.id')
+        			  ->where('ETKPLUS_PARTNERS.created_by',Auth::user()->id)
+        			  ->get();
+        return view('dashboard.agent.billing',[
+            'accounts_sum' => $accounts_sum,
+            'accounts' => $accounts
+
+        ]);
+    }
+
+
+    /**
+     * SALARY
+     */
+    public function showSalaryPage(){
+        $account = DB::table('ETKPLUS_AGENT_ACCOUNTS')
+                        ->leftJoin('users','ETKPLUS_AGENT_ACCOUNTS.user_id','=','users.id')
+                        ->where('ETKPLUS_AGENT_ACCOUNTS.user_id',Auth::user()->id)
+                        ->select('ETKPLUS_AGENT_ACCOUNTS.id','ETKPLUS_AGENT_ACCOUNTS.user_id','users.name','users.post','ETKPLUS_AGENT_ACCOUNTS.value')
+                        ->first();
+        return view('dashboard.agent.salary',[
+            'account' => $account,
+        ]);
+    }
+
+
+
 }

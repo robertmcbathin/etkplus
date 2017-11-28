@@ -6,15 +6,70 @@ use Illuminate\Http\Request;
 use DB;
 use Auth;
 use Session;
+use Illuminate\Http\Response;
 use Mail;
 use \App\User;
 use \App\Partner;
+use Carbon\Carbon;
 use App\Mail\PartnerRegistered;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class AgentController extends Controller
 {
+
+  protected function num2str($num) {
+  $nul='ноль';
+  $ten=array(
+    array('','один','два','три','четыре','пять','шесть','семь', 'восемь','девять'),
+    array('','одна','две','три','четыре','пять','шесть','семь', 'восемь','девять'),
+  );
+  $a20=array('десять','одиннадцать','двенадцать','тринадцать','четырнадцать' ,'пятнадцать','шестнадцать','семнадцать','восемнадцать','девятнадцать');
+  $tens=array(2=>'двадцать','тридцать','сорок','пятьдесят','шестьдесят','семьдесят' ,'восемьдесят','девяносто');
+  $hundred=array('','сто','двести','триста','четыреста','пятьсот','шестьсот', 'семьсот','восемьсот','девятьсот');
+  $unit=array( // Units
+    array('копейка' ,'копейки' ,'копеек',  1),
+    array('рубль'   ,'рубля'   ,'рублей'    ,0),
+    array('тысяча'  ,'тысячи'  ,'тысяч'     ,1),
+    array('миллион' ,'миллиона','миллионов' ,0),
+    array('миллиард','милиарда','миллиардов',0),
+  );
+  //
+  list($rub,$kop) = explode(',',sprintf("%015.2f", floatval($num)));
+  $out = array();
+  if (intval($rub)>0) {
+    foreach(str_split($rub,3) as $uk=>$v) { // by 3 symbols
+      if (!intval($v)) continue;
+      $uk = sizeof($unit)-$uk-1; // unit key
+      $gender = $unit[$uk][3];
+      list($i1,$i2,$i3) = array_map('intval',str_split($v,1));
+      // mega-logic
+      $out[] = $hundred[$i1]; # 1xx-9xx
+      if ($i2>1) $out[]= $tens[$i2].' '.$ten[$gender][$i3]; # 20-99
+      else $out[]= $i2>0 ? $a20[$i3] : $ten[$gender][$i3]; # 10-19 | 1-9
+      // units without rub & kop
+      if ($uk>1) $out[]= $this->morph($v,$unit[$uk][0],$unit[$uk][1],$unit[$uk][2]);
+    } //foreach
+  }
+  else $out[] = $nul;
+  $out[] = $this->morph(intval($rub), $unit[1][0],$unit[1][1],$unit[1][2]); // rub
+  $out[] = $kop.' '. $this->morph($kop,$unit[0][0],$unit[0][1],$unit[0][2]); // kop
+  return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
+}
+
+/**
+ * Склоняем словоформу
+ * @ author runcore
+ */
+protected function morph($n, $f1, $f2, $f5) {
+  $n = abs(intval($n)) % 100;
+  if ($n>10 && $n<20) return $f5;
+  $n = $n % 10;
+  if ($n>1 && $n<5) return $f2;
+  if ($n==1) return $f1;
+  return $f5;
+}
+
     public function showDashboard(){
     	/**
     	 * ACCOUNT VALUE
@@ -669,5 +724,191 @@ public function postLoadGallery(Request $request){
     /**
      * END OF DUSCOUNTS
      */
+    
+
+public function postCreateConnectionInvoice(Request $request){
+  /**
+   * INIT VARIABLES
+   */
+  $partner_id = $request->partner_id;
+  /**
+   * СОЗДАНИЕ СЧЕТА
+   */
+  $partner = DB::table('ETKPLUS_PARTNERS')
+               ->where('id',$partner_id)
+               ->first();
+  if ($partner !== NULL){
+    $contract_id = $partner->contract_id;
+    $name = $partner->fullname;
+    $inn = $partner->inn;
+    $kpp = $partner->kpp;
+    $legal_address = $partner->legal_address;
+    $phone = $partner->phone;
+    $tariff = DB::table('ETKPLUS_TARIFFS')
+            ->where('id',$partner->tariff_id)
+            ->first();
+    $value = $tariff->connection_price; 
+  } else {
+    Session::flash('Такого договора не существует, попробуйте снова');
+    return redirect()->back();
+  }
+
+  $bill_id = DB::table('ETKPLUS_PARTNER_BILLING')
+                      ->insertGetId([
+                        'partner_id' => $partner->id,
+                        'type' => 1,
+                        'status' => 0,
+                        'value' => $value
+                      ]);
+  $bill_number = 's' .$bill_id;
+  $bill = DB::table('ETKPLUS_PARTNER_BILLING')
+            ->where('id',$bill_id)
+            ->update(['bill_number' => $bill_number]);
+  setlocale(LC_ALL, 'ru_RU.UTF-8');
+  $date_by = Carbon::now();
+
+  $invoice = \App::make('snappy.pdf');
+  $html = '<small class="text-center">Внимание! Оплата данного счета означает согласие с условиями оказания услуг. Пополнение виртуального счета производится по факту поступления денежных средств на расчетный счет Поставщика.</small>';
+  $html .= '<table style="width:100%; border-collapse: separate; border: 1px solid black;">';
+  $html .= '<tr><td>ЧУВАШСКОЕ ОТДЕЛЕНИЕ №8613</td><td>БИК</td><td>049706609</td></tr>';
+  $html .= '<tr><td>ПАО СБЕРБАНК Г. ЧЕБОКСАРЫ</td><td></td><td></td></tr>';
+  $html .= '<tr><td>Банк получателя</td><td>Счет №</td><td>30101810300000000609</td></tr>';
+  $html .= '</table>';
+  $html .= '<table style="width:100%; border-collapse: separate; border: 1px solid black;">';
+  $html .= '<tr><td>ИНН 210080498</td><td>КПП 213001001</td><td>Счет №40702810375000004536</td></tr>';
+  $html .= '<tr><td>ООО "Единая транспортная карта"</td><td></td><td></td></tr>';
+  $html .= '<tr><td>Получатель</td><td></td><td></td></tr>';
+  $html .= '</table>';
+  $html .= '<h3>Счет на оплату №' . $bill_number . ' по договору №' . $contract_id .  ' от ' . $date_by->format('d.m.Y') . '</h3>';
+  $html .= '<hr>';
+  $html .= '<p>Поставщик: <b>ООО "ЕТК", ИНН 2130080498, 428000, Чувашская - Чувашия Респ, Чебоксары г, Тракторостроителей пр-кт, дом №6б, тел.: (8352) 49-25-85, 36-03-30, 36-33-30</b></p>';
+  $html .= '<p>Покупатель: <b>' . $name . ', ИНН ' . $inn . ', КПП ' . $kpp . ', ' . $legal_address . ', тел.: ' . $phone . '</b></p>';
+  $html .= '<table style="width:100%; border-collapse: separate; border: 2px solid black;">';
+  $html .= '<tr><td><b>№</b></td><td><b>Товары (работы, услуги)</b></td><td><b>Кол-во</b></td><td><b>Ед.</b></td><td><b>Цена</b></td><td><b>Сумма</b></td></tr>';
+  $html .= '<tr><td>1</td><td>Подключение к системе лояльности</td><td>1</td><td>шт</td><td>' . number_format($value,2,',', ' ') . '</td><td>' . number_format($value,2,',', ' ') . '</td></tr>';
+  $html .= '</table></br>';
+  $html .= '<table style="width:100%; border-collapse: none; border: none; text-align: right;" align="right">';
+  $html .= '<tr><td style="width:100%;"><b>Итого: ' . number_format($value,2,',', ' ') . '</b></td></tr>';
+  $html .= '<tr><td style="width:100%;"><b>Без налога (НДС)   -</b></td></tr>';
+  $html .= '<tr><td style="width:100%;"><b>Всего к оплате: ' . number_format($value,2,',', ' ') . '</b></td></tr>';
+  $html .= '</table></br>';
+  $html .= '<p>Всего наименований 1, на сумму ' . number_format($value,2,',', ' ') . ' руб.</p>';
+  $html .= '<p><b>' . $this->num2str($value) . '</b></p>';
+  $html .= '<hr></br></br>';
+  $html .= '<table style="width:100%; border-collapse: none; border: none;">';
+  $html .= '<tr>';
+  $html .= '<td style="width: 20%;">Руководитель</br></br></br></br>Бухгалтер</td>';
+  $html .= '<td style="width: 60%; text-align: right;"><img src="http://etkplus-beta.ru/images/signs.jpg"></td>';
+  $html .= '<td style="width: 20%;">/Горбунов А.Е./</br></br></br></br>/Казакова Т.В./</td>';
+  $html .= '</tr>';
+  $html .= '</table></br>';
+
+  
+  $invoice_name = '/tmp/invoice-' . $partner->contract_id . '-' . date('dmY-His');
+  $invoice->generateFromHtml($html,$invoice_name);
+  $invoice_output = 'invoice-' . $partner->contract_id . '-' . date('dmY-His');
+  $content_disposition = 'attachment; filename="' . $invoice_output . '.pdf"';
+      return new Response(
+        $invoice->getOutputFromHtml($html,array(
+          'encoding' => 'utf-8'
+        )),
+        200,
+        array(
+          'Content-Type'          => 'application/pdf',
+          'Content-Disposition'   => $content_disposition
+        )
+      );
+}
+
+public function postCreateServiceInvoice(Request $request){
+  /**
+   * INIT VARIABLES
+   */
+  $partner_id = $request->partner_id;
+  $value = $request->value;
+  /**
+   * СОЗДАНИЕ СЧЕТА
+   */
+  $partner = DB::table('ETKPLUS_PARTNERS')
+               ->where('id',$partner_id)
+               ->first();
+  if ($partner !== NULL){
+    $contract_id = $partner->contract_id;
+    $name = $partner->fullname;
+    $inn = $partner->inn;
+    $kpp = $partner->kpp;
+    $legal_address = $partner->legal_address;
+    $phone = $partner->phone;
+  } else {
+    Session::flash('Такого договора не существует, попробуйте снова');
+    return redirect()->back();
+  }
+
+  $bill_id = DB::table('ETKPLUS_PARTNER_BILLING')
+                      ->insertGetId([
+                        'partner_id' => $partner->id,
+                        'type' => 1,
+                        'status' => 0,
+                        'value' => $value
+                      ]);
+  $bill_number = 's' .$bill_id;
+  $bill = DB::table('ETKPLUS_PARTNER_BILLING')
+            ->where('id',$bill_id)
+            ->update(['bill_number' => $bill_number]);
+  setlocale(LC_ALL, 'ru_RU.UTF-8');
+  $date_by = Carbon::now();
+
+  $invoice = \App::make('snappy.pdf');
+  $html = '<small class="text-center">Внимание! Оплата данного счета означает согласие с условиями оказания услуг. Пополнение виртуального счета производится по факту поступления денежных средств на расчетный счет Поставщика.</small>';
+  $html .= '<table style="width:100%; border-collapse: separate; border: 1px solid black;">';
+  $html .= '<tr><td>ЧУВАШСКОЕ ОТДЕЛЕНИЕ №8613</td><td>БИК</td><td>049706609</td></tr>';
+  $html .= '<tr><td>ПАО СБЕРБАНК Г. ЧЕБОКСАРЫ</td><td></td><td></td></tr>';
+  $html .= '<tr><td>Банк получателя</td><td>Счет №</td><td>30101810300000000609</td></tr>';
+  $html .= '</table>';
+  $html .= '<table style="width:100%; border-collapse: separate; border: 1px solid black;">';
+  $html .= '<tr><td>ИНН 210080498</td><td>КПП 213001001</td><td>Счет №40702810375000004536</td></tr>';
+  $html .= '<tr><td>ООО "Единая транспортная карта"</td><td></td><td></td></tr>';
+  $html .= '<tr><td>Получатель</td><td></td><td></td></tr>';
+  $html .= '</table>';
+  $html .= '<h3>Счет на оплату №' . $bill_number . ' по договору №' . $contract_id .  ' от ' . $date_by->format('d.m.Y') . '</h3>';
+  $html .= '<hr>';
+  $html .= '<p>Поставщик: <b>ООО "ЕТК", ИНН 2130080498, 428000, Чувашская - Чувашия Респ, Чебоксары г, Тракторостроителей пр-кт, дом №6б, тел.: (8352) 49-25-85, 36-03-30, 36-33-30</b></p>';
+  $html .= '<p>Покупатель: <b>' . $name . ', ИНН ' . $inn . ', КПП ' . $kpp . ', ' . $legal_address . ', тел.: ' . $phone . '</b></p>';
+  $html .= '<table style="width:100%; border-collapse: separate; border: 2px solid black;">';
+  $html .= '<tr><td><b>№</b></td><td><b>Товары (работы, услуги)</b></td><td><b>Кол-во</b></td><td><b>Ед.</b></td><td><b>Цена</b></td><td><b>Сумма</b></td></tr>';
+  $html .= '<tr><td>1</td><td>Услуги системы лояльности (авансовый платеж)</td><td>1</td><td>шт</td><td>' . number_format($value,2,',', ' ') . '</td><td>' . number_format($value,2,',', ' ') . '</td></tr>';
+  $html .= '</table></br>';
+  $html .= '<table style="width:100%; border-collapse: none; border: none; text-align: right;" align="right">';
+  $html .= '<tr><td style="width:100%;"><b>Итого: ' . number_format($value,2,',', ' ') . '</b></td></tr>';
+  $html .= '<tr><td style="width:100%;"><b>Без налога (НДС)   -</b></td></tr>';
+  $html .= '<tr><td style="width:100%;"><b>Всего к оплате: ' . number_format($value,2,',', ' ') . '</b></td></tr>';
+  $html .= '</table></br>';
+  $html .= '<p>Всего наименований 1, на сумму ' . number_format($value,2,',', ' ') . ' руб.</p>';
+  $html .= '<p><b>' . $this->num2str($value) . '</b></p>';
+  $html .= '<hr></br></br>';
+  $html .= '<table style="width:100%; border-collapse: none; border: none;">';
+  $html .= '<tr>';
+  $html .= '<td style="width: 20%;">Руководитель</br></br></br></br>Бухгалтер</td>';
+  $html .= '<td style="width: 60%; text-align: right;"><img src="http://etkplus-beta.ru/images/signs.jpg"></td>';
+  $html .= '<td style="width: 20%;">/Горбунов А.Е./</br></br></br></br>/Казакова Т.В./</td>';
+  $html .= '</tr>';
+  $html .= '</table></br>';
+
+  
+  $invoice_name = '/tmp/invoice-' . $partner->contract_id . '-' . date('dmY-His');
+  $invoice->generateFromHtml($html,$invoice_name);
+  $invoice_output = 'invoice-' . $partner->contract_id . '-' . date('dmY-His');
+  $content_disposition = 'attachment; filename="' . $invoice_output . '.pdf"';
+      return new Response(
+        $invoice->getOutputFromHtml($html,array(
+          'encoding' => 'utf-8'
+        )),
+        200,
+        array(
+          'Content-Type'          => 'application/pdf',
+          'Content-Disposition'   => $content_disposition
+        )
+      );
+}
 
 }

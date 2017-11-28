@@ -387,6 +387,15 @@ Route::post('/agent/dashboard/partner/edit',[
 		'as' => 'dashboard.agent.change-partner-tariff.post'
 		])->middleware('can:show-dashboard-agent,App\User');
 
+	Route::post('/agent/dashboard/create-connection-invoice',[
+		'uses' => 'AgentController@postCreateConnectionInvoice',
+		'as' => 'dashboard.agent.create-connection-invoice.post'
+		]);
+
+	Route::post('/agent/dashboard/create-service-invoice',[
+		'uses' => 'AgentController@postCreateServiceInvoice',
+		'as' => 'dashboard.agent.create-service-invoice.post'
+		]);
 	/**
 	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ БУХГАЛТЕРА
 	 */	

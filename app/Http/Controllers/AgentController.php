@@ -923,7 +923,10 @@ public function postCreateServiceInvoice(Request $request){
 
         $accounts_sum = number_format($accounts_sum,2);
 
-
+        $billings = DB::table('ETKPLUS_PARTNER_BILLING')
+        				->join('ETKPLUS_PARTNERS', 'ETKPLUS_PARTNER_BILLING.partner_id','=','ETKPLUS_PARTNERS.id')
+        				->where('ETKPLUS_PARTNERS.created_by',Auth::user()->id)
+                        ->paginate(10);
         /**
          * СЧЕТА
          * @var [type]
@@ -934,7 +937,8 @@ public function postCreateServiceInvoice(Request $request){
         			  ->get();
         return view('dashboard.agent.billing',[
             'accounts_sum' => $accounts_sum,
-            'accounts' => $accounts
+            'accounts' => $accounts,
+            'billings' => $billings
 
         ]);
     }
@@ -949,11 +953,26 @@ public function postCreateServiceInvoice(Request $request){
                         ->where('ETKPLUS_AGENT_ACCOUNTS.user_id',Auth::user()->id)
                         ->select('ETKPLUS_AGENT_ACCOUNTS.id','ETKPLUS_AGENT_ACCOUNTS.user_id','users.name','users.post','ETKPLUS_AGENT_ACCOUNTS.value')
                         ->first();
+        $billings = DB::table('ETKPLUS_AGENT_BILLING_HISTORY')
+        			->where('user_id', Auth::user()->id)
+        			->paginate(20);
         return view('dashboard.agent.salary',[
             'account' => $account,
+            'billings' => $billings
         ]);
     }
 
+    public function showOperationsPage(){
+         $visits = DB::table('ETKPLUS_VISITS')
+        ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_VISITS.partner_id', '=', 'ETKPLUS_PARTNERS.id')
+        ->select('ETKPLUS_VISITS.*','ETKPLUS_PARTNERS.name as partner_name','ETKPLUS_PARTNERS.created_by')
+        ->where('ETKPLUS_PARTNERS.created_by',Auth::user())
+        ->orderBy('ETKPLUS_VISITS.created_at', 'DESC')
+        ->paginate(50);
+        return view('dashboard.agent.operations',[
+            'visits' => $visits
+        ]);
+    }
 
 
 }

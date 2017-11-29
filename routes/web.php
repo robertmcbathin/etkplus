@@ -406,6 +406,12 @@ Route::post('/agent/dashboard/partner/edit',[
 		'uses' => 'AgentController@showSalaryPage',
 		'as' => 'dashboard.agent.salary.get'	
 		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::get('/agent/dashboard/operations',[
+		'uses' => 'AgentController@showOperationsPage',
+		'as' => 'dashboard.agent.show-operations.get'	
+		])->middleware('can:show-dashboard-agent,App\User');
+
 	/**
 	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ БУХГАЛТЕРА
 	 */	

@@ -973,7 +973,9 @@ public function postLoadGallery(Request $request){
                 ]);
             DB::table('ETKPLUS_AGENT_BILLING_HISTORY')
                 ->insert([
-                    
+                    'user_id' => $user_id,
+                    'accrued' => $to_pay,
+                    'action_type' => 1
                 ]);
         } catch (Exception $e) {
             

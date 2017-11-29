@@ -430,7 +430,7 @@
                             @if($billing->status == 1)
                             <td class="text-right">Подтвержден</td>
                             @endif
-                            @if($billing->status == 3)
+                            @if($billing->status == 2)
                             <td class="text-right">Проведен</td>
                             @endif
                             <td class="text-right">{{ $billing->created_at }}</td>

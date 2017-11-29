@@ -40,8 +40,24 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        if (Auth::check()){
+        // Authentication passed...
+            if(Auth::user()->role_id >= 31)
+            {
+                return redirect()->intended('profile.show-profile-page.get');
+            } if ((Auth::user()->role_id < 25) && (Auth::user()->role_id > 20)){
+                return redirect()->intended('dashboard.partner.show-dashboard.get');
+            } else if ((Auth::user()->role_id == 14) && (Auth::user()->role_id == 15)){
+                return redirect()->intended('dashboard.agent.show-dashboard.get');
+            } else if (Auth::user()->role_id == 13){
+                return redirect()->intended('dashboard.accountant.show-dashboard.get');
+            } else if (Auth::user()->role_id == 1){
+                return redirect()->intended('dashboard.show-dashboard.get');
+            }  
+        }
     }
     public function login(Request $request){
+
         /**
          * СУЩЕСТВУЕТ ЛИ ПОЛЬЗОВАТЕЛЬ
          * @var [type]
@@ -107,19 +123,23 @@ class LoginController extends Controller
 
     public function authenticate()
     {
-        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+       /* if (Auth::attempt(['email' => $email, 'password' => $password])) {
         // Authentication passed...
             if (Auth::user()){
               $auth_user_id = Auth::user()->id;
             }
             if(Auth::user()->role_id >= 31)
             {
-                return redirect()->intended('profile.show-profile-page.get');
+                return redirect()->route('profile.show-profile-page.get');
             } if ((Auth::user()->role_id < 25) && (Auth::user()->role_id > 20)){
-                return redirect()->intended('dashboard.partner.show-dashboard.get');
-            } else if (Auth::user()->role_id <= 15){
-                return redirect()->intended('dashboard.show-dashboard.get');
+                return redirect()->route('dashboard.partner.show-dashboard.get');
+            } else if ((Auth::user()->role_id == 14) && (Auth::user()->role_id == 15)){
+                return redirect()->route('dashboard.agent.show-dashboard.get');
+            } else if (Auth::user()->role_id == 13){
+                return redirect()->route('dashboard.accountant.show-dashboard.get');
+            } else if (Auth::user()->role_id == 1){
+                return redirect()->route('dashboard.show-dashboard.get');
             }
-        }
-    }
+        } */
+    } 
 }

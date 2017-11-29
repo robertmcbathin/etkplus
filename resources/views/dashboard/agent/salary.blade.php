@@ -5,7 +5,7 @@
 @section('keywords')
 @endsection
 @section('title')
-Выплата агентам
+Мои начисления
 @endsection
 @section('content')
 <div class="wrapper">
@@ -15,6 +15,7 @@
         <div class="content">
             <div class="container-fluid">
                 @include('includes/notifications')
+
                 <div class="col-md-12">
                     <div class="col-lg-3 col-sm-6">
                         <div class="card">
@@ -43,24 +44,24 @@
                     </div>
                 </div>
 
-                <div class="col-md-12">
-                    <div class="card card-plain">
+                <div class="col-md-6">
+                    <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">История выплат</h4>
                         </div>
                         <div class="card-content table-responsive table-full-width">
                             <table class="table table-hover">
                                 <thead>
-                                    <tr><th>ID</th>
-                                        <th>Название</th>
-                                        <th>Остаток</th>
-                                    </tr></thead>
+                                    <tr>
+                                        <th>Сумма</th>
+                                        <th>Дата</th>
+                                    </tr>
+                                </thead>
                                     <tbody>
-                                        @foreach ($accounts as $account)
+                                        @foreach ($billings as $billing)
                                         <tr>
-                                            <td>{{ $account->id }}</td>
-                                            <td>{{ $account->name }}</td>
-                                            <td>{{ $account->value }}</td>
+                                            <td>{{ $billing->accrued }}</td>
+                                            <td>{{ $billing->created_at }}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>

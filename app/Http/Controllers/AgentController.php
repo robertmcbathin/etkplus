@@ -974,5 +974,54 @@ public function postCreateServiceInvoice(Request $request){
         ]);
     }
 
+/**
+ * REVIEWS
+ */
+    public function getShowReviews(){
+        $reviews = DB::table('ETKPLUS_REVIEWS')
+                    ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_PARTNERS.id','=','ETKPLUS_REVIEWS.partner_id')
+                    ->leftJoin('users','users.id','=','ETKPLUS_REVIEWS.user_id')
+                    ->select('ETKPLUS_REVIEWS.*','users.name as username','ETKPLUS_PARTNERS.name as partnername')
+                     ->orderBy('created_at','desc')
+                    ->paginate(50);
+        return view('dashboard.agent.reviews',[
+            'reviews' => $reviews
+        ]);
+    }
+
+    public function postApproveReview(Request $request){
+        $review_id = $request->review_id;
+        $approved_by = $request->approved_by;
+
+        $review = \App\Review::find($review_id);
+        $review->published = 1;
+        $review->approved_by = $approved_by;
+        if ($review->save()){
+            Session::flash('success','Отзыв одобрен');
+            return redirect()->back();
+        } else {
+            Session::flash('error','Не удалось одобрить отзыв');
+            return redirect()->back();            
+        }
+        
+    }
+
+    public function postDisapproveReview(Request $request){
+        $review_id = $request->review_id;
+        $approved_by = $request->approved_by;
+
+        $review = \App\Review::find($review_id);
+        $review->published = 0;
+        $review->approved_by = $approved_by;
+        if ($review->save()){
+            Session::flash('success','Отзыв снят с публикации');
+            return redirect()->back();
+        } else {
+            Session::flash('error','Не удалось снять отзыв с публикации');
+            return redirect()->back();            
+        }
+        
+    }
+
 
 }

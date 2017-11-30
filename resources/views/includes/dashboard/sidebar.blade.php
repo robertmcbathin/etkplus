@@ -151,6 +151,13 @@
                             <p>Мои начисления</p>
                         </a>
                     </li>
+
+                    <li @if (Request::path() == 'agent/dashboard/show-reviews') class="active" @endif>
+                        <a href="{{ route('dashboard.agent.show-reviews.get') }}">
+                            <i class="fa fa-comments"></i>
+                            <p>Отзывы</p>
+                        </a>
+                    </li>
                 @endcan
 
                 @can('show-dashboard-partner')

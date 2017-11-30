@@ -411,7 +411,23 @@ Route::post('/agent/dashboard/partner/edit',[
 		'uses' => 'AgentController@showOperationsPage',
 		'as' => 'dashboard.agent.show-operations.get'	
 		])->middleware('can:show-dashboard-agent,App\User');
+    /**
+     * AGENT REVIEWS
+     */
+	Route::get('/agent/dashboard/show-reviews',[
+		'uses' => 'AgentController@getShowReviews',
+		'as' => 'dashboard.agent.show-reviews.get'	
+		])->middleware('can:show-dashboard-agent,App\User');
 
+	Route::post('/agent/dashboard/approve-review',[
+		'uses' => 'AgentController@postApproveReview',
+		'as' => 'dashboard.agent.approve-review.post'	
+		])->middleware('can:show-dashboard-agent,App\User');
+
+	Route::post('/agent/dashboard/disapprove-review',[
+		'uses' => 'AgentController@postDisapproveReview',
+		'as' => 'dashboard.agent.disapprove-review.post'	
+		])->middleware('can:show-dashboard-agent,App\User');
 	/**
 	 * ПОКАЗЫВАТЬ ПАНЕЛЬ УПРАВЛЕНИЯ БУХГАЛТЕРА
 	 */	
@@ -468,7 +484,7 @@ Route::post('/agent/dashboard/partner/edit',[
 	])->middleware('can:show-dashboard-partner-admin,App\User');
 
     /**
-     * REVIEWS
+     * CONTROL PANEL REVIEWS
      */
 	Route::get('/control-panel/show-reviews',[
 		'uses' => 'PartnerController@getShowReviews',
@@ -478,12 +494,12 @@ Route::post('/agent/dashboard/partner/edit',[
 	Route::post('/control-panel/approve-review',[
 		'uses' => 'PartnerController@postApproveReview',
 		'as' => 'dashboard.partner.approve-review.post'	
-		])->middleware('can:show-dashboard-admin,App\User');
+		])->middleware('can:show-dashboard-partner,App\User');
 
 	Route::post('/control-panel/disapprove-review',[
 		'uses' => 'PartnerController@postDisapproveReview',
 		'as' => 'dashboard.partner.disapprove-review.post'	
-		])->middleware('can:show-dashboard-admin,App\User');
+		])->middleware('can:show-dashboard-partner,App\User');
 
 	/**
 	 * BILLING

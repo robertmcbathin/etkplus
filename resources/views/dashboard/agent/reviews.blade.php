@@ -45,7 +45,7 @@
                                         <td class="text-right">{{ $review->description }}</td>
                                         <td class="text-right">
                                             @if($review->published == 1)
-                                            <form action="{{ route('dashboard.disapprove-review.post') }}" method="POST">
+                                            <form action="{{ route('dashboard.agent.disapprove-review.post') }}" method="POST">
                                                 {{ csrf_field() }}
                                                 <input type="hidden" name="review_id" value="{{ $review->id }}">
                                                 <input type="hidden" name="approved_by" value="{{ Auth::user()->id }}">
@@ -54,7 +54,7 @@
                                                 </span> Опубликовано</button>
                                             </form>
                                             @elseif($review->published == 0)
-                                            <form action="{{ route('dashboard.approve-review.post') }}" method="POST">
+                                            <form action="{{ route('dashboard.agent.approve-review.post') }}" method="POST">
                                                 {{ csrf_field() }}
                                                 <input type="hidden" name="review_id" value="{{ $review->id }}">
                                                 <input type="hidden" name="approved_by" value="{{ Auth::user()->id }}">
@@ -99,7 +99,7 @@
                                                         </div>
                                                         <div class="card-view"><span class="title" style="">Текст</span><span class="value pull-right">{{ $review->description }}</span>
                                                         <div class="card-view"><span class="title" style="">Публикация</span><span class="value pull-right">                                            @if($review->published == 1)
-                                            <form action="{{ route('dashboard.disapprove-review.post') }}" method="POST">
+                                            <form action="{{ route('dashboard.agent.disapprove-review.post') }}" method="POST">
                                                 {{ csrf_field() }}
                                                 <input type="hidden" name="review_id" value="{{ $review->id }}">
                                                 <input type="hidden" name="approved_by" value="{{ Auth::user()->id }}">
@@ -108,7 +108,7 @@
                                                 </span> Опубликовано</button>
                                             </form>
                                             @elseif($review->published == 0)
-                                            <form action="{{ route('dashboard.approve-review.post') }}" method="POST">
+                                            <form action="{{ route('dashboard.agent.approve-review.post') }}" method="POST">
                                                 {{ csrf_field() }}
                                                 <input type="hidden" name="review_id" value="{{ $review->id }}">
                                                 <input type="hidden" name="approved_by" value="{{ Auth::user()->id }}">

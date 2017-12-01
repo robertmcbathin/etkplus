@@ -363,6 +363,9 @@ class APIController extends Controller
       /**
        * ДОСТАТОЧНО ЛИ СРЕДСТВ НА АККАУНТЕ
        */
+      $partner = DB::table('ETKPLUS_PARTNERS')
+                    ->where('id',$partner_id)
+                    ->first();
       $tariff = DB::table('ETKPLUS_TARIFFS')
                   ->where('id',$partner->tariff_id)
                   ->first();

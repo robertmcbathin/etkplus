@@ -347,7 +347,7 @@ class APIController extends Controller
        * РАСЧЕТ ОПЕРАЦИИ
        */
       $discount_value = ($bill*($discount/100));
-      $bill_with_discount = (($bill - $discount_value) - $bonus);
+      $bill_with_discount = (($bill - $discount_value) - $sub_bonus);
       /**
        * РАСЧЕТ НОВОГО ЗНАЧЕНИЯ БОНУСА
        */

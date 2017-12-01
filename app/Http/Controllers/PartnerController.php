@@ -340,7 +340,7 @@ protected function modifyToFullNumber($number){
        * ВЫЧИСЛЕНИЕ СКИДОК, БОНУСОВ И КЭШБЭКА
        */
       $discount_value = ($bill*($discount/100));
-      $bill_with_discount = (($bill - $discount_value) - $bonus);
+      $bill_with_discount = (($bill - $discount_value) - $sub_bonus);
       try {
         $user_bonuses = DB::table('ETKPLUS_PARTNER_USER_BONUSES')
         ->where('partner_id', $partner_id)

@@ -966,7 +966,7 @@ public function postCreateServiceInvoice(Request $request){
          $visits = DB::table('ETKPLUS_VISITS')
         ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_VISITS.partner_id', '=', 'ETKPLUS_PARTNERS.id')
         ->select('ETKPLUS_VISITS.*','ETKPLUS_PARTNERS.name as partner_name','ETKPLUS_PARTNERS.created_by')
-        ->where('ETKPLUS_PARTNERS.created_by',Auth::user())
+        ->where('ETKPLUS_PARTNERS.created_by',Auth::user()->id)
         ->orderBy('ETKPLUS_VISITS.created_at', 'DESC')
         ->paginate(50);
         return view('dashboard.agent.operations',[

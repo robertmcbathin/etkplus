@@ -40,7 +40,7 @@
                                     @foreach ($visits as $visit)
                                     <tr>
                                         <td class="text-center">{{ $visit->id }}</td>
-                                        <td><a href="{{ route('dashboard.partner-page.get', ['partner_id' => $visit->partner_id]) }}">{{ $visit->partner_name }}</a></td>
+                                        <td><a href="{{ route('dashboard.agent.partner-page.get', ['partner_id' => $visit->partner_id]) }}">{{ $visit->partner_name }}</a></td>
                                         <td><a href="">{{ $visit->card_number }}</a></td>
                                         <td class="text-right">{{ $visit->bill }}</td>
                                         <td class="text-right">{{ $visit->discount }}</td>

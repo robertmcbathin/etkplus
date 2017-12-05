@@ -982,6 +982,7 @@ public function postCreateServiceInvoice(Request $request){
                     ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_PARTNERS.id','=','ETKPLUS_REVIEWS.partner_id')
                     ->leftJoin('users','users.id','=','ETKPLUS_REVIEWS.user_id')
                     ->select('ETKPLUS_REVIEWS.*','users.name as username','ETKPLUS_PARTNERS.name as partnername')
+                    ->where('ETKPLUS_PARTNERS.created_by',Auth::user()->id)
                      ->orderBy('created_at','desc')
                     ->paginate(50);
         return view('dashboard.agent.reviews',[

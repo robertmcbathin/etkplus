@@ -41,7 +41,7 @@
                                                     <label class="control-label">
                                                         Краткое наименование
                                                     </label>
-                                                    <input class="form-control" type="text" name="name" placeholder="пример: ООО Рога и копыта" required>
+                                                    <input class="form-control" type="text" name="name" placeholder="пример: ООО Рога и копыта" value="{{ old('name') }}" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-5">
@@ -49,7 +49,7 @@
                                                     <label class="control-label">
                                                         Полное наименование
                                                     </label>
-                                                    <input class="form-control" type="text" name="fullname" required="true" placeholder="" aria-required="true" required>
+                                                    <input class="form-control" type="text" name="fullname" required="true" placeholder="" aria-required="true" value="{{ old('fullname') }}" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -59,7 +59,7 @@
                                                     <div class="form-group">
                                                         <label class="col-sm-2 control-label">Описание</label>
                                                         <div class="col-sm-10">
-                                                            <textarea class="form-control" name="description" placeholder="Основная информация об организации" rows="4"></textarea>
+                                                            <textarea class="form-control" name="description" placeholder="Основная информация об организации" value="{{ old('description') }}" rows="4"></textarea>
                                                         </div>
                                                     </div>
                                                 </fieldset>
@@ -72,7 +72,7 @@
                                                     <label class="control-label">
                                                         Основной номер телефона
                                                     </label>
-                                                    <input class="form-control" type="text" name="phone" placeholder="пример: +79008007060" aria-required="true" aria-invalid="true" required>
+                                                    <input class="form-control" type="text" name="phone" placeholder="пример: +79008007060" aria-required="true" aria-invalid="true" value="{{ old('phone') }}" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-5">
@@ -80,7 +80,7 @@
                                                     <label class="control-label">
                                                         Основной адрес
                                                     </label>
-                                                    <input class="form-control" type="text" name="address" placeholder="пример: г.Чебоксары, ул. Мошенников, д.1, офис 15" aria-required="true" aria-invalid="true" required>
+                                                    <input class="form-control" type="text" name="address" placeholder="пример: г.Чебоксары, ул. Мошенников, д.1, офис 15" aria-required="true" aria-invalid="true" value="{{ old('address') }}" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -90,7 +90,7 @@
                                                     <label class="control-label">
                                                         Email
                                                     </label>
-                                                    <input class="form-control" type="email" name="email" email="true" placeholder="пример: info@mail.ru" aria-required="true" aria-invalid="true" required="">
+                                                    <input class="form-control" type="email" name="email" email="true" placeholder="пример: info@mail.ru" aria-required="true" aria-invalid="true" value="{{ old('email') }}" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-5">
@@ -98,7 +98,7 @@
                                                     <label class="control-label">
                                                         Сайт
                                                     </label>
-                                                    <input class="form-control" type="text" name="site" placeholder="http://example.com" value="http://">
+                                                    <input class="form-control" type="text" name="site" placeholder="http://example.com" value="http://" value="{{ old('site') }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -136,7 +136,7 @@
                                                     <label class="control-label">
                                                         ФИО администратора
                                                     </label>
-                                                    <input class="form-control" type="text" name="admin_name" placeholder="Петров Петр Петрович" value ="">
+                                                    <input class="form-control" type="text" name="admin_name" placeholder="Петров Петр Петрович" value="{{ old('admin_name') }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -147,7 +147,7 @@
                                                     <label class="control-label">
                                                         Юридический адрес
                                                     </label>
-                                                    <input class="form-control" type="text" name="legal_address" placeholder="428000, город Чебоксары, ..." value ="">
+                                                    <input class="form-control" type="text" name="legal_address" placeholder="428000, город Чебоксары, ..." value="{{ old('legal_address') }}">
                                                 </div>
                                             </div>
                                             <div class="col-md-5">
@@ -155,7 +155,7 @@
                                                     <label class="control-label">
                                                         Физический адрес
                                                     </label>
-                                                    <input class="form-control" type="text" name="physical_address" placeholder="428000, город Чебоксары, ..." value ="">
+                                                    <input class="form-control" type="text" name="physical_address" placeholder="428000, город Чебоксары, ..." value="{{ old('physical_address') }}">
                                                 </div>
                                             </div>  
                                             <div class="col-md-5 col-md-offset-1">
@@ -163,7 +163,7 @@
                                                     <label class="control-label">
                                                         ИНН
                                                     </label>
-                                                    <input class="form-control" type="text" name="inn" placeholder="" value ="" minlength="10" maxlength="12">
+                                                    <input class="form-control" type="text" name="inn" placeholder="" value="{{ old('inn') }}" minlength="10" maxlength="12">
                                                 </div>
                                             </div>
                                             <div class="col-md-5">
@@ -171,7 +171,7 @@
                                                     <label class="control-label">
                                                         КПП
                                                     </label>
-                                                    <input class="form-control" type="text" name="kpp" placeholder="" value ="" minlength="9" maxlength="9">
+                                                    <input class="form-control" type="text" name="kpp" placeholder="" value="{{ old('kpp') }}" minlength="9" maxlength="9">
                                                 </div>
                                             </div>  
                                             <div class="col-md-5 col-md-offset-1">
@@ -179,7 +179,7 @@
                                                     <label class="control-label">
                                                         ОГРН
                                                     </label>
-                                                    <input class="form-control" type="text" name="ogrn" placeholder="" value ="" minlength="1" maxlength="20">
+                                                    <input class="form-control" type="text" name="ogrn" placeholder="" value="{{ old('ogrn') }}" minlength="1" maxlength="20">
                                                 </div>
                                             </div>  
                                         </div>

@@ -190,7 +190,6 @@ protected function morph($n, $f1, $f2, $f5) {
        * ПРОВЕРКА РАСШИРЕНИЙ
        */
       $logo_image_extension = $request->file('logo_image')->getClientOriginalExtension();
-      dd($logo_image_extension);
       if ($logo_image_extension !== 'png'){
       	Session::flash('error','Логотип должен быть в формате png');
         return redirect()->back()->withInput();

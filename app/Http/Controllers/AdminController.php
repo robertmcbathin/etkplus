@@ -143,7 +143,7 @@ class AdminController extends Controller
                 'address' => $address,
                 'email' => $email,
                 'site' => $site,
-                'tariff_id' => $tariff,
+                'tariff_id' => $tariff->id,
                 'contract_id' => $contract_id,
                 'legal_address' => $legal_address,
                 'physical_address' => $physical_address,

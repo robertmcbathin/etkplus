@@ -156,7 +156,7 @@
 
     </div>
     <h5 class="card-title">
-      Описание
+      {{ $partner->fullname }}
     </h5>
     <p>{{ $partner->description }}</p>
     <h5 class="card-title">

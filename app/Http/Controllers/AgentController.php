@@ -183,21 +183,22 @@ protected function morph($n, $f1, $f2, $f5) {
        */
       if($user = DB::table('users')->where('email',$email)->first()){
         Session::flash('error','Пользователь с таким email уже зарегистрирован, используйте другой адрес');
-        return redirect()->back();
+        return redirect()->back()->withInput();
       }
 
       /**
        * ПРОВЕРКА РАСШИРЕНИЙ
        */
       $logo_image_extension = $request->file('logo_image')->getClientOriginalExtension();
+      dd($logo_image_extension);
       if ($logo_image_extension !== 'png'){
       	Session::flash('error','Логотип должен быть в формате png');
-        return redirect()->back();
+        return redirect()->back()->withInput();
       }
       $background_image_extension = $request->file('background_image')->getClientOriginalExtension();
       if ($background_image_extension !== 'jpg'){
       	Session::flash('error','Фон должен быть в формате jpg');
-        return redirect()->back();      	
+        return redirect()->back()->withInput();      	
       }
         /**
          * Сумма тарифа
@@ -246,7 +247,7 @@ protected function morph($n, $f1, $f2, $f5) {
                 ]);
         } catch (Exception $e) {
             Session::flash('error', $e);
-            return redirect()->back();
+            return redirect()->back()->withInput();
         }
 
     	/**
@@ -305,13 +306,13 @@ protected function morph($n, $f1, $f2, $f5) {
             Mail::to($email)->send(new PartnerRegistered($email,$password));
         } catch (Exception $e) {
             Session::flash('error', $e);
-            return redirect()->back();
+            return redirect()->back()->withInput();
         }
         /**
          * USER CREATED
          */
         Session::flash('success', 'Создано новое предприятие');
-        return redirect()->back();
+        return redirect()->back()->withInput();
     }
 
     public function getPartnerPage($partner_id){

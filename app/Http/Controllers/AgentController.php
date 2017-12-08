@@ -219,7 +219,7 @@ protected function morph($n, $f1, $f2, $f5) {
                 'address' => $address,
                 'email' => $email,
                 'site' => $site,
-                'tariff_id' => $tariff,
+                'tariff_id' => $tariff->id,
                 'contract_id' => $contract_id,
                 'legal_address' => $legal_address,
                 'physical_address' => $physical_address,

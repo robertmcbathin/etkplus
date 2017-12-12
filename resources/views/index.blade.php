@@ -79,7 +79,7 @@
             </div>
         </div>
     </div>
-   <!-- <div class="section">
+    <div class="section">
         <div class="container">
             <h3>Новые партнеры в нашей сети</h3>
             <br>
@@ -109,7 +109,7 @@
             </div>
 
         </div>
-    </div> -->
+    </div> 
 </div>
 </div>
 @endsection

@@ -70,6 +70,7 @@ protected function morph($n, $f1, $f2, $f5) {
                       ->select('ETKPLUS_PARTNERS.id','ETKPLUS_PARTNERS.name','ETKPLUS_PARTNERS.fullname','ETKPLUS_PARTNERS.created_at', 'ETKPLUS_PARTNERS.updated_at', 
                         'ETKPLUS_PARTNERS.rating','ETKPLUS_PARTNERS.default_discount','ETKPLUS_PARTNERS.default_cashback','ETKPLUS_PARTNERS.logo', 'ETKPLUS_PARTNERS.thumbnail', 'ETKPLUS_PARTNERS.address', 'ETKPLUS_PARTNERS.site', 'ETKPLUS_PARTNERS.description')
                       ->where('ETKPLUS_PARTNERS.is_active',1)
+                      ->where('ETKPLUS_PARTNERS.published',1)
                       ->orderBy('created_at', 'DESC')
                       ->limit(9)
                       ->get();
@@ -92,6 +93,7 @@ protected function morph($n, $f1, $f2, $f5) {
               ->select('ETKPLUS_PARTNERS.id','ETKPLUS_PARTNERS.name','ETKPLUS_PARTNERS.fullname','ETKPLUS_PARTNERS.created_at', 'ETKPLUS_PARTNERS.updated_at',
                 'ETKPLUS_PARTNERS.rating','ETKPLUS_PARTNERS.default_discount','ETKPLUS_PARTNERS.default_cashback','ETKPLUS_PARTNERS.logo', 'ETKPLUS_PARTNERS.thumbnail', 'ETKPLUS_PARTNERS.address', 'ETKPLUS_PARTNERS.site', 'ETKPLUS_PARTNERS.description')
               ->where('ETKPLUS_PARTNERS.is_active',1)
+              ->where('ETKPLUS_PARTNERS.published',1)
               ->where('ETKPLUS_PARTNERS.category',$id)
               ->orderBy('ETKPLUS_PARTNERS.created_at')
               ->get();
@@ -219,6 +221,7 @@ protected function morph($n, $f1, $f2, $f5) {
                     'ETKPLUS_PARTNERS.rating','ETKPLUS_PARTNERS.default_discount','ETKPLUS_PARTNERS.default_cashback','ETKPLUS_PARTNERS.logo', 'ETKPLUS_PARTNERS.thumbnail', 'ETKPLUS_PARTNERS.address', 'ETKPLUS_PARTNERS.site', 'ETKPLUS_PARTNERS.description')
                   ->where('ETKPLUS_PARTNERS.id', $id)
                   ->where('ETKPLUS_PARTNERS.is_active',1)
+                  ->where('ETKPLUS_PARTNERS.published',1)
                   ->first();
     $reviews = DB::table('ETKPLUS_REVIEWS')
                 ->join('ETKPLUS_PARTNERS','ETKPLUS_REVIEWS.partner_id','=','ETKPLUS_PARTNERS.id')

@@ -180,12 +180,12 @@
                             <p>Оплата услуг</p>
                         </a>
                     </li>
-                    <li @if (Request::path() == 'control-panel/show-reviews') class="active" @endif>
+                  <!--  <li @if (Request::path() == 'control-panel/show-reviews') class="active" @endif>
                         <a href="{{ route('dashboard.partner.show-reviews.get') }}">
                             <i class="fa fa-comments"></i>
                             <p>Отзывы</p>
                         </a>
-                    </li>
+                    </li> -->
 
                 @endcan
                 @can('show-dashboard-partner-admin')
@@ -195,12 +195,12 @@
                             <p>Операторы</p>
                         </a>
                     </li>
-                    <li @if (Request::path() == 'control-panel/distribution') class="active" @endif>
+              <!--      <li @if (Request::path() == 'control-panel/distribution') class="active" @endif>
                         <a href="{{ route('dashboard.partner.show-operators-list.get') }}">
                             <i class="fa fa-envelope"></i>
                             <p>Рассылки</p>
                         </a>
-                    </li>
+                    </li> -->
                 @endcan
                 </ul>
             </div>

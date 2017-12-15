@@ -892,6 +892,7 @@ public function postLoadGallery(Request $request){
     public function postIncreaseAccount(Request $request){
         $bill_id = $request->bill_id;
         $partner_id = $request->partner_id;
+        $reason = $request->reason;
         $to_increase = $request->to_increase;
 
         /**
@@ -912,7 +913,20 @@ public function postLoadGallery(Request $request){
          * НАЧИСЛИТЬ ПРОЦЕНТЫ АГЕНТУ
          */
         $agent_id = $partner->created_by;
-        $agent_to_increase = $to_increase/10;
+        /**
+         * ЕСЛИ СЧЕТ ЗА ПОДКЛЮЧЕНИЕ, ТО 20%
+         */
+        switch ($reason) {
+          case 1:
+            $agent_to_increase = $to_increase/5;
+            break;
+          case 2:
+            $agent_to_increase = $to_increase/10;
+            break;          
+          default:
+            break;
+        }
+        
         $agent_account = DB::table('ETKPLUS_AGENT_ACCOUNTS')
                             ->where('user_id',$agent_id)
                             ->first();

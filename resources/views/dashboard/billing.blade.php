@@ -204,6 +204,7 @@
                       {{ csrf_field() }}
                       <input type="hidden" value="{{ $payment->id }}" name="bill_id">
                       <input type="hidden" value="{{ $payment->partner_id }}" name="partner_id">
+                      <input type="hidden" value="{{ $payment->reason }}" name="reason">
                       <input class="form-control" type="text" name="to_increase" value="{{ $payment->value }}" required>
                   </div>
               </div>

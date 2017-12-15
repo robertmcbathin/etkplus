@@ -767,6 +767,7 @@ public function postCreateConnectionInvoice(Request $request){
                         'partner_id' => $partner->id,
                         'type' => 1,
                         'status' => 0,
+                        'reason' => 1,
                         'value' => $value
                       ]);
   $bill_number = 's' .$bill_id;
@@ -858,6 +859,7 @@ public function postCreateServiceInvoice(Request $request){
                         'partner_id' => $partner->id,
                         'type' => 1,
                         'status' => 0,
+                        'reason' => 2,
                         'value' => $value
                       ]);
   $bill_number = 's' .$bill_id;

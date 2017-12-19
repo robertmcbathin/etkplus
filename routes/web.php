@@ -628,6 +628,8 @@ Route::post('/ajax/check-contract-id',[
 	'uses' => 'SiteController@ajaxCheckContractId',
 	'as' => 'ajax.check-contract-id'
 ]);
+
+
 Route::post('/ajax/search-in-categories',[
 	'uses' => 'SiteController@ajaxSearchInCategories',
 	'as' => 'ajax.search-in-categories'

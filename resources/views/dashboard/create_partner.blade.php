@@ -128,7 +128,7 @@
                                                     <label class="control-label">
                                                         Номер договора
                                                     </label>
-                                                    <input class="form-control" type="text" name="contract_id" placeholder="17001" value ="">
+                                                    <input class="form-control" type="text" id="cp-contract-id" name="contract_id" placeholder="YYNNN" value="" minlength="5" maxlength="5">
                                                 </div>
                                             </div>
                                             <div class="col-md-10 col-md-offset-1">
@@ -255,5 +255,8 @@
         </div>
     </div>
 
-
+    <script>
+      var token = '{{ Session::token() }}';
+      var checkContractUrl = '{{ route('ajax.check-contract-id') }}';
+    </script>
     @endsection

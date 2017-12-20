@@ -414,6 +414,23 @@ initPhotoSwipeFromDOM('.my-gallery');
         });
     </script>
 
+    <script>
+        $('#cp-contract-id').on('keyup',function(){
+            if($('#cp-contract-id').val().length == 5){
+              $.ajax({
+                  method: 'POST',
+                  url: searchContractIdUrl,
+                  data: {
+                      searchString: $('#cp-contract-id').val(),
+                      _token: token
+                  }
+              })
+              .done(function(msg){
+                
+              });
+            }
+        });
+    </script>
     <!-- Yandex.Metrika counter -->
 <script type="text/javascript" >
     (function (d, w, c) {

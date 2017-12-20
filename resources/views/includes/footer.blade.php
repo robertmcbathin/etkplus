@@ -61,14 +61,11 @@
 </ul>
 <hr>
 <div class="copyright">
-    <div class="pull-left">
-     Все права защищены © <script>document.write(new Date().getFullYear())</script> ЕТКплюс
- </div>
- <div class="pull-right">
+     <div class="pull-right">
     <ul>
         <li>
-            <a href="">
-                Политика конфиденциальности
+            <a href="/offer">
+                Оферта
             </a>
         </li>
         |
@@ -80,6 +77,11 @@
 
     </ul>
 </div>
+</div>
+<div class="copyright">
+    <div class="pull-left">
+     Все права защищены © <script>document.write(new Date().getFullYear())</script> ЕТКплюс
+ </div>
 </div>
 </div>
 </div>

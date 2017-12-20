@@ -309,6 +309,10 @@ public function showContacts(){
   return view('contacts');
 }
 
+public function showOffer(){
+  return view('offer');
+}
+
 public function postCreateInvoice(Request $request){
   /**
    * INIT VARIABLES
@@ -432,4 +436,9 @@ public function postCreateInvoice(Request $request){
                     ->get();
       if ($results !== NULL){ return response()->json(['message' => 'success', 'results' => $results],200); } else return response()->json(['message' => 'error'],200);                  
     }
+
+    public function ajaxSearchContractId(Request $request){
+
+    }
+
 }

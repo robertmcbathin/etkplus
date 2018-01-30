@@ -123,6 +123,15 @@ class APIController extends Controller
                         ->where('partner_id',$partner->id)
                         ->get();    
         /**
+         * ТИП ОПЕРАТОРА
+         * 1 - С ИНТЕГРАЦИЕЙ С 1С
+         * 2 - БЕЗ ИНТЕГРАЦИИ
+         */
+        $operator = DB::table('ETKPLUS_PARTNER_OPERATORS')
+                      ->where('user_id',$user->id)
+                      ->first();
+        $operatorType = $operator->type;
+        /**
          * ОТПРАВКА ОТВЕТА
          */
         return response()->json([
@@ -133,7 +142,8 @@ class APIController extends Controller
             'minBalance' => $minBalance,
             'operations' => $operations,
             'discounts'  => $discounts,
-            'bonuses'    => $bonuses 
+            'bonuses'    => $bonuses,
+            'operatorType' => $operatorType 
         ],200);
     }
 
@@ -186,6 +196,17 @@ class APIController extends Controller
                     ->where('partner_id', $partner_id)
                     ->sum('ETKPLUS_VISITS.bill');
         /**
+         * ПРОВЕРКА СКИДКИ НА ФИКСИРОВАННОСТЬ
+         */
+        $partner = DB::table('ETKPLUS_PARTNERS')
+                    ->where('id',$partner_id)
+                    ->first();
+        $discountIsFixed = $partner->default_discount;
+        /**
+         * ПОВЕРКА БОНУСА НА ФИКСИРОВАННОСТЬ
+         */
+        $bonusIsFixed = $partner->default_bonus;
+        /**
          * ОТПРАВКА ОТВЕТА
          */
         return response()->json([
@@ -193,7 +214,9 @@ class APIController extends Controller
             'cardNumber'        => $cardNumber,
             'cardBonuses'       => $cardBonuses,
             'cardVisitCount'    => $cardVisitCount,
-            'cardVisitSummary'  => $cardVisitSummary
+            'cardVisitSummary'  => $cardVisitSummary,
+            'discountIsFixed'   => $discountIsFixed,
+            'bonusIsBonus'      => $bonusIsFixed
         ],200);
     }
 

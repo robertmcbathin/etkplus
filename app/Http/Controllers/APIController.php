@@ -475,4 +475,221 @@ class APIController extends Controller
         ],200);
 
     }
+
+    public function postCreateOperation1C(Request $request){
+        /**
+         * ПАРАМЕТРЫ ПО УМОЛЧАНИЮ
+         */
+        $partner_id  = $request->partner_id;
+        $card_number = $request->card_number;
+        $operator_id = $request->operator_id;
+        $token       = $request->token;
+        /**
+         * ВВОДИМЫЕ ПАРАМЕТРЫ
+         */
+        $bill        = $request->bill;
+        $sub_bonus   = $request->sub_bonus;
+        /**
+         * ПРОВЕРКА ТОКЕНА
+         */
+       /* if ($token !== env('API_TOKEN')){
+            return response()->json([
+                'status' => 'error',
+                'errorText' => 'Ошибка взаимодействия'
+            ],200);
+        }
+        /**
+         * ПРОВЕРКА ВХОДНЫХ ПАРАМЕТРОВ
+         */
+        /**
+         * ПРОВЕРКА КАРТЫ
+         */
+        try {
+        $card = DB::table('ETK_CARDS')
+            ->where('num',$this->modifyToFullNumber($card_number))
+            ->first();
+          $card_chip = $card->chip; 
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'errorText' => 'Ошибка при запросе номера карты'
+            ],200);   
+        }
+        /**
+         * ПРОВЕРКА СЧЕТА
+         */
+        if ($bill == ''){
+            return response()->json([
+                'status' => 'error',
+                'errorText' => 'Не введена сумма счета'
+            ],200);            
+        }
+        if ($bill <= 0){
+            return response()->json([
+                'status' => 'error',
+                'errorText' => 'Сумма счета не может быть отрицательной либо равной нулю'
+            ],200);            
+        } 
+        if (!is_numeric($bill)){
+            return response()->json([
+                'status' => 'error',
+                'errorText' => 'Сумма счета должна быть числом'
+            ],200);            
+        }  
+        /**
+         * ПРОВЕРКА СПИСАНИЯ БОНУСА
+         */
+        if ($sub_bonus == '') $sub_bonus = 0;
+        if ($sub_bonus < 0){
+            return response()->json([
+                'status' => 'error',
+                'errorText' => 'Размер списания бонуса не может быть отрицательным'
+            ],200);            
+        } 
+        if (!is_numeric($sub_bonus)){
+            return response()->json([
+                'status' => 'error',
+                'errorText' => 'Введенное значение списания бонуса не является числом'
+            ],200);            
+        }
+        if (($cardBonusesRow = DB::table('ETKPLUS_PARTNER_USER_BONUSES')
+                        ->where('partner_id',$partner_id)
+                        ->where('card_number',$card_number)
+                        ->first()) == NULL){
+          DB::table('ETKPLUS_PARTNER_USER_BONUSES')
+            ->insert([
+              'partner_id' => $partner_id,
+              'card_number' => $card_number,
+              'value' => 0
+            ]);
+        } else if ($sub_bonus > $cardBonusesRow->value){
+            return response()->json([
+                'status' => 'error',
+                'errorText' => 'На карте недостаточно бонусов для списания'
+            ],200);       
+        }
+      /**
+       * ПРОВЕРКА БАЛАНСА, ДОСТУПНОГО ДЛЯ ПРОВЕДЕНИЯ ОПЕРАЦИИ
+       */
+      $balance_row = DB::table('ETKPLUS_PARTNER_ACCOUNTS')
+                            ->where('partner_id',$partner_id)
+                            ->first();
+
+      $balance = $balance_row->value;
+      $balance_min = $balance_row->min_value;
+      $partner = \App\Partner::find($partner_id);
+      /**
+       * РАСЧЕТ ОПЕРАЦИИ
+       */
+      /**
+       * ПОЛУЧЕНИЕ ЗНАЧЕНИЯ СКИДКИ И ФИКСИРОВАННОГО БОНУСА
+       */
+      $discout = $partner->default_discount;
+      $bonus_in_percent  = $partner->default_bonus;
+
+      $discount_value = ($bill*($discount/100));
+      $bill_with_discount = (($bill - $discount_value) - $sub_bonus);
+
+      $bonus = ($bill_with_discount*($bonus_in_percent/100));
+      /**
+       * РАСЧЕТ НОВОГО ЗНАЧЕНИЯ БОНУСА
+       */
+      $user_bonuses = DB::table('ETKPLUS_PARTNER_USER_BONUSES')
+        ->where('partner_id', $partner_id)
+        ->where('card_number',$card_number)
+        ->first();
+      $new_user_bonus_value = ($user_bonuses->value + $bonus - $sub_bonus);
+      /**
+       * НОМЕР КАРТЫ ПО ФОРМАТУ В
+       */
+      $b_card_number = $this->modifyToFullNumber($card_number);
+      /**
+       * ДОСТАТОЧНО ЛИ СРЕДСТВ НА АККАУНТЕ
+       */
+      $tariff = DB::table('ETKPLUS_TARIFFS')
+                  ->where('id',$partner->tariff_id)
+                  ->first();
+      /**
+       * РАСЧЕТ КЭШБЭКА
+       */
+      /**
+       * LIFETIME КЭШБЭКА
+       */
+      $cashback_lifetime = Carbon::now();
+      $cashback_lifetime->addYear();
+      /**
+       * ЗНАЧЕНИЕ КЭШБЭКА ДЛЯ ЗАЧИСЛЕНИЯ НА КАРТУ
+       */
+      $cashback = ceil(($bill*($tariff->cashback/100))); //ОКРУГЛЯЕМ КЭШБЭК В БОЛЬШУЮ СТОРОНУ
+      if (($balance - ($bill*$tariff->comission/100)) < $balance_min ){
+        return response()->json([
+            'status' => 'error',
+            'errorText' => 'Недостаточно средств для проведения операции'
+        ],200);
+      } else {
+        $comission = ($bill*$tariff->comission/100);
+        $new_balance = ($balance - $comission);
+      }
+      
+
+      /**
+       * ПРОВЕДЕНИЕ ОПЕРАЦИИ
+       */
+      try {
+        DB::transaction(function() use ($partner_id,$operator_id,$card_number,$card_chip,$bill,$bill_with_discount,$bonus,$sub_bonus,$discount,$discount_value,$comission,$cashback,$new_user_bonus_value,$new_balance,$b_card_number,$cashback_lifetime) {
+          DB::table('ETKPLUS_VISITS')
+            ->insert([
+              'partner_id' => $partner_id,
+              'operator_id' => $operator_id,
+              'card_number' => $card_number,
+              'card_chip' => $card_chip,
+              'bill' => $bill,
+              'bill_with_discount' => $bill_with_discount,
+              'bonus' => $bonus,
+              'sub_bonus' => $sub_bonus,
+              'discount' => $discount,
+              'discount_value' => $discount_value,
+              'comission' => $comission,
+              'cashback' => $cashback   
+            ]);
+          DB::table('ETKPLUS_PARTNER_USER_BONUSES')
+            ->where('card_number',$card_number)
+            ->where('partner_id', $partner_id)
+            ->update([
+              'value' => $new_user_bonus_value
+            ]);
+          DB::table('ETKPLUS_PARTNER_ACCOUNTS')
+            ->where('partner_id',$partner_id)
+            ->update([
+                'value' => $new_balance
+            ]);
+            /**
+             * КЭШБЭК
+             */
+          DB::table('ETK_CARDS')
+            ->where('num',$b_card_number)
+            ->update(['cashback_to_pay' => $cashback]);
+          DB::table('ETKPLUS_CASHBACKS')
+              ->insert([
+                'card_number' => $card_number,
+                'value' => $cashback,
+                'status' => 1,
+                'lifetime' => $cashback_lifetime
+              ]);
+        }); 
+      } catch (Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'errorText' => 'Что-то пошло не так. Попробуйте повторить попытку'
+        ],200);
+      }
+      /**
+       * ОТВЕТ ОБ УСПЕШНОЙ ОПЕРАЦИИ
+       */
+        return response()->json([
+            'status' => 'success',
+            'text' => 'Операция успешно проведена!'
+        ],200);
+
+    }
 }

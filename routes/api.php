@@ -28,3 +28,7 @@ Route::post('/mobile/partner/create-operation',[
 	'uses' => 'APIController@postCreateOperation',
 	'as' => 'api.create-operation.post'
 ]);
+Route::post('/mobile/partner/create-operation-1c',[
+	'uses' => 'APIController@postCreateOperation1C',
+	'as' => 'api.create-operation-1c.post'
+]);

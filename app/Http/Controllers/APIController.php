@@ -131,6 +131,7 @@ class APIController extends Controller
                       ->where('user_id',$user->id)
                       ->first();
         $operatorType = $operator->type;
+        $host_address_1c = $operator->host_address_1c;
         /**
          * ОТПРАВКА ОТВЕТА
          */
@@ -143,7 +144,8 @@ class APIController extends Controller
             'operations' => $operations,
             'discounts'  => $discounts,
             'bonuses'    => $bonuses,
-            'operatorType' => $operatorType 
+            'operatorType' => $operatorType,
+            'hostAddress1c' => $host_address_1c 
         ],200);
     }
 

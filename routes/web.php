@@ -24,6 +24,10 @@ Route::group(['middleware' => 'web'], function () {
 		'uses' => 'SiteController@showPartnership',
 		'as' => 'site.show-partnership.get'
 		]);	
+	Route::get('/partnership/loyalty',[
+		'uses' => 'SiteController@showPartnershipLoyalty',
+		'as' => 'site.show-partnership-loyalty.get'
+		]);	
 	Route::get('category/{id}',[
 		'uses' => 'SiteController@showCategory',
 		'as' => 'site.show-category.get'

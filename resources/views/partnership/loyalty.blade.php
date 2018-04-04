@@ -9,16 +9,10 @@
 @section('content')
 <div class="header-wrapper">
 
-    <div class="page-header page-header-small filter pattern-image" style="background-image: url('../assets/img/etkplus-bg.jpg');">
-        <div class="filter filter-warning"></div>
+    <div class="page-header page-header-xs filter pattern-image">
+        <div class="filter filter-success"></div>
         <div class="content-center">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-6 text-center">
-                        <h1 class="title">Сотрудничество</h1>
-                        <br>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -26,6 +20,8 @@
 <div class="wrapper">
 <div class="section section-dark section-summary">
         <div class="container">
+            <h2 class="info-title">Система лояльности ЕТКплюс</h2>
+            <br>
             <div class="row">
                 <div class="col-md-4">
                    <div class="info">
@@ -70,7 +66,7 @@
         <div class="row">
             <div class="col-md-12 col-lg-6">
                 <div class="image-container">
-                    <img class="components-macbook" src="assets/img/pages/partnership/desktop-dashboard.png" alt="">
+                    <img class="components-macbook" src="/assets/img/pages/partnership/desktop-dashboard.png" alt="">
                 </div>
             </div>
             <div class="col-md-10 col-lg-4 ml-auto mr-auto">
@@ -93,7 +89,7 @@
                         <h5 class="description white-text">Больше никакого ведения базы клиентов в тетради! Если у Вас есть Android-смартфон с функцией NFC, то управление лояльностью осуществляется быстро и легко! Но даже если такого под рукой нет, то и обычный смартфон подойдет!</h5>
                         <br>
                         <a href="https://play.google.com/store/apps/details?id=com.etk.operatorplus" target="_blank">
-                            <img src="assets/img/pages/partnership/badge-google-play-ru.png" alt="">
+                            <img src="/assets/img/pages/partnership/badge-google-play-ru.png" alt="">
                         </a>
                     </div>
                 </div>
@@ -104,33 +100,33 @@
                 <ul class="grid grid--loaded" style="position: relative; width: 1200px; height: 1110px;">
                     <li class="grid__item first-card" style="position: absolute; left: 0px; top: 0px; z-index: 1;">
                         <a class="grid__link" href="#" style="z-index: 1;">
-                            <img class="grid__img layer" src="assets/img/pages/partnership/screen1-2.jpg" alt="01" style="transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);">
+                            <img class="grid__img layer" src="/assets/img/pages/partnership/screen1-2.jpg" alt="01" style="transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);">
                         </a>
                     </li>
                     <li class="grid__item second-card" style="position: absolute; left: 400px; top: 0px; z-index: 1;">
                         <a class="grid__link" href="#" style="z-index: 1;">
-                            <img class="grid__img layer" src="assets/img/pages/partnership/screen3.jpg" alt="02" style="transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);">
+                            <img class="grid__img layer" src="/assets/img/pages/partnership/screen3.jpg" alt="02" style="transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);">
                         </a>
                     </li>
 
                     <li class="grid__item fifth-card" style="position: absolute; left: 800px; top: 300px;">
                         <a class="grid__link" href="#">
-                            <img class="grid__img layer" src="assets/img/pages/partnership/screen2.jpg" alt="05">
+                            <img class="grid__img layer" src="/assets/img/pages/partnership/screen2.jpg" alt="05">
                         </a>
                     </li>
                     <li class="grid__item sixth-card" style="position: absolute; left: 400px; top: 510px;">
                         <a class="grid__link" href="#">
-                            <img class="grid__img layer" src="assets/img/pages/partnership/screen4-2.jpg" alt="06">
+                            <img class="grid__img layer" src="/assets/img/pages/partnership/screen4-2.jpg" alt="06">
                         </a>
                     </li>
                     <li class="grid__item fourth-card" style="position: absolute; left: 400px; top: 600px;">
                         <a class="grid__link" href="#">
-                            <img class="grid__img layer" src="assets/img/pages/partnership/screen1-1.jpg" alt="07">
+                            <img class="grid__img layer" src="/assets/img/pages/partnership/screen1-1.jpg" alt="07">
                         </a>
                     </li>
                     <li class="grid__item eight-card" style="position: absolute; left: 800px; top: 600px; z-index: 1;">
                         <a class="grid__link" href="#" style="z-index: 1;">
-                            <img class="grid__img layer" src="assets/img/pages/partnership/screen4-1.jpg" alt="07" style="transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);">
+                            <img class="grid__img layer" src="/assets/img/pages/partnership/screen4-1.jpg" alt="07" style="transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);">
                         </a>
                     </li>
                 </ul>
@@ -146,7 +142,7 @@
                 <div class="row">
                     <div class="col-md-7">
                         <div class="image-container">
-                            <img class="img" src="assets/img/pages/partnership/pad.png">
+                            <img class="img" src="/assets/img/pages/partnership/pad.png">
                         </div>
                     </div>
 
@@ -177,7 +173,7 @@
 
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="card card-pricing" data-background="image" style="background-image: url('assets/img/pages/partnership/price1.jpg')">
+                        <div class="card card-pricing" data-background="image" style="background-image: url('/assets/img/pages/partnership/price1.jpg')">
                             <div class="card-body">
                                 <h6 class="card-category white-text">Точка</h6>
                                 <h1 class="card-title">4000</h1>
@@ -192,7 +188,7 @@
                     </div>
 
                     <div class="col-md-4">
-                        <div class="card card-pricing" data-background="image" style="background-image: url('assets/img/pages/partnership/price2.jpg')">
+                        <div class="card card-pricing" data-background="image" style="background-image: url('/assets/img/pages/partnership/price2.jpg')">
                             <div class="card-body">
                                 <h6 class="card-category">Союз</h6>
                                 <h1 class="card-title">10000</h1>
@@ -207,7 +203,7 @@
                     </div>
 
                     <div class="col-md-4">
-                        <div class="card card-pricing" data-background="image" style="background-image: url('assets/img/pages/partnership/price3.jpg')">
+                        <div class="card card-pricing" data-background="image" style="background-image: url('/assets/img/pages/partnership/price3.jpg')">
                             <div class="card-body">
                                 <h6 class="card-category">Альянс</h6>
                                 <h1 class="card-title">20000</h1>

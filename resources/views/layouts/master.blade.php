@@ -49,6 +49,7 @@
     <script src="/assets/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="/assets/js/paper-kit.js"></script>
     <script src="/assets/js/demo.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
     <!--  Photoswipe files -->
 <script src="/assets/js/photoswipe.min.js"></script>
 <script src="/assets/js/photoswipe-ui-default.min.js"></script>

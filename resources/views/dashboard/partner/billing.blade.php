@@ -49,7 +49,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <!--                                 <div class="col-lg-3">
                                     <div class="card">
                                         <div class="card-content">
                                             <div class="row">
@@ -73,7 +73,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
+
                             </div>
                         </div>
                     </div>

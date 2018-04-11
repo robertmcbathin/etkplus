@@ -20,8 +20,8 @@
 
         <div class="content">
             <div class="container-fluid">
-               @include('includes/notifications')
-               <div class="row hidden-lg hidden-md">
+             @include('includes/notifications')
+             <div class="row hidden-lg hidden-md">
                 <div class="col-sm-12 text-center">
                     <a href="{{ route('dashboard.partner.create-operation.get') }}" class="btn btn-danger btn-fill btn-square"><i class="fa fa-credit-card"></i> Добавить операцию</a>
                 </div>
@@ -122,29 +122,29 @@
                             <div class="author">
                               <img class="avatar border-white" src="{{ $partner->logo }}">
                               <h4 class="card-title">{{ $partner->name }}<br>
-                               <a><small>{{ $partner->fullname }}</small></a>
-                           </h4>
-                       </div>
-                       <div class="row">
-                        <div class="left-vertical-tabs">
-                            <ul class="nav nav-stacked" role="tablist">
-                                <li class="active">
-                                    <a href="#info" role="tab" data-toggle="tab">
-                                       Описание
-                                   </a>
-                               </li>
-                               <li>
-                                <a href="#contacts" role="tab" data-toggle="tab">
-                                   Контактные данные
-                               </a>
-                           </li>
-                           <li>
-                            <a href="#agreement" role="tab" data-toggle="tab">
-                               Данные договора
-                           </a>
-                       </li>
-                       <li>
-                         <a href="#discounts" role="tab" data-toggle="tab">
+                                 <a><small>{{ $partner->fullname }}</small></a>
+                             </h4>
+                         </div>
+                         <div class="row">
+                            <div class="left-vertical-tabs">
+                                <ul class="nav nav-stacked" role="tablist">
+                                    <li class="active">
+                                        <a href="#info" role="tab" data-toggle="tab">
+                                         Описание
+                                     </a>
+                                 </li>
+                                 <li>
+                                    <a href="#contacts" role="tab" data-toggle="tab">
+                                     Контактные данные
+                                 </a>
+                             </li>
+                             <li>
+                                <a href="#agreement" role="tab" data-toggle="tab">
+                                 Данные договора
+                             </a>
+                         </li>
+                         <li>
+                           <a href="#discounts" role="tab" data-toggle="tab">
                             Скидки и бонусы
                         </a>
                     </li>
@@ -286,257 +286,268 @@
 <div class="card">
     <div class="card-header">
         <h4 class="card-title">Аккаунты <a href="{{ route('dashboard.partner.show-operators-list.get') }}" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="">
-        <i class="fa fa-cog"></i> </a></h4>
-    </div>
-    <div class="card-content">
-        <ul class="list-unstyled team-members">
-            @foreach ($accounts as $account)
-            <li>
-                <div class="row">
-                    <div class="col-xs-3">
-                        <div class="avatar">
-                            <img src="{{ $account->profile_image }}" class="img-circle img-no-padding img-responsive">
+            <i class="fa fa-cog"></i> </a></h4>
+        </div>
+        <div class="card-content">
+            <ul class="list-unstyled team-members">
+                @foreach ($accounts as $account)
+                <li>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <div class="avatar">
+                                <img src="{{ $account->profile_image }}" class="img-circle img-no-padding img-responsive">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xs-6">
-                        {{ $account->name }}
-                        <br>
-                        <span class="text-success"><small>{{ $account->post }}</small></span>
-                    </div>
-                    <div class="col-xs-3 text-right">
-
-                    </div>
-                </div>
-            </li>     
-            @endforeach
-        </ul>
-    </div>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <h4 class="card-title">Адреса</h4>
-    </div>
-    <div class="card-content">
-        @if (count($addresses) > 0)
-        <ul class="list-unstyled team-members">
-            @foreach ($addresses as $address)
-            <li>
-                <div class="row">
-                    <div class="col-xs-3">
-                        <div class="avatar">
+                        <div class="col-xs-6">
+                            {{ $account->name }}
+                            <br>
+                            <span class="text-success"><small>{{ $account->post }}</small></span>
+                        </div>
+                        <div class="col-xs-3 text-right">
 
                         </div>
                     </div>
-                    <div class="col-xs-6">
-                        {{ $address->name }}
-                        <br>
-                        <span class="text-success"><small>{{ $address->text }}</small></span>
-                    </div>
-                    <div class="col-xs-3 text-right">
-
-                    </div>
-                </div>
-            </li>     
-            @endforeach
-        </ul>
-        @else
-        <p>Не указано ни одного адреса</p>
-        @endif
-    </div>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <h4 class="card-title">Скидки <a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-discounts-partner">
-                <i class="fa fa-cog"></i> </a></h4>
-    </div>
-    <div class="card-content">
-        @if (count($discounts) > 0)
-        <ul class="list-unstyled team-members">
-            @foreach ($discounts as $discount)
-            <li>
-                <div class="row">
-                    <div class="col-xs-3">
-                        <div class="avatar">
-                            {{ $discount->value }} <i class="fa fa-percent"></i>
-                        </div>
-                    </div>
-                    <div class="col-xs-6">
-                        {{ $discount->description }}
-                        
-                    </div>
-                    <div class="col-xs-3 text-right">
-
-                    </div>
-                </div>
-            </li>     
-            @endforeach
-        </ul>
-        @else
-        <p>Действующих скидок нет</p>
-        @endif
-    </div>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <h4 class="card-title">Бонусы <a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-bonuses-partner">
-                    <i class="fa fa-cog"></i> </a></h4>
-    </div>
-    <div class="card-content">
-        @if (count($bonuses) > 0)
-        <ul class="list-unstyled team-members">
-            @foreach ($bonuses as $bonus)
-            <li>
-                <div class="row">
-                    <div class="col-xs-3">
-                        <div class="avatar">
-                            {{ $bonus->value }} <i class="fa fa-ruble"></i>
-                        </div>
-                    </div>
-                    <div class="col-xs-6">
-                        {{ $bonus->description }}
-                        
-                    </div>
-                    <div class="col-xs-3 text-right">
-
-                    </div>
-                </div>
-            </li>     
-            @endforeach
-        </ul>
-        @else
-        <p>Действующих скидок нет</p>
-        @endif
-    </div>
-</div>
-
-</div>
-<div class="col-lg-8 col-md-7">
-    @isset($visits)
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Операции <a href="{{ route('dashboard.partner.create-operation.get') }}" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="">
-                    <i class="fa fa-plus"></i> </a></h4>
-                </div>
-                <div class="card-content table-full-width">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th class="text-center">#</th>
-                                <th>Карта</th>
-                                <th class="text-right">Счет</th>
-                                <th class="text-right">Скидка</th>
-                                <th class="text-right">Бонус</th>
-                                <th class="text-right">Кэшбэк</th>
-                                <th class="text-right">Дата</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($visits as $visit)
-                            <tr>
-                                <td class="text-center">{{ $visit->id }}</td>
-                                <td><a href="{{ route('dashboard.partner.show-card.get', ['card_number' => $visit->card_number]) }}">{{ $visit->card_number }}</a></td>
-                                <td class="text-right">{{ $visit->bill }}</td>
-                                <td class="text-right">{{ $visit->discount }}</td>
-                                <td class="text-right">{{ $visit->bonus }}</td>
-                                <td class="text-right">{{ $visit->cashback }}</td>
-                                <td class="text-right">{{ $visit->created_at }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <div class="text-center">
-                        <?php echo $visits->render(); ?>
-                    </div>
-                </div>
-            </div>
+                </li>     
+                @endforeach
+            </ul>
         </div>
     </div>
-    @endisset
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Оплата услуг</h4>
-                </div>
-                <div class="card-content table-full-width">
-                  @isset($billings)
-                  @if (count($billings) > 0)
-                  <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th>Сумма</th>
-                            <th class="text-right">Тип</th>
-                            <th class="text-right">Статус</th>
-                            <th class="text-right">Дата</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($billings as $billing)
-                        <tr>
-                            <td class="text-center">{{ $billing->id }}</td>
-                            <td>{{ $billing->value }}</td>
-                            @if($billing->type == 0)
-                            <td class="text-right">При создании</td>
-                            @endif
-                            @if($billing->type == 1)
-                            <td class="text-right">Банковский перевод</td>
-                            @endif
-                            @if($billing->type == 2)
-                            <td class="text-right">Интернет-эквайринг</td>
-                            @endif
-                            @if($billing->type == 3)
-                            <td class="text-right">Другой способ</td>
-                            @endif
-                            @if($billing->status == 0)
-                            <td class="text-right">Создан</td>
-                            @endif
-                            @if($billing->status == 1)
-                            <td class="text-right">Подтвержден</td>
-                            @endif
-                            @if($billing->status == 3)
-                            <td class="text-right">Проведен</td>
-                            @endif
-                            <td class="text-right">{{ $billing->created_at }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div class="text-center">
-                    <?php echo $billings->render(); ?>
-                </div>
-                @else 
-                <h6>Операций по счету нет</h6>
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Адреса</h4>
+        </div>
+        <div class="card-content">
+            @if (count($addresses) > 0)
+            <ul class="list-unstyled team-members">
+                @foreach ($addresses as $address)
+                <li>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <div class="avatar">
+
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            {{ $address->name }}
+                            <br>
+                            <span class="text-success"><small>{{ $address->text }}</small></span>
+                        </div>
+                        <div class="col-xs-3 text-right">
+
+                        </div>
+                    </div>
+                </li>     
+                @endforeach
+            </ul>
+            @else
+            <p>Не указано ни одного адреса</p>
+            @endif
+        </div>
+    </div>
+
+    <div class="card">
+
+
+        <div class="card-header">
+            <h4 class="card-title">Скидки 
+
+                <a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-discounts-partner">
+                <i class="fa fa-cog"></i> 
+            </a>
+
+
+            </h4>
+            </div>
+            <div class="card-content">
+                @if (count($discounts) > 0)
+                <ul class="list-unstyled team-members">
+                    @foreach ($discounts as $discount)
+                    <li>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="avatar">
+                                    {{ $discount->value }} <i class="fa fa-percent"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                {{ $discount->description }}
+
+                            </div>
+                            <div class="col-xs-3 text-right">
+
+                            </div>
+                        </div>
+                    </li>     
+                    @endforeach
+                </ul>
+                @else
+                <p>Действующих скидок нет</p>
                 @endif
-                @endisset
             </div>
+
+
+
         </div>
-    </div>
-</div>
-<div>
-    <div>
-        <h4>Галерея</h4>
-    </div>
-    <div>
-        <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-            @if (count($gallery_items) > 0)
-            @foreach ($gallery_items as $gallery_item)
-            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="col-md-3 col-sm-4 gallery-item">
-             <a href="{{ $gallery_item->image_path }}" itemprop="contentUrl" data-size="{{ $gallery_item->image_width }}x{{ $gallery_item->image_height }}">
-               <img src="{{ $gallery_item->image_path }}" itemprop="thumbnail" alt="" class="horizontal-image img-rounded img-responsive">
-           </a>
-           <figcaption itemprop="caption description">{{ $gallery_item->image_caption }}</figcaption>
-       </figure>
-       @endforeach
-       @endif
-   </div>
-   <!-- Root element of PhotoSwipe. Must have class pswp. -->
-   <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Бонусы <a href="#" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="" data-toggle="modal" data-target="#edit-bonuses-partner">
+                    <i class="fa fa-cog"></i> </a></h4>
+                </div>
+                <div class="card-content">
+                    @if (count($bonuses) > 0)
+                    <ul class="list-unstyled team-members">
+                        @foreach ($bonuses as $bonus)
+                        <li>
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <div class="avatar">
+                                        {{ $bonus->value }} <i class="fa fa-ruble"></i>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    {{ $bonus->description }}
+
+                                </div>
+                                <div class="col-xs-3 text-right">
+
+                                </div>
+                            </div>
+                        </li>     
+                        @endforeach
+                    </ul>
+                    @else
+                    <p>Действующих скидок нет</p>
+                    @endif
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-8 col-md-7">
+            @isset($visits)
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Операции <a href="{{ route('dashboard.partner.create-operation.get') }}" class="btn btn-square btn-danger btn-xs btn-fill pull-right" rel="tooltip" title="">
+                                <i class="fa fa-plus"></i> </a></h4>
+                            </div>
+                            <div class="card-content table-full-width">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th>Карта</th>
+                                            <th class="text-right">Счет</th>
+                                            <th class="text-right">Скидка</th>
+                                            <th class="text-right">Бонус</th>
+                                            <th class="text-right">Кэшбэк</th>
+                                            <th class="text-right">Дата</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($visits as $visit)
+                                        <tr>
+                                            <td class="text-center">{{ $visit->id }}</td>
+                                            <td><a href="{{ route('dashboard.partner.show-card.get', ['card_number' => $visit->card_number]) }}">{{ $visit->card_number }}</a></td>
+                                            <td class="text-right">{{ $visit->bill }}</td>
+                                            <td class="text-right">{{ $visit->discount }}</td>
+                                            <td class="text-right">{{ $visit->bonus }}</td>
+                                            <td class="text-right">{{ $visit->cashback }}</td>
+                                            <td class="text-right">{{ $visit->created_at }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <div class="text-center">
+                                    <?php echo $visits->render(); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endisset
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Оплата услуг</h4>
+                            </div>
+                            <div class="card-content table-full-width">
+                              @isset($billings)
+                              @if (count($billings) > 0)
+                              <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th>Сумма</th>
+                                        <th class="text-right">Тип</th>
+                                        <th class="text-right">Статус</th>
+                                        <th class="text-right">Дата</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($billings as $billing)
+                                    <tr>
+                                        <td class="text-center">{{ $billing->id }}</td>
+                                        <td>{{ $billing->value }}</td>
+                                        @if($billing->type == 0)
+                                        <td class="text-right">При создании</td>
+                                        @endif
+                                        @if($billing->type == 1)
+                                        <td class="text-right">Банковский перевод</td>
+                                        @endif
+                                        @if($billing->type == 2)
+                                        <td class="text-right">Интернет-эквайринг</td>
+                                        @endif
+                                        @if($billing->type == 3)
+                                        <td class="text-right">Другой способ</td>
+                                        @endif
+                                        @if($billing->status == 0)
+                                        <td class="text-right">Создан</td>
+                                        @endif
+                                        @if($billing->status == 1)
+                                        <td class="text-right">Подтвержден</td>
+                                        @endif
+                                        @if($billing->status == 3)
+                                        <td class="text-right">Проведен</td>
+                                        @endif
+                                        <td class="text-right">{{ $billing->created_at }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <?php echo $billings->render(); ?>
+                            </div>
+                            @else 
+                            <h6>Операций по счету нет</h6>
+                            @endif
+                            @endisset
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <h4>Галерея</h4>
+                </div>
+                <div>
+                    <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+                        @if (count($gallery_items) > 0)
+                        @foreach ($gallery_items as $gallery_item)
+                        <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="col-md-3 col-sm-4 gallery-item">
+                           <a href="{{ $gallery_item->image_path }}" itemprop="contentUrl" data-size="{{ $gallery_item->image_width }}x{{ $gallery_item->image_height }}">
+                             <img src="{{ $gallery_item->image_path }}" itemprop="thumbnail" alt="" class="horizontal-image img-rounded img-responsive">
+                         </a>
+                         <figcaption itemprop="caption description">{{ $gallery_item->image_caption }}</figcaption>
+                     </figure>
+                     @endforeach
+                     @endif
+                 </div>
+                 <!-- Root element of PhotoSwipe. Must have class pswp. -->
+                 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
     <!-- Background of PhotoSwipe. 
         It's a separate element, as animating opacity is faster than rgba(). -->

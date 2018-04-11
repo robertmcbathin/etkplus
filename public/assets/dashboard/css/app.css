@@ -13,7 +13,6 @@
 	font-size: 1.2em;
 }
 .sidebar:after{
-	background: url('/images/sidebar.png') !important;
 }
 .sidebar .nav li:not(.active) > a, .sidebar[data-background-color="white"] .nav li:not(.active) > a, .off-canvas-sidebar .nav li:not(.active) > a, .off-canvas-sidebar[data-background-color="white"] .nav li:not(.active) > a {
     color: #ffffff;

@@ -25,7 +25,8 @@
                             </div>
                             <div class="card-content">
                                 <div class="form-group" id="co-search-status">
-                                    <input id="co-card-input-number" type="text" value="023333092" placeholder="023000000" class="form-control" maxlength="9" minlength="9">
+                                    <input id="co-card-input-number" type="text" value="" placeholder="023000000" class="form-control" maxlength="9" minlength="9">
+                                    <p class="text-muted">Ввести 9-значный номер карты. Номер начинается с 0. Формат: 0SSNNNNNN</p>
                                 </div>
                                 <button class="btn btn-fill btn-danger btn-square btn-fw away-link" id="co-find-card">Найти</button>
                             </div>
@@ -120,7 +121,12 @@
                                                  <div class="form-group">
                                                      <label class="col-sm-2 control-label">Скидка</label>
                                                      <div class="col-sm-10">
+                                                        @if ($partner->default_discount == null)
                                                          <input type="text" id="co-form-discount" name="discount" class="form-control co-form-summary" minlength="1" placeholder="10">
+                                                         @else 
+                                                         <input type="hidden" id="co-form-discount" name="discount" class="form-control co-form-summary" minlength="1" placeholder="10" value="{{ $partner->default_discount }}">
+                                                         <p>Задана фиксированная скидка в {{ $partner->default_discount }}%</p>
+                                                         @endif
 
                                                          <span class="help-block">в процентах (%)</span>
                                                      </div>
@@ -130,8 +136,13 @@
                                                  <div class="form-group">
                                                      <label class="col-sm-2 control-label">Начислить бонусы</label>
                                                      <div class="col-sm-10">
-                                                         <input type="text" name="bonus" class="form-control" minlength="1" placeholder="50" value="0">
+                                                        @if ($partner->default_bonus == null)
 
+                                                         <input type="text" name="bonus" class="form-control" minlength="1" placeholder="50" value="0">
+                                                        @else
+                                                        <p>Задан фиксированный бонус в размере {{ $partner->default_bonus }}% от суммы. Бонус будет начислен при завершении операции</p>
+                                                        <input type="hidden" name="bonus" class="form-control" minlength="1" placeholder="50" value="null">
+                                                        @endif
                                                          <span class="help-block">в рублях</span>
                                                      </div>
                                                  </div>

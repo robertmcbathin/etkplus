@@ -300,6 +300,13 @@ protected function modifyToFullNumber($number){
       /**
        * 
        */
+      $partner = \App\Partner::find($partner_id);
+      /**
+       * ПРОВЕРКА ФИКСИРОВАННОГО БОНУСА
+       */
+      if ($bonus == 'null'){
+        $bonus = ($bill*$partner->default_bonus)/100;
+      }
       /**
        * ПРОВЕРКА СПИСАНИЯ БОНУСОВ
        */
@@ -1097,6 +1104,37 @@ public function postLoadGallery(Request $request){
         'visit_summary' => $visit_summary,
         'operations' => $operations
       ]);
+    }
+
+
+    public function getSettings(){
+      $partner = \App\Partner::find(Auth::user()->partner_id);
+      $default_discount = $partner->default_discount;
+      $default_bonus = $partner->default_bonus;
+      return view('dashboard.partner.settings',[
+        'default_discount' => $default_discount,
+        'default_bonus' => $default_bonus
+      ]);
+    }
+
+    public function postSaveSettings(Request $request){
+      $default_discount = $request->fixed_discount;
+      $default_bonus    = $request->fixed_bonus;
+
+      $partner = \App\Partner::find(Auth::user()->partner_id);
+      $partner_id = $partner->id;
+      if (DB::table('ETKPLUS_PARTNERS')
+        ->where('id',$partner_id)
+        ->update([
+          'default_discount' => $default_discount,
+          'default_bonus' => $default_bonus
+        ])) {
+        Session::flash('success','Настройки сохранены');
+        return redirect()->back();
+      } else{
+        Session::flash('error','Изменить настройки не удалось');
+        return redirect()->back();
+      }
     }
     
 

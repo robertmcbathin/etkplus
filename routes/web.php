@@ -491,6 +491,18 @@ Route::post('/agent/dashboard/partner/edit',[
 		'as' => 'dashboard.partner.edit-operator-password.post'
 	])->middleware('can:show-dashboard-partner-admin,App\User');
 
+	Route::post('/control-panel/save-settings',[
+		'uses' => 'PartnerController@postSaveSettings',
+		'as' => 'dashboard.partner.save-settings.post'
+	])->middleware('can:show-dashboard-partner-admin,App\User');
+
+
+	Route::get('/control-panel/settings',[
+		'uses' => 'PartnerController@getSettings',
+		'as' => 'dashboard.partner.settings.get'	
+		])->middleware('can:show-dashboard-partner-admin,App\User');
+
+
     /**
      * CONTROL PANEL REVIEWS
      */

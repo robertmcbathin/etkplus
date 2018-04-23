@@ -196,18 +196,7 @@
                             <p>Операторы</p>
                         </a>
                     </li>
-                    <li @if (Request::path() == 'control-panel/settings') class="active" @endif>
-                        <a href="{{ route('dashboard.partner.settings.get') }}">
-                            <i class="fa fa-wrench"></i>
-                            <p>Настройки</p>
-                        </a>
-                    </li>
-              <!--      <li @if (Request::path() == 'control-panel/distribution') class="active" @endif>
-                        <a href="{{ route('dashboard.partner.show-operators-list.get') }}">
-                            <i class="fa fa-envelope"></i>
-                            <p>Рассылки</p>
-                        </a>
-                    </li> -->
+
                 @endcan
                 </ul>
             </div>

@@ -16,7 +16,7 @@
 
         <div class="content">
             <div class="container-fluid">
-            @include('includes/notifications')
+                @include('includes/notifications')
                 <div class="col-md-10 col-md-offset-1">
                     <div class="card card-wizard" id="wizardCard">
                         <form id="wizardForm" method="POST" action="{{ route('dashboard.create-partner.post') }}" novalidate="novalidate" enctype="multipart/form-data">
@@ -110,17 +110,17 @@
                                                         Тариф
                                                     </label>
                                                     <div class="row">
-                                            <div class="col-md-10 col-md-offset-1">
-                                                <div class="form-group">
-                                                    <select class="form-control" name="tariff" title="Выберите тариф" data-size="7" tabindex="-98">
-                                                        <option class="bs-title-option" value="">Выберите тариф</option>
-                                                        @foreach ($tariffs as $tariff)
-                                                        <option value="{{ $tariff->id }}">{{ $tariff->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                        <div class="col-md-10 col-md-offset-1">
+                                                            <div class="form-group">
+                                                                <select class="form-control" name="tariff" title="Выберите тариф" data-size="7" tabindex="-98">
+                                                                    <option class="bs-title-option" value="">Выберите тариф</option>
+                                                                    @foreach ($tariffs as $tariff)
+                                                                    <option value="{{ $tariff->id }}">{{ $tariff->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-5">
@@ -184,6 +184,7 @@
                                             </div>  
                                         </div>
                                         <h5 class="text-center">Категория</h5>
+                                        <p class="muted-text text-center">в системе лояльности</p>
                                         <div class="row">
                                             <div class="col-md-10 col-md-offset-1">
                                                 <div class="form-group">
@@ -196,67 +197,74 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <h5 class="text-center">Магазин</h5>
+                                        <div class="row">
+                                            <div class="col-md-6 col-md-offset-3">
+                                                <p class="category">Включить функционал магазина</p>
+                                                <input type="checkbox" class="switch-plain" name="is_shop">
+                                            </div>
                                         </div>
+                                    </div>
                                     <div class="tab-pane" id="tab2">
                                         <h5 class="text-center">Прикрепите медиафайлы</h5>
                                         <div class="row">
-                                        <div class="col-md-5 col-md-offset-1">
-                                            <div class="fileinput text-center fileinput-new" data-provides="fileinput">
-                                              <div class="fileinput-new thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;">
-                                                <img src="../assets/img/image_placeholder.jpg" alt="...">
-                                            </div>
-                                            <div class="fileinput-preview fileinput-exists thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;"></div>
-                                            <div>
-                                            <span class="btn btn-outline-default btn-round btn-file"><span class="fileinput-new">Выбрать фон (1307 на 392)</span><span class="fileinput-exists">Изменить</span>
-                                              <input type="file" name="background_image">
-                                            </span>
+                                            <div class="col-md-5 col-md-offset-1">
+                                                <div class="fileinput text-center fileinput-new" data-provides="fileinput">
+                                                  <div class="fileinput-new thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;">
+                                                    <img src="../assets/img/image_placeholder.jpg" alt="...">
+                                                </div>
+                                                <div class="fileinput-preview fileinput-exists thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;"></div>
+                                                <div>
+                                                    <span class="btn btn-outline-default btn-round btn-file"><span class="fileinput-new">Выбрать фон (1307 на 392)</span><span class="fileinput-exists">Изменить</span>
+                                                    <input type="file" name="background_image">
+                                                </span>
                                                 <a href="#paper-kit" class="btn btn-link btn-danger fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="fileinput text-center fileinput-new" data-provides="fileinput">
+                                          <div class="fileinput-new thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;">
+                                            <img src="../assets/img/image_placeholder.jpg" alt="">
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="fileinput text-center fileinput-new" data-provides="fileinput">
-                                              <div class="fileinput-new thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;">
-                                                <img src="../assets/img/image_placeholder.jpg" alt="">
-                                            </div>
-                                            <div class="fileinput-preview fileinput-exists thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;"></div>
-                                            <div>
+                                        <div class="fileinput-preview fileinput-exists thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;"></div>
+                                        <div>
                                             <span class="btn btn-outline-default btn-round btn-file"><span class="fileinput-new">Выбрать логотип (150 на 150)</span><span class="fileinput-exists">Изменить</span>
-                                              <input type="file" name="logo_image">
-                                            </span>
-                                                <a href="#paper-kit" class="btn btn-link btn-danger fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                        </div>
-                                        <div class="tab-pane" id="tab3">
-                                            <div class="row">
-                                            <div class="col-md-6 col-md-offset-3">
-                                                <p class="category">Активировать учетную запись</p>
-                                                <input type="checkbox" class="switch-plain" name="is_active">
-                                            </div>
-                                            </div>
-                                        </div>
+                                            <input type="file" name="logo_image">
+                                        </span>
+                                        <a href="#paper-kit" class="btn btn-link btn-danger fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
                                     </div>
                                 </div>
-                                <div class="card-footer">
-                                    <button type="button" class="btn btn-default btn-fill btn-wd btn-back pull-left btn-square disabled" style="display: none;">Назад</button>
-                                    <button type="button" class="btn btn-info btn-fill btn-wd btn-next btn-square pull-right">Далее</button>
-                                    <button type="submit" class="btn btn-info btn-fill btn-wd btn-finish btn-fw btn-square pull-right" onclick="onFinishWizard()">Готово</button>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab3">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <p class="category">Активировать учетную запись</p>
+                                <input type="checkbox" class="switch-plain" name="is_active">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            @include('includes.dashboard.footer')
-        </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-default btn-fill btn-wd btn-back pull-left btn-square disabled" style="display: none;">Назад</button>
+                <button type="button" class="btn btn-info btn-fill btn-wd btn-next btn-square pull-right">Далее</button>
+                <button type="submit" class="btn btn-info btn-fill btn-wd btn-finish btn-fw btn-square pull-right" onclick="onFinishWizard()">Готово</button>
+                <div class="clearfix"></div>
+            </div>
+        </form>
     </div>
+</div>
+</div>
+</div>
+@include('includes.dashboard.footer')
+</div>
+</div>
 
-    <script>
-      var token = '{{ Session::token() }}';
-      var checkContractUrl = '{{ route('ajax.check-contract-id') }}';
-    </script>
-    @endsection
+<script>
+  var token = '{{ Session::token() }}';
+  var checkContractUrl = '{{ route('ajax.check-contract-id') }}';
+</script>
+@endsection

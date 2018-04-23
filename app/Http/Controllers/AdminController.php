@@ -99,10 +99,14 @@ class AdminController extends Controller
         $ogrn              = $request->ogrn;
         $category          = $request->category;
         $is_active         = $request->is_active;
+        $is_shop         = $request->is_shop;
 
         if ($is_active == 'on'){
           $is_active = 1;
       } else $is_active = 0;
+        if ($is_shop == 'on'){
+          $is_shop = 1;
+      } else $is_shop = 0;
       /**
        * ПРОВЕРКА EMAIL
        */
@@ -152,6 +156,7 @@ class AdminController extends Controller
                 'ogrn' => $ogrn,
                 'category' => $category,
                 'is_active' => $is_active,
+                'is_shop' => $is_shop,
                 'created_by' => $user_id
             ]);
             $partner = \App\Partner::find($partnerId);   

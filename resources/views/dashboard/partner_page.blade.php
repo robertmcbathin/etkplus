@@ -68,11 +68,11 @@
                         </div>
                         <div class="tab-pane" id="agreement">
                             <p>Номер: <b class="pull-right">{{ $partner->contract_id }}</b></p>
-                            <p>Юридический адрес: <b class="pull-right">{{ $partner->legal_address }}</b></p>
-                            <p>Физический адрес: <b class="pull-right">{{ $partner->physical_address }}</b></p>
-                            <p>ИНН: <b class="pull-right">{{ $partner->inn }}</b></p>
-                            <p>КПП: <b class="pull-right">{{ $partner->kpp }}</b></p>
-                            <p>ОГРН: <b class="pull-right">{{ $partner->ogrn }}</b></p>
+                            <p>Юридический адрес: <b class="pull-right">{{ $company->legal_address }}</b></p>
+                            <p>Физический адрес: <b class="pull-right">{{ $company->physical_address }}</b></p>
+                            <p>ИНН: <b class="pull-right">{{ $company->inn }}</b></p>
+                            <p>КПП: <b class="pull-right">{{ $company->kpp }}</b></p>
+                            <p>ОГРН: <b class="pull-right">{{ $company->ogrn }}</b></p>
                         </div>
                         <div class="tab-pane" id="discounts">
                           @if (count($discounts) > 0)
@@ -644,31 +644,31 @@
                         <label class="control-label">
                             Юридический адрес
                         </label>
-                        <input class="form-control" type="text" name="legal_address" placeholder="428000, город Чебоксары, ..." value ="{{ $partner->legal_address }}">
+                        <input class="form-control" type="text" name="legal_address" placeholder="428000, город Чебоксары, ..." value ="{{ $company->legal_address }}">
                     </div>
                     <div class="form-group">
                         <label class="control-label">
                             Физический адрес
                         </label>
-                        <input class="form-control" type="text" name="physical_address" placeholder="428000, город Чебоксары, ..." value ="{{ $partner->physical_address }}">
+                        <input class="form-control" type="text" name="physical_address" placeholder="428000, город Чебоксары, ..." value ="{{ $company->physical_address }}">
                     </div>
                     <div class="form-group">
                         <label class="control-label">
                             ИНН
                         </label>
-                        <input class="form-control" type="text" name="inn" placeholder="" value ="{{ $partner->inn }}">
+                        <input class="form-control" type="text" name="inn" placeholder="" value ="{{ $company->inn }}">
                     </div>
                     <div class="form-group">
                         <label class="control-label">
                             КПП
                         </label>
-                        <input class="form-control" type="text" name="kpp" placeholder="" value ="{{ $partner->kpp }}">
+                        <input class="form-control" type="text" name="kpp" placeholder="" value ="{{ $company->kpp }}">
                     </div>
                     <div class="form-group">
                         <label class="control-label">
                             ОГРН
                         </label>
-                        <input class="form-control" type="text" name="ogrn" placeholder="" value ="{{ $partner->ogrn }}">
+                        <input class="form-control" type="text" name="ogrn" placeholder="" value ="{{ $company->ogrn }}">
                     </div>
                     <h5 class="text-center">Категория</h5>
 

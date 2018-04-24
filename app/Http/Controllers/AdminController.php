@@ -149,11 +149,6 @@ class AdminController extends Controller
                 'site' => $site,
                 'tariff_id' => $tariff->id,
                 'contract_id' => $contract_id,
-                'legal_address' => $legal_address,
-                'physical_address' => $physical_address,
-                'inn' => $inn,
-                'kpp' => $kpp,
-                'ogrn' => $ogrn,
                 'category' => $category,
                 'is_active' => $is_active,
                 'is_shop' => $is_shop,
@@ -166,6 +161,17 @@ class AdminController extends Controller
                 'value' => $account_value,
                 'min_value' => 0
             ]);
+            DB::table('companies')
+              ->insert([
+                'id' => $partnerId,
+                'name' => $name,
+                'legal_name' => $fullname,
+                'legal_address' => $legal_address,
+                'physical_address' => $physical_address,
+                'inn' => $inn,
+                'kpp' => $kpp,
+                'ogrn' => $ogrn,
+              ]);
             DB::table('ETKPLUS_PARTNER_BILLING')
                 ->insert([
                     'partner_id' => $partnerId,
@@ -173,6 +179,10 @@ class AdminController extends Controller
                     'status' => 0,
                     'type' => 0
                 ]);
+                /**
+                 * ЕСЛИ ПРЕДПРИЯТИЕ СОЗДАЕТСЯ КАК МАГАЗИН
+                 */
+          
         } catch (Exception $e) {
             Session::flash('error', $e);
             return redirect()->back();
@@ -241,6 +251,18 @@ class AdminController extends Controller
          */
         Session::flash('success', 'Создано новое предприятие');
         return redirect()->back();
+    }
+
+    /**
+     * CREATE COMPANY
+     */
+    public function getCompaniesList(){
+      $companies = DB::table('companies')
+                    ->orderBy('name', 'desc')
+                    ->paginate(20);
+        return view('dashboard.companies_list',[
+          'companies' => $companies
+      ]);
     }
 
     public function getPartnerList(){
@@ -336,6 +358,9 @@ public function getVisitsListByParam($sort_param){
           ->orderBy('ETKPLUS_VISITS.created_at', 'DESC')
           ->paginate(50);
 
+          $company = DB::table('companies')
+                        ->where('id',$partner_id)
+                        ->first();
         $discounts = DB::table('ETKPLUS_PARTNER_DISCOUNTS')
         ->where('partner_id',$partner_id)
         ->get();
@@ -381,7 +406,8 @@ public function getVisitsListByParam($sort_param){
             'billings' => $billings,
             'tariffs' => $tariffs,
             'tariff' => $tariff,
-            'tags' => $tags
+            'tags' => $tags,
+            'company' => $company
         ]);
     }
 
@@ -463,15 +489,18 @@ public function postEditPartner(Request $request){
                 'default_comission' => $comission,
                 'default_discount' => $discount,
                 'contract_id' => $contract_id,
+                'category' => $category,
+                'is_active' => $is_active,
+                'updated_by' => $user_id
+            ]);
+            DB::table('companies')
+              ->where('id',$partner_id)
+              ->update([               
                 'legal_address' => $legal_address,
                 'physical_address' => $physical_address,
                 'inn' => $inn,
                 'kpp' => $kpp,
-                'ogrn' => $ogrn,
-                'category' => $category,
-                'is_active' => $is_active,
-                'updated_by' => $user_id
-            ]);   
+                'ogrn' => $ogrn,]);  
         } catch (Exception $e) {
             Session::flash('error',$e);
             return redirect()->back();  

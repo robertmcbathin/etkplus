@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <ul class="nav" id="sidebar-nav">
-                @can('show-dashboard-admin')
+                    @can('show-dashboard-admin')
                     <li @if (Request::path() == 'dashboard') class="active" @endif>
                         <a href="{{ route('dashboard.show-dashboard.get') }}">
                             <i class="fa fa-area-chart"></i>
@@ -58,21 +58,28 @@
                         </a>
                     </li>
 
-                     <li @if (Request::path() == 'dashboard/users/list') class="active" @endif>
+                    <li @if (Request::path() == 'dashboard/companies/list') class="active" @endif>
+                        <a href="{{ route('dashboard.show-companies-list.get') }}">
+                            <i class="fa fa-address-book"></i>
+                            <p>Контрагенты</p>
+                        </a>
+                    </li>
+
+                    <li @if (Request::path() == 'dashboard/users/list') class="active" @endif>
                         <a href="{{ route('dashboard.show-user-list.get') }}">
                             <i class="fa fa-user"></i>
                             <p>Пользователи</p>
                         </a>
                     </li>
 
-                     <li @if (Request::path() == 'dashboard/billing') class="active" @endif>
+                    <li @if (Request::path() == 'dashboard/billing') class="active" @endif>
                         <a href="{{ route('dashboard.show-billing-page.get') }}">
                             <i class="fa fa-money"></i>
                             <p>Оплата услуг</p>
                         </a>
                     </li>
 
-                     <li @if (Request::path() == 'dashboard/salary') class="active" @endif>
+                    <li @if (Request::path() == 'dashboard/salary') class="active" @endif>
                         <a href="{{ route('dashboard.show-salary-page.get') }}">
                             <i class="fa fa-credit-card-alt"></i>
                             <p>Выплата агентам</p>
@@ -114,9 +121,9 @@
                         </a>
                     </li>
 
-                @endcan
+                    @endcan
 
-                @can('show-dashboard-agent')
+                    @can('show-dashboard-agent')
                     <li @if (Request::path() == 'agent/dashboard') class="active" @endif>
                         <a href="{{ route('dashboard.agent.show-dashboard.get') }}">
                             <i class="fa fa-area-chart"></i>
@@ -138,14 +145,14 @@
                         </a>
                     </li>
 
-                     <li @if (Request::path() == 'agent/dashboard/billing') class="active" @endif>
+                    <li @if (Request::path() == 'agent/dashboard/billing') class="active" @endif>
                         <a href="{{ route('dashboard.agent.billing.get') }}">
                             <i class="fa fa-money"></i>
                             <p>Оплата услуг</p>
                         </a>
                     </li>
 
-                     <li @if (Request::path() == 'agent/dashboard/salary') class="active" @endif>
+                    <li @if (Request::path() == 'agent/dashboard/salary') class="active" @endif>
                         <a href="{{ route('dashboard.agent.salary.get') }}">
                             <i class="fa fa-suitcase"></i>
                             <p>Мои начисления</p>
@@ -158,9 +165,9 @@
                             <p>Отзывы</p>
                         </a>
                     </li>
-                @endcan
+                    @endcan
 
-                @can('show-dashboard-partner')
+                    @can('show-dashboard-partner')
                     <li @if (Request::path() == 'control-panel') class="active" @endif>
                         <a href="{{ route('dashboard.partner.show-dashboard.get') }}">
                             <i class="fa fa-area-chart"></i>
@@ -188,8 +195,8 @@
                         </a>
                     </li> -->
 
-                @endcan
-                @can('show-dashboard-partner-admin')
+                    @endcan
+                    @can('show-dashboard-partner-admin')
                     <li @if (Request::path() == 'control-panel/show-operators') class="active" @endif>
                         <a href="{{ route('dashboard.partner.show-operators-list.get') }}">
                             <i class="fa fa-user"></i>
@@ -197,17 +204,23 @@
                         </a>
                     </li>
 
-                @endcan
-                <!-- SHOP ADMIN -->
-                <hr>
-                <div class="user">
-                    МАГАЗИН
-                </div>
-                @can('show-dashboard-admin')
-
-                @endcan
-                <hr>
-                <!-- END SHOP ADMIN -->
+                    @endcan
+                    <!-- SHOP ADMIN -->
+                    @can('show-dashboard-admin')
+                    <hr>
+                    <li>
+                        <a href="#">
+                            <p>ETKTRADE</p>
+                        </a>
+                    </li>
+                    <li @if (Request::path() == 'dashboard/shop/categories') class="active" @endif>
+                        <a href="{{ route('dashboard.shop.show-categories.get') }}">
+                            <i class="fa fa-user"></i>
+                            <p>Категории</p>
+                        </a>
+                    </li>
+                    @endcan
+                    <!-- END SHOP ADMIN -->
                 </ul>
                 
 

@@ -155,12 +155,24 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.show-chat.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
-
+	Route::get('/dashboard/shop/categories',[
+		'uses' => 'AdminController@showShopCategoriesPage',
+		'as' => 'dashboard.shop.show-categories.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
 
 	Route::get('/dashboard/partners/list',[
 		'uses' => 'AdminController@getPartnerList',
 		'as' => 'dashboard.show-partner-list.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::get('/dashboard/companies/list',[
+		'uses' => 'AdminController@getCompaniesList',
+		'as' => 'dashboard.show-companies-list.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
+
+
+
+
 
 
 	Route::get('/dashboard/visits/list',[

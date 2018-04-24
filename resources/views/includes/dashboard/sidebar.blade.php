@@ -198,6 +198,18 @@
                     </li>
 
                 @endcan
+                <!-- SHOP ADMIN -->
+                <hr>
+                <div class="user">
+                    МАГАЗИН
+                </div>
+                @can('show-dashboard-admin')
+
+                @endcan
+                <hr>
+                <!-- END SHOP ADMIN -->
                 </ul>
+                
+
             </div>
         </div>

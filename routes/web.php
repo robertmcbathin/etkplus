@@ -170,9 +170,20 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.show-companies-list.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
+	Route::post('/dashboard/companies/add',[
+		'uses' => 'AdminController@postCreateCompany',
+		'as' => 'dashboard.add-company.post'
+		])->middleware('can:show-dashboard-admin,App\User');
 
+	Route::post('/dashboard/companies/edit',[
+		'uses' => 'AdminController@postEditCompany',
+		'as' => 'dashboard.edit-company.post'
+		])->middleware('can:show-dashboard-admin,App\User');
 
-
+	Route::post('/dashboard/companies/delete',[
+		'uses' => 'AdminController@postDeleteCompany',
+		'as' => 'dashboard.delete-company.post'
+		])->middleware('can:show-dashboard-admin,App\User');
 
 
 	Route::get('/dashboard/visits/list',[

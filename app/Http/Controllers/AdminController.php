@@ -254,16 +254,110 @@ class AdminController extends Controller
     }
 
     /**
-     * CREATE COMPANY
+     * SHOW COMPANIES
      */
     public function getCompaniesList(){
       $companies = DB::table('companies')
-                    ->orderBy('name', 'desc')
+                    ->orderBy('name', 'asc')
                     ->paginate(20);
         return view('dashboard.companies_list',[
           'companies' => $companies
       ]);
     }
+    /**
+     * CREATE COMPANY
+     */
+    public function postCreateCompany(Request $request){
+      $name              = $request->name;
+      $legal_name        = $request->legal_name;
+      $legal_address     = $request->legal_address;
+      $physical_address  = $request->physical_address;
+      $inn               = $request->inn;
+      $kpp               = $request->kpp;
+      $ogrn              = $request->ogrn;
+      $checking_account  = $request->checking_account;
+      $bik               = $request->bik;
+      $corr_account      = $request->corr_account;
+
+      try {
+      DB::table('companies')
+        ->insert([
+          'name' => $name,
+          'legal_name' => $legal_name,
+          'legal_address' => $legal_address,
+          'physical_address' => $physical_address,
+          'inn' => $inn,
+          'kpp' => $kpp,
+          'ogrn' => $ogrn,
+          'checking_account' => $checking_account,
+          'bik' => $bik,
+          'corr_account' => $corr_account
+        ]); 
+      } catch (Exception $e) {
+        Session::flash('error', 'При добавлении возникла ошибка: ' .  $e);
+        return redirect()->back();
+      }
+      Session::flash('success', 'Контрагент успешно добавлен');
+      return redirect()->back();
+    }
+
+    /**
+     * EDIT COMPANY
+     */
+    public function postEditCompany(Request $request){
+      $company_id        = $request->company_id;
+      $name              = $request->name;
+      $legal_name        = $request->legal_name;
+      $legal_address     = $request->legal_address;
+      $physical_address  = $request->physical_address;
+      $inn               = $request->inn;
+      $kpp               = $request->kpp;
+      $ogrn              = $request->ogrn;
+      $checking_account  = $request->checking_account;
+      $bik               = $request->bik;
+      $corr_account      = $request->corr_account;
+
+      try {
+      DB::table('companies')
+        ->where('id',$company_id)
+        ->update([
+          'name' => $name,
+          'legal_name' => $legal_name,
+          'legal_address' => $legal_address,
+          'physical_address' => $physical_address,
+          'inn' => $inn,
+          'kpp' => $kpp,
+          'ogrn' => $ogrn,
+          'checking_account' => $checking_account,
+          'bik' => $bik,
+          'corr_account' => $corr_account
+        ]); 
+      } catch (Exception $e) {
+        Session::flash('error', 'При изменении возникла ошибка: ' .  $e);
+        return redirect()->back();
+      }
+      Session::flash('success', 'Данные контрагента успешно изменены');
+      return redirect()->back();
+    }
+
+    /**
+     * DELETE COMPANY
+     */
+    public function postDeleteCompany(Request $request){
+      $company_id = $request->company_id;
+
+      try {
+      DB::table('companies')
+        ->where('id',$company_id)
+        ->delete(); 
+      } catch (Exception $e) {
+        Session::flash('error', 'При удалении возникла ошибка: ' .  $e);
+        return redirect()->back();
+      }
+      Session::flash('success', 'Контрагент успешно удален');
+      return redirect()->back();
+    }
+
 
     public function getPartnerList(){
         $partners = DB::table('ETKPLUS_PARTNERS')

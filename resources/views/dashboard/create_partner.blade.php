@@ -140,48 +140,18 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <h5 class="text-center">Юридические данные</h5>
+                                        <h5 class="text-center">Контрагент</h5>
                                         <div class="row">
-                                            <div class="col-md-5 col-md-offset-1">
+                                            <div class="col-md-10 col-md-offset-1">
                                                 <div class="form-group">
-                                                    <label class="control-label">
-                                                        Юридический адрес
-                                                    </label>
-                                                    <input class="form-control" type="text" name="legal_address" placeholder="428000, город Чебоксары, ..." value ="">
+                                                    <select class="form-control" name="company_id" title="Выберите категорию" data-size="7" tabindex="-98" required>
+                                                        <option class="bs-title-option" value="">Выберите контрагента</option>
+                                                        @foreach ($companies as $company)
+                                                        <option value="{{ $company->id }}">{{ $company->name }} ({{ $company->legal_name }})</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-5">
-                                                <div class="form-group">
-                                                    <label class="control-label">
-                                                        Физический адрес
-                                                    </label>
-                                                    <input class="form-control" type="text" name="physical_address" placeholder="428000, город Чебоксары, ..." value ="">
-                                                </div>
-                                            </div>  
-                                            <div class="col-md-5 col-md-offset-1">
-                                                <div class="form-group">
-                                                    <label class="control-label">
-                                                        ИНН
-                                                    </label>
-                                                    <input class="form-control" type="text" name="inn" placeholder="" value ="" minlength="10" maxlength="12">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <div class="form-group">
-                                                    <label class="control-label">
-                                                        КПП
-                                                    </label>
-                                                    <input class="form-control" type="text" name="kpp" placeholder="" value ="" minlength="9" maxlength="9">
-                                                </div>
-                                            </div>  
-                                            <div class="col-md-5 col-md-offset-1">
-                                                <div class="form-group">
-                                                    <label class="control-label">
-                                                        ОГРН
-                                                    </label>
-                                                    <input class="form-control" type="text" name="ogrn" placeholder="" value ="" minlength="1" maxlength="20">
-                                                </div>
-                                            </div>  
                                         </div>
                                         <h5 class="text-center">Категория</h5>
                                         <p class="muted-text text-center">в системе лояльности</p>

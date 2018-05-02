@@ -154,12 +154,49 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'AdminController@showChatPage',
 		'as' => 'dashboard.show-chat.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
-
+/**
+ *
+ *
+ *
+ * 
+ * ETKTRADE
+ *
+ *
+ *
+ *
+ * 
+ */
 	Route::get('/dashboard/shop/categories',[
 		'uses' => 'AdminController@showShopCategoriesPage',
 		'as' => 'dashboard.shop.show-categories.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
+	Route::post('/dashboard/shop/category/add',[
+		'uses' => 'AdminController@postAddShopCategory',
+		'as' => 'dashboard.shop.add-category.post'
+	])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/shop/category/edit',[
+		'uses' => 'AdminController@postEditShopCategory',
+		'as' => 'dashboard.shop.edit-category.post'
+	])->middleware('can:show-dashboard-admin,App\User');;
+
+	Route::post('/dashboard/shop/category/delete',[
+		'uses' => 'AdminController@postDeleteShopCategory',
+		'as' => 'dashboard.shop.delete-category.post'
+	])->middleware('can:show-dashboard-admin,App\User');;
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * 
+ */
 	Route::get('/dashboard/partners/list',[
 		'uses' => 'AdminController@getPartnerList',
 		'as' => 'dashboard.show-partner-list.get'	

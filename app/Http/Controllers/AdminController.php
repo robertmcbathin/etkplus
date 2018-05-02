@@ -64,9 +64,13 @@ class AdminController extends Controller
        ->get();
        $tariffs = DB::table('ETKPLUS_TARIFFS')
        ->get();
+       $companies = DB::table('companies')
+                      ->orderBy('name')
+                      ->get();
        return view('dashboard.create_partner',[
           'categories' => $categories,
-          'tariffs' => $tariffs
+          'tariffs' => $tariffs,
+          'companies' => $companies
       ]);
    }
     /**
@@ -92,14 +96,10 @@ class AdminController extends Controller
         $tariff            = $request->tariff;
         $contract_id       = $request->contract_id;
         $admin_name        = $request->admin_name;
-        $legal_address     = $request->legal_address;
-        $physical_address  = $request->physical_address;
-        $inn               = $request->inn;
-        $kpp               = $request->kpp;
-        $ogrn              = $request->ogrn;
         $category          = $request->category;
         $is_active         = $request->is_active;
         $is_shop         = $request->is_shop;
+        $company_id     = $request->company_id;
 
         if ($is_active == 'on'){
           $is_active = 1;
@@ -151,8 +151,8 @@ class AdminController extends Controller
                 'contract_id' => $contract_id,
                 'category' => $category,
                 'is_active' => $is_active,
-                'is_shop' => $is_shop,
-                'created_by' => $user_id
+                'created_by' => $user_id,
+                'company_id' => $company_id
             ]);
             $partner = \App\Partner::find($partnerId);   
             DB::table('ETKPLUS_PARTNER_ACCOUNTS')
@@ -161,17 +161,7 @@ class AdminController extends Controller
                 'value' => $account_value,
                 'min_value' => 0
             ]);
-            DB::table('companies')
-              ->insert([
-                'id' => $partnerId,
-                'name' => $name,
-                'legal_name' => $fullname,
-                'legal_address' => $legal_address,
-                'physical_address' => $physical_address,
-                'inn' => $inn,
-                'kpp' => $kpp,
-                'ogrn' => $ogrn,
-              ]);
+
             DB::table('ETKPLUS_PARTNER_BILLING')
                 ->insert([
                     'partner_id' => $partnerId,
@@ -182,6 +172,15 @@ class AdminController extends Controller
                 /**
                  * ЕСЛИ ПРЕДПРИЯТИЕ СОЗДАЕТСЯ КАК МАГАЗИН
                  */
+            if ($is_shop == 1){
+              DB::table('ETKTRADE_SHOPS')
+                ->insert([
+                  'name' => $name,
+                  'fullname' => $fullname,
+                  'company_id' => $company_id,
+                  'partner_id' => $partnerId
+                ]);
+            }
           
         } catch (Exception $e) {
             Session::flash('error', $e);
@@ -452,9 +451,12 @@ public function getVisitsListByParam($sort_param){
           ->orderBy('ETKPLUS_VISITS.created_at', 'DESC')
           ->paginate(50);
 
-          $company = DB::table('companies')
-                        ->where('id',$partner_id)
+        $company = DB::table('companies')
+                        ->where('id',$partner->company_id)
                         ->first();
+        $companies = DB::table('companies')
+                        ->orderBy('name')
+                        ->get();                  
         $discounts = DB::table('ETKPLUS_PARTNER_DISCOUNTS')
         ->where('partner_id',$partner_id)
         ->get();
@@ -501,7 +503,8 @@ public function getVisitsListByParam($sort_param){
             'tariffs' => $tariffs,
             'tariff' => $tariff,
             'tags' => $tags,
-            'company' => $company
+            'company' => $company,
+            'companies' => $companies
         ]);
     }
 
@@ -555,14 +558,11 @@ public function postEditPartner(Request $request){
         $site             = $request->site;
         $comission        = $request->comission;
         $contract_id      = $request->contract_id;
-        $legal_address    = $request->legal_address;
-        $physical_address = $request->physical_address;
-        $inn              = $request->inn;
-        $kpp              = $request->kpp;
-        $ogrn             = $request->ogrn;  
+        $company_id       = $request->company_id;  
         $discount         = $request->discount;
         $category         = $request->category;
         $is_active        = $request->is_active;
+        $company_id       = $request->company_id;
         if ($is_active == 'on'){
             $is_active = 1;
         } else $is_active = 0;
@@ -585,16 +585,9 @@ public function postEditPartner(Request $request){
                 'contract_id' => $contract_id,
                 'category' => $category,
                 'is_active' => $is_active,
-                'updated_by' => $user_id
+                'updated_by' => $user_id,
+                'company_id' => $company_id
             ]);
-            DB::table('companies')
-              ->where('id',$partner_id)
-              ->update([               
-                'legal_address' => $legal_address,
-                'physical_address' => $physical_address,
-                'inn' => $inn,
-                'kpp' => $kpp,
-                'ogrn' => $ogrn,]);  
         } catch (Exception $e) {
             Session::flash('error',$e);
             return redirect()->back();  
@@ -1269,8 +1262,219 @@ public function postLoadGallery(Request $request){
         ]);
     }
 
+
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * 
+ * ETKTRADE
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * 
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * 
+ */
+
+    public function showShopCategoriesPage(){
+      $categories = DB::table('ETKTRADE_CATEGORIES')
+                      ->get();
+      $levels = DB::table('ETKTRADE_CATEGORIES')
+                  ->selectRaw('DISTINCT level')
+                  ->get();
+      return view('dashboard.trade.categories',[
+        'categories' => $categories,
+        'levels' => $levels
+      ]);
+    }
+
+    public function postAddShopCategory(Request $request){
+      $title = $request->title;
+      $description = $request->description;
+      $level = $request->level;
+      $parent_id = $request->parent_id;
+
+      try {
+        if ($level == 1) {
+          DB::table('ETKTRADE_CATEGORIES')
+            ->insert([
+              'title' => $title,
+              'description' => $description,
+              'level' => 1,
+              'parent' => 0
+            ]);
+        } else {
+          $parent = DB::table('ETKTRADE_CATEGORIES')
+                      ->where('id',$parent_id)
+                      ->first();
+          DB::table('ETKTRADE_CATEGORIES')
+            ->insert([
+              'title' => $title,
+              'description' => $description,
+              'level' => ++$parent->level,
+              'parent' => $parent->id
+            ]);
+        }
+      } catch (Exception $e) {
+        Session::flash('error',$e);
+        return redirect()->back();
+      }
+      Session::flash('success','Категория добавлена');
+      return redirect()->back();
+    }
+
+    public function postEditShopCategory(Request $request){
+      $category_id = $request->category_id;
+      $title = $request->title;
+      $description = $request->description;
+      $level = $request->level;
+      $parent_id = $request->parent_id;
+
+      try {
+        if ($level == 1) {
+          DB::table('ETKTRADE_CATEGORIES')
+            ->where('id',$category_id)
+            ->update([
+              'title' => $title,
+              'description' => $description,
+              'level' => 1,
+              'parent' => 0
+            ]);
+        } else {
+          $parent = DB::table('ETKTRADE_CATEGORIES')
+                      ->where('id',$parent_id)
+                      ->first();
+          DB::table('ETKTRADE_CATEGORIES')
+            ->where('id',$category_id)
+            ->update([
+              'title' => $title,
+              'description' => $description,
+              'level' => ++$parent->level,
+              'parent' => $parent->id
+            ]);
+        }
+      } catch (Exception $e) {
+        Session::flash('error',$e);
+        return redirect()->back();
+      }
+      Session::flash('success','Категория добавлена');
+      return redirect()->back();            
+    }
+
+
+    public function postDeleteShopCategory(Request $request){
+      $category_id = $request->category_id;
+
+      try {
+        DB::table('ETKTRADE_CATEGORIES')
+          ->where('id',$category_id)
+          ->delete();
+      } catch (Exception $e) {
+        Session::flash('error',$e);
+        return redirect()->back();        
+      }
+      Session::flash('success','Категория удалена');
+      return redirect()->back();
+    }
     /**
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     * 
      * AJAX
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     * 
      */
     public function ajaxSearchPartnerList(Request $request){
         $search_string = $request->searchString;

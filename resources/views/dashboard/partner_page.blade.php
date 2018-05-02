@@ -640,40 +640,23 @@
                         </label>
                         <input class="form-control" type="text" name="contract_id" placeholder="17001" value ="{{ $partner->contract_id }}">
                     </div>
-                    <div class="form-group">
-                        <label class="control-label">
-                            Юридический адрес
-                        </label>
-                        <input class="form-control" type="text" name="legal_address" placeholder="428000, город Чебоксары, ..." value ="{{ $company->legal_address }}">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">
-                            Физический адрес
-                        </label>
-                        <input class="form-control" type="text" name="physical_address" placeholder="428000, город Чебоксары, ..." value ="{{ $company->physical_address }}">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">
-                            ИНН
-                        </label>
-                        <input class="form-control" type="text" name="inn" placeholder="" value ="{{ $company->inn }}">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">
-                            КПП
-                        </label>
-                        <input class="form-control" type="text" name="kpp" placeholder="" value ="{{ $company->kpp }}">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">
-                            ОГРН
-                        </label>
-                        <input class="form-control" type="text" name="ogrn" placeholder="" value ="{{ $company->ogrn }}">
+                    <h5 class="text-center">Контрагент</h5>
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <div class="form-group">
+                                <select class="form-control" name="company_id" title="Выберите категорию" data-size="7" tabindex="-98" required>
+                                    <option class="bs-title-option" value="">Выберите контрагента</option>
+                                    @foreach ($companies as $company)
+                                    <option value="{{ $company->id }}">{{ $company->name }} ({{ $company->legal_name }})</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <h5 class="text-center">Категория</h5>
 
                     <div class="form-group">
-                        <select class="form-control" name="category" title="Выберите категорию" data-size="7" tabindex="-98">
+                        <select class="form-control" name="category" title="Выберите категорию" data-size="7" tabindex="-98" required>
                             <option class="bs-title-option" value="{{ $partner->category_id }}">{{ $partner->category_name }}</option>
                             @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>

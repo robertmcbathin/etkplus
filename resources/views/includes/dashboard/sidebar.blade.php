@@ -215,8 +215,14 @@
                     </li>
                     <li @if (Request::path() == 'dashboard/shop/categories') class="active" @endif>
                         <a href="{{ route('dashboard.shop.show-categories.get') }}">
-                            <i class="fa fa-user"></i>
+                            <i class="fa fa-list"></i>
                             <p>Категории</p>
+                        </a>
+                    </li>
+                    <li @if (Request::path() == 'dashboard/shop/shops') class="active" @endif>
+                        <a href="{{ route('dashboard.shop.show-shops.get') }}">
+                            <i class="fa fa-shopping-cart"></i>
+                            <p>Магазины</p>
                         </a>
                     </li>
                     @endcan

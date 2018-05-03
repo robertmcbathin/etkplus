@@ -179,12 +179,17 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/dashboard/shop/category/edit',[
 		'uses' => 'AdminController@postEditShopCategory',
 		'as' => 'dashboard.shop.edit-category.post'
-	])->middleware('can:show-dashboard-admin,App\User');;
+	])->middleware('can:show-dashboard-admin,App\User');
 
 	Route::post('/dashboard/shop/category/delete',[
 		'uses' => 'AdminController@postDeleteShopCategory',
 		'as' => 'dashboard.shop.delete-category.post'
-	])->middleware('can:show-dashboard-admin,App\User');;
+	])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::get('/dashboard/shop/shops',[
+		'uses' => 'AdminController@showShopCategoriesPage',
+		'as' => 'dashboard.shop.show-shops.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
 /**
  *
  *
@@ -562,7 +567,25 @@ Route::post('/agent/dashboard/partner/edit',[
 		'as' => 'dashboard.partner.settings.get'	
 		])->middleware('can:show-dashboard-partner-admin,App\User');
 
+	Route::post('/control-panel/delete-partner-bonus',[
+		'uses' => 'PartnerController@postDeletePartnerBonus',
+		'as' => 'dashboard.partner.delete-partner-bonus.post'
+		])->middleware('can:show-dashboard-partner-admin,App\User');
 
+	Route::post('/control-panel/add-partner-bonus',[
+		'uses' => 'PartnerController@postAddPartnerBonus',
+		'as' => 'dashboard.partner.add-partner-bonus.post'
+		])->middleware('can:show-dashboard-partner-admin,App\User');
+
+	Route::post('/control-panel/delete-partner-discount',[
+		'uses' => 'PartnerController@postDeletePartnerDiscount',
+		'as' => 'dashboard.partner.delete-partner-discount.post'
+		])->middleware('can:show-dashboard-partner-admin,App\User');
+
+	Route::post('/control-panel/add-partner-discount',[
+		'uses' => 'PartnerController@postAddPartnerDiscount',
+		'as' => 'dashboard.partner.add-partner-discount.post'
+		])->middleware('can:show-dashboard-partner-admin,App\User');
     /**
      * CONTROL PANEL REVIEWS
      */

@@ -1096,7 +1096,7 @@
                                     </div>
                                 </div>
                             </fieldset>
-                            <form action="{{ route('dashboard.delete-partner-discount.post') }}" method="POST">
+                            <form action="{{ route('dashboard.partner.delete-partner-discount.post') }}" method="POST">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="discount_id"  value="{{ $discount->id }}">
                                 <button type="submit" class="btn btn-danger btn-fill btn-square"><i class="fa fa-trash"></i>Удалить</button>
@@ -1109,7 +1109,7 @@
                 @endisset
                 <div class="col-md-12">
                     <div class="card">
-                        <form method="POST" action="{{ route('dashboard.add-partner-discount.post') }}">
+                        <form method="POST" action="{{ route('dashboard.partner.add-partner-discount.post') }}">
                             {{ csrf_field() }}
                             <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                             <div class="card-header">
@@ -1199,7 +1199,7 @@
                                     </div>
                                 </div>
                             </fieldset>
-                            <form action="{{ route('dashboard.delete-partner-bonus.post') }}" method="POST">
+                            <form action="{{ route('dashboard.partner.delete-partner-bonus.post') }}" method="POST">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="bonus_id"  value="{{ $bonus->id }}">
                                 <button type="submit" class="btn btn-danger btn-fill btn-square"><i class="fa fa-trash"></i>Удалить</button>
@@ -1212,7 +1212,7 @@
                 @endisset
                 <div class="col-md-12">
                     <div class="card">
-                        <form method="POST" action="{{ route('dashboard.add-partner-bonus.post') }}">
+                        <form method="POST" action="{{ route('dashboard.partner.add-partner-bonus.post') }}">
                             {{ csrf_field() }}
                             <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                             <div class="card-header">

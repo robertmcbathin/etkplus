@@ -262,7 +262,11 @@
         </div>
         <div class="description">
           <h4 class="info-title">Кэшбэк</h4>
+          @if ($cashback != 0)
           <h6 class="card-category"><span class="upper-text">{{ $cashback }}% </span> на транспортную карту</h6>
+          @else 
+          <h6 class="card-category">не предоставляется</h6>
+          @endif
         </div>
       </div> 
     </div>

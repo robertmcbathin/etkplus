@@ -1413,6 +1413,17 @@ public function postLoadGallery(Request $request){
       Session::flash('success','Категория удалена');
       return redirect()->back();
     }
+
+
+    public function showShopShopsPage(){
+      $shops = DB::table('ETKTRADE_SHOPS')
+                      ->get();
+      return view('dashboard.trade.categories',[
+        'shops' => $shops
+      ]);
+    }
+
+
     /**
      *
      *

@@ -190,6 +190,11 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'AdminController@showShopCategoriesPage',
 		'as' => 'dashboard.shop.show-shops.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::get('/dashboard/shop/shops',[
+		'uses' => 'AdminController@showShopShopsPage',
+		'as' => 'dashboard.shop.show-shops.get'	
+		])->middleware('can:show-dashboard-admin,App\User');	
 /**
  *
  *

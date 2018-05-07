@@ -225,6 +225,12 @@
                             <p>Магазины</p>
                         </a>
                     </li>
+                    <li @if (Request::path() == 'dashboard/shop/goods') class="active" @endif>
+                        <a href="{{ route('dashboard.shop.show-goods.get') }}">
+                            <i class="fa fa-archive"></i>
+                            <p>Товары</p>
+                        </a>
+                    </li>
                     @endcan
                     <!-- END SHOP ADMIN -->
                 </ul>

@@ -1394,7 +1394,7 @@ public function postLoadGallery(Request $request){
         Session::flash('error',$e);
         return redirect()->back();
       }
-      Session::flash('success','Категория добавлена');
+      Session::flash('success','Категория изменена');
       return redirect()->back();            
     }
 
@@ -1414,16 +1414,136 @@ public function postLoadGallery(Request $request){
       return redirect()->back();
     }
 
-
+    /**
+     * SHOPS
+     * @return [type] [description]
+     */
     public function showShopShopsPage(){
       $shops = DB::table('ETKTRADE_SHOPS')
-                      ->get();
-      return view('dashboard.trade.categories',[
-        'shops' => $shops
+                  ->leftJoin('ETKTRADE_SHOP_TYPES','ETKTRADE_SHOP_TYPES.id', '=', 'ETKTRADE_SHOPS.type')
+                  ->leftJoin('companies','companies.id','=','ETKTRADE_SHOPS.company_id')
+                  ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_PARTNERS.id','=','ETKTRADE_SHOPS.partner_id')
+                  ->select('ETKTRADE_SHOPS.*','ETKTRADE_SHOP_TYPES.name as shop_type', 'ETKPLUS_PARTNERS.name as partner_name','companies.name as company_name')
+                  ->get();
+      $companies = DB::table('companies')
+                    ->get();
+      $partners = DB::table('ETKPLUS_PARTNERS')
+                    ->get();
+      $shop_types = DB::table('ETKTRADE_SHOP_TYPES')
+                    ->get();
+      return view('dashboard.trade.shops',[
+        'shops' => $shops,
+        'companies' => $companies,
+        'partners' => $partners,
+        'shop_types' => $shop_types
       ]);
     }
 
+    public function postAddShopShop(Request $request){
+      $name = $request->name;
+      $fullname = $request->fullname;
+      $description = $request->description;
+      $company_id = $request->company_id;
+      $partner_id = $request->partner_id;
+      $min_sale = $request->min_sale;
 
+      try {
+          DB::table('ETKTRADE_SHOPS')
+            ->insert([
+              'name' => $name,
+              'fullname' => $fullname,
+              'description' => $description,
+              'company_id' => $company_id,
+              'partner_id' => $partner_id,
+              'min_sale' => $min_sale
+            ]);
+      } catch (Exception $e) {
+        Session::flash('error',$e);
+        return redirect()->back();
+      }
+      Session::flash('success','Магазин добавлен');
+      return redirect()->back();
+    }
+
+
+    public function postEditShopShop(Request $request){
+      $shop_id = $request->shop_id;
+      $name = $request->name;
+      $fullname = $request->fullname;
+      $description = $request->description;
+      $company_id = $request->company_id;
+      $partner_id = $request->partner_id;
+      $min_sale = $request->min_sale;
+
+      try {
+          DB::table('ETKTRADE_SHOPS')
+            ->where('id',$shop_id)
+            ->update([
+              'name' => $name,
+              'fullname' => $fullname,
+              'description' => $description,
+              'company_id' => $company_id,
+              'partner_id' => $partner_id,
+              'min_sale' => $min_sale
+            ]);
+      } catch (Exception $e) {
+        Session::flash('error',$e);
+        return redirect()->back();
+      }
+      Session::flash('success','Магазин изменен');
+      return redirect()->back();            
+    }
+
+    public function postDeleteShopShop(Request $request){
+      $shop_id = $request->shop_id;
+
+      try {
+        DB::table('ETKTRADE_SHOPS')
+          ->where('id',$shop_id)
+          ->delete();
+      } catch (Exception $e) {
+        Session::flash('error',$e);
+        return redirect()->back();        
+      }
+      Session::flash('success','Магазин удален');
+      return redirect()->back();
+    }
+
+/**
+ * GOODS
+ * @return [type] [description]
+ */
+    public function showShopGoodsPage(){
+      $goods = DB::table('ETKTRADE_GOODS')
+                  ->join('ETKTRADE_SHOPS','ETKTRADE_SHOPS.id', '=', 'ETKTRADE_GOODS.shop_id')
+                  ->leftJoin('ETKTRADE_CATEGORIES','ETKTRADE_CATEGORIES.id','=','ETKTRADE_GOODS.category_id')
+                  ->select('ETKTRADE_GOODS.*','ETKTRADE_SHOPS.name as shop_name', 'ETKTRADE_CATEGORIES.title as category')
+                  ->paginate(50);
+      $categories = DB::table('ETKTRADE_CATEGORIES')
+                    ->get();
+      $shops = DB::table('ETKTRADE_SHOPS')
+                    ->get();
+      return view('dashboard.trade.goods',[
+        'shops' => $shops,
+        'goods' => $goods,
+        'categories' => $categories
+      ]);
+    }
+
+    public function postDeleteShopGood(Request $request){
+      $good_id = $request->good_id;
+
+      try {
+        DB::table('ETKTRADE_GOODS')
+          ->where('id',$good_id)
+          ->delete();
+      } catch (Exception $e) {
+        Session::flash('error',$e);
+        return redirect()->back();        
+      }
+      Session::flash('success','Товар удален');
+      return redirect()->back();
+    }
     /**
      *
      *

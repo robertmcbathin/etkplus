@@ -186,15 +186,47 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.shop.delete-category.post'
 	])->middleware('can:show-dashboard-admin,App\User');
 
-	Route::get('/dashboard/shop/shops',[
-		'uses' => 'AdminController@showShopCategoriesPage',
-		'as' => 'dashboard.shop.show-shops.get'	
-		])->middleware('can:show-dashboard-admin,App\User');
 
 	Route::get('/dashboard/shop/shops',[
 		'uses' => 'AdminController@showShopShopsPage',
 		'as' => 'dashboard.shop.show-shops.get'	
 		])->middleware('can:show-dashboard-admin,App\User');	
+
+	Route::post('/dashboard/shop/shop/add',[
+		'uses' => 'AdminController@postAddShopShop',
+		'as' => 'dashboard.shop.add-shop.post'
+	])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/shop/shop/edit',[
+		'uses' => 'AdminController@postEditShopShop',
+		'as' => 'dashboard.shop.edit-shop.post'
+	])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/shop/shop/delete',[
+		'uses' => 'AdminController@postDeleteShopShop',
+		'as' => 'dashboard.shop.delete-shop.post'
+	])->middleware('can:show-dashboard-admin,App\User');
+
+
+	Route::get('/dashboard/shop/goods',[
+		'uses' => 'AdminController@showShopGoodsPage',
+		'as' => 'dashboard.shop.show-goods.get'	
+		])->middleware('can:show-dashboard-admin,App\User');	
+
+	Route::post('/dashboard/shop/good/add',[
+		'uses' => 'AdminController@postAddShopGood',
+		'as' => 'dashboard.shop.add-good.post'
+	])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/shop/good/csv/add',[
+		'uses' => 'AdminController@postAddShopGoodCsv',
+		'as' => 'dashboard.shop.add-goods-csv.post'
+	])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/shop/good/delete',[
+		'uses' => 'AdminController@postDeleteShopGood',
+		'as' => 'dashboard.shop.delete-good.post'
+	])->middleware('can:show-dashboard-admin,App\User');
 /**
  *
  *

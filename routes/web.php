@@ -219,7 +219,7 @@ Route::group(['middleware' => 'auth'], function () {
 	])->middleware('can:show-dashboard-admin,App\User');
 
 	Route::post('/dashboard/shop/good/csv/add',[
-		'uses' => 'AdminController@postAddShopGoodCsv',
+		'uses' => 'AdminController@postAddShopGoodsCsv',
 		'as' => 'dashboard.shop.add-goods-csv.post'
 	])->middleware('can:show-dashboard-admin,App\User');
 

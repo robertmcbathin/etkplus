@@ -173,31 +173,30 @@
                 </button>
             </div>
             <div class="modal-body"> 
-                <form action="{{ route('dashboard.shop.add-goods-csv.post') }}" method="POST">
+                <form action="{{ route('dashboard.shop.add-goods-csv.post') }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                     <h5 class="text-center"></h5>
                     <div class="form-group">
-                        <input type="file" class="btn-file" name="catalog">
+                        <label class="control-label">
+                            Файл каталога
+                        </label>
+                        <input type="file" class="btn-file" name="catalog" required>
                     </div>
                     <hr>
                     <div class="form-group">
-                        <label class="control-label">
-                            Продавец (по умолчанию ЕТКплюс)
-                        </label>
-                        <input class="form-control" type="text" name="price_cost" placeholder="" required value="3">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">
-                            Минимальный заказ
-                        </label>
-                        <input class="form-control" type="text" name="min_sale" placeholder="5000" minlength="1" maxlength="6">
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control" name="company_id" title="Выберите продавца" data-size="7" tabindex="-98">
+                        <select class="form-control" name="company_id" title="Выберите продавца" data-size="7" tabindex="-98" required>
                             <option class="bs-title-option" value="3">Выберите продавца* (по умолчанию ЕТКплюс)</option>
                             @foreach ($shops as $shop)
                             <option value="{{ $shop->id }}">{{ $shop->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="category_id" title="Выберите категорию" data-size="7" tabindex="-98" required>
+                            <option class="bs-title-option" value="">Выберите категорию (уровня 3)</option>
+                            @foreach ($categories as $category)
+                            <option value="{{ $category->id }}"> {{$category->id}} | {{ $category->title }} ( ур. {{$category->level}}), ({{ $category->parent }})</option>
                             @endforeach
                         </select>
                     </div>

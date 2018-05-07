@@ -23,7 +23,7 @@
             <br>
             <div class="col-md-12">
 
-                <div class="card">
+                   <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Категории</h4>
                         <p class="category">по уровням</p>
@@ -57,6 +57,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    @isset($categories)
                                                     @foreach ($categories as $category)
                                                     @if ($category->level == $level->level)
                                                     <tr>
@@ -75,6 +76,7 @@
                                                     </tr>
                                                     @endif
                                                     @endforeach
+                                                    @endisset
                                                 </tbody>
                                             </table>
                                         </div>
@@ -83,9 +85,12 @@
                             </div>
                             @endforeach
                         </div>
-                    </div><!--  end acordeon -->
+                    </div>
                 </div>
-            </div>
+
+
+                
+            </div> 
 
         </div>
     </div>

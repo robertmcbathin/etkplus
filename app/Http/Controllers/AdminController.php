@@ -13,6 +13,7 @@ use \App\Review;
 use App\Mail\PartnerRegistered;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use \CsvReader;
 
 
 class AdminController extends Controller
@@ -1520,6 +1521,7 @@ public function postLoadGallery(Request $request){
                   ->select('ETKTRADE_GOODS.*','ETKTRADE_SHOPS.name as shop_name', 'ETKTRADE_CATEGORIES.title as category')
                   ->paginate(50);
       $categories = DB::table('ETKTRADE_CATEGORIES')
+                    ->orderBy('level')
                     ->get();
       $shops = DB::table('ETKTRADE_SHOPS')
                     ->get();
@@ -1528,6 +1530,26 @@ public function postLoadGallery(Request $request){
         'goods' => $goods,
         'categories' => $categories
       ]);
+    }
+
+
+    public function postAddShopGoodsCsv(Request $request){
+      $catalog     = $request->file('catalog');
+      $shop_id     = $request->shop_id;
+      $category_id = $request->category_id;
+
+      if ($request->file('catalog')->isValid()){
+        $reader = CsvReader::open($catalog);
+        $counter = 0;
+        while (($line = $reader->readline()) !==  false){
+          try {
+            
+          } catch (Exception $e) {
+            
+          }
+        }
+      }
+
     }
 
     public function postDeleteShopGood(Request $request){

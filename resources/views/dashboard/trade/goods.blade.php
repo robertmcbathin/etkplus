@@ -229,6 +229,14 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group">
+                        <select class="form-control" name="category_id" title="Выберите категорию" data-size="7" tabindex="-98" required>
+                            <option class="bs-title-option" value="{{ $good->category_id }}">Выберите категорию (уровня 3)</option>
+                            @foreach ($categories as $category)
+                            <option value="{{ $category->id }}"> {{$category->id}} | {{ $category->title }} ( ур. {{$category->level}}), ({{ $category->parent }})</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <div class="divider"></div>

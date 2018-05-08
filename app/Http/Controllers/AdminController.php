@@ -1519,7 +1519,7 @@ public function postLoadGallery(Request $request){
                   ->join('ETKTRADE_SHOPS','ETKTRADE_SHOPS.id', '=', 'ETKTRADE_GOODS.shop_id')
                   ->leftJoin('ETKTRADE_CATEGORIES','ETKTRADE_CATEGORIES.id','=','ETKTRADE_GOODS.category_id')
                   ->select('ETKTRADE_GOODS.*','ETKTRADE_SHOPS.name as shop_name', 'ETKTRADE_CATEGORIES.title as category')
-                  ->orderBy('created_at')
+                  ->orderBy('created_at','desc')
                   ->limit(100)
                   ->paginate(50);
       $categories = DB::table('ETKTRADE_CATEGORIES')
@@ -1534,6 +1534,38 @@ public function postLoadGallery(Request $request){
       ]);
     }
 
+    public function postEditShopGood(Request $request){
+      $good_id = $request->good_id;
+      $name = $request->name;
+      $fullname = $request->fullname;
+      $description = $request->description;
+      $price = $request->price;
+      $price_without_discount = $request->price_without_discount;
+      $price_cost = $request->price_cost;
+      $shop_id = $request->shop_id;
+      $category_id = $request->category_id;
+
+      try {
+        DB::table('ETKTRADE_GOODS')
+          ->where('id', $good_id)
+          ->update([
+            'name' => $name,
+            'fullname' => $fullname,
+            'description' => $description,
+            'price' => $price,
+            'price_without_discount' => $price_without_discount,
+            'price_cost' => $price_cost,
+            'shop_id' => $shop_id,
+            'category_id' => $category_id
+          ]);
+      } catch (Exception $e) {
+        Session::flash('error',$e);
+        return redirect()->back();         
+      }
+
+      Session::flash('success','Информация о товаре изменена');
+      return redirect()->back();
+    }
 
     public function postAddShopGoodsCsv(Request $request){
       $catalog     = $request->file('catalog');

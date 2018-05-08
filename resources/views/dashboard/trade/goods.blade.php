@@ -68,6 +68,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="text-center">
+                        <?php echo $goods->render(); ?>
+                    </div>
                 </div>
                 @endisset
 
@@ -163,6 +166,82 @@
     </div>
 </div>
 
+
+@foreach($goods as $good)
+  <div class="modal fade" id="edit-good-{{ $good->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Изменить товар</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body"> 
+                <form action="{{ route('dashboard.shop.edit-good.post') }}" method="POST">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="good_id" value="{{ $good->id }}">
+                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                    <h5 class="text-center"></h5>
+                    <div class="form-group">
+                        <label class="control-label">
+                            Название
+                        </label>
+                        <input class="form-control" type="text" name="name" placeholder="" required value="{{ $good->name }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">
+                            Полное название
+                        </label>
+                        <input class="form-control" type="text" name="fullname" placeholder="" value="{{ $good->fullname }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">
+                            Описание
+                        </label>
+                        <input class="form-control" type="text" name="description" placeholder="" value="{{ $good->description }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">
+                            Цена продажи
+                        </label>
+                        <input class="form-control" type="text" name="price" placeholder="" required value="{{ $good->price }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">
+                            Цена без скидки (опционально)
+                        </label>
+                        <input class="form-control" type="text" name="price_without_discount" placeholder="" value="{{ $good->price_without_discount }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">
+                            Стоимость закупки
+                        </label>
+                        <input class="form-control" type="text" name="price_cost" placeholder="" required value="{{ $good->price_cost }}">
+                    </div>
+                    <hr>
+
+                    <div class="form-group">
+                        <select class="form-control" name="shop_id" title="Выберите продавца" data-size="7" tabindex="-98">
+                            <option class="bs-title-option" value="{{ $good->shop_id }}">Выберите продавца</option>
+                            @foreach ($shops as $shop)
+                            <option value="{{ $shop->id }}">{{ $shop->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="divider"></div>
+                    <div class="right-side">
+                        <button type="submit" class="btn btn-success btn-link btn-square btn-fill btn-fw">Сохранить изменения</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>  
+@endforeach
+
 <div class="modal fade" id="add-goods-csv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -185,7 +264,7 @@
                     </div>
                     <hr>
                     <div class="form-group">
-                        <select class="form-control" name="company_id" title="Выберите продавца" data-size="7" tabindex="-98" required>
+                        <select class="form-control" name="shop_id" title="Выберите продавца" data-size="7" tabindex="-98" required>
                             <option class="bs-title-option" value="3">Выберите продавца* (по умолчанию ЕТКплюс)</option>
                             @foreach ($shops as $shop)
                             <option value="{{ $shop->id }}">{{ $shop->name }}</option>

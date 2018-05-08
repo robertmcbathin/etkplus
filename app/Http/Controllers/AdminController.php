@@ -1519,6 +1519,8 @@ public function postLoadGallery(Request $request){
                   ->join('ETKTRADE_SHOPS','ETKTRADE_SHOPS.id', '=', 'ETKTRADE_GOODS.shop_id')
                   ->leftJoin('ETKTRADE_CATEGORIES','ETKTRADE_CATEGORIES.id','=','ETKTRADE_GOODS.category_id')
                   ->select('ETKTRADE_GOODS.*','ETKTRADE_SHOPS.name as shop_name', 'ETKTRADE_CATEGORIES.title as category')
+                  ->orderBy('created_at')
+                  ->limit(100)
                   ->paginate(50);
       $categories = DB::table('ETKTRADE_CATEGORIES')
                     ->orderBy('level')
@@ -1540,14 +1542,37 @@ public function postLoadGallery(Request $request){
 
       if ($request->file('catalog')->isValid()){
         $reader = CsvReader::open($catalog);
-        $counter = 0;
+        $success_counter = 0;
+        $error_counter = 0;
         while (($line = $reader->readline()) !==  false){
           try {
-            
+            $product = DB::table('ETKTRADE_GOODS')->where('diff_shop_article',$line[4])->first();
+            if ($product){
+              $error_counter++;
+            } else {
+              DB::table('ETKTRADE_GOODS')->insert([
+                'name' => $line[2],
+                'fullname' => $line[2],
+                'description' => $line[5],
+                'price_cost' => $line[0],
+                'diff_shop_article' => $line[4],
+                'diff_shop_link' => $line[3],
+                'sizes' => $line[7],
+                'image' => $line[8],
+                'image_small' => $line[9],
+                'category_id' => $category_id,
+                'shop_id' => $shop_id
+              ]);
+              $success_counter++;
+            }
           } catch (Exception $e) {
-            
+        Session::flash('error',$e);
+        return redirect()->back();  
           }
+
         }
+      Session::flash('success','Товары испортированы.' . 'Успешно: ' . $success_counter . '. С ошибками: ' . $error_counter);
+      return redirect()->back(); 
       }
 
     }

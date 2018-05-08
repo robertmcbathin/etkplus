@@ -223,6 +223,11 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.shop.add-goods-csv.post'
 	])->middleware('can:show-dashboard-admin,App\User');
 
+	Route::post('/dashboard/shop/good/edit',[
+		'uses' => 'AdminController@postEditShopGood',
+		'as' => 'dashboard.shop.edit-good.post'
+	])->middleware('can:show-dashboard-admin,App\User');
+
 	Route::post('/dashboard/shop/good/delete',[
 		'uses' => 'AdminController@postDeleteShopGood',
 		'as' => 'dashboard.shop.delete-good.post'

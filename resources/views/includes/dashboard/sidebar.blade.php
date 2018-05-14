@@ -219,6 +219,38 @@
                             <p>Категории</p>
                         </a>
                     </li>
+                    <li>
+                        <a data-toggle="collapse" href="#sb-categories">
+                            <i class="fa fa-list"></i>
+                            <p>
+                                Категории
+                               <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="sb-categories">
+                            <ul class="nav">
+                                <li>
+                                    <a href="../pages/timeline.html">
+                                        <span class="sidebar-mini">L1</span>
+                                        <span class="sidebar-normal">Уровень 1</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../pages/user.html">
+                                        <span class="sidebar-mini">L2</span>
+                                        <span class="sidebar-normal">Уровень 2</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../pages/login.html">
+                                        <span class="sidebar-mini">L3</span>
+                                        <span class="sidebar-normal">Уровень 3</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
                     <li @if (Request::path() == 'dashboard/shop/shops') class="active" @endif>
                         <a href="{{ route('dashboard.shop.show-shops.get') }}">
                             <i class="fa fa-shopping-cart"></i>

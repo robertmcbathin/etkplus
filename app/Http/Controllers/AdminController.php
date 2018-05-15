@@ -1516,7 +1516,7 @@ public function postLoadGallery(Request $request){
  */
     public function showShopGoodsPage(){
       $goods = DB::table('ETKTRADE_GOODS')
-                  ->join('ETKTRADE_SHOPS','ETKTRADE_SHOPS.id', '=', 'ETKTRADE_GOODS.shop_id')
+                  ->leftJoin('ETKTRADE_SHOPS','ETKTRADE_SHOPS.id', '=', 'ETKTRADE_GOODS.shop_id')
                   ->leftJoin('ETKTRADE_CATEGORIES','ETKTRADE_CATEGORIES.id','=','ETKTRADE_GOODS.category_id')
                   ->select('ETKTRADE_GOODS.*','ETKTRADE_SHOPS.name as shop_name', 'ETKTRADE_CATEGORIES.title as category')
                   ->orderBy('created_at','desc')

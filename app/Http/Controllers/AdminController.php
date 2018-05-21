@@ -14,6 +14,7 @@ use App\Mail\PartnerRegistered;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use \CsvReader;
+use App\Mail\SendDistribution;
 
 
 class AdminController extends Controller
@@ -1233,11 +1234,46 @@ public function postLoadGallery(Request $request){
         $test_recipients = DB::table('users')
                                 ->whereNotNull('email')
                                 ->where('is_email_receiver',1)
-                                ->where('role_id','<',3)
-                                ->get();        
+                                ->where('role_id','<',2)
+                                ->get();
+        $distributions = DB::table('ETKPLUS_ADMIN_EMAIL_DISTRIBUTIONS')
+                            ->get();        
         return view('dashboard.emails',[
-            'recipients_count' => $recipients_count
+            'recipients_count' => $recipients_count,
+            'distributions' => $distributions,
+            'test_recipients' => $test_recipients
         ]);
+    }
+
+    public function sendEmailDistribution(Request $request){
+      $distribution_id = $request->distribution_id;
+
+      $distribution = DB::table('ETKPLUS_ADMIN_EMAIL_DISTRIBUTIONS')
+                        ->where('id',$distribution_id)
+                        ->first();
+      $test_recipients = DB::table('users')
+                             ->whereNotNull('email')
+                             ->where('is_email_receiver',1)
+                             ->where('role_id','<',2)
+                             ->get();  
+
+      $email_subject      = $distribution->title;
+      $email_text         = $distribution->text;   
+      $email_client       = $distribution->client;
+      $email_client_email = $distribution->client_email;
+
+      $email_count = 0;
+      foreach ($test_recipients as $test_recipient) {
+        Mail::to($test_recipient->email)->send(new SendDistribution($email_subject, $email_client, $email_client_email, $email_text));
+        ++$email_count;
+        DB::table('ETKPLUS_ADMIN_EMAIL_DISTRIBUTIONS')
+          ->where('id',$distribution->id)
+          ->update([
+            'sent_emails_count' => $email_count
+          ]);
+      }
+      Session::flash('success','Успешно отправлено на ' . $email_count . ' адресов');
+      return redirect()->back();
     }
     /**
      * LOGS

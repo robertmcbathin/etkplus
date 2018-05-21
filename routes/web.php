@@ -140,6 +140,11 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.show-emails-distribution.get'	
 		])->middleware('can:show-dashboard-admin,App\User');
 
+	Route::post('/dashboard/emails/send',[
+		'uses' => 'AdminController@sendEmailDistribution',
+		'as' => 'dashboard.send-email-distribution.post'
+	]);
+
 	Route::get('/dashboard/log',[
 		'uses' => 'AdminController@showLogPage',
 		'as' => 'dashboard.show-log.get'	

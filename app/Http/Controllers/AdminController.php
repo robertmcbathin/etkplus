@@ -1245,6 +1245,50 @@ public function postLoadGallery(Request $request){
         ]);
     }
 
+
+    public function sendEmailDistribution(Request $request){
+      $distribution_id = $request->distribution_id;
+
+      $distribution = DB::table('ETKPLUS_ADMIN_EMAIL_DISTRIBUTIONS')
+                        ->where('id',$distribution_id)
+                        ->first();
+      $recipients = DB::table('users')
+                      ->whereNotNull('email')
+                      ->where('is_email_receiver',1)
+                      ->get();  
+
+      $email_subject      = $distribution->title;
+      $email_text         = $distribution->text;   
+      $email_client       = $distribution->client;
+      $email_client_email = $distribution->client_email;
+
+      $email_count = 0;
+      foreach ($recipients as $recipient) {
+        Mail::to($recipient->email)->send(new SendDistribution($email_subject, $email_client, $email_client_email, $email_text));
+        ++$email_count;
+        DB::table('ETKPLUS_ADMIN_EMAIL_DISTRIBUTIONS')
+          ->where('id',$distribution->id)
+          ->update([
+            'sent_emails_count' => $email_count,
+            'last_email' => $recipient->email
+          ]);
+        DB::table('SYS_LOG')
+          ->insert([
+            'action_type' => 25,
+            'message' => date('Y-m-d H:i:s') . ' | Отправлено письмо по рассылке ' . $email_subject . ' пользователю ' . $recipient->email
+          ]);
+
+      }
+      DB::table('ETKPLUS_ADMIN_EMAIL_DISTRIBUTIONS')
+          ->where('id',$distribution->id)
+          ->update([
+            'status' => 2
+          ]);
+      Session::flash('success','Успешно отправлено на ' . $email_count . ' адресов');
+      return redirect()->back();
+    }
+
+
     public function sendTestEmailDistribution(Request $request){
       $distribution_id = $request->distribution_id;
 

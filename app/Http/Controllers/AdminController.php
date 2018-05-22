@@ -1254,7 +1254,7 @@ public function postLoadGallery(Request $request){
       $test_recipients = DB::table('users')
                              ->whereNotNull('email')
                              ->where('is_email_receiver',1)
-                             ->where('role_id','<',2)
+                             ->where('role_id','<',3)
                              ->get();  
 
       $email_subject      = $distribution->title;

@@ -1245,7 +1245,7 @@ public function postLoadGallery(Request $request){
         ]);
     }
 
-    public function sendEmailDistribution(Request $request){
+    public function sendTestEmailDistribution(Request $request){
       $distribution_id = $request->distribution_id;
 
       $distribution = DB::table('ETKPLUS_ADMIN_EMAIL_DISTRIBUTIONS')
@@ -1269,9 +1269,21 @@ public function postLoadGallery(Request $request){
         DB::table('ETKPLUS_ADMIN_EMAIL_DISTRIBUTIONS')
           ->where('id',$distribution->id)
           ->update([
-            'sent_emails_count' => $email_count
+            'sent_emails_count' => $email_count,
+            'last_email' => $test_recipient->email
           ]);
+        DB::table('SYS_LOG')
+          ->insert([
+            'action_type' => 25,
+            'message' => date('Y-m-d H:i:s') . ' | Отправлено тестовое письмо по рассылке ' . $email_subject . ' пользователю ' . $test_recipient->email
+          ]);
+
       }
+      DB::table('ETKPLUS_ADMIN_EMAIL_DISTRIBUTIONS')
+          ->where('id',$distribution->id)
+          ->update([
+            'status' => 1
+          ]);
       Session::flash('success','Успешно отправлено на ' . $email_count . ' адресов');
       return redirect()->back();
     }

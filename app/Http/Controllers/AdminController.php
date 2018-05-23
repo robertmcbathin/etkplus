@@ -1258,7 +1258,7 @@ public function postLoadGallery(Request $request){
                       ->where('is_email_receiver',1)
                       ->where('id', '>', $last_sended_email_id)
                       ->get();  
-
+      dd($recipients);
       $email_subject      = $distribution->title;
       $email_text         = $distribution->text;   
       $email_client       = $distribution->client;

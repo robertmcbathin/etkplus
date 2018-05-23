@@ -1248,6 +1248,7 @@ public function postLoadGallery(Request $request){
 
     public function sendEmailDistribution(Request $request){
       $distribution_id = $request->distribution_id;
+      $last_sended_email_id = $request->last_sended_email_id;
 
       $distribution = DB::table('ETKPLUS_ADMIN_EMAIL_DISTRIBUTIONS')
                         ->where('id',$distribution_id)
@@ -1255,6 +1256,7 @@ public function postLoadGallery(Request $request){
       $recipients = DB::table('users')
                       ->whereNotNull('email')
                       ->where('is_email_receiver',1)
+                      ->where('id', '>', $last_sended_email_id)
                       ->get();  
 
       $email_subject      = $distribution->title;
@@ -1264,6 +1266,7 @@ public function postLoadGallery(Request $request){
 
       $email_count = 0;
       foreach ($recipients as $recipient) {
+        try {
         Mail::to($recipient->email)->send(new SendDistribution($email_subject, $email_client, $email_client_email, $email_text));
         ++$email_count;
         DB::table('ETKPLUS_ADMIN_EMAIL_DISTRIBUTIONS')
@@ -1276,7 +1279,14 @@ public function postLoadGallery(Request $request){
           ->insert([
             'action_type' => 25,
             'message' => date('Y-m-d H:i:s') . ' | Отправлено письмо по рассылке ' . $email_subject . ' пользователю ' . $recipient->email
-          ]);
+          ]); 
+        } catch (Exception $e) {
+          DB::table('SYS_LOG')
+          ->insert([
+            'action_type' => 25,
+            'message' => date('Y-m-d H:i:s') . ' | Не отправлено письмо по рассылке ' . $email_subject . ' пользователю ' . $recipient->email
+          ]); 
+        }
 
       }
       DB::table('ETKPLUS_ADMIN_EMAIL_DISTRIBUTIONS')

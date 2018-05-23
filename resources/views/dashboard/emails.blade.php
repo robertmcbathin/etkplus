@@ -62,6 +62,7 @@
                                                 @if($distribution->status == 2)
                                                     <span class="label label-success">Отправлено</span>
                                                 @endif
+                                                <p>ID последнего пользователя: <b>{{ $distribution->last_email_user_id }}</b></p>
                                             </div>  
                                             <div class="col-md-4">
                                             <form action="{{ route('dashboard.send-email-distribution.post.test') }}" method="POST">
@@ -76,6 +77,7 @@
                                             <form action="{{ route('dashboard.send-email-distribution.post') }}" method="POST">
                                                 {{ csrf_field() }}
                                                 <input type="hidden" name="distribution_id" value="{{ $distribution->id }}">
+                                                <input type="hidden" name="last_sended_email_id" value="{{ $distribution->last_email_user_id }}">
                                                 <button class="btn btn-success btn-fill btn-wd btn-square" type="submit">Отправить</button>
                                             </form>
                                             

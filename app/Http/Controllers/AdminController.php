@@ -1607,10 +1607,10 @@ public function postLoadGallery(Request $request){
  * @return [type] [description]
  */
     public function showShopGoodsPage(){
-      $goods = DB::table('ETKTRADE_GOODS')
-                  ->leftJoin('ETKTRADE_SHOPS','ETKTRADE_SHOPS.id', '=', 'ETKTRADE_GOODS.shop_id')
-                  ->leftJoin('ETKTRADE_CATEGORIES','ETKTRADE_CATEGORIES.id','=','ETKTRADE_GOODS.category_id')
-                  ->select('ETKTRADE_GOODS.*','ETKTRADE_SHOPS.name as shop_name', 'ETKTRADE_CATEGORIES.title as category')
+      $goods = DB::table('ETKTRADE_PRODUCTS')
+                  ->leftJoin('ETKTRADE_SHOPS','ETKTRADE_SHOPS.id', '=', 'ETKTRADE_PRODUCTS.shop_id')
+                  ->leftJoin('ETKTRADE_CATEGORIES','ETKTRADE_CATEGORIES.id','=','ETKTRADE_PRODUCTS.category_id')
+                  ->select('ETKTRADE_PRODUCTS.*','ETKTRADE_SHOPS.name as shop_name', 'ETKTRADE_CATEGORIES.title as category')
                   ->orderBy('created_at','desc')
                   ->limit(100)
                   ->paginate(50);
@@ -1638,7 +1638,7 @@ public function postLoadGallery(Request $request){
       $category_id = $request->category_id;
 
       try {
-        DB::table('ETKTRADE_GOODS')
+        DB::table('ETKTRADE_PRODUCTS')
           ->where('id', $good_id)
           ->update([
             'name' => $name,
@@ -1670,11 +1670,11 @@ public function postLoadGallery(Request $request){
         $error_counter = 0;
         while (($line = $reader->readline()) !==  false){
           try {
-            $product = DB::table('ETKTRADE_GOODS')->where('diff_shop_article',$line[4])->first();
+            $product = DB::table('ETKTRADE_PRODUCTS')->where('diff_shop_article',$line[4])->first();
             if ($product){
               $error_counter++;
             } else {
-              DB::table('ETKTRADE_GOODS')->insert([
+              DB::table('ETKTRADE_PRODUCTS')->insert([
                 'name' => $line[2],
                 'fullname' => $line[2],
                 'description' => $line[5],
@@ -1705,7 +1705,7 @@ public function postLoadGallery(Request $request){
       $good_id = $request->good_id;
 
       try {
-        DB::table('ETKTRADE_GOODS')
+        DB::table('ETKTRADE_PRODUCTS')
           ->where('id',$good_id)
           ->delete();
       } catch (Exception $e) {

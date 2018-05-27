@@ -188,7 +188,7 @@
                     </div>
                     <div class="form-group">
                         <select class="form-control" name="parent_id" title="Выберите родительскую категорию" data-size="7" tabindex="-98">
-                            <option class="bs-title-option" value="{{ $category->id }}">Выберите родительскую категорию</option>
+                            <option class="bs-title-option" value="{{ $category->parent }}">Выберите родительскую категорию</option>
                             @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->title }} (уровень {{ $category->level }})</option>
                             @endforeach

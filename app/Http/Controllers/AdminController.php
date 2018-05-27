@@ -1488,7 +1488,7 @@ public function postLoadGallery(Request $request){
         Session::flash('error','Фон должен быть в формате jpg');
         return redirect()->back();        
       }
-      $category_imagename = '/assets/img/etktrade/categories/' . $category_id .  $background_image_extension;          
+      $category_imagename = '/assets/img/etktrade/categories/' . $category_id .  $category_image_extension;          
       Storage::disk('public')->put($category_imagename, File::get($category_image));   
       DB::table('ETKTRADE_CATEGORIES')
         ->where('id',$category_id)

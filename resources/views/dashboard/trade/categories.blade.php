@@ -144,7 +144,7 @@
                 </button>
             </div>
             <div class="modal-body"> 
-                <form action="{{ route('dashboard.shop.edit-category.post') }}" method="POST">
+                <form action="{{ route('dashboard.shop.edit-category.post') }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" name="category_id" value="{{ $category->id }}">
                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">

@@ -1472,6 +1472,7 @@ public function postLoadGallery(Request $request){
       $level = $request->level;
       $parent_id = $request->parent_id;
       $active = $request->active;
+      $image = $request->image;
 
       if ($active == 'on'){
           $active = 1;

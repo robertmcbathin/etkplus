@@ -16,79 +16,59 @@
             <div class="container-fluid">
                 @include('includes/notifications')
                 <div class="row">
-                   <div class="col-md-12">
+                 <div class="col-md-12">
                     <a class="btn btn-danger btn-fill btn-wd btn-square" data-toggle="modal" data-target="#add-category" >Добавить категорию</a>
                 </div>
             </div>
             <br>
             <div class="col-md-12">
 
-                   <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Категории</h4>
-                        <p class="category">по уровням</p>
-                    </div>
-                    <div class="card-content">
-                       <div id="acordeon">
-                        <div class="panel-group" id="accordion">
+             <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Категории</h4>
+                    <p class="category">уровень {{ $level }}</p>
+                </div>
+                <div class="card-content">
 
 
-                            @foreach ($levels as $level)
-                            <div class="panel panel-border panel-default">
-                                <a data-toggle="collapse" href="#collapse-{{ $level->level }}" class="collapsed" aria-expanded="false">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            Категории уровня {{ $level->level }}
-                                            <i class="ti-angle-down"></i>
-                                        </h4>
-                                    </div>
-                                </a>
-                                <div id="collapse-{{ $level->level }}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                                    <div class="panel-body">
-                                        <div class="card-content table-full-width">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-center">#</th>
-                                                        <th>Заголовок</th>
-                                                        <th>Описание</th>
-                                                        <th>Родительская категория</th>
-                                                        <th class="text-right">Создано</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @isset($categories)
-                                                    @foreach ($categories as $category)
-                                                    @if ($category->level == $level->level)
-                                                    <tr>
-                                                        <td>{{ $category->id  }}</td>
-                                                        <td>{{ $category->title }}</td>
-                                                        <td>{{ $category->description }}</td>
-                                                        <td>{{ $category->parent }}</td>
-                                                        <td class="text-right">{{ $category->created_at }}</td>
-                                                        <td>
-                                                            <button class="btn btn-info  btn-square btn-fill" data-toggle="modal" data-target="#edit-category-{{$category->id}}">Изменить</button>
+                    <div class="card-content table-full-width">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th>Заголовок</th>
+                                    <th>Описание</th>
+                                    <th>Родительская категория</th>
+                                    <th class="text-right">Создано</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @isset($categories)
+                                @foreach ($categories as $category)
+                                <tr>
+                                    <td>{{ $category->id  }}</td>
+                                    <td>{{ $category->title }}</td>
+                                    <td>{{ $category->description }}</td>
+                                    <td>{{ $category->parent }}</td>
+                                    <td class="text-right">{{ $category->created_at }}</td>
+                                    <td>
+                                        <button class="btn btn-info  btn-square btn-fill" data-toggle="modal" data-target="#edit-category-{{$category->id}}">Изменить</button>
 
-                                                        </td>
-                                                        <td>
-                                                            <button class="btn btn-danger  btn-square btn-fill" data-toggle="modal" data-target="#delete-category-{{$category->id}}">Удалить</button>
-                                                        </td>
-                                                    </tr>
-                                                    @endif
-                                                    @endforeach
-                                                    @endisset
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger  btn-square btn-fill" data-toggle="modal" data-target="#delete-category-{{$category->id}}">Удалить</button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                @endisset
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
-
+                    <div class="text-center">
+                        <?php echo $categories->render(); ?>
+                    </div>
                 
             </div> 
 
@@ -141,17 +121,17 @@
                             @endforeach
                         </select>
                     </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="divider"></div>
-                        <div class="right-side">
-                            <button type="submit" class="btn btn-success btn-link btn-square btn-fill btn-fw">Добавить</button>
-                        </div>
-                    </form>
                 </div>
+                <div class="modal-footer">
+                    <div class="divider"></div>
+                    <div class="right-side">
+                        <button type="submit" class="btn btn-success btn-link btn-square btn-fill btn-fw">Добавить</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
 @foreach($categories as $category)
 <div class="modal fade" id="edit-category-{{$category->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
@@ -183,6 +163,25 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">
+                            Фоновое изображение
+                        </label>
+                        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                      <div class="fileinput-new thumbnail">
+                        <img src="{{ $category->image }}" alt="...">
+                      </div>
+                      <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                      <div>
+                        <span class="btn btn-rose btn-round btn-file">
+                          <span class="fileinput-new">Выберите изображение (1100 * 310)</span>
+                          <span class="fileinput-exists">Изменить</span>
+                          <input type="file" name="...">
+                        </span>
+                        <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
+                      </div>
+                    </div>
+                    </div>                    
+                    <div class="form-group">
+                        <label class="control-label">
                             Уровень
                         </label>
                         <input class="form-control" type="text" name="level" placeholder="Если это корневая категория, то поставить 1, если имеет предка, то ничего ставить не нужно" minlength="1" maxlength="2" value="{{ $category->level }}">
@@ -195,6 +194,18 @@
                             @endforeach
                         </select>
                     </div>
+
+                    <div class="form-group">
+                        <label class="control-label">
+                            Активность
+                        </label>
+                            @if ($category->active == 0)
+                            <input type="checkbox" class="switch-plain" name="active">
+                            @else
+                            <input type="checkbox" class="switch-plain" name="active" checked>
+                            @endif
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <div class="left-side">

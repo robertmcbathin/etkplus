@@ -1415,15 +1415,18 @@ public function postLoadGallery(Request $request){
  * 
  */
 
-    public function showShopCategoriesPage(){
+    public function showShopCategoriesPage($level){
       $categories = DB::table('ETKTRADE_CATEGORIES')
-                      ->get();
+                      ->where('level',$level)
+                      ->orderBy('id')
+                      ->paginate(50);
       $levels = DB::table('ETKTRADE_CATEGORIES')
                   ->selectRaw('DISTINCT level')
                   ->get();
       return view('dashboard.trade.categories',[
         'categories' => $categories,
-        'levels' => $levels
+        'levels' => $levels,
+        'level' => $level
       ]);
     }
 

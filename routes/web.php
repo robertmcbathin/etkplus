@@ -176,7 +176,8 @@ Route::group(['middleware' => 'auth'], function () {
  *
  * 
  */
-	Route::get('/dashboard/shop/categories',[
+
+	Route::get('/dashboard/shop/categories/{level}',[
 		'uses' => 'AdminController@showShopCategoriesPage',
 		'as' => 'dashboard.shop.show-categories.get'	
 		])->middleware('can:show-dashboard-admin,App\User');

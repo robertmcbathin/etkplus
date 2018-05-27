@@ -214,7 +214,7 @@
                         </a>
                     </li>
                     <li @if (Request::path() == 'dashboard/shop/categories') class="active" @endif>
-                        <a href="{{ route('dashboard.shop.show-categories.get') }}">
+                        <a href="">
                             <i class="fa fa-list"></i>
                             <p>Категории</p>
                         </a>
@@ -230,19 +230,19 @@
                         <div class="collapse" id="sb-categories">
                             <ul class="nav">
                                 <li>
-                                    <a href="../pages/timeline.html">
+                                    <a href="{{ route('dashboard.shop.show-categories.get', ['level' => 1]) }}">
                                         <span class="sidebar-mini">L1</span>
                                         <span class="sidebar-normal">Уровень 1</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="../pages/user.html">
+                                    <a href="{{ route('dashboard.shop.show-categories.get', ['level' => 2]) }}">
                                         <span class="sidebar-mini">L2</span>
                                         <span class="sidebar-normal">Уровень 2</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="../pages/login.html">
+                                    <a href="{{ route('dashboard.shop.show-categories.get', ['level' => 3]) }}">
                                         <span class="sidebar-mini">L3</span>
                                         <span class="sidebar-normal">Уровень 3</span>
                                     </a>

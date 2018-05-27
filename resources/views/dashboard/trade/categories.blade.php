@@ -172,9 +172,9 @@
                       <div class="fileinput-preview fileinput-exists thumbnail"></div>
                       <div>
                         <span class="btn btn-rose btn-round btn-file">
-                          <span class="fileinput-new">Выберите изображение (1100 * 310)</span>
+                          <span class="fileinput-new">Выберите изображение (1000 * 310)</span>
                           <span class="fileinput-exists">Изменить</span>
-                          <input type="file" name="...">
+                          <input type="file" name="image" value="{{ $category->image }}">
                         </span>
                         <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
                       </div>

@@ -1471,6 +1471,31 @@ public function postLoadGallery(Request $request){
       $description = $request->description;
       $level = $request->level;
       $parent_id = $request->parent_id;
+      $active = $request->active;
+
+      if ($active == 'on'){
+          $active = 1;
+      } else $active = 0;
+
+
+      if($image){
+      /**
+       * ПРОВЕРКА РАСШИРЕНИЙ
+       */
+      $category_image_extension = $request->file('image')->getClientOriginalExtension();
+      if ($category_image_extension !== 'jpg'){
+        Session::flash('error','Фон должен быть в формате jpg');
+        return redirect()->back();        
+      }
+      $category_imagename = '/assets/img/etktrade/categories/' . $category_id .  $background_image_extension;          
+      Storage::disk('public')->put($category_imagename, File::get($category_image));   
+      DB::table('ETKTRADE_CATEGORIES')
+        ->where('id',$category_id)
+        ->update([
+          'image' => 'https://etkplus.ru' . $category_imagename
+        ]);   
+      }
+
 
       try {
         if ($level == 1) {

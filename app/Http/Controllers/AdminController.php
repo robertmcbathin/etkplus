@@ -1489,7 +1489,7 @@ public function postLoadGallery(Request $request){
         return redirect()->back();        
       }
       $category_imagename = '/assets/img/etktrade/categories/' . $category_id .  $category_image_extension;          
-      Storage::disk('public')->put($category_imagename, File::get($category_image));   
+      Storage::disk('public')->put($category_imagename, File::get($image));   
       DB::table('ETKTRADE_CATEGORIES')
         ->where('id',$category_id)
         ->update([

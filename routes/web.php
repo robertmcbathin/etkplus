@@ -198,6 +198,26 @@ Route::group(['middleware' => 'auth'], function () {
 	])->middleware('can:show-dashboard-admin,App\User');
 
 
+
+
+	Route::post('/dashboard/shop/category/attribute/add',[
+		'uses' => 'AdminController@postAddCategoryAttribute',
+		'as' => 'dashboard.shop.add-category-attribute.post'
+	])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/shop/category/attribute/edit',[
+		'uses' => 'AdminController@postEditCategoryAttribute',
+		'as' => 'dashboard.shop.edit-category-attribute.post'
+	])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/shop/category/attribute/delete',[
+		'uses' => 'AdminController@postDeleteCategoryAttribute',
+		'as' => 'dashboard.shop.delete-category-attribute.post'
+	])->middleware('can:show-dashboard-admin,App\User');
+
+
+
+
 	Route::get('/dashboard/shop/shops',[
 		'uses' => 'AdminController@showShopShopsPage',
 		'as' => 'dashboard.shop.show-shops.get'	

@@ -1423,10 +1423,15 @@ public function postLoadGallery(Request $request){
       $levels = DB::table('ETKTRADE_CATEGORIES')
                   ->selectRaw('DISTINCT level')
                   ->get();
+      $attributes = DB::table('ETKTRADE_ATTRIBUTES')
+                      ->join('ETKTRADE_ATTRIBUTE_TYPES','ETKTRADE_ATTRIBUTE_TYPES.id','=','ETKTRADE_ATTRIBUTES.type')
+                      ->select('ETKTRADE_ATTRIBUTES.*','ETKTRADE_ATTRIBUTE_TYPES.title as type')
+                      ->get();
       return view('dashboard.trade.categories',[
         'categories' => $categories,
         'levels' => $levels,
-        'level' => $level
+        'level' => $level,
+        'attributes' => $attributes
       ]);
     }
 
@@ -1544,6 +1549,65 @@ public function postLoadGallery(Request $request){
       Session::flash('success','Категория удалена');
       return redirect()->back();
     }
+
+
+   /**
+    * ATTRIBUTES
+    */
+   public function postAddCategoryAttribute(Request $request){
+    $category_id = $request->category_id;
+    $title = $request->title;
+    $type = $request->type;
+    try {
+      DB::table('ETKTRADE_ATTRIBUTES')
+      ->insert([
+        'title' => $title,
+        'type' => $type,
+        'category_id' => $category_id
+      ]);
+    } catch (Exception $e) {
+      Session::flash('error',$e);
+      return redirect()->back();
+    }
+    Session::flash('success', 'Атрибут добавлен');
+    return redirect()->back();
+   }
+
+   public function postEditCategoryAttribute(Request $request){
+    $attribute_id = $request->attribute_id;
+    $title = $request->title;
+    $type = $request->type;
+    try {
+      DB::table('ETKTRADE_ATTRIBUTES')
+      ->where('id',$attribute_id)
+      ->update([
+        'title' => $title,
+        'type' => $type
+      ]);
+    } catch (Exception $e) {
+      Session::flash('error',$e);
+      return redirect()->back();
+    }
+    Session::flash('success', 'Атрибут изменен');
+    return redirect()->back();
+   }
+
+
+   public function postDeleteCategoryAttribute(Request $request){
+    $attribute_id = $request->attribute_id;
+
+    try {
+      DB::table('ETKTRADE_ATTRIBUTES')
+      ->where('id',$attribute_id)
+      ->delete();
+    } catch (Exception $e) {
+      Session::flash('error',$e);
+      return redirect()->back();
+    }
+    Session::flash('success', 'Атрибут удален');
+    return redirect()->back();
+   }
+
 
     /**
      * SHOPS

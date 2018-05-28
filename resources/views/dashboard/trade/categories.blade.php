@@ -37,9 +37,8 @@
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th>Заголовок</th>
-                                    <th>Описание</th>
+                                    <th></th>
                                     <th>Родительская категория</th>
-                                    <th class="text-right">Создано</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,10 +49,27 @@
                                     <td>{{ $category->title }}</td>
                                     <td>{{ $category->description }}</td>
                                     <td>{{ $category->parent }}</td>
-                                    <td class="text-right">{{ $category->created_at }}</td>
+                                    @if($category->level == 3)
+                                      <td>
+                                         <table class="table table-hover">
+                                        <tbody>
+                                            @foreach($attributes as $attribute)
+                                            @if($attribute->category_id == $category->id)
+                                            <tr>
+                                                <td>{{ $attribute->title }}</td>
+                                                <td>{{ $attribute->type }}</td>
+                                                <td><button class="btn btn-success  btn-square btn-fill" data-toggle="modal" data-target="#edit-attr-{{$attribute->id}}"><i class="fa fa-pencil"></i></button></td>
+                                                <td><button class="btn btn-danger  btn-square btn-fill" data-toggle="modal" data-target="#delete-attr-{{$attribute->id}}"><i class="fa fa-trash"></i></button></td>
+                                            </tr>
+                                            @endif
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                          <button class="btn btn-info  btn-square btn-fill" data-toggle="modal" data-target="#add-attr-{{$category->id}}">Добавить атрибут</button>
+                                      </td>
+                                    @endif
                                     <td>
                                         <button class="btn btn-info  btn-square btn-fill" data-toggle="modal" data-target="#edit-category-{{$category->id}}">Изменить</button>
-
                                     </td>
                                     <td>
                                         <button class="btn btn-danger  btn-square btn-fill" data-toggle="modal" data-target="#delete-category-{{$category->id}}">Удалить</button>
@@ -221,6 +237,116 @@
     </div>
 </div>
 @endforeach
+
+
+@foreach($categories as $category)
+<div class="modal fade" id="add-attr-{{$category->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Атрибуты</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body"> 
+                <form action="{{ route('dashboard.shop.add-category-attribute.post') }}" method="POST">
+                     {{ csrf_field() }}
+                    <input type="hidden" name="category_id" value="{{ $category->id }}">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Название
+                        </label>
+                        <input class="form-control" type="text" name="title" placeholder="Материал, вес, размер экрана..." required value="">
+                    </div>                    
+                    <div class="form-group">
+                        <select class="form-control" name="type" title="Выберите тип" data-size="7" tabindex="-98">
+                            <option class="bs-title-option" value="1">Выберите тип</option>
+                            <option value="1">Текст</option>
+                            <option value="2">Число</option>
+                        </select>
+                    </div>
+                <div class="modal-footer">
+                    <div class="divider"></div>
+                    <div class="right-side">
+                        <button type="submit" class="btn btn-success btn-link btn-square btn-fill btn-fw">Добавить</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+
+@foreach($attributes as $attribute)
+<div class="modal fade" id="edit-attr-{{$attribute->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Изменение атрибута</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body"> 
+                <form action="{{ route('dashboard.shop.edit-category-attribute.post') }}" method="POST">
+                     {{ csrf_field() }}
+                    <input type="hidden" name="attribute_id" value="{{ $attribute->id }}">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Название
+                        </label>
+                        <input class="form-control" type="text" name="title" placeholder="Материал, вес, размер экрана..." required value="{{ $attribute->title }}">
+                    </div>                    
+                    <div class="form-group">
+                        <select class="form-control" name="type" title="Выберите тип" data-size="7" tabindex="-98">
+                            <option class="bs-title-option" value="{{ $attribute->type }}">Выберите тип</option>
+                            <option value="1">Текст</option>
+                            <option value="2">Число</option>
+                        </select>
+                    </div>
+                <div class="modal-footer">
+                    <div class="divider"></div>
+                    <div class="right-side">
+                        <button type="submit" class="btn btn-success btn-link btn-square btn-fill btn-fw">Сохранить изменения</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+
+@foreach($attributes as $attribute)
+<div class="modal fade" id="delete-attr-{{$attribute->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Изменение атрибута</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body"> 
+                <form action="{{ route('dashboard.shop.delete-category-attribute.post') }}" method="POST">
+                     {{ csrf_field() }}
+                    <input type="hidden" name="attribute_id" value="{{ $attribute->id }}">
+
+                <div class="modal-footer">
+                    <div class="divider"></div>
+                    <div class="right-side">
+                        <button type="submit" class="btn btn-danger btn-link btn-fw btn-square btn-fill">Да, удалить атрибут</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+
 
 @foreach($categories as $category)
 <div class="modal fade" id="delete-category-{{$category->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">

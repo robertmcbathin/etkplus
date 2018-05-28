@@ -1425,7 +1425,7 @@ public function postLoadGallery(Request $request){
                   ->get();
       $attributes = DB::table('ETKTRADE_ATTRIBUTES')
                       ->join('ETKTRADE_ATTRIBUTE_TYPES','ETKTRADE_ATTRIBUTE_TYPES.id','=','ETKTRADE_ATTRIBUTES.type')
-                      ->select('ETKTRADE_ATTRIBUTES.*','ETKTRADE_ATTRIBUTE_TYPES.title as type')
+                      ->select('ETKTRADE_ATTRIBUTES.*','ETKTRADE_ATTRIBUTE_TYPES.title as attribute_type')
                       ->get();
       return view('dashboard.trade.categories',[
         'categories' => $categories,

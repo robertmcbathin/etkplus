@@ -57,7 +57,7 @@
                                             @if($attribute->category_id == $category->id)
                                             <tr>
                                                 <td>{{ $attribute->title }}</td>
-                                                <td>{{ $attribute->type }}</td>
+                                                <td>{{ $attribute->attribute_type }}</td>
                                                 <td><button class="btn btn-success  btn-square btn-fill" data-toggle="modal" data-target="#edit-attr-{{$attribute->id}}"><i class="fa fa-pencil"></i></button></td>
                                                 <td><button class="btn btn-danger  btn-square btn-fill" data-toggle="modal" data-target="#delete-attr-{{$attribute->id}}"><i class="fa fa-trash"></i></button></td>
                                             </tr>

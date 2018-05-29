@@ -48,7 +48,7 @@
                                     @if($shop->company_id == null)
                                     Контрагент не назначен
                                     @else
-                                        {{ $shop->partner_name }}
+                                        {{ $shop->company_name }}
                                     @endif
                                 </td>
                                 <td class="text-right">{{ $shop->created_at }}</td>
@@ -64,6 +64,9 @@
                         </tbody>
                     </table>
                 </div>
+                    <div class="text-center">
+                        <?php echo $shops->render(); ?>
+                    </div>
 
             </div>
         </div>

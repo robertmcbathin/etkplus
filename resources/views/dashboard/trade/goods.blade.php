@@ -17,7 +17,7 @@
                 @include('includes/notifications')
                 <div class="row">
                  <div class="col-md-12">
-                    <a class="btn btn-danger btn-fill btn-wd btn-square" data-toggle="modal" data-target="#add-good" disabled>Добавить товар</a>
+                    <a class="btn btn-danger btn-fill btn-wd btn-square" href="{{ route('dashboard.shop.add-product.get') }}">Добавить товар</a>
                     <a class="btn btn-danger btn-fill btn-wd btn-square" data-toggle="modal" data-target="#add-goods-csv" >Загрузить CSV</a>
                 </div>
             </div>
@@ -83,88 +83,6 @@
 
 
 @endsection
-<div class="modal fade" id="add-good" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-center" id="exampleModalLabel">Добавить товар</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body"> 
-                <form action="{{ route('dashboard.shop.add-good.post') }}" method="POST">
-                    {{ csrf_field() }}
-                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                    <h5 class="text-center"></h5>
-                    <div class="form-group">
-                        <label class="control-label">
-                            Название
-                        </label>
-                        <input class="form-control" type="text" name="name" placeholder="" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">
-                            Полное название
-                        </label>
-                        <input class="form-control" type="text" name="fullname" placeholder="">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">
-                            Описание
-                        </label>
-                        <input class="form-control" type="text" name="description" placeholder="">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">
-                            Цена продажи
-                        </label>
-                        <input class="form-control" type="text" name="price" placeholder="" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">
-                            Цена без скидки (опционально)
-                        </label>
-                        <input class="form-control" type="text" name="price_without_discount" placeholder="">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">
-                            Стоимость закупки
-                        </label>
-                        <input class="form-control" type="text" name="price_cost" placeholder="" required>
-                    </div>
-                    <hr>
-                    <div class="form-group">
-                        <label class="control-label">
-                            Продавец (по умолчанию ЕТКплюс)
-                        </label>
-                        <input class="form-control" type="text" name="price_cost" placeholder="" required value="3">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">
-                            Минимальный заказ
-                        </label>
-                        <input class="form-control" type="text" name="min_sale" placeholder="5000" minlength="1" maxlength="6">
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control" name="company_id" title="Выберите продавца" data-size="7" tabindex="-98">
-                            <option class="bs-title-option" value="3">Выберите продавца* (по умолчанию ЕТКплюс)</option>
-                            @foreach ($shops as $shop)
-                            <option value="{{ $shop->id }}">{{ $shop->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="divider"></div>
-                    <div class="right-side">
-                        <button type="submit" class="btn btn-success btn-link btn-square btn-fill btn-fw">Добавить</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 @foreach($goods as $good)

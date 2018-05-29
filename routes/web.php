@@ -244,9 +244,14 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.shop.show-goods.get'	
 		])->middleware('can:show-dashboard-admin,App\User');	
 
-	Route::post('/dashboard/shop/good/add',[
-		'uses' => 'AdminController@postAddShopGood',
-		'as' => 'dashboard.shop.add-good.post'
+	Route::get('/dashboard/shop/product/add',[
+		'uses' => 'AdminController@getAddShopProduct',
+		'as' => 'dashboard.shop.add-product.get'
+	])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/shop/product/add',[
+		'uses' => 'AdminController@postAddShopProduct',
+		'as' => 'dashboard.shop.add-product.post'
 	])->middleware('can:show-dashboard-admin,App\User');
 
 	Route::post('/dashboard/shop/good/csv/add',[

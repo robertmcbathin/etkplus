@@ -1619,7 +1619,7 @@ public function postLoadGallery(Request $request){
                   ->leftJoin('companies','companies.id','=','ETKTRADE_SHOPS.company_id')
                   ->leftJoin('ETKPLUS_PARTNERS','ETKPLUS_PARTNERS.id','=','ETKTRADE_SHOPS.partner_id')
                   ->select('ETKTRADE_SHOPS.*','ETKTRADE_SHOP_TYPES.name as shop_type', 'ETKPLUS_PARTNERS.name as partner_name','companies.name as company_name')
-                  ->get();
+                  ->paginate(25);
       $companies = DB::table('companies')
                     ->get();
       $partners = DB::table('ETKPLUS_PARTNERS')
@@ -1724,6 +1724,15 @@ public function postLoadGallery(Request $request){
       return view('dashboard.trade.goods',[
         'shops' => $shops,
         'goods' => $goods,
+        'categories' => $categories
+      ]);
+    }
+
+    public function getAddShopProduct(){
+      $categories = DB::table('ETKTRADE_CATEGORIES')
+                      ->orderBy('parent')
+                      ->get();
+      return view('dashboard.trade.add_product',[
         'categories' => $categories
       ]);
     }

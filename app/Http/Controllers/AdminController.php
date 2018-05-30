@@ -1730,10 +1730,15 @@ public function postLoadGallery(Request $request){
 
     public function getAddShopProduct(){
       $categories = DB::table('ETKTRADE_CATEGORIES')
-                      ->orderBy('parent')
+                      ->orderBy('id')
                       ->get();
+      $shops = DB::table('ETKTRADE_SHOPS')
+                ->join('ETKTRADE_SHOP_TYPES', 'ETKTRADE_SHOP_TYPES.id', '=' , 'ETKTRADE_SHOPS.type')
+                ->select('ETKTRADE_SHOPS.*', 'ETKTRADE_SHOP_TYPES.name as type_name')
+                ->get();
       return view('dashboard.trade.add_product',[
-        'categories' => $categories
+        'categories' => $categories,
+        'shops' => $shops
       ]);
     }
 

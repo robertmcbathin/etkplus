@@ -431,6 +431,15 @@ initPhotoSwipeFromDOM('.my-gallery');
             }
         });
     </script>
+
+
+    <script>
+        $('#ap-category').change(function(){
+            $('#ap-category option:selected').each(function(){
+                alert($( this ).val());
+            });
+        });
+    </script>
     <!-- Yandex.Metrika counter -->
 <script type="text/javascript" >
     (function (d, w, c) {

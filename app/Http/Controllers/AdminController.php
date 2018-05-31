@@ -1885,6 +1885,56 @@ public function postLoadGallery(Request $request){
       }
     }
 
+
+    public function postEditShopBrand(Request $request){
+      $id          = $request->id;
+      $name        = $request->name;
+      $description = $request->description;
+      $image       = $request->image;
+
+      try {
+        DB::table('ETKTRADE_BRANDS')
+          ->where('id',$id)
+          ->update([
+            'name' => $name,
+            'description' => $description
+          ]);
+      } catch (Exception $e) {
+        
+      }
+
+      if($image){
+      $brand_image_extension = $request->file('image')->getClientOriginalExtension();
+      $brand_imagename = '/assets/img/etktrade/brands/' . $brand_id . '.' .  $brand_image_extension;          
+      Storage::disk('public')->put($brand_imagename, File::get($image));   
+      DB::table('ETKTRADE_BRANDS')
+        ->where('id',$brand_id)
+        ->update([
+          'image' => 'https://etkplus.ru' . $brand_imagename
+        ]);   
+      Session::flash('success','Данные бренда изменены');
+      return redirect()->back();      
+      } else{
+      Session::flash('error','Произошла ошибка при изменении данных бренда');
+      return redirect()->back();
+      }
+
+    }
+
+    public function postDeleteShopBrand(Request $request){
+      $brand_id = $request->brand_id;
+
+      try {
+        DB::table('ETKTRADE_BRANDS')
+          ->where('id',$brand_id)
+          ->delete();
+      } catch (Exception $e) {
+        Session::flash('error',$e);
+        return redirect()->back();        
+      }
+      Session::flash('success','Бренд удален');
+      return redirect()->back();
+    }
     /**
      *
      *

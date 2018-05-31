@@ -102,6 +102,19 @@
                         </label>
                         <input class="form-control" type="text" name="description" placeholder="" value="{{ $brand->description }}">
                     </div>
+
+                    <div class="fileinput text-center fileinput-new" data-provides="fileinput">
+                          <div class="fileinput-new thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;">
+                            <img src="{{ $brand->image }}" alt="">
+                        </div>
+                        <div class="fileinput-preview fileinput-exists thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;"></div>
+                        <div>
+                            <span class="btn btn-outline-default btn-round btn-file"><span class="fileinput-new">Выбрать основное изображение (100*100px)</span><span class="fileinput-exists">Изменить</span>
+                            <input type="file" name="image">
+                        </span>
+                        <a href="" class="btn btn-link btn-danger fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
+                    </div>
+                </div>
                     <hr>
 
                 </div>

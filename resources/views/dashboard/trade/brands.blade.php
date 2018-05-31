@@ -169,7 +169,7 @@
 </div>
 
 @foreach($brands as $brand)
-<div class="modal fade" id="delete-brand-{{$good->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+<div class="modal fade" id="delete-brand-{{$brand->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

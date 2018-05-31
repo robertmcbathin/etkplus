@@ -1904,6 +1904,7 @@ public function postLoadGallery(Request $request){
       }
 
       if($image){
+      Storage::disk('public')->delete('/assets/img/etktrade/brands/' . $id . '.png'); 
       $brand_image_extension = $request->file('image')->getClientOriginalExtension();
       $brand_imagename = '/assets/img/etktrade/brands/' . $id . '.' .  $brand_image_extension;          
       Storage::disk('public')->put($brand_imagename, File::get($image));   

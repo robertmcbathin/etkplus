@@ -1840,6 +1840,51 @@ public function postLoadGallery(Request $request){
       Session::flash('success','Товар удален');
       return redirect()->back();
     }
+
+/**
+ * BRANDS
+ * 
+ */
+    public function showShopBrandsPage(){
+      $brands = DB::table('ETKTRADE_BRANDS')
+                  ->orderBy('name')
+                  ->paginate(25);
+      return view('dashboard.trade.brands',[
+        'brands' => $brands
+      ]);
+    }
+
+    public function postAddShopBrand(Request $request){
+      $name        = $request->name;
+      $description = $request->description;
+      $image       = $request->image;
+
+      try {
+        $brand_id = DB::table('ETKTRADE_BRANDS')
+          ->insertGetId([
+            'name' => $name,
+            'description' => $description
+          ]);
+      } catch (Exception $e) {
+        
+      }
+      if($image){
+      $brand_image_extension = $request->file('image')->getClientOriginalExtension();
+      $brand_imagename = '/assets/img/etktrade/brands/' . $brand_id . '.' .  $brand_image_extension;          
+      Storage::disk('public')->put($brand_imagename, File::get($image));   
+      DB::table('ETKTRADE_CATEGORIES')
+        ->where('id',$brand_id)
+        ->update([
+          'image' => 'https://etkplus.ru' . $brand_imagename
+        ]);   
+      Session::flash('success','Бренд успешно добавлен');
+      return redirect()->back();
+      } else{
+      Session::flash('error','Произошла ошибка при добавлении бренда');
+      return redirect()->back();
+      }
+    }
+
     /**
      *
      *

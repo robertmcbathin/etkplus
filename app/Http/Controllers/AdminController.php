@@ -1892,7 +1892,6 @@ public function postLoadGallery(Request $request){
       $description = $request->description;
       $image       = $request->image;
 
-      dd($request);
       try {
         DB::table('ETKTRADE_BRANDS')
           ->where('id',$id)

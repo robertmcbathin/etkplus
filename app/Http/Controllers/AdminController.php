@@ -1420,6 +1420,11 @@ public function postLoadGallery(Request $request){
                       ->where('level',$level)
                       ->orderBy('id')
                       ->paginate(50);
+      $prev_level = --$level;
+      $categories_list = DB::table('ETKTRADE_CATEGORIES')
+                          ->where('level', $prev_level)
+                          ->orderBy('id')
+                          ->get();
       $levels = DB::table('ETKTRADE_CATEGORIES')
                   ->selectRaw('DISTINCT level')
                   ->get();
@@ -1429,6 +1434,7 @@ public function postLoadGallery(Request $request){
                       ->get();
       return view('dashboard.trade.categories',[
         'categories' => $categories,
+        'categories_list' => $categories_list,
         'levels' => $levels,
         'level' => $level,
         'attributes' => $attributes
@@ -1436,6 +1442,7 @@ public function postLoadGallery(Request $request){
     }
 
     public function postAddShopCategory(Request $request){
+      $id = $request->id;
       $title = $request->title;
       $description = $request->description;
       $level = $request->level;
@@ -1445,6 +1452,7 @@ public function postLoadGallery(Request $request){
         if ($level == 1) {
           DB::table('ETKTRADE_CATEGORIES')
             ->insert([
+              'id' => $id,
               'title' => $title,
               'description' => $description,
               'level' => 1,
@@ -1456,6 +1464,7 @@ public function postLoadGallery(Request $request){
                       ->first();
           DB::table('ETKTRADE_CATEGORIES')
             ->insert([
+              'id' => $id,
               'title' => $title,
               'description' => $description,
               'level' => ++$parent->level,

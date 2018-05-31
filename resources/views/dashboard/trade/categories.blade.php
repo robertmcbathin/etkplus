@@ -49,7 +49,7 @@
                                     <td>{{ $category->title }}</td>
                                     <td>{{ $category->description }}</td>
                                     <td>{{ $category->parent }}</td>
-                                    @if($category->level == 3)
+                                    @if($category->level != 1)
                                       <td>
                                          <table class="table table-hover">
                                         <tbody>
@@ -113,6 +113,12 @@
                     <h5 class="text-center"></h5>
                     <div class="form-group">
                         <label class="control-label">
+                            ID
+                        </label>
+                        <input class="form-control" type="text" name="id" placeholder="10000" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">
                             Название
                         </label>
                         <input class="form-control" type="text" name="title" placeholder="" required>
@@ -132,8 +138,8 @@
                     <div class="form-group">
                         <select class="form-control" name="parent_id" title="Выберите родительскую категорию" data-size="7" tabindex="-98">
                             <option class="bs-title-option" value="">Выберите родительскую категорию</option>
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->title }} (уровень {{ $category->level }})</option>
+                            @foreach ($categories_list as $category_item)
+                            <option value="{{ $category_item->id }}">{{ $category_item->title }} (уровень {{ $category_item->level }})</option>
                             @endforeach
                         </select>
                     </div>

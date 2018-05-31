@@ -263,6 +263,12 @@
                             <p>Товары</p>
                         </a>
                     </li>
+                    <li @if (Request::path() == 'dashboard/shop/brands') class="active" @endif>
+                        <a href="{{ route('dashboard.shop.show-brands.get') }}">
+                            <i class="fa fa-copyright"></i>
+                            <p>Бренды</p>
+                        </a>
+                    </li>
                     @endcan
                     <!-- END SHOP ADMIN -->
                 </ul>

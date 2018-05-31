@@ -268,6 +268,12 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'AdminController@postDeleteShopGood',
 		'as' => 'dashboard.shop.delete-good.post'
 	])->middleware('can:show-dashboard-admin,App\User');
+
+
+	Route::get('/dashboard/shop/brands',[
+		'uses' => 'AdminController@showShopBrandsPage',
+		'as' => 'dashboard.shop.show-brands.get'	
+		])->middleware('can:show-dashboard-admin,App\User');		
 /**
  *
  *

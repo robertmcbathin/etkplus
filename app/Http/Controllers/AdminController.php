@@ -1905,7 +1905,7 @@ public function postLoadGallery(Request $request){
 
       if($image){
       $brand_image_extension = $request->file('image')->getClientOriginalExtension();
-      $brand_imagename = '/assets/img/etktrade/brands/' . $brand_id . '.' .  $brand_image_extension;          
+      $brand_imagename = '/assets/img/etktrade/brands/' . $id . '.' .  $brand_image_extension;          
       Storage::disk('public')->put($brand_imagename, File::get($image));   
       DB::table('ETKTRADE_BRANDS')
         ->where('id',$id)

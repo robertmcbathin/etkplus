@@ -1887,7 +1887,7 @@ public function postLoadGallery(Request $request){
 
 
     public function postEditShopBrand(Request $request){
-      $id          = $request->id;
+      $id          = $request->brand_id;
       $name        = $request->name;
       $description = $request->description;
       $image       = $request->image;

@@ -85,7 +85,7 @@
                 </button>
             </div>
             <div class="modal-body"> 
-                <form action="{{ route('dashboard.shop.edit-brand.post') }}" method="POST">
+                <form action="{{ route('dashboard.shop.edit-brand.post') }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" name="brand_id" value="{{ $brand->id }}">
                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">

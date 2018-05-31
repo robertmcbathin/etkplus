@@ -1892,6 +1892,7 @@ public function postLoadGallery(Request $request){
       $description = $request->description;
       $image       = $request->image;
 
+      dd($request);
       try {
         DB::table('ETKTRADE_BRANDS')
           ->where('id',$id)
@@ -1908,7 +1909,7 @@ public function postLoadGallery(Request $request){
       $brand_imagename = '/assets/img/etktrade/brands/' . $brand_id . '.' .  $brand_image_extension;          
       Storage::disk('public')->put($brand_imagename, File::get($image));   
       DB::table('ETKTRADE_BRANDS')
-        ->where('id',$brand_id)
+        ->where('id',$id)
         ->update([
           'image' => 'https://etkplus.ru' . $brand_imagename
         ]);   

@@ -436,18 +436,7 @@ initPhotoSwipeFromDOM('.my-gallery');
     <script>
         $('#ap-category').change(function(){
             $('#ap-category option:selected').each(function(){
-                alert($( this ).val());
-              $.ajax({
-                  method: 'POST',
-                  url: searchContractIdUrl,
-                  data: {
-                      searchString: $('#cp-contract-id').val(),
-                      _token: token
-                  }
-              })
-              .done(function(msg){
-                
-              });
+
             });
         });
     </script>

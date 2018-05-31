@@ -92,34 +92,7 @@
                                                     </div>
                                                 </div>
                                             </div>          
-
-                                            <div class="col-md-10 col-md-offset-1">
-                                                <div class="form-group">
-                                                    <label class="control-label">
-                                                        Категория (выбрать уровень 3)
-                                                    </label>
-                                                    <div class="row">
-                                                        <div class="col-md-10 col-md-offset-1">
-                                                            <div class="form-group">
-                                                                <select class="form-control" name="category" title="Выберите категорию" data-size="7" tabindex="-98" id="ap-category">
-                                                                    <option class="bs-title-option" value="">Выберите категорию</option>
-                                                                    @foreach($categories as $category)
-                                                                        @if($category->level == 1)
-                                                                        <option class="bs-title-option" value="{{ $category->id }}">{{$category->level}} | {{$category->id}} | {{ $category->title }}</option>
-                                                                        @endif
-                                                                        @if($category->level == 2)
-                                                                        <option class="bs-title-option" value="{{ $category->id }}">___{{$category->level}} | {{$category->id}} | {{ $category->title }}</option>
-                                                                        @endif
-                                                                        @if($category->level == 3)
-                                                                        <option class="bs-title-option" value="{{ $category->id }}">______{{$category->level}} | {{$category->id}} | {{ $category->title }}</option>
-                                                                        @endif
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>                                                                             
+                                                                            
                                         </div>
                                         <h5 class="text-center">Цены</h5>
                                         <div class="row">

@@ -1745,9 +1745,13 @@ public function postLoadGallery(Request $request){
                 ->join('ETKTRADE_SHOP_TYPES', 'ETKTRADE_SHOP_TYPES.id', '=' , 'ETKTRADE_SHOPS.type')
                 ->select('ETKTRADE_SHOPS.*', 'ETKTRADE_SHOP_TYPES.name as type_name')
                 ->get();
+      $brands = DB::table('ETKTRADE_BRANDS')
+                  ->orderBy('name')
+                  ->get();
       return view('dashboard.trade.add_product',[
         'categories' => $categories,
-        'shops' => $shops
+        'shops' => $shops,
+        'brands' => $brands
       ]);
     }
 

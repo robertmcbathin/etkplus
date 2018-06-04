@@ -65,7 +65,7 @@
                                         </div>
                                         <h5 class="text-center">Категория и атрибуты</h5>
                                         <div class="row">
-                                           <div class="col-md-10 col-md-offset-1">
+                                         <div class="col-md-10 col-md-offset-1">
                                             <div class="form-group">
                                                 <label class="control-label">
                                                     Категория (выбрать уровень 3)
@@ -166,81 +166,58 @@
                                 <div class="tab-pane" id="tab2">
                                     <h5 class="text-center">Прикрепите изображения</h5>
                                     <div class="row">
-                                        <div class="col-md-5 col-md-offset-1">
-<div class="fileinput fileinput-new text-center" data-provides="fileinput">
-                      <div class="fileinput-new thumbnail">
-                        <img src="../../assets/img/image_placeholder.jpg" alt="...">
-                      </div>
-                      <div class="fileinput-preview fileinput-exists thumbnail"></div>
-                      <div>
-                        <span class="btn btn-rose btn-round btn-file">
-                          <span class="fileinput-new">Select image</span>
-                          <span class="fileinput-exists">Change</span>
-                          <input type="file" name="...">
-                        </span>
-                        <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
-                      </div>
-                    </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-5 col-md-offset-1">
-                                            <div class="fileinput text-center fileinput-new" data-provides="fileinput">
-                                              <div class="fileinput-new thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;">
-                                                <img src="/assets/img/image_placeholder.jpg" alt="...">
+                                        <div class="col-md-10 col-md-offset-1">
+                                            <div class="text-center" data-provides="fileinput">
+                                                <h6>Выберите основное изображение</h6>
+                                                <div>
+                                                    <input type="file" name="primary_image">
+                                                    <a href="#paper-kit" class="btn btn-fill btn-danger btn-square fileinput-exists pull-right" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
+                                                </div>
                                             </div>
-                                            <div class="fileinput-preview fileinput-exists thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;"></div>
-                                            <div>
-                                                <span class="btn btn-outline-default btn-round btn-file"><span class="fileinput-new">Выбрать основное изображение</span><span class="fileinput-exists">Изменить</span>
-                                                <input type="file" name="primary_image">
-                                            </span>
-                                            <a href="#paper-kit" class="btn btn-link btn-danger fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
+
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="fileinput text-center fileinput-new" data-provides="fileinput">
-                                      <div class="fileinput-new thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;">
-                                        <img src="/assets/img/image_placeholder.jpg" alt="">
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-10 col-md-offset-1">
+                                            <div class="text-center" data-provides="fileinput">
+                                                <h6>Выберите второстепенные изображения</h6>
+                                                <div>
+                                                    <input type="file" name="secondary_images[]" multiple>
+                                                    <a href="#paper-kit" class="btn btn-fill btn-danger btn-square fileinput-exists pull-right" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
-                                    <div class="fileinput-preview fileinput-exists thumbnail img-no-padding" style="max-width: 370px; max-height: 250px;"></div>
-                                    <div>
-                                        <span class="btn btn-outline-default btn-round btn-file"><span class="fileinput-new">Выбрать второстепенные изображения</span><span class="fileinput-exists">Изменить</span>
-                                        <input type="file" name="secondary_images[]" multiple>
-                                    </span>
-                                    <a href="#paper-kit" class="btn btn-link btn-danger fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
+
+                                </div>
+                                <div class="tab-pane" id="tab3">
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-3">
+                                            <p class="category">Активировать учетную запись</p>
+                                            <input type="checkbox" class="switch-plain" name="is_active">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                </div>
-                <div class="tab-pane" id="tab3">
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-3">
-                            <p class="category">Активировать учетную запись</p>
-                            <input type="checkbox" class="switch-plain" name="is_active">
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-default btn-fill btn-wd btn-back pull-left btn-square disabled" style="display: none;">Назад</button>
+                            <button type="button" class="btn btn-info btn-fill btn-wd btn-next btn-square pull-right">Далее</button>
+                            <button type="submit" class="btn btn-info btn-fill btn-finish btn-fw btn-square pull-right" onclick="onFinishWizard()">Готово</button>
+                            <div class="clearfix"></div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
-        </div>
-        <div class="card-footer">
-            <button type="button" class="btn btn-default btn-fill btn-wd btn-back pull-left btn-square disabled" style="display: none;">Назад</button>
-            <button type="button" class="btn btn-info btn-fill btn-wd btn-next btn-square pull-right">Далее</button>
-            <button type="submit" class="btn btn-info btn-fill btn-finish btn-fw btn-square pull-right" onclick="onFinishWizard()">Готово</button>
-            <div class="clearfix"></div>
-        </div>
-    </form>
-</div>
-</div>
-<br>
-<div class="col-md-12">
+            <br>
+            <div class="col-md-12">
 
-</div>
-</div>
-</div>
-@include('includes.dashboard.footer')
+            </div>
+        </div>
+    </div>
+    @include('includes.dashboard.footer')
 </div>
 </div>
 

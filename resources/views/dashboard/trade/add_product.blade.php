@@ -192,20 +192,42 @@
                                     </div>
 
                                 </div>
+                                <hr>
                                 <div class="tab-pane" id="tab3">
                                     <div class="row">
-                                        <div class="col-md-6 col-md-offset-3">
-                                            <p class="category">Активировать учетную запись</p>
-                                            <input type="checkbox" class="switch-plain" name="is_active">
+                                        <h5 class="text-center">Наличие товара</h5>
+                                        <div class="col-md-10 col-md-offset-1">
+                                            <div class="form-group">
+                                                <select class="form-control" name="availability_type" title="Наличие товара" data-size="7" tabindex="-98">
+                                                    <option class="bs-title-option" value="4">Наличие товара</option>
+                                                    @foreach($availability_types as $availability_type)
+                                                    <option class="bs-title-option" value="{{ $availability_type->id }}">{{ $availability_type->title }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <h5 class="text-center">Доставка</h5>
+                                        <div class="col-md-10 col-md-offset-1">
+                                            <div class="form-group">
+                                                <select class="form-control" name="availability_type" title="Доставка" data-size="7" tabindex="-98">
+                                                    <option class="bs-title-option" value="4">Доставка</option>
+                                                    @foreach($availability_types as $availability_type)
+                                                    <option class="bs-title-option" value="{{ $availability_type->id }}">{{ $availability_type->title }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <hr>
                             </div>
                         </div>
                         <div class="card-footer">
                             <button type="button" class="btn btn-default btn-fill btn-wd btn-back pull-left btn-square disabled" style="display: none;">Назад</button>
                             <button type="button" class="btn btn-info btn-fill btn-wd btn-next btn-square pull-right">Далее</button>
-                            <button type="submit" class="btn btn-info btn-fill btn-finish btn-fw btn-square pull-right" onclick="onFinishWizard()">Готово</button>
+                            <button type="submit" class="btn btn-info btn-fill btn-finish btn-square pull-right" onclick="onFinishWizard()">Готово</button>
                             <div class="clearfix"></div>
                         </div>
                     </form>

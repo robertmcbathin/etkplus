@@ -36,12 +36,14 @@
               <thead>
                 <tr><th>ID</th>
                   <th>Текст</th>
+                  <th>Дата</th>
                 </tr></thead>
                 <tbody>
                   @foreach($logs as $log)
                   <tr>
                     <td>{{ $log->id }}</td>
                     <td>{{ $log->message }}</td>
+                    <td>{{ $log->created_at }}</td>
                   </tr>
                   @endforeach
                 </tbody>

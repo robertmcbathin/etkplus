@@ -1748,10 +1748,13 @@ public function postLoadGallery(Request $request){
       $brands = DB::table('ETKTRADE_BRANDS')
                   ->orderBy('name')
                   ->get();
+      $availability_types = DB::table('ETKTRADE_AVAILABILITY_TYPES')
+                              ->get();
       return view('dashboard.trade.add_product',[
         'categories' => $categories,
         'shops' => $shops,
-        'brands' => $brands
+        'brands' => $brands,
+        'availability_types' => $availability_types
       ]);
     }
 

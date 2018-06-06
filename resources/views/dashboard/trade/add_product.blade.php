@@ -17,7 +17,7 @@
                 @include('includes/notifications')
                 <div class="col-md-10 col-md-offset-1">
                     <div class="card card-wizard" id="wizardCard">
-                        <form id="wizardForm" method="POST" action="{{ route('dashboard.create-partner.post') }}" novalidate="novalidate" enctype="multipart/form-data">
+                        <form id="wizardForm" method="POST" action="{{ route('dashboard.shop.add-product.post') }}" novalidate="novalidate" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                             <div class="card-header text-center">
@@ -73,7 +73,7 @@
                                                 <div class="row">
                                                     <div class="col-md-10 col-md-offset-1">
                                                         <div class="form-group">
-                                                            <select class="form-control" name="category" title="Выберите категорию" data-size="7" tabindex="-98" id="ap-category">
+                                                            <select class="form-control" name="category" title="Выберите категорию" data-size="7" tabindex="-98" id="ap-category" required>
                                                                 <option class="bs-title-option" value="">Выберите категорию</option>
                                                                 @foreach($categories as $category)
                                                                 @if($category->level == 1)
@@ -142,26 +142,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h5 class="text-center">Продавец</h5>
-                                    <div class="row">
-                                        <div class="col-md-10 col-md-offset-1">
-                                            <div class="form-group">
-                                                <select class="form-control" name="shop" title="Выберите магазин" data-size="7" tabindex="-98">
-                                                    <option class="bs-title-option" value="">Выберите магазин</option>
-                                                    @foreach($shops as $shop)
-                                                    <option class="bs-title-option" value="{{ $shop->id }}">{{ $shop->name }} ({{ $shop->type_name }})</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h5 class="text-center">Специальное предложение</h5>
-                                    <div class="row">
-                                        <div class="col-md-6 col-md-offset-3">
-                                            <p class="category">Отметить товар как специальный</p>
-                                            <input type="checkbox" class="switch-plain" name="is_spec">
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="tab-pane" id="tab2">
                                     <h5 class="text-center">Прикрепите изображения</h5>
@@ -198,7 +178,7 @@
                                         <h5 class="text-center">Наличие товара</h5>
                                         <div class="col-md-10 col-md-offset-1">
                                             <div class="form-group">
-                                                <select class="form-control" name="availability_type" title="Наличие товара" data-size="7" tabindex="-98">
+                                                <select class="form-control" name="availability" title="Наличие товара" data-size="7" tabindex="-98">
                                                     <option class="bs-title-option" value="4">Наличие товара</option>
                                                     @foreach($availability_types as $availability_type)
                                                     <option class="bs-title-option" value="{{ $availability_type->id }}">{{ $availability_type->title }}</option>
@@ -207,17 +187,50 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <h5 class="text-center">Продавец</h5>
                                     <div class="row">
-                                        <h5 class="text-center">Доставка</h5>
                                         <div class="col-md-10 col-md-offset-1">
                                             <div class="form-group">
-                                                <select class="form-control" name="availability_type" title="Доставка" data-size="7" tabindex="-98">
-                                                    <option class="bs-title-option" value="4">Доставка</option>
-                                                    @foreach($availability_types as $availability_type)
-                                                    <option class="bs-title-option" value="{{ $availability_type->id }}">{{ $availability_type->title }}</option>
+                                                <select class="form-control" name="shop" title="Выберите магазин" data-size="7" tabindex="-98">
+                                                    <option class="bs-title-option" value="">Выберите магазин</option>
+                                                    @foreach($shops as $shop)
+                                                    <option class="bs-title-option" value="{{ $shop->id }}">{{ $shop->name }} ({{ $shop->type_name }})</option>
                                                     @endforeach
                                                 </select>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <h5 class="text-center">Страна-производитель</h5>
+                                    <div class="row">
+                                        <div class="col-md-10 col-md-offset-1">
+                                            <div class="form-group">
+                                                <select class="form-control" name="manufacturer" title="Страна-производитель" data-size="7" tabindex="-98">
+                                                    <option class="bs-title-option" value="">Страна-производитель</option>
+                                                    @foreach($manufacturers as $manufacturer)
+                                                    <option class="bs-title-option" value="{{ $manufacturer->id }}">{{ $manufacturer->title }} </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h5 class="text-center">Гарантия</h5>
+                                    <div class="row">
+                                        <div class="col-md-10 col-md-offset-1">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">
+                                                    Гарантия, месяцев
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" type="text" id="" name="guarantee" placeholder="12 мес." value="" minlength="1" maxlength="10">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h5 class="text-center">Специальное предложение</h5>
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-3">
+                                            <p class="category">Отметить товар как специальный</p>
+                                            <input type="checkbox" class="switch-plain" name="is_spec">
                                         </div>
                                     </div>
                                 </div>

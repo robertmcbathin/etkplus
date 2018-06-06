@@ -1750,12 +1750,98 @@ public function postLoadGallery(Request $request){
                   ->get();
       $availability_types = DB::table('ETKTRADE_AVAILABILITY_TYPES')
                               ->get();
+      $manufacturers = DB::table('ETKTRADE_MANUFACTURERS')
+                        ->orderBy('title')
+                        ->get();
       return view('dashboard.trade.add_product',[
         'categories' => $categories,
         'shops' => $shops,
         'brands' => $brands,
-        'availability_types' => $availability_types
+        'availability_types' => $availability_types,
+        'manufacturers' => $manufacturers
       ]);
+    }
+
+    public function postAddShopProduct(Request $request){
+      $name = $request->name;
+      $fullname = $request->fullname;
+      $description = $request->description;
+      $category = $request->category;
+      $brand = $request->brand;
+      $price = $request->price;
+      $price_without_discount = $request->price_without_discount;
+      $price_cost = $request->price_cost;
+      //secondary images
+      $availability = $request->availability;
+      $shop = $request->shop;
+      $manufacturer = $request->manufacturer;
+      $guarantee = $request->guarantee;
+      $is_spec = $request->is_spec;
+
+
+      if ($is_spec == 'on'){
+          $is_spec = 1;
+      } else $is_spec = 0;
+
+      $productId = DB::table('ETKTRADE_PRODUCTS')
+                      ->insertGetId([
+                        'name' => $name,
+                        'fullname' => $fullname,
+                        'description' => $description,
+                        'category_id' => $category,
+                        'brand_id' => $brand,
+                        'price' => $price,
+                        'price_cost' => $price_cost,
+                        'price_without_discount' => $price_without_discount,
+                        'availability' => $availability,
+                        'shop_id' => $shop,
+                        'manufacturer' => $manufacturer,
+                        'guarantee' => $guarantee,
+                        'is_spec' => $is_spec
+                      ]);
+      $image = $request->file('primary_image');
+      if ($image){
+          $image_extension = $request->file('primary_image')->getClientOriginalExtension();
+          $imagename = '/assets/img/etktrade/products/' . $productId . '/' . $productId . '.' . $image_extension;          
+          Storage::disk('public')->put($imagename, File::get($image));
+          DB::table('ETKTRADE_PRODUCTS')
+            ->update([
+              'image' => 'http://etkplus.ru' . $imagename
+            ]);
+      } else{
+        $image = 'https://etkplus.ru/assets/img/etktrade/products/product-placeholder.jpg';
+      }
+
+      /**
+      SECONDARY_IMAGES
+      **/
+      if($request->secondary_images){
+    foreach ($request->secondary_images as $secondary_image) {
+        if ($secondary_image){
+            $picture_extension = $secondary_image->getClientOriginalExtension();
+            $image_size = getimagesize($secondary_image);
+            $image_width = $secondary_image[0];
+            $image_height = $secondary_image[1];
+            $picture_name = '/assets/img/etktrade/products/' . $productId .'/gallery' . '/' . $this->generateRandomString() . '.' . $picture_extension;
+            Storage::disk('public')->put($picture_name, File::get($secondary_image));
+            DB::table('ETKTRADE_PRODUCT_PHOTOS')
+            ->insert([
+                'product_id' => $productId,
+                'image_path' => $picture_name,
+                'image_width' => $image_width,
+                'image_height' => $image_height
+            ]);
+
+        } else {
+
+        }
+
+    }
+      }
+
+
+        Session::flash('success','Товар успешно добавлен');
+        return redirect()->back();
     }
 
     public function postEditShopGood(Request $request){

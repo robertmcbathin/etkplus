@@ -50,6 +50,18 @@
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Атрибуты</h4>
+                            </div>
+                            <div class="card-content">
+                                @foreach($attributes as $attribute)
+                                {{$attribute->title }}
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
 
 
@@ -109,14 +121,32 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
+                                                <label>Наличие</label>
                                                 <select class="form-control" name="availability" title="Статус наличия" data-size="7" tabindex="-98" required>
                                                     <option class="bs-title-option" value="{{ $product->availability }}">{{ $product->availability_status }}</option>
-
+                                                    @foreach ($availability_types as $availability_type)
+                                                    <option value="{{ $availability_type->id }}">{{ $availability_type->title }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-4"></div>
-                                        <div class="col-md-4"></div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Страна-производитель</label>
+                                                <select class="form-control" name="manufacturer" title="Страна-производитель" data-size="7" tabindex="-98" required>
+                                                    <option class="bs-title-option" value="{{ $product->manufacturer }}">{{ $product->manufacturer_title }}</option>
+                                                    @foreach ($manufacturers as $manufacturer)
+                                                    <option value="{{ $manufacturer->id }}">{{ $manufacturer->title }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Гарантия, мес.</label>
+                                                <input type="text" class="form-control border-input" name="price_cost" value="{{ $product->guarantee }}">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-info btn-fill btn-wd btn-square pull-right">Сохранить изменения</button>

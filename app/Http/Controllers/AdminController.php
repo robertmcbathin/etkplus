@@ -1740,14 +1740,25 @@ public function postLoadGallery(Request $request){
     public function getShowShopProduct($product_id){
       $product = DB::table('ETKTRADE_PRODUCTS')
                     ->leftJoin('ETKTRADE_AVAILABILITY_TYPES','ETKTRADE_AVAILABILITY_TYPES.id','=','ETKTRADE_PRODUCTS.availability')
+                    ->leftJoin('ETKTRADE_MANUFACTURERS','ETKTRADE_MANUFACTURERS.id','=','ETKTRADE_PRODUCTS.manufacturer')
                     ->where('ETKTRADE_PRODUCTS.id',$product_id)
-                    ->select('ETKTRADE_PRODUCTS.*', 'ETKTRADE_AVAILABILITY_TYPES.title as availability_status')
+                    ->select('ETKTRADE_PRODUCTS.*', 'ETKTRADE_AVAILABILITY_TYPES.title as availability_status','ETKTRADE_MANUFACTURERS.title as manufacturer_title')
                     ->first();
       $availability_types = DB::table('ETKTRADE_AVAILABILITY_TYPES')
                               ->get();
+      $manufacturers = DB::table('ETKTRADE_MANUFACTURERS')
+                          ->get();
+      /** 
+      ATTRIBUTES
+      **/
+      $attributes = DB::table('ETKTRADE_ATTRIBUTES')
+                      ->where('category_id',$product->category_id)
+                      ->get();
       return view('dashboard.trade.product',[
         'product' => $product,
-        'availability_types' => $availability_types
+        'availability_types' => $availability_types,
+        'manufacturers' => $manufacturers,
+        'attributes' => $attributes
       ]);
     }
 

@@ -275,3 +275,6 @@ z-index: 1050;
     box-shadow: 0 2px 2px hsla(38,16%,76%,.5);
 }
 
+.card-product .image img{
+    height: 400px !important;
+}

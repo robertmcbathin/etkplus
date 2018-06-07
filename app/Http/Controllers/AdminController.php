@@ -1737,6 +1737,15 @@ public function postLoadGallery(Request $request){
       ]);
     }
 
+    public function getShowShopProduct($product_id){
+      $product = DB::table('ETKTRADE_PRODUCTS')
+                    ->where('id',$product_id)
+                    ->first();
+      return view('dashboard.trade.product',[
+        'product' => $product
+      ]);
+    }
+
     public function getAddShopProduct(){
       $categories = DB::table('ETKTRADE_CATEGORIES')
                       ->orderBy('id')
@@ -1805,8 +1814,10 @@ public function postLoadGallery(Request $request){
           $imagename = '/assets/img/etktrade/products/' . $productId . '/' . $productId . '.' . $image_extension;          
           Storage::disk('public')->put($imagename, File::get($image));
           DB::table('ETKTRADE_PRODUCTS')
+            ->where('id',$productId)
             ->update([
-              'image' => 'http://etkplus.ru' . $imagename
+              'image' => 'http://etkplus.ru' . $imagename,
+              'image_small' => 'http://etkplus.ru' . $imagename
             ]);
       } else{
         $image = 'https://etkplus.ru/assets/img/etktrade/products/product-placeholder.jpg';
@@ -1842,6 +1853,28 @@ public function postLoadGallery(Request $request){
 
         Session::flash('success','Товар успешно добавлен');
         return redirect()->back();
+    }
+
+
+    public function postEditShopProductImage(Request $request){
+      $productId = $request->product_id;
+      $image = $request->file('primary_image');
+      if($image){
+        $image_extension = $request->file('primary_image')->getClientOriginalExtension();
+        $imagename = '/assets/img/etktrade/products/' . $productId . '/' . $productId . '.' . $image_extension;          
+        Storage::disk('public')->put($imagename, File::get($image));
+        DB::table('ETKTRADE_PRODUCTS')
+          ->where('id',$productId)
+          ->update([
+            'image' => 'http://etkplus.ru' . $imagename,
+            'image_small' => 'http://etkplus.ru' . $imagename
+          ]);
+        Session::flash('success','Главное изображение изменено');
+        return redirect()->back();
+      } else{
+        Session::flash('error','Не выбран файл');
+        return redirect()->back();
+      }
     }
 
     public function postEditShopGood(Request $request){
@@ -2028,6 +2061,7 @@ public function postLoadGallery(Request $request){
       Session::flash('success','Бренд удален');
       return redirect()->back();
     }
+
     /**
      *
      *

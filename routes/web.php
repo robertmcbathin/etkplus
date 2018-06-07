@@ -244,6 +244,11 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'dashboard.shop.show-goods.get'	
 		])->middleware('can:show-dashboard-admin,App\User');	
 
+	Route::get('/dashboard/shop/product/{product_id}',[
+		'uses' => 'AdminController@getShowShopProduct',
+		'as' => 'dashboard.shop.show-product.get'	
+		])->middleware('can:show-dashboard-admin,App\User');
+
 	Route::get('/dashboard/shop/product/add',[
 		'uses' => 'AdminController@getAddShopProduct',
 		'as' => 'dashboard.shop.add-product.get'
@@ -289,6 +294,15 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'AdminController@postDeleteShopBrand',
 		'as' => 'dashboard.shop.delete-brand.post'
 	])->middleware('can:show-dashboard-admin,App\User');
+
+/**
+PRODUCT
+**/
+	Route::post('/dashboard/shop/product/edit/image',[
+		'uses' => 'AdminController@postEditShopProductImage',
+		'as' => 'dashboard.shop.edit-product-image.post'
+	])->middleware('can:show-dashboard-admin,App\User');
+	
 /**
  *
  *

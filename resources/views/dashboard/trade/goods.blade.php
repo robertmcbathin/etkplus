@@ -47,10 +47,13 @@
                                 <td>{{ $good->id }}</td>
                                 <td>
                                     <div class="img-container">
-                                                        <img src="{{ $good->image_small }}" alt="Agenda" width="50px">
+                                                       <a href="{{ route('dashboard.shop.show-product.get',['product_id' => $good->id]) }}">
+                                                           <img src="{{ $good->image_small }}" alt="" width="50px">
+                                                       </a> 
                                                     </div>
                                 </td>
-                                <td>{{ $good->name }}</td>
+                                <td>
+                                    <a href="{{ route('dashboard.shop.show-product.get',['product_id' => $good->id]) }}">{{ $good->name }}</a></td>
                                 <td>{{ $good->price }}</td>
                                 <td>{{ $good->price_without_discount }}</td>
                                 <td>{{ $good->price_cost }}</td>

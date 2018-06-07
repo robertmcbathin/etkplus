@@ -37,3 +37,10 @@
   height: 400px;
   width: 100%;
 }
+
+.card-product{
+  width: 400px !important;
+}
+.card-product .image img{
+    height: 400px !important;
+}

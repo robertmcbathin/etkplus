@@ -81,12 +81,14 @@
                                 <h4 class="card-title">Редактирование товара</h4>
                             </div>
                             <div class="card-content">
-                                <form>
+                                <form method="POST" action="{{ route('dashboard.shop.edit-product.post') }}">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
                                     <div class="row">
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>Название</label>
-                                                <input type="text" class="form-control border-input" name="fullname" value="{{ $product->name }}">
+                                                <input type="text" class="form-control border-input" name="name" value="{{ $product->name }}">
                                             </div>
                                         </div>
                                         <div class="col-md-7">
@@ -101,8 +103,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Описание</label>
-                                                <textarea rows="5" class="form-control border-input" name="description" value="{{ $product->description }}">
-                                                </textarea>
+                                                <textarea rows="5" class="form-control border-input" name="description" >{{ $product->description }}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -153,7 +154,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Гарантия, мес.</label>
-                                                <input type="text" class="form-control border-input" name="price_cost" value="{{ $product->guarantee }}">
+                                                <input type="text" class="form-control border-input" name="guarantee" value="{{ $product->guarantee }}">
                                             </div>
                                         </div>
                                     </div>

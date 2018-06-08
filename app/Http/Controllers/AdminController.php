@@ -1998,6 +1998,45 @@ public function postLoadGallery(Request $request){
       return redirect()->back();
     }
 
+    public function postEditShopProduct(Request $request){
+      $product_id = $request->product_id;
+      $name = $request->name;
+      $fullname = $request->fullname;
+      $description = $request->description;
+      $price = $request->price;
+      $price_without_discount = $request->price_without_discount;
+      $price_cost = $request->price_cost;
+      $shop_id = $request->shop_id;
+      $category_id = $request->category_id;
+      $availability = $request->availability;
+      $manufacturer = $request->manufacturer;
+      $guarantee = $request->guarantee;
+
+      try {
+        DB::table('ETKTRADE_PRODUCTS')
+          ->where('id', $product_id)
+          ->update([
+            'name' => $name,
+            'fullname' => $fullname,
+            'description' => $description,
+            'price' => $price,
+            'price_without_discount' => $price_without_discount,
+            'price_cost' => $price_cost,
+            'shop_id' => $shop_id,
+            'category_id' => $category_id,
+            'availability' => $availability,
+            'manufacturer' => $manufacturer,
+            'guarantee' => $guarantee
+          ]);
+      } catch (Exception $e) {
+        Session::flash('error',$e);
+        return redirect()->back();         
+      }
+
+      Session::flash('success','Информация о товаре изменена');
+      return redirect()->back();
+    }
+
     public function postAddShopGoodsCsv(Request $request){
       $catalog     = $request->file('catalog');
       $shop_id     = $request->shop_id;

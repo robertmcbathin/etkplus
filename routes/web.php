@@ -303,6 +303,11 @@ PRODUCT
 		'as' => 'dashboard.shop.edit-product-image.post'
 	])->middleware('can:show-dashboard-admin,App\User');
 
+	Route::post('/dashboard/shop/product/edit/info',[
+		'uses' => 'AdminController@postEditShopProduct',
+		'as' => 'dashboard.shop.edit-product.post'
+	])->middleware('can:show-dashboard-admin,App\User');
+
 	Route::post('/dashboard/shop/product/add-attribute',[
 		'uses' => 'AdminController@postAddShopProductAttribute',
 		'as' => 'dashboard.shop.add-product-attribute.post'

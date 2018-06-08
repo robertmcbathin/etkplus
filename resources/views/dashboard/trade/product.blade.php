@@ -54,12 +54,19 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Атрибуты</h4>
+                                <h4 class="card-title">Атрибуты <button class="btn btn-info btn-fill btn-wd btn-square pull-right" data-toggle="modal" data-target="#add-attribute">Добавить</button></h4>
+                                <hr>
                             </div>
                             <div class="card-content">
-                                @foreach($attributes as $attribute)
-                                {{$attribute->title }}
+                                @if( count($product_attributes) > 0)
+                                @foreach($product_attributes as $product_attribute)
+                                    <p><a href="#" data-toggle="modal" data-target="#edit-product-attribute-{{ $product_attribute->id }}">{{$product_attribute->attribute_name}}</a> <b class="pull-right">{{ $product_attribute->value }}</b></p>
                                 @endforeach
+                                @else
+                                    <div class="alert alert-info">
+                                        <span><b> Внимание </b> Для данного товара еще не заданы атрибуты</span>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -197,6 +204,90 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="add-attribute" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Добавление атрибута</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body"> 
+                <form action="{{ route('dashboard.shop.add-product-attribute.post') }}" method="POST">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                    <div class="form-group">
+                        <label>Выберите атрибут</label>
+                        <select class="form-control" name="attribute_id" title="Атрибут" data-size="7" tabindex="-98" required>
+                            <option class="bs-title-option" value="">Атрибут</option>
+                            @foreach ($attributes as $attribute)
+                            <option value="{{ $attribute->id }}">{{ $attribute->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Значение</label>
+                        <input type="text" class="form-control border-input" name="value">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="left-side">
+
+                    </div>
+                    <div class="divider"></div>
+
+                    <div class="right-side">
+                        <button type="submit" class="btn btn-success btn-link btn-square btn-fill pull-right">Сохранить изменения</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@foreach($product_attributes as $product_attribute)
+<div class="modal fade" id="edit-product-attribute-{{ $product_attribute->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">{{ $product_attribute->attribute_name }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body"> 
+                <form action="{{ route('dashboard.shop.edit-product-attribute.post') }}" method="POST">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="attribute_id" value="{{ $product_attribute->attribute_id }}">
+                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                    <div class="form-group">
+                        <label>Значение</label>
+                        <input type="text" class="form-control border-input" name="value" value="{{ $product_attribute->value }}">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="left-side">
+                        <button type="submit" class="btn btn-success btn-link btn-square btn-fill pull-left">Сохранить изменения</button>
+                    </div>
+                    </form>
+                    <div class="divider"></div>
+                    <div class="right-side">
+                        <form action="{{ route('dashboard.shop.delete-product-attribute.post') }}" method="POST">
+                          {{ csrf_field() }}
+                          <input type="hidden" name="product_id" value="{{ $product->id }}">
+                          <input type="hidden" name="attribute_id" value="{{ $product_attribute->attribute_id }}">
+                          <button type="submit" class="btn btn-danger btn-link btn-square btn-fill pull-right">Удалить</button>
+                        </form>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 
 @endsection
 

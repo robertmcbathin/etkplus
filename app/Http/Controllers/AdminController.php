@@ -1726,7 +1726,7 @@ public function postLoadGallery(Request $request){
                   ->limit(100)
                   ->paginate(50);
       $categories = DB::table('ETKTRADE_CATEGORIES')
-                    ->orderBy('level')
+                    ->orderBy('id')
                     ->get();
       $shops = DB::table('ETKTRADE_SHOPS')
                     ->get();
@@ -1754,12 +1754,79 @@ public function postLoadGallery(Request $request){
       $attributes = DB::table('ETKTRADE_ATTRIBUTES')
                       ->where('category_id',$product->category_id)
                       ->get();
+      $product_attributes = DB::table('ETKTRADE_PRODUCT_ATTRIBUTES')
+                              ->leftJoin('ETKTRADE_ATTRIBUTES','ETKTRADE_ATTRIBUTES.id','=','ETKTRADE_PRODUCT_ATTRIBUTES.attribute_id')
+                              ->where('ETKTRADE_PRODUCT_ATTRIBUTES.product_id',$product->id)
+                              ->select('ETKTRADE_PRODUCT_ATTRIBUTES.*','ETKTRADE_ATTRIBUTES.title as attribute_name')
+                              ->get();
       return view('dashboard.trade.product',[
         'product' => $product,
         'availability_types' => $availability_types,
         'manufacturers' => $manufacturers,
-        'attributes' => $attributes
+        'attributes' => $attributes,
+        'product_attributes' => $product_attributes
       ]);
+    }
+
+    public function postAddShopProductAttribute(Request $request){
+      $product_id = $request->product_id;
+      $attribute_id = $request->attribute_id;
+      $value = $request->value;
+
+      if($attribute_id == null){
+        Session::flash('error','Не задан атрубут');
+        return redirect()->back();
+      }
+      try {
+        DB::table('ETKTRADE_PRODUCT_ATTRIBUTES')
+          ->insert([
+            'product_id' => $product_id,
+            'attribute_id' => $attribute_id,
+            'value' => $value
+          ]);
+        Session::flash('success','Атрибут добавлен');
+        return redirect()->back();
+      } catch (Exception $e) {
+        Session::flash('error', $e);
+        return redirect()->back();
+      }
+    }
+
+    public function postEditShopProductAttribute(Request $request){
+      $product_id = $request->product_id;
+      $attribute_id = $request->attribute_id;
+      $value = $request->value;
+
+      try {
+        DB::table('ETKTRADE_PRODUCT_ATTRIBUTES')
+          ->where('product_id',$product_id)
+          ->where('attribute_id', $attribute_id)
+          ->update([
+            'value' => $value
+          ]);
+        Session::flash('success','Атрибут изменен');
+        return redirect()->back();
+      } catch (Exception $e) {
+        Session::flash('error', $e);
+        return redirect()->back(); 
+      }
+    }
+
+    public function postDeleteShopProductAttribute(Request $request){
+      $product_id = $request->product_id;
+      $attribute_id = $request->attribute_id;
+
+      try {
+        DB::table('ETKTRADE_PRODUCT_ATTRIBUTES')
+          ->where('product_id',$product_id)
+          ->where('attribute_id',$attribute_id)
+          ->delete();
+        Session::flash('success','Атрибут удален');
+        return redirect()->back();
+      } catch (Exception $e) {
+        Session::flash('error', $e);
+        return redirect()->back(); 
+      }
     }
 
     public function getAddShopProduct(){

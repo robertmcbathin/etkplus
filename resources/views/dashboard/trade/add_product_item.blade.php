@@ -39,7 +39,7 @@
                                                     <label class="control-label">
                                                         Краткое наименование
                                                     </label>
-                                                    <input class="form-control" type="text" value="sdsd" name="name" placeholder="Батончик шоколадный молочный" required>
+                                                    <input class="form-control" type="text" name="name" placeholder="Батончик шоколадный молочный" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-5">
@@ -47,7 +47,7 @@
                                                     <label class="control-label">
                                                         Полное наименование
                                                     </label>
-                                                    <input class="form-control" type="text" value="sdsd" name="fullname" required="true" placeholder="Батончик шоколадный молочный большой" aria-required="true">
+                                                    <input class="form-control" type="text" name="fullname" required="true" placeholder="Батончик шоколадный молочный большой" aria-required="true">
                                                 </div>
                                             </div>
                                         </div>
@@ -118,7 +118,7 @@
                                                     Цена продажи
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input class="form-control" type="text" id="" name="price" placeholder="599" value="500" minlength="1" maxlength="10" required>    
+                                                    <input class="form-control" type="text" id="" name="price" placeholder="599" minlength="1" maxlength="10" required>    
                                                 </div>
                                                 
                                             </div>

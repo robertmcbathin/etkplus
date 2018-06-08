@@ -58,10 +58,12 @@
                                 <hr>
                             </div>
                             <div class="card-content">
+                                @isset($product_attributes)
                                 @if( count($product_attributes) > 0)
                                 @foreach($product_attributes as $product_attribute)
                                     <p><a href="#" data-toggle="modal" data-target="#edit-product-attribute-{{ $product_attribute->id }}">{{$product_attribute->attribute_name}}</a> <b class="pull-right">{{ $product_attribute->value }}</b></p>
                                 @endforeach
+                                @endisset
                                 @else
                                     <div class="alert alert-info">
                                         <span><b> Внимание </b> Для данного товара еще не заданы атрибуты</span>
@@ -248,6 +250,7 @@
     </div>
 </div>
 
+@isset($product_attributes)
 @foreach($product_attributes as $product_attribute)
 <div class="modal fade" id="edit-product-attribute-{{ $product_attribute->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -288,7 +291,7 @@
     </div>
 </div>
 @endforeach
+@endisset
 
 @endsection
-
 

@@ -17,7 +17,7 @@
                 @include('includes/notifications')
                 <div class="row">
                  <div class="col-md-12">
-                    <a class="btn btn-danger btn-fill btn-wd btn-square" href="{{ route('dashboard.shop.add-product.get') }}">Добавить товар</a>
+                    <a class="btn btn-danger btn-fill btn-wd btn-square" href="{{ route('dashboard.shop.add-product-item.get') }}">Добавить товар</a>
                     <a class="btn btn-danger btn-fill btn-wd btn-square" data-toggle="modal" data-target="#add-goods-csv" >Загрузить CSV</a>
                 </div>
             </div>
@@ -138,7 +138,7 @@
                         <label class="control-label">
                             Стоимость закупки
                         </label>
-                        <input class="form-control" type="text" name="price_cost" placeholder="" required value="{{ $good->price_cost }}">
+                        <input class="form-control" type="text" name="price_cost" placeholder="" value="{{ $good->price_cost }}">
                     </div>
                     <hr>
 

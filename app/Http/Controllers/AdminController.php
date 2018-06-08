@@ -1737,7 +1737,7 @@ public function postLoadGallery(Request $request){
       ]);
     }
 
-    public function getShowShopProduct($product_id){
+    public function getShowShopProduct($product_id = null){
       $product = DB::table('ETKTRADE_PRODUCTS')
                     ->leftJoin('ETKTRADE_AVAILABILITY_TYPES','ETKTRADE_AVAILABILITY_TYPES.id','=','ETKTRADE_PRODUCTS.availability')
                     ->leftJoin('ETKTRADE_MANUFACTURERS','ETKTRADE_MANUFACTURERS.id','=','ETKTRADE_PRODUCTS.manufacturer')
@@ -1751,6 +1751,7 @@ public function postLoadGallery(Request $request){
       /** 
       ATTRIBUTES
       **/
+      if ($product){
       $attributes = DB::table('ETKTRADE_ATTRIBUTES')
                       ->where('category_id',$product->category_id)
                       ->get();
@@ -1759,6 +1760,10 @@ public function postLoadGallery(Request $request){
                               ->where('ETKTRADE_PRODUCT_ATTRIBUTES.product_id',$product->id)
                               ->select('ETKTRADE_PRODUCT_ATTRIBUTES.*','ETKTRADE_ATTRIBUTES.title as attribute_name')
                               ->get();
+      } else{
+        $attributes = null;
+        $product_attributes = null;
+      }
       return view('dashboard.trade.product',[
         'product' => $product,
         'availability_types' => $availability_types,
@@ -1829,7 +1834,7 @@ public function postLoadGallery(Request $request){
       }
     }
 
-    public function getAddShopProduct(){
+    public function getAddShopProductItem(){
       $categories = DB::table('ETKTRADE_CATEGORIES')
                       ->orderBy('id')
                       ->get();
@@ -1845,7 +1850,7 @@ public function postLoadGallery(Request $request){
       $manufacturers = DB::table('ETKTRADE_MANUFACTURERS')
                         ->orderBy('title')
                         ->get();
-      return view('dashboard.trade.add_product',[
+      return view('dashboard.trade.add_product_item',[
         'categories' => $categories,
         'shops' => $shops,
         'brands' => $brands,

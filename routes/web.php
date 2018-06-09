@@ -322,6 +322,21 @@ PRODUCT
 		'uses' => 'AdminController@postDeleteShopProductAttribute',
 		'as' => 'dashboard.shop.delete-product-attribute.post'
 	])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/shop/product/add/secondary_images',[
+		'uses' => 'AdminController@postAddShopProductSecondaryImages',
+		'as' => 'dashboard.shop.add-images.post'
+	])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/shop/product/edit/secondary_images',[
+		'uses' => 'AdminController@postEditShopGalleryItem',
+		'as' => 'dashboard.shop.edit-gallery-item.post'
+	])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/shop/product/delete/secondary_images',[
+		'uses' => 'AdminController@postDeleteShopGalleryItem',
+		'as' => 'dashboard.shop.delete-gallery-item.post'
+	])->middleware('can:show-dashboard-admin,App\User');
 /**
  *
  *
@@ -443,6 +458,11 @@ PRODUCT
 	Route::post('/dashboard/partner/add-partner-bonus',[
 		'uses' => 'AdminController@postAddPartnerBonus',
 		'as' => 'dashboard.add-partner-bonus.post'
+		])->middleware('can:show-dashboard-admin,App\User');
+
+	Route::post('/dashboard/partner/toggle_shop_function',[
+		'uses' => 'AdminController@postToggleShopFunctionPartner',
+		'as' => 'dashboard.toggle-shop-function.post'
 		])->middleware('can:show-dashboard-admin,App\User');
 
 	Route::post('/dashboard/user/add',[

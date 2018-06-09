@@ -136,7 +136,7 @@
                             Партнер в системе ЕТКплюс (если есть)
                         </label>
                         <select class="form-control" name="partner_id" title="Выберите партнера" data-size="7" tabindex="-98">
-                            <option class="bs-title-option" value="">Выберите парнера</option>
+                            <option class="bs-title-option" value="">Выберите партнера</option>
                             @foreach ($partners as $partner)
                             <option value="{{ $partner->id }}">{{ $partner->name }} ( {{ $partner->fullname }})</option>
                             @endforeach
@@ -189,6 +189,14 @@
                         <input class="form-control" type="text" name="description" value="{{ $shop->description }}" placeholder="">
                     </div>
                     <div class="form-group">
+                        <select class="form-control" name="type" title="Выберите тип" data-size="7" tabindex="-98">
+                            <option class="bs-title-option" value="">Выберите тип*</option>
+                            @foreach ($shop_types as $shop_type)
+                            <option value="{{ $shop_type->id }}">{{ $shop_type->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label class="control-label">
                             Минимальный заказ
                         </label>
@@ -207,7 +215,7 @@
                             Партнер в системе ЕТКплюс (если есть)
                         </label>
                         <select class="form-control" name="partner_id" title="Выберите партнера" data-size="7" tabindex="-98">
-                            <option class="bs-title-option" value="{{ $shop->partner_id }}">Выберите парнера</option>
+                            <option class="bs-title-option" value="{{ $shop->partner_id }}">Выберите партнера</option>
                             @foreach ($partners as $partner)
                             <option value="{{ $partner->id }}">{{ $partner->name }} ( {{ $partner->fullname }})</option>
                             @endforeach

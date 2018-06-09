@@ -278,3 +278,7 @@ z-index: 1050;
 .card-product .image img{
     height: 400px !important;
 }
+.btn-margined{
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+}

@@ -337,6 +337,34 @@
             </div>
 
 
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Магазин </h4>
+                    @if($partner->is_shop == 0)
+                    <small class="description text-muted">Функционал магазина отключен</small>
+                    @else
+                    <small class="description text-muted">Функционал магазина включен</small>
+                    @endif
+                </div>
+                <div class="card-content">
+                    <div class="bootstrap-tagsinput">
+                        @if($partner->is_shop == 0)
+                        <form action="{{ route('dashboard.toggle-shop-function.post')  }}" method="POST">
+                              {{ csrf_field() }}
+                              <input type="hidden" name="partner_id" value="{{ $partner->id }}">
+                            <button type="submit" name="is_shop" value="1" class="btn btn-square btn-danger btn-fill pull-right"><i class="fa fa-shopping-cart"></i> Включить функционал магазина</button>
+                        </form>
+                        @else
+                        <form action="{{ route('dashboard.toggle-shop-function.post')  }}" method="POST">
+                              {{ csrf_field() }}
+                              <input type="hidden" name="partner_id" value="{{ $partner->id }}">
+                            <button type="submit" name="is_shop" value="0" class="btn btn-square btn-danger btn-fill pull-right"><i class="fa fa-shopping-cart"></i> Отключить функционал магазина</button>
+                        </form>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
 
         </div>
         <div class="col-lg-8 col-md-7">

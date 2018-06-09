@@ -37,7 +37,7 @@ class LoginController extends Controller
             if(Auth::user()->role_id >= 31)
             {
                 return redirect()->intended('profile.show-profile-page.get');
-            } if ((Auth::user()->role_id < 25) && (Auth::user()->role_id > 20)){
+            } if ((Auth::user()->role_id < 25) && (Auth::user()->role_id >= 20)){
                 return redirect()->intended('dashboard.partner.show-dashboard.get');
             } else if ((Auth::user()->role_id == 14) || (Auth::user()->role_id == 15)){
                 return redirect()->intended('dashboard.agent.show-dashboard.get');
@@ -88,7 +88,7 @@ class LoginController extends Controller
                         /**
                          * ЕСЛИ ЭТО ПАРТНЕР ИЛИ АДМИН - ТО В ПАНЕЛЬ УПРАВЛЕНИЯ
                          */
-                        if (($user_isset->role_id < 25) && ($user_isset->role_id > 20))
+                        if (($user_isset->role_id < 25) && ($user_isset->role_id >= 20))
                         {
                             return redirect()->route('dashboard.partner.show-dashboard.get');
                         } else if ($user_isset->role_id <= 10)

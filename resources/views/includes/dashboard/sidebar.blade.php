@@ -271,6 +271,23 @@
                     </li>
                     @endcan
                     <!-- END SHOP ADMIN -->
+
+                    <!-- SHOP PARTNER -->
+                    @can('show-dashboard-partner-admin-shop')
+                    <hr>
+                    <li>
+                        <a href="#">
+                            <p>МАГАЗИН</p>
+                        </a>
+                    </li>
+                    <li @if (Request::path() == 'control-panel/shop/products') class="active" @endif>
+                        <a href="{{ route('dashboard.partner.shop.show-products.get') }}">
+                            <i class="fa fa-archive"></i>
+                            <p>Товары</p>
+                        </a>
+                    </li>
+                    @endcan
+                    <!-- END SHOP PARTNER -->
                 </ul>
                 
 

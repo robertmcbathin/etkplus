@@ -851,13 +851,21 @@ public function postLoadGallery(Request $request){
       $partner_id = $request->partner_id;
       $is_shop = $request->is_shop;
 
+      $user = DB::table('users')
+                ->where('partner_id',$partner_id)
+                ->first();
       if ($is_shop == 1) {
         try {
           DB::table('ETKPLUS_PARTNERS')
           ->where('id',$partner_id)
           ->update([
             'is_shop' => 1
-          ]); 
+          ]);
+          DB::table('users')
+            ->where('id',$user->id)
+            ->update([
+              'role_id' => 20
+            ]); 
         } catch (Exception $e) {
           Session::flash('error',$e);
           return redirect()->back();
@@ -871,6 +879,11 @@ public function postLoadGallery(Request $request){
           ->update([
             'is_shop' => 0
           ]); 
+          DB::table('users')
+            ->where('id',$user->id)
+            ->update([
+              'role_id' => 21
+            ]); 
         } catch (Exception $e) {
           Session::flash('error',$e);
           return redirect()->back();
@@ -1758,6 +1771,7 @@ public function showShopGoodsPage(){
   $goods = DB::table('ETKTRADE_PRODUCTS')
   ->leftJoin('ETKTRADE_SHOPS','ETKTRADE_SHOPS.id', '=', 'ETKTRADE_PRODUCTS.shop_id')
   ->leftJoin('ETKTRADE_CATEGORIES','ETKTRADE_CATEGORIES.id','=','ETKTRADE_PRODUCTS.category_id')
+  ->leftJoin('ETKTRADE_AVAILABILITY_TYPES','ETKTRADE_AVAILABILITY_TYPES.id','=','ETKTRADE_PRODUCTS.availability')
   ->select('ETKTRADE_PRODUCTS.*','ETKTRADE_SHOPS.name as shop_name', 'ETKTRADE_CATEGORIES.title as category')
   ->orderBy('created_at','desc')
   ->limit(100)

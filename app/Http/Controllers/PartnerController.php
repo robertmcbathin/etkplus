@@ -1137,5 +1137,85 @@ public function postLoadGallery(Request $request){
       }
     }
     
+    /** 
+    *
+    *
+    *
+    *
+    * ETKTRADE
+    *
+    *
+    *
+    *
+    *
+    **/
+    public function showShopProductsPage(){
+      $user = DB::table('users')
+                ->where('id',Auth::user()->id)
+                ->first();
+    $partner = DB::table('ETKPLUS_PARTNERS')
+                ->where('id',$user->partner_id)
+                ->first();
+    $shop = DB::table('ETKTRADE_SHOPS')
+              ->where('partner_id',$partner->id)
+              ->first();
+    $products = DB::table('ETKTRADE_PRODUCTS')
+    ->leftJoin('ETKTRADE_SHOPS','ETKTRADE_SHOPS.id', '=', 'ETKTRADE_PRODUCTS.shop_id')
+    ->leftJoin('ETKTRADE_CATEGORIES','ETKTRADE_CATEGORIES.id','=','ETKTRADE_PRODUCTS.category_id')
+    ->leftJoin('ETKTRADE_AVAILABILITY_TYPES','ETKTRADE_AVAILABILITY_TYPES.id','=','ETKTRADE_PRODUCTS.availability')
+    ->where('shop_id',$shop->id)
+    ->select('ETKTRADE_PRODUCTS.*','ETKTRADE_SHOPS.name as shop_name', 'ETKTRADE_CATEGORIES.title as category','ETKTRADE_AVAILABILITY_TYPES.title as availability_status')
+    ->orderBy('created_at','desc')
+    ->limit(100)
+    ->paginate(50);
+    $categories = DB::table('ETKTRADE_CATEGORIES')
+    ->orderBy('id')
+    ->get();
+    return view('dashboard.trade.partner.products',[
+      'products' => $products,
+      'categories' => $categories
+    ]);
+    }
 
+    public function getShopAddProduct(){
+      $categories = DB::table('ETKTRADE_CATEGORIES')
+      ->orderBy('id')
+      ->get();
+      $shops = DB::table('ETKTRADE_SHOPS')
+      ->join('ETKTRADE_SHOP_TYPES', 'ETKTRADE_SHOP_TYPES.id', '=' , 'ETKTRADE_SHOPS.type')
+      ->select('ETKTRADE_SHOPS.*', 'ETKTRADE_SHOP_TYPES.name as type_name')
+      ->get();
+      $brands = DB::table('ETKTRADE_BRANDS')
+      ->orderBy('name')
+      ->get();
+      $availability_types = DB::table('ETKTRADE_AVAILABILITY_TYPES')
+      ->get();
+      $manufacturers = DB::table('ETKTRADE_MANUFACTURERS')
+      ->orderBy('title')
+      ->get();
+      return view('dashboard.trade.partner.add_product_item',[
+        'categories' => $categories,
+        'shops' => $shops,
+        'brands' => $brands,
+        'availability_types' => $availability_types,
+        'manufacturers' => $manufacturers
+      ]);
+    }
+
+    public function postDeleteProduct(Request $request){
+
+    }
+
+    /** 
+    *
+    *
+    *
+    *
+    * END ETKTRADE
+    *
+    *
+    *
+    *
+    *
+    **/
 }

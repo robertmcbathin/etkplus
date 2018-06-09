@@ -822,6 +822,26 @@ Route::post('/agent/dashboard/partner/edit',[
 		])->middleware('can:show-dashboard-partner-admin,App\User');
 
 
+/**	
+МАГАЗИН
+
+**/
+	Route::get('/control-panel/shop/products',[
+		'uses' => 'PartnerController@showShopProductsPage',
+		'as' => 'dashboard.partner.shop.show-products.get'	
+		])->middleware('can:show-dashboard-partner-admin-shop,App\User');
+	Route::post('/control-panel/shop/product/delete',[
+		'uses' => 'PartnerController@postDeleteProduct',
+		'as' => 'dashboard.partner.shop.delete-product.post'	
+		])->middleware('can:show-dashboard-partner-admin-shop,App\User');
+	Route::get('/control-panel/shop/product/add',[
+		'uses' => 'PartnerController@getShopAddProduct',
+		'as' => 'dashboard.partner.shop.add-product-item.get'	
+		])->middleware('can:show-dashboard-partner-admin-shop,App\User');
+	Route::post('/control-panel/shop/product/delete',[
+		'uses' => 'PartnerController@postDeleteProduct',
+		'as' => 'dashboard.partner.shop.delete-product.post'	
+		])->middleware('can:show-dashboard-partner-admin-shop,App\User');
 	/**
 	 *
 	 *
